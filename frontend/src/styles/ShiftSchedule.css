@@ -1,0 +1,301 @@
+/* ===== CSS CHO BẢNG LỊCH TRỰC ===== */
+
+/* Màu nền cho các dòng chẵn lẻ (zebra striping)
+.shift-schedule-table .ant-table-tbody>tr.even-row {
+  background-color: #fafafa !important;
+}
+
+
+.shift-schedule-table .ant-table-tbody>tr.odd-row {
+  background-color: #ffffff !important;
+}
+ */
+
+
+
+
+
+
+
+/* ===== ANIMATION VÀ STYLING CHO MODAL ===== */
+
+/* Hiệu ứng slide in cho modal */
+.shift-schedule-modal .ant-modal-content {
+  animation: slideIn 0.3s ease-out;
+  /* Animation trượt từ trên xuống */
+  border-radius: 8px;
+  /* Bo góc modal */
+}
+
+/* Styling cho header modal */
+.shift-schedule-modal .ant-modal-header {
+  border-bottom: 1px solid #f0f0f0;
+  /* Border dưới header */
+  padding: 6px 6px;
+  /* Padding cho header */
+}
+
+/* Styling cho body modal */
+.shift-schedule-modal .ant-modal-body {
+  padding: 6px;
+  /* Padding cho body */
+}
+
+/* ===== STYLING CHO TABLE HEADER ===== */
+
+/* Styling cho các ô header */
+.shift-schedule-modal .ant-table-thead>tr>th {
+  padding: 4px 4px;
+  /* Padding cho ô header */
+  font-size: 14px;
+  /* Font size cho header */
+  font-weight: 600;
+  /* Font weight đậm */
+  border-top: 1px solid #1890ff !important;
+  /* Border trên màu xanh */
+  border-bottom: 2px solid #1890ff !important;
+  /* Border dưới màu xanh */
+  background-color: #e6f7ff !important;
+  /* Background màu xanh nhạt */
+}
+
+/* Styling cho các ô dữ liệu */
+.shift-schedule-modal .ant-table-tbody>tr>td {
+  padding: 6px 4px;
+  /* Padding cho ô dữ liệu */
+  border-bottom: 1px solid #e9dcdc;
+  /* Border dưới mỏng */
+}
+
+/* Bo góc cho ô header đầu tiên */
+.shift-schedule-modal .ant-table-thead>tr:first-child>th:first-child {
+  border-top-left-radius: 8px;
+  /* Bo góc trái trên */
+  border-left: 1px solid #1890ff !important;
+  /* Border trái màu xanh */
+}
+
+/* Bo góc cho ô header cuối cùng */
+.shift-schedule-modal .ant-table-thead>tr:first-child>th:last-child {
+  border-top-right-radius: 8px;
+  /* Bo góc phải trên */
+  border-right: 1px solid #1890ff !important;
+  /* Border phải màu xanh */
+}
+
+/* ===== XỬ LÝ DÒNG THỪA ===== */
+
+/* Ẩn các dòng header thừa (Ant Design tự tạo) */
+.shift-schedule-modal .ant-table-thead>tr:not(:first-child) {
+  display: none;
+  /* Ẩn tất cả dòng header trừ dòng đầu */
+}
+
+/* Bỏ border trên cho dòng header đầu */
+.shift-schedule-modal .ant-table-thead>tr:first-child {
+  border-top: none;
+  /* Không có border trên */
+}
+
+/* ===== STYLING CHO TABLE TỔNG THỂ ===== */
+
+/* Border cho toàn bộ table */
+.shift-schedule-modal .ant-table {
+  border-top-left-radius: 8px;
+  /* Bo góc trái trên */
+  border-top-right-radius: 8px;
+  /* Bo góc phải trên */
+  overflow: hidden;
+  /* Ẩn phần nội dung vượt ra ngoài bo góc */
+}
+
+/* Border ngăn cách header và content với hiệu ứng shadow */
+.shift-schedule-modal .ant-table-thead>tr:first-child {
+  border-bottom: 3px solid #1890ff !important;
+  /* Border dưới đậm màu xanh */
+  /* Shadow nhẹ */
+}
+
+/* Background cho toàn bộ header section */
+.shift-schedule-modal .ant-table-thead {
+  background-color: #e6f7ff !important;
+  /* Background xanh nhạt */
+  border-bottom: 3px solid #1890ff !important;
+  /* Border dưới đậm */
+}
+
+
+
+/* Bỏ border trên cho dòng dữ liệu đầu tiên */
+.shift-schedule-modal .ant-table-tbody>tr:first-child>td {
+  border-top: none;
+  /* Không có border trên */
+}
+
+/* ===== BORDER PHÂN TÁCH CÁC TUẦN ===== */
+/* ĐÃ DISABLE: Border phân tách các tuần & background cột thông tin cá nhân */
+/*
+
+
+.shift-schedule-modal .ant-table-tbody > tr > td:nth-child(10) {
+  border-right: 1px solid #1890ff !important;
+}
+.shift-schedule-modal .ant-table-thead > tr > th:nth-child(10) {
+  border-right: 1px solid #1890ff !important;
+}
+.shift-schedule-modal .ant-table-tbody > tr > td:nth-child(17) {
+  border-right: 1px solid #1890ff !important;
+}
+.shift-schedule-modal .ant-table-thead > tr > th:nth-child(17) {
+  border-right: 1px solid #1890ff !important;
+}
+.shift-schedule-modal .ant-table-tbody > tr > td:nth-child(24) {
+  border-right: 1px solid #1890ff !important;
+}
+.shift-schedule-modal .ant-table-thead > tr > th:nth-child(24) {
+  border-right: 1px solid #1890ff !important;
+}
+
+/* ===== XỬ LÝ DÒNG MEASURE ROW ===== */
+.shift-schedule-modal .ant-table-thead>tr>th:nth-child(1) {
+  border-right: 1px solid #1890ff !important;
+}
+
+.shift-schedule-modal .ant-table-thead>tr>th:nth-child(3) {
+  border-right: 1px solid #1890ff !important;
+}
+
+.shift-schedule-modal .ant-table-thead>tr>th:nth-child(10) {
+  border-right: 1px solid #1890ff !important;
+}
+
+.shift-schedule-modal .ant-table-thead>tr>th:nth-child(17) {
+  border-right: 1px solid #1890ff !important;
+}
+
+.shift-schedule-modal .ant-table-thead>tr>th:nth-child(24) {
+  border-right: 1px solid #1890ff !important;
+}
+
+.shift-schedule-modal .ant-table-thead>tr>th:nth-child(32) {
+  border-left: 1px solid #1890ff !important;
+}
+
+.shift-schedule-modal .ant-table-tbody>tr>td:nth-child(1) {
+  border-right: 1px solid #e7b3b3 !important;
+}
+
+.shift-schedule-modal .ant-table-tbody>tr>td:nth-child(3) {
+  border-right: 1px solid #e7b3b3 !important;
+}
+
+.shift-schedule-modal .ant-table-tbody>tr>td:nth-child(10) {
+  border-right: 1px solid #e7b3b3 !important;
+}
+
+.shift-schedule-modal .ant-table-tbody>tr>td:nth-child(17) {
+  border-right: 1px solid #e7b3b3 !important;
+}
+
+.shift-schedule-modal .ant-table-tbody>tr>td:nth-child(24) {
+  border-right: 1px solid #e7b3b3 !important;
+}
+
+.shift-schedule-modal .ant-table-tbody>tr>td:nth-child(31) {
+  border-right: 1px solid #e7b3b3 !important;
+}
+
+.shift-schedule-modal .ant-table-tbody>tr>td:nth-child(1) {
+  border-left: 1px solid #e7b3b3 !important;
+}
+
+.shift-schedule-modal .ant-table-tbody>tr>td:nth-child(-n+3) {
+  background-color: #e6f7ff !important;
+}
+
+.shift-schedule-modal .ant-table-thead>tr>th:nth-child(-n+3) {
+  background-color: #e6f7ff !important;
+}
+
+/* Di chuyển dòng measure row xuống dưới (Ant Design tự tạo để đo kích thước) */
+.shift-schedule-modal .ant-table-measure-row {
+  order: 999 !important;
+  /* Đưa xuống cuối */
+  position: relative !important;
+  /* Position relative */
+  z-index: -1 !important;
+  /* Ẩn khỏi view */
+}
+
+/* Ẩn hoàn toàn các ô trong measure row */
+.shift-schedule-modal .ant-table-measure-row td {
+  height: 0 !important;
+  /* Chiều cao = 0 */
+  padding: 0 !important;
+  /* Không padding */
+  border: none !important;
+  /* Không border */
+  background: transparent !important;
+  /* Background trong suốt */
+}
+
+/* ===== FONT STYLING CHO TÊN VÀ HỌ ĐỆM ===== */
+
+/* Font cho tên (hiện tại không dùng, đã chuyển sang inline style) */
+.shift-schedule-name {
+  font-size: 13px !important;
+  /* Font size 13px */
+  font-weight: 400 !important;
+  /* Font weight bình thường */
+}
+
+/* Font cho họ đệm (hiện tại không dùng, đã chuyển sang inline style) */
+.shift-schedule-surname {
+  font-size: 13px !important;
+  /* Font size 13px */
+  font-weight: 400 !important;
+  /* Font weight bình thường */
+}
+
+/* ===== HIGHLIGHT DÒNG NGƯỜI DÙNG HIỆN TẠI ===== */
+
+/* Highlight dòng của người dùng hiện tại */
+.shift-schedule-table .ant-table-tbody>tr.current-user-row {
+  background-color: #ffe7ba !important;
+  /* Màu cam nhạt */
+  border-left: 4px solid #ffe7ba !important;
+  /* Border cam đậm bên trái */
+}
+
+/* Hover effect cho dòng người dùng hiện tại */
+.shift-schedule-table .ant-table-tbody>tr.current-user-row:hover>td:nth-child(n+4) {
+  background-color: #ffe7ba !important;
+  /* Màu cam đậm hơn khi hover */
+}
+
+/* Đảm bảo text vẫn đọc được trên background cam */
+.shift-schedule-table .ant-table-tbody>tr.current-user-row td {
+  color: #2D3958 !important;
+  /* Màu text tối để dễ đọc */
+  font-weight: 500 !important;
+  /* Font weight đậm hơn */
+}
+
+/* ===== ANIMATION KEYFRAMES ===== */
+
+/* Hiệu ứng trượt từ trên xuống cho modal */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    /* Bắt đầu trong suốt */
+    transform: translateY(-20px);
+    /* Bắt đầu từ trên 20px */
+  }
+
+  to {
+    opacity: 1;
+    /* Kết thúc hiển thị đầy đủ */
+    transform: translateY(0);
+    /* Kết thúc ở vị trí gốc */
+  }
+}

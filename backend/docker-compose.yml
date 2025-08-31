@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: dce_sqlserver
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=Ab123456
+      - MSSQL_PID=Developer
+      - TZ=Asia/Ho_Chi_Minh
+    ports:
+      - "1433:1433"
+    volumes:
+      - sqlserver_data:/var/opt/mssql
+      - ./sqlserver/backups:/var/opt/mssql/backup
+      - ./sqlserver/init:/docker-entrypoint-initdb.d
+    restart: unless-stopped
+    networks:
+      - dce_network
+    healthcheck:
+      test: ["CMD-SHELL", "/opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P Ab123456 -Q 'SELECT 1' || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+
+  # SQL Server Management Studio (SSMS) - Optional
+  # Uncomment nếu muốn chạy SSMS trong Docker
+  # ssms:
+  #   image: mcr.microsoft.com/mssql/tools:latest
+  #   container_name: dce_ssms
+  #   ports:
+  #     - "1434:1433"
+  #   command: /opt/mssql-tools/bin/sqlcmd -S sqlserver -U sa -P Ab123456
+  #   depends_on:
+  #     - sqlserver
+  #   networks:
+  #     - dce_network
+
+volumes:
+  sqlserver_data:
+    driver: local
+
+networks:
+  dce_network:
+    driver: bridge

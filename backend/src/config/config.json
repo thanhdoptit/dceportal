@@ -1,0 +1,44 @@
+{
+  "development": {
+    "username": "sa",
+    "password": "Ab123456",
+    "database": "webdce",
+    "host": "127.0.0.1",
+    "port": 1433,
+    "dialect": "mssql",
+    "dialectOptions": {
+      "options": {
+        "encrypt": false,
+        "trustServerCertificate": true
+      }
+    }
+  },
+  "test": {
+    "username": "sa",
+    "password": "Ab123456",
+    "database": "webdce_test",
+    "host": "127.0.0.1",
+    "port": 1433,
+    "dialect": "mssql",
+    "dialectOptions": {
+      "options": {
+        "encrypt": false,
+        "trustServerCertificate": true
+      }
+    }
+  },
+  "production": {
+    "username": "sa",
+    "password": "Ab123456",
+    "database": "webdce_production",
+    "host": "127.0.0.1",
+    "port": 1433,
+    "dialect": "mssql",
+    "dialectOptions": {
+      "options": {
+        "encrypt": false,
+        "trustServerCertificate": true
+      }
+    }
+  }
+}

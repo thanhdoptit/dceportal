@@ -1,0 +1,210 @@
+{
+  "title": "HVAC Drawings - TTDL Vân Canh",
+  "description": "Complete collection of 30+ official HVAC technical drawings",
+  "lastUpdated": "2025-01-08",
+  "categories": {
+    "system_schematics": {
+      "name": "System Schematics",
+      "files": [
+        {
+          "code": "VTB-FC-M-201",
+          "name": "Chiller water system schematic",
+          "filename": "VTB-FC-M-201 - Chiller water system schematic-Layout1.pdf"
+        },
+        {
+          "code": "VTB-FC-M-202", 
+          "name": "Ventilation system schematic",
+          "filename": "VTB-FC-M-202 - Ventilation system schematic-Layout1.pdf"
+        }
+      ]
+    },
+    "floor_plans": {
+      "name": "Floor Plans & Equipment Layout",
+      "files": [
+        {
+          "code": "VTB-FC-M-302",
+          "name": "Layout of equipment on 1st FP",
+          "filename": "VTB-FC-M-302- Layout of equipment on 1st FP-Layout1.pdf"
+        },
+        {
+          "code": "VTB-FC-M-303",
+          "name": "Layout of equipment on 2nd FP", 
+          "filename": "VTB-FC-M-303- Layout of equipment on 2nd FP-Layout1.pdf"
+        },
+        {
+          "code": "VTB-FC-M-304",
+          "name": "Layout of equipment on 4th FP",
+          "filename": "VTB-FC-M-304- Layout of equipment on 4th FP-Layout1.pdf"
+        },
+        {
+          "code": "VTB-FC-M-306",
+          "name": "Layout of equipment on ceiling 1st FP",
+          "filename": "VTB-FC-M-306- Layout of equipment on ceiling 1st FP-Layout1.pdf"
+        },
+        {
+          "code": "VTB-FC-M-307",
+          "name": "Layout of equipment on ceiling 2nd FP",
+          "filename": "VTB-FC-M-307- Layout of equipment on ceiling 2nd FP-Layout1.pdf"
+        }
+      ]
+    },
+    "chilled_water_system": {
+      "name": "Chilled Water System",
+      "files": [
+        {
+          "code": "VTB-FC-M-501",
+          "name": "Chiller water system for CRAC 1st FP",
+          "filename": "VTB-FC-M-501 - Chiller water system for CRAC 1st FP-Layout1.pdf"
+        },
+        {
+          "code": "VTB-FC-M-502",
+          "name": "Chiller water system for CRAC 2nd FP rev1",
+          "filename": "VTB-FC-M-502 - Chiller water system for CRAC 2nd FP rev1-Layout1.pdf"
+        },
+        {
+          "code": "VTB-FC-M-503",
+          "name": "Chiller water system for CRAC 3rd FP",
+          "filename": "VTB-FC-M-503 - Chiller water system for CRAC 3rd FP-Layout1.pdf"
+        },
+        {
+          "code": "VTB-FC-M-504",
+          "name": "Chiller water system for CRAC 4th FP",
+          "filename": "VTB-FC-M-504 - Chiller water system for CRAC 4th FP-Layout1.pdf"
+        },
+        {
+          "code": "VTB-FC-M-505",
+          "name": "Chiller water system from TES water tank",
+          "filename": "VTB-FC-M-505 - Chiller water system from TES water tank - Copy-Layout1.pdf"
+        }
+      ]
+    },
+    "ventilation_systems": {
+      "name": "Ventilation Systems",
+      "files": [
+        {
+          "code": "VTB-FC-M-701",
+          "name": "Ventilation system in 1st FP",
+          "filename": "VTB-FC-M-701 - Ventilation system in 1st FP-Layout1.pdf"
+        },
+        {
+          "code": "VTB-FC-M-702",
+          "name": "Ventilation system in 2nd FP", 
+          "filename": "VTB-FC-M-702 - Ventilation system in 2nd FP-Layout1.pdf"
+        },
+        {
+          "code": "VTB-FC-M-703",
+          "name": "Ventilation system in 3rd FP",
+          "filename": "VTB-FC-M-703 - Ventilation system in 3rd FP-Layout1.pdf"
+        },
+        {
+          "code": "VTB-FC-M-704",
+          "name": "Ventilation system in 4th FP",
+          "filename": "VTB-FC-M-704 - Ventilation system in 4th FP-Layout1.pdf"
+        }
+      ]
+    },
+    "smoke_exhaust_systems": {
+      "name": "Smoke Exhaust Systems",
+      "files": [
+        {
+          "code": "VTB-FC-M-801",
+          "name": "Smoke exhaust system in 1st FP",
+          "filename": "VTB-FC-M-801 - Smoke exhaust system in 1st FP-Layout1.pdf"
+        },
+        {
+          "code": "VTB-FC-M-802",
+          "name": "Smoke exhaust system in 2nd FP",
+          "filename": "VTB-FC-M-802 - Smoke exhaust system in 2nd FP-Layout1.pdf"
+        },
+        {
+          "code": "VTB-FC-M-803",
+          "name": "Smoke exhaust system in 3rd FP", 
+          "filename": "VTB-FC-M-803 - Smoke exhaust system in 3rd FP-Layout1.pdf"
+        },
+        {
+          "code": "VTB-FC-M-804",
+          "name": "Smoke exhaust system in 4th FP",
+          "filename": "VTB-FC-M-804 - Smoke exhaust system in 4th FP-Layout1.pdf"
+        }
+      ]
+    },
+    "drainage_systems": {
+      "name": "Drainage Systems",
+      "files": [
+        {
+          "code": "VTB-FC-M-601",
+          "name": "Condenser drain pipe for CRAC 1st FP",
+          "filename": "VTB-FC-M-601 - Condenser drain pipe for CRAC 1st FP-Layout1.pdf"
+        },
+        {
+          "code": "VTB-FC-M-602",
+          "name": "Condenser drain pipe for CRAC 2nd FP",
+          "filename": "VTB-FC-M-602 - Condenser drain pipe for CRAC 2nd FP-Layout1.pdf"
+        },
+        {
+          "code": "VTB-FC-M-602-1",
+          "name": "Emergency drain pipe of 2nd floor",
+          "filename": "VTB-FC-M-602-1 - Emergency drain pipe of 2nd floor-Layout1.pdf"
+        }
+      ]
+    },
+    "reference_documents": {
+      "name": "Reference Documents",
+      "files": [
+        {
+          "code": "VTB-FC-001",
+          "name": "Drawing list",
+          "filename": "VTB-FC-001 - Drawing list-Layout1.pdf"
+        },
+        {
+          "code": "VTB-FC-M-100",
+          "name": "Legend and symbol",
+          "filename": "VTB-FC-M-100 - Legend and symbol-Layout1.pdf"
+        },
+        {
+          "code": "VTB-FC-M-101",
+          "name": "Detail of installation 1",
+          "filename": "VTB-FC-M-101 - Detail of installation 1-Layout1.pdf"
+        },
+        {
+          "code": "VTB-FC-M-102",
+          "name": "Detail of installation 2", 
+          "filename": "VTB-FC-M-102 - Detail of installation 2-Layout1.pdf"
+        },
+        {
+          "code": "VTB-FC-M-301",
+          "name": "Mechanical equipment list",
+          "filename": "VTB-FC-M-301 - Mechanical equipment list -Layout1.pdf"
+        },
+        {
+          "code": "VTB-FC-M-904",
+          "name": "HVAC shaft section view",
+          "filename": "VTB-FC-M-904 - HVAC shaft section view-Layout1.pdf"
+        }
+      ]
+    },
+    "as_built_drawings": {
+      "name": "As-built Drawings",
+      "files": [
+        {
+          "code": "VTB-AS-HVAC-04Dec",
+          "name": "Asbuilt drawing 04.Dec",
+          "filename": "VTB-AS-HVAC-Asbuilt drawing 04.Dec.pdf"
+        },
+        {
+          "code": "VTB-AS-HVAC-31Dec",
+          "name": "Asbuilt drawing 31.Dec",
+          "filename": "VTB-AS-HVAC-Asbuilt drawing 31.Dec.pdf"
+        },
+        {
+          "code": "VTB-AS-HVAC-31Dec-R1",
+          "name": "Asbuilt drawing 31.Dec - R1",
+          "filename": "VTB-AS-HVAC-Asbuilt drawing 31.Dec - R1.pdf"
+        }
+      ]
+    }
+  },
+  "total_files": 32,
+  "formats": ["PDF"],
+  "source": "TTDL Vân Canh Official Documentation"
+}

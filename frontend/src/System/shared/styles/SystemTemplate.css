@@ -1,0 +1,181 @@
+/* ========================================
+ * SYSTEM TEMPLATE CSS - MẪU CHO HỆ THỐNG MỚI
+ * ======================================== */
+
+/*
+ * HƯỚNG DẪN SỬ DỤNG:
+ * 
+ * 1. KHÔNG cần tạo file CSS riêng cho hệ thống mới
+ * 2. CSS đã được import tự động từ shared/styles/SystemLayout.css
+ * 3. Chỉ override styles nếu thực sự cần thiết
+ * 4. Sử dụng các class có sẵn từ SystemLayout.css
+ */
+
+/* ========================================
+ * OVERRIDE STYLES (Nếu cần)
+ * ======================================== */
+
+/* Thay đổi màu sắc chủ đạo */
+:root {
+  --primary-color: #1890ff;
+  --secondary-color: #0072BC;
+  --success-color: #52c41a;
+  --warning-color: #faad14;
+  --error-color: #ff4d4f;
+}
+
+/* Custom header color */
+.menu-header {
+  background: var(--primary-color) !important;
+}
+
+/* Custom menu hover color */
+.system-menu .ant-menu-item:hover,
+.system-menu .ant-menu-submenu-title:hover {
+  background: #e6f7ff !important;
+  color: var(--primary-color) !important;
+}
+
+/* Custom selected state */
+.system-menu .ant-menu-item-selected,
+.system-menu .ant-menu-submenu-selected > .ant-menu-submenu-title {
+  background: var(--primary-color) !important;
+  color: #fff !important;
+  border: 1px solid var(--primary-color) !important;
+}
+
+/* ========================================
+ * CUSTOM COMPONENTS (Nếu cần)
+ * ======================================== */
+
+/* Custom section styling */
+.custom-section {
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 24px;
+  border: 1px solid #e8e8e8;
+}
+
+.custom-section h2 {
+  color: var(--primary-color);
+  border-bottom: 2px solid var(--primary-color);
+  padding-bottom: 8px;
+  margin-bottom: 20px;
+  font-size: 22px;
+}
+
+/* Custom card styling */
+.custom-card {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e8e8e8;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.custom-card h3 {
+  color: var(--primary-color);
+  margin-bottom: 12px;
+  font-size: 18px;
+}
+
+/* Custom table styling */
+.custom-table {
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #d9d9d9;
+}
+
+.custom-table th {
+  background: #f0f8ff;
+  color: var(--primary-color);
+  font-weight: 600;
+  border-bottom: 2px solid var(--primary-color);
+}
+
+/* ========================================
+ * RESPONSIVE OVERRIDES (Nếu cần)
+ * ======================================== */
+
+@media (max-width: 768px) {
+  .custom-section {
+    padding: 16px;
+    margin-bottom: 16px;
+  }
+  
+  .custom-card {
+    padding: 12px;
+    margin-bottom: 12px;
+  }
+}
+
+/* ========================================
+ * ANIMATION OVERRIDES (Nếu cần)
+ * ======================================== */
+
+/* Custom loading animation */
+.custom-loading {
+  animation: customPulse 2s ease-in-out infinite;
+}
+
+@keyframes customPulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* ========================================
+ * UTILITY CLASSES (Nếu cần)
+ * ======================================== */
+
+.text-primary {
+  color: var(--primary-color);
+}
+
+.text-secondary {
+  color: var(--secondary-color);
+}
+
+.bg-primary {
+  background-color: var(--primary-color);
+}
+
+.bg-secondary {
+  background-color: var(--secondary-color);
+}
+
+.border-primary {
+  border-color: var(--primary-color);
+}
+
+.border-secondary {
+  border-color: var(--secondary-color);
+}
+
+/* ========================================
+ * NOTES
+ * ======================================== */
+
+/*
+ * LƯU Ý QUAN TRỌNG:
+ * 
+ * 1. KHÔNG override các class cơ bản như:
+ *    - .system-layout
+ *    - .system-menu
+ *    - .system-content
+ *    - .menu-container
+ *    - .system-sider
+ * 
+ * 2. Chỉ override khi thực sự cần thiết
+ * 
+ * 3. Sử dụng CSS variables để dễ customize
+ * 
+ * 4. Test responsive trên nhiều thiết bị
+ * 
+ * 5. Đảm bảo performance khi thêm CSS
+ */
