@@ -712,3 +712,121 @@ docker exec gitlab /opt/gitlab/bin/gitlab-ctl status
 - **Backup**: Định kỳ backup GitLab data và config
 - **Updates**: Cập nhật GitLab và Docker images thường xuyên
 - **Monitoring**: Sử dụng health check script để monitor hệ thống
+
+## 13. GitHub Integration
+
+### 13.1. Cấu hình GitHub Remote
+```bash
+# Thêm GitHub remote (giữ nguyên remote GitLab cũ)
+git remote add github https://github.com/thanhdoptit/dceportal.git
+
+# Hoặc sử dụng SSH (khuyến nghị)
+git remote add github git@github.com:thanhdoptit/dceportal.git
+
+# Kiểm tra remote
+git remote -v
+```
+
+### 13.2. Push Code lên GitHub
+```bash
+# Push toàn bộ code lên GitHub
+git push github main
+
+# Push tất cả branches
+git push github --all
+
+# Push tags
+git push github --tags
+```
+
+### 13.3. Đồng bộ giữa GitLab và GitHub
+```bash
+# Push từ GitLab lên GitHub
+git push github main
+
+# Pull từ GitHub về GitLab (nếu cần)
+git pull github main
+
+# Merge changes
+git merge github/main
+```
+
+### 13.4. Cấu hình GitHub Actions (tùy chọn)
+Tạo file `.github/workflows/deploy.yml`:
+
+```yaml
+name: Deploy to Production
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+        
+    - name: Install dependencies
+      run: |
+        cd backend && npm install
+        cd ../frontend && npm install
+        
+    - name: Build frontend
+      run: |
+        cd frontend && npm run build
+        
+    - name: Deploy to server
+      run: |
+        echo "Deploy to production server"
+        # Add deployment commands here
+```
+
+### 13.5. GitHub Repository URLs
+- **GitHub Repository**: https://github.com/thanhdoptit/dceportal.git
+- **GitHub Web**: https://github.com/thanhdoptit/dceportal
+- **Clone HTTPS**: `https://github.com/thanhdoptit/dceportal.git`
+- **Clone SSH**: `git@github.com:thanhdoptit/dceportal.git`
+
+### 13.6. Quản lý Multiple Remotes
+```bash
+# Cấu hình remote cho cả GitLab và GitHub
+git remote add origin ssh://git@192.168.1.8:2222/dev/dce-portal.git
+git remote add github https://github.com/thanhdoptit/dceportal.git
+
+# Push lên cả hai
+git push origin main
+git push github main
+
+# Hoặc push tất cả remotes
+git remote | xargs -L1 git push
+```
+
+### 13.7. Backup Strategy với GitHub
+```bash
+# Backup toàn bộ repository lên GitHub
+git push github main --force
+
+# Tạo backup branch
+git checkout -b backup-$(date +%Y%m%d)
+git push github backup-$(date +%Y%m%d)
+
+# Restore từ GitHub
+git fetch github
+git checkout github/main
+```
+
+### 13.8. GitHub Security
+- **Personal Access Token**: Tạo token với quyền repo
+- **SSH Keys**: Cấu hình SSH key cho GitHub
+- **Branch Protection**: Bảo vệ branch main
+- **Code Review**: Yêu cầu review trước merge
+- **Secrets Management**: Sử dụng GitHub Secrets cho sensitive data
