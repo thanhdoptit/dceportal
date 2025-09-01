@@ -9,7 +9,15 @@ import {
   ToolOutlined,
   SettingOutlined,
   RightOutlined,
-  EnvironmentOutlined
+  EnvironmentOutlined,
+  FireOutlined,
+  MonitorOutlined,
+  BulbOutlined,
+  ApiOutlined,
+  KeyOutlined,
+  WarningOutlined,
+  DashboardOutlined,
+  DesktopOutlined
 } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import './DataCenterMenuPage.css';
@@ -32,58 +40,68 @@ const DataCenterMenuPage = () => {
       gradient: 'linear-gradient(135deg, #1890ff 0%, #096dd9 100%)'
     },
     {
-      key: 'electrical',
-      title: 'Hệ thống điện',
-      icon: <ThunderboltOutlined />,
+      key: 'UPS_DISTRIBUTION',
+      title: 'Hệ thống phân phối điện',
+      icon: <BulbOutlined />,
       description: 'UPS, ATS, tủ điện phân phối',
-      route: '/dc/system-info/ELECTRICAL',
+      route: '/dc/system-info/UPS_DISTRIBUTION',
       color: '#52c41a',
       gradient: 'linear-gradient(135deg, #52c41a 0%, #389e0d 100%)'
     },
+    
     {
-      key: 'fire',
+      key: 'UPS',
+      title: 'Hệ thống UPS',
+      icon: <ThunderboltOutlined />,
+      description: 'UPS, ATS, tủ điện phân phối',
+      route: '/dc/system-info/UPS',
+      color: '#722ed1',
+      gradient: 'linear-gradient(135deg, #722ed1 0%, #531dab 100%)'
+    },
+    {
+      key: 'FIRE_PROTECTION',
       title: 'Hệ thống PCCC',
-      icon: <SafetyOutlined />,
+      icon: <FireOutlined />,
       description: 'Báo cháy, chữa cháy tự động',
       route: '/dc/system-info/FIRE',
       color: '#fa541c',
       gradient: 'linear-gradient(135deg, #fa541c 0%, #d4380d 100%)'
     },
-    /* {
-      key: 'network',
-      title: 'Hệ thống mạng',
-      icon: <WifiOutlined />,
-      description: 'Switch, router, cáp mạng',
-      route: '/dc/system-info/NETWORK',
-      color: '#722ed1',
-      gradient: 'linear-gradient(135deg, #722ed1 0%, #531dab 100%)'
-    },
     {
-       key: 'server',
-       title: 'Hệ thống máy chủ',
-       icon: <DatabaseOutlined />,
-       description: 'Server, storage, backup',
-       route: '/dc/system-info/SERVER',
+       key: 'camera',
+       title: 'Hệ thống giám sát hình ảnh',
+       icon: <MonitorOutlined />,
+       description: 'Camera, dụng cụ giám sát',
+       route: '/dc/system-info/CAMERA',
        color: '#13c2c2',
        gradient: 'linear-gradient(135deg, #13c2c2 0%, #08979c 100%)'
      },
      {
-       key: 'maintenance',
-       title: 'Bảo trì bảo dưỡng',
-       icon: <ToolOutlined />,
-       description: 'Lịch trình và quy trình bảo trì',
+       key: 'ACCESS_CONTROL',
+       title: 'Hệ thống kiểm soát truy cập',
+       icon: <KeyOutlined />,
+       description: 'Kiểm soát truy cập, camera',
        route: '/dc/system-info/MAINTENANCE',
        color: '#fa8c16',
        gradient: 'linear-gradient(135deg, #fa8c16 0%, #d46b08 100%)'
-     },*/
+     },
     {
-      key: 'monitoring',
-      title: 'Giám sát hệ thống',
-      icon: <SettingOutlined />,
-      description: 'DCIM, cảm biến, cảnh báo',
+      key: 'INFRASTRUCTURE_MONITORING',
+      title: 'Hệ thống giám sát hạ tầng',
+      icon: <DashboardOutlined />,
+      description: 'Giám sát hạ tầng ',
       route: '/dc/system-info/MONITORING',
       color: '#eb2f96',
       gradient: 'linear-gradient(135deg, #eb2f96 0%, #c41d7f 100%)'
+    },
+    {
+      key: 'another',
+      title: 'Hệ thống khác',
+      icon: <ApiOutlined />,
+      description: 'Hệ thống khác',
+      route: '/dc/system-info/ANOTHER',
+      color: '#eb2f99',
+      gradient: 'linear-gradient(135deg, #eb2f99 0%, #c41d79 100%)'
     }
   ];
 
@@ -101,7 +119,7 @@ const DataCenterMenuPage = () => {
     {
       key: 'electrical',
       title: 'Hệ thống điện',
-      icon: <ThunderboltOutlined />,
+      icon: <BulbOutlined />,
       description: 'UPS, ATS, tủ điện phân phối',
       route: '/dc/system-info/ELECTRICAL',
       color: '#52c41a',
@@ -131,7 +149,7 @@ const DataCenterMenuPage = () => {
   };
 
   const renderMenuSection = (title, items, datacenterIcon) => (
-    <div style={{ marginBottom: '40px' }}>
+    <div >
       {/* Header section */}
       <div style={{
         display: 'flex',
@@ -213,7 +231,7 @@ const DataCenterMenuPage = () => {
               hoverable
               className="system-menu-card"
               style={{
-                height: '120px',
+                height: '90px',
                 backgroundColor: '#ffffff',
                 border: '1px solid #f0f0f0',
                 borderRadius: '16px',
@@ -222,11 +240,12 @@ const DataCenterMenuPage = () => {
                 cursor: 'pointer',
                 overflow: 'hidden',
                 position: 'relative',
+                padding: '5px',
                 '--card-gradient': item.gradient
               }}
               styles={{
                 body: {
-                  padding: '18px',
+                  padding: '10px',
                   height: '100%'
                 }
               }}
@@ -272,23 +291,12 @@ const DataCenterMenuPage = () => {
                   fontSize: '13px',
                   color: '#666',
                   lineHeight: '1.4',
-                  display: 'block'
+                  display: 'block',
                 }}>
                   {item.description}
                 </Text>
 
-                {/* Arrow icon */}
-                <div className="card-arrow" style={{
-                  position: 'absolute',
-                  top: '16px',
-                  right: '16px',
-                  color: item.color,
-                  fontSize: '14px',
-                  opacity: '0.6',
-                  transition: 'all 0.3s ease'
-                }}>
-                  <RightOutlined />
-                </div>
+               
               </div>
             </Card>
           </Col>
@@ -299,12 +307,12 @@ const DataCenterMenuPage = () => {
 
   return (
     <div style={{
-      minHeight: '100vh',
+      minHeight: '92vh',
       background: 'linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%)',
       padding: '20px'
     }}>
       <div style={{
-        maxWidth: '1400px',
+        maxWidth: '1480px',
         margin: '0 auto'
       }}>
         {/* Main header */}
@@ -312,12 +320,16 @@ const DataCenterMenuPage = () => {
           textAlign: 'center',
           marginBottom: '32px',
           padding: '40px 30px',
+          height: '270px',
           background: 'linear-gradient(135deg, #1890ff 0%, #096dd9 30%, #0050b3 70%, #003a8c 100%)',
           borderRadius: '24px',
           boxShadow: '0 12px 40px rgba(24, 144, 255, 0.25), 0 4px 20px rgba(0, 0, 0, 0.1)',
           border: '1px solid rgba(24, 144, 255, 0.2)',
           position: 'relative',
-          overflow: 'hidden'
+          overflow: 'hidden',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center'
         }}>
           {/* Animated background elements */}
           <div style={{

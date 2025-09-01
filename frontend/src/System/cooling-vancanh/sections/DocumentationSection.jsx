@@ -12,6 +12,27 @@ const { Title, Paragraph, Text } = Typography;
 const { TabPane } = Tabs;
 
 const DocumentationSection = () => {
+  // Style chung cho các button download
+  const downloadButtonStyle = {
+    whiteSpace: 'normal',
+    height: 'auto',
+    lineHeight: '1.4',
+    padding: '8px 12px',
+    textAlign: 'left'
+  };
+
+  // Component wrapper cho button download
+  const DownloadButton = ({ children, onClick }) => (
+    <Button 
+      block
+      icon={<DownloadOutlined />}
+      style={downloadButtonStyle}
+      onClick={onClick}
+    >
+      {children}
+    </Button>
+  );
+
   return (
     <div style={{ padding: '20px 0' }}>
       <Title level={2} style={{ color: '#1890ff', marginBottom: '24px' }}>
@@ -48,9 +69,7 @@ const DocumentationSection = () => {
                 <Col span={8}>
                   <Card size="small" title="Tổng quan hệ thống">
                     <Space direction="vertical" size="small">
-                      <Button 
-                        block
-                        icon={<DownloadOutlined />}
+                      <DownloadButton
                         onClick={() => {
                           const link = document.createElement('a');
                           link.href = '/documents/hvac-drawings/VTB-FC-M-201 - Chiller water system schematic-Layout1.pdf';
@@ -59,28 +78,24 @@ const DocumentationSection = () => {
                         }}
                       >
                         VTB-FC-M-201 - Sơ đồ hệ thống nước lạnh
-                      </Button>
-                      <Button 
-                        block
-                        icon={<DownloadOutlined />}
-                        onClick={() => {
-                          const link = document.createElement('a');
-                          link.href = '/documents/hvac-drawings/VTB-FC-M-202 - Ventilation system schematic-Layout1.pdf';
-                          link.download = 'VTB-FC-M-202 - Ventilation system schematic-Layout1.pdf';
-                          link.click();
-                        }}
-                      >
-                        VTB-FC-M-202 - Sơ đồ hệ thống thông gió
-                      </Button>
+                      </DownloadButton>
+                                              <DownloadButton
+                          onClick={() => {
+                            const link = document.createElement('a');
+                            link.href = '/documents/hvac-drawings/VTB-FC-M-202 - Ventilation system schematic-Layout1.pdf';
+                            link.download = 'VTB-FC-M-202 - Ventilation system schematic-Layout1.pdf';
+                            link.click();
+                          }}
+                        >
+                          VTB-FC-M-202 - Sơ đồ hệ thống thông gió
+                        </DownloadButton>
                     </Space>
                   </Card>
                 </Col>
                 <Col span={8}>
                   <Card size="small" title="Danh sách thiết bị & Ký hiệu">
                     <Space direction="vertical" size="small">
-                      <Button 
-                        block
-                        icon={<DownloadOutlined />}
+                      <DownloadButton
                         onClick={() => {
                           const link = document.createElement('a');
                           link.href = '/documents/hvac-drawings/VTB-FC-M-301 - Mechanical equipment list -Layout1.pdf';
@@ -89,7 +104,7 @@ const DocumentationSection = () => {
                         }}
                       >
                         VTB-FC-M-301 - Danh sách thiết bị cơ khí
-                      </Button>
+                      </DownloadButton>
                       <Button 
                         block
                         icon={<DownloadOutlined />}
@@ -525,13 +540,7 @@ const DocumentationSection = () => {
                       >
                         VTB-FC-001 - Danh sách bản vẽ
                       </Button>
-                      <Alert
-                        message="Tài liệu tham khảo"
-                        description="Các bản vẽ hỗ trợ bao gồm mặt cắt shaft kỹ thuật và danh mục bản vẽ chính thức"
-                        type="info"
-                        showIcon
-                        size="small"
-                      />
+                      
                     </Space>
                   </Card>
                 </Col>
