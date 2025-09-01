@@ -27,6 +27,7 @@ import SystemInfoEditPage from './pages/SystemInfoEditPage';
 import DatacenterFAQ from './pages/DatacenterFAQ.jsx';
 import { CoolingSystemPage } from './System/cooling';
 import CoolingSystemVancanhPage from './System/cooling-vancanh';
+import VanCanhOverviewPage from './System/vancanh-overview';
 import DataCenterMenuPage from './System/DataCenterMenuPage';
 import ShiftSchedulePage from './pages/ShiftSchedulePage';
 import ShiftScheduleDemo from './pages/ShiftScheduleDemo';
@@ -124,6 +125,7 @@ function App() {
                 <Route path="faq" element={<DatacenterFAQ />} />
                 <Route path="cooling-system" element={<CoolingSystemPage />} />
                 <Route path="cooling-system-vancanh" element={<CoolingSystemVancanhPage />} />
+                <Route path="vancanh-overview" element={<VanCanhOverviewPage />} />
                 <Route path="datacenter-menu" element={<DataCenterMenuPage />} />
                 <Route path="shift-schedule" element={<ShiftSchedulePage />} />
               </Route>
@@ -146,6 +148,7 @@ function App() {
                 <Route path="system-info/edit/:id" element={<SystemInfoEditPage />} />
                 <Route path="cooling-system" element={<CoolingSystemPage />} />
                 <Route path="cooling-system-vancanh" element={<CoolingSystemVancanhPage />} />
+                <Route path="vancanh-overview" element={<VanCanhOverviewPage />} />
                 <Route path="datacenter-menu" element={<DataCenterMenuPage />} />
                 <Route path="shift-schedule" element={<ShiftSchedulePage />} />
               </Route>
@@ -162,6 +165,7 @@ function App() {
                 <Route path="system-info/edit/:id" element={<SystemInfoEditPage />} />
                 <Route path="cooling-system" element={<CoolingSystemPage />} />
                 <Route path="cooling-system-vancanh" element={<CoolingSystemVancanhPage />} />
+                <Route path="vancanh-overview" element={<VanCanhOverviewPage />} />
                 <Route path="datacenter-menu" element={<DataCenterMenuPage />} />
                 <Route path="shift-schedule" element={<ShiftSchedulePage />} />
               </Route>

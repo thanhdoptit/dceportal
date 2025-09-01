@@ -108,13 +108,22 @@ const DataCenterMenuPage = () => {
   // Dữ liệu menu cho TTDL Vân Canh
   const vanCanhMenuItems = [
     {
+      key: 'overview',
+      title: 'Giới thiệu chung',
+      icon: <DatabaseOutlined />,
+      description: 'Tổng quan về TTDL Vân Canh',
+      route: '/dc/vancanh-overview',
+      color: '#1890ff',
+      gradient: 'linear-gradient(135deg, #1890ff 0%, #096dd9 100%)'
+    },
+    {
       key: 'cooling',
       title: 'Hệ thống làm mát',
       icon: <CloudOutlined />,
       description: 'Quản lý và vận hành hệ thống điều hòa',
       route: '/dc/system-info/COOLING',
-      color: '#1890ff',
-      gradient: 'linear-gradient(135deg, #1890ff 0%, #096dd9 100%)'
+      color: '#52c41a',
+      gradient: 'linear-gradient(135deg, #52c41a 0%, #389e0d 100%)'
     },
     {
       key: 'electrical',
@@ -122,8 +131,8 @@ const DataCenterMenuPage = () => {
       icon: <BulbOutlined />,
       description: 'UPS, ATS, tủ điện phân phối',
       route: '/dc/system-info/ELECTRICAL',
-      color: '#52c41a',
-      gradient: 'linear-gradient(135deg, #52c41a 0%, #389e0d 100%)'
+      color: '#722ed1',
+      gradient: 'linear-gradient(135deg, #722ed1 0%, #531dab 100%)'
     }
   ];
 
@@ -142,6 +151,9 @@ const DataCenterMenuPage = () => {
       } else {
         navigate(`/${prefix}/cooling-system`);
       }
+    } else if (route === '/dc/vancanh-overview') {
+      // Chuyển đến Van Canh Overview
+      navigate(`/${prefix}/vancanh-overview`);
     } else {
       // Chuyển về trang chính của role hiện tại
       navigate(`/${prefix}/shifts`);
