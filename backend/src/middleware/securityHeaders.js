@@ -64,7 +64,7 @@ export const corsSecurity = {
       'http://localhost:8080',
 
       'https://10.10.33.150',
-      'https://192.168.1.7',
+      'https://192.168.1.8',
       'http://192.168.1.7:8443',
       // Thêm domain production khi deploy
     ];

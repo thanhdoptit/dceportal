@@ -341,6 +341,8 @@ const ShiftCard = React.memo(({ shift, onSelect, currentShift }) => {
   );
 });
 
+
+
 // Optimized ShiftGroup với React.memo
 const ShiftGroup = React.memo(({ shifts, title, currentShift, onSelect, locations, shiftLayout }) => {
   const groupId = useId(); // Sử dụng useId cho unique ID
@@ -362,19 +364,21 @@ const ShiftGroup = React.memo(({ shifts, title, currentShift, onSelect, location
   // Lấy danh sách group có dữ liệu từ shifts
   const availableGroups = Array.from(new Set(shifts.map(shift => shift.code[0])));
 
-  // Tạo layout chỉ hiển thị nhóm có dữ liệu, sắp xếp theo thứ tự cố định
+  // Tạo layout giữ tất cả nhóm theo thứ tự, kể cả nhóm không có dữ liệu
   const displayGroups = shiftLayout
-    .filter(group => availableGroups.includes(group.code)) // Chỉ lấy nhóm có dữ liệu
     .map(group => ({
       code: group.code,
       name: group.name,
-      hasData: true
+      locationId: group.locationId,
+      hasData: availableGroups.includes(group.code) // Đánh dấu nhóm có dữ liệu
     }));
   
-  // Sắp xếp theo thứ tự cố định: Trần Hưng Đạo (T) → Hòa Lạc (H) → Vân Canh (V)
-  const order = ['T', 'H', 'V'];
+  // Sắp xếp theo locationId từ backend để đảm bảo thứ tự chính xác
   const sortedGroup = [...displayGroups].sort((a, b) => {
-    return order.indexOf(a.code) - order.indexOf(b.code);
+    // Sử dụng locationId nếu có, nếu không thì fallback về code
+    const aId = a.locationId || 0;
+    const bId = b.locationId || 0;
+    return aId - bId;
   });
 
 
@@ -391,7 +395,7 @@ const ShiftGroup = React.memo(({ shifts, title, currentShift, onSelect, location
 
         {sortedGroup.map((group) => {
           const locationInfo = getLocationInfo(group.code + '1', locations);
-          const groupName = group.name || (group.code === 'T' ? 'Trần Hưng Đạo' : group.code === 'H' ? 'Hòa Lạc' : group.code === 'V' ? 'Vân Canh' : group.code);
+          const groupName = group.name || locationInfo?.name || group.code;
           const groupShifts = shifts.filter(shift => shift.code.startsWith(group.code));
 
           return (
@@ -423,14 +427,25 @@ const ShiftGroup = React.memo(({ shifts, title, currentShift, onSelect, location
                   gridTemplateColumns: LAYOUT_CONFIG.horizontal.gridTemplateColumns
                 }}
               >
-                {groupShifts.map(shift => (
-                  <ShiftCard
-                    key={`shift-${shift.code}-${shift.date}`}
-                    shift={shift}
-                    currentShift={currentShift}
-                    onSelect={onSelect}
-                  />
-                ))}
+                {groupShifts.length > 0 ? (
+                  groupShifts.map(shift => (
+                    <ShiftCard
+                      key={`shift-${shift.code}-${shift.date}`}
+                      shift={shift}
+                      currentShift={currentShift}
+                      onSelect={onSelect}
+                    />
+                  ))
+                ) : (
+                  <div className="flex items-center justify-center p-8 text-gray-400 border-2 border-dashed border-gray-200 rounded-lg">
+                    <div className="text-center">
+                      <svg className="w-12 h-12 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                      </svg>
+                      <p className="text-sm">Không có ca làm việc</p>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           );
@@ -443,14 +458,15 @@ const ShiftGroup = React.memo(({ shifts, title, currentShift, onSelect, location
       <div className="space-y-4">
         <h3 className="font-medium text-[#2D3958] mb-3">{title}</h3>
         <div 
-          className={LAYOUT_CONFIG.vertical.containerClass(totalGroups)}
+          className="fixed-grid"
           style={{
-            gridTemplateColumns: totalGroups > 6 ? 'repeat(auto-fit, minmax(300px, 1fr))' : undefined
+            gridTemplateColumns: `repeat(${totalGroups}, 1fr)`,
+            gap: '1.5rem'
           }}
         >
           {sortedGroup.map((group) => {
             const locationInfo = getLocationInfo(group.code + '1', locations);
-            const groupName = group.name || locationInfo?.name || (group.code === 'T' ? 'Trần Hưng Đạo' : group.code === 'H' ? 'Hòa Lạc' : group.code === 'V' ? 'Vân Canh' : group.code);
+            const groupName = group.name || locationInfo?.name || group.code;
 
             return (
               <div key={`location-${group.code}-${title}`}>
@@ -475,16 +491,22 @@ const ShiftGroup = React.memo(({ shifts, title, currentShift, onSelect, location
                   )}
                 </div>
                 <div className="space-y-4">
-                  {shifts
-                    .filter(shift => shift.code.startsWith(group.code))
-                    .map(shift => (
-                      <ShiftCard
-                        key={`shift-${shift.code}-${shift.date}`}
-                        shift={shift}
-                        currentShift={currentShift}
-                        onSelect={onSelect}
-                      />
-                    ))}
+                  {(() => {
+                    const groupShifts = shifts.filter(shift => shift.code.startsWith(group.code));
+                    return groupShifts.length > 0 ? (
+                      groupShifts.map(shift => (
+                        <ShiftCard
+                          key={`shift-${shift.code}-${shift.date}`}
+                          shift={shift}
+                          currentShift={currentShift}
+                          onSelect={onSelect}
+                        />
+                      ))
+                    ) : (
+                      <div >
+                      </div>
+                    );
+                  })()}
                 </div>
               </div>
             );
@@ -907,7 +929,7 @@ export default function ShiftSelector() {
         shiftDate.getDate() === today.getDate() &&
         shiftDate.getMonth() === today.getMonth() &&
         shiftDate.getFullYear() === today.getFullYear() &&
-        (shift.status === 'handover' || shift.status === 'doing' || shift.status === 'waiting' || shift.status === 'not-started')
+        (shift.status === 'handover' || shift.status === 'doing' || shift.status === 'waiting' || shift.status === 'not-started' )
       );
     });
 
@@ -1461,8 +1483,14 @@ export default function ShiftSelector() {
           height: 2px !important;
         }
         
-        /* Responsive grid cho nhiều nhóm ca */
+        /* Responsive grid cho nhiều nhóm ca - động theo số lượng */
         @media (min-width: 768px) {
+          .md\\:grid-cols-1 {
+            grid-template-columns: repeat(1, 1fr);
+          }
+          .md\\:grid-cols-2 {
+            grid-template-columns: repeat(2, 1fr);
+          }
           .md\\:grid-cols-3 {
             grid-template-columns: repeat(3, 1fr);
           }
@@ -1474,6 +1502,9 @@ export default function ShiftSelector() {
           }
           .md\\:grid-cols-6 {
             grid-template-columns: repeat(6, 1fr);
+          }
+          .md\\:grid-cols-auto-fit {
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
           }
         }
         
@@ -1497,6 +1528,38 @@ export default function ShiftSelector() {
           }
           .md\\:grid-cols-6 {
             grid-template-columns: repeat(6, 1fr);
+          }
+        }
+        
+        /* Đảm bảo grid items không bị dồn khi có cột trống */
+        .grid > div {
+          min-height: 200px;
+        }
+        
+        /* Grid container với vị trí cột cố định */
+        .fixed-grid {
+          display: grid;
+          grid-auto-flow: column;
+          grid-auto-columns: 1fr;
+          gap: 1.5rem;
+        }
+        
+        /* Placeholder cho cột trống */
+        .empty-column {
+          min-height: 200px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background-color: #f8f9fa;
+          border: 2px dashed #dee2e6;
+          border-radius: 8px;
+        }
+        
+        /* Responsive cho grid động */
+        @media (max-width: 767px) {
+          .fixed-grid {
+            grid-auto-flow: row;
+            grid-auto-rows: auto;
           }
         }
       `}</style>

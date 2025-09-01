@@ -3976,11 +3976,15 @@ export const deleteManagerShift = async (req, res) => {
 // Lấy layout các nhóm ca động từ shiftConfig
 export const getShiftLayout = async (req, res) => {
   try {
-    // Lấy danh sách nhóm ca từ shiftConfig, sắp xếp theo thứ tự xuất hiện
-    const groups = Array.from(new Set(Object.values(shiftConfig).map(config => config.group)));
+    // Lấy danh sách locations theo thứ tự ID để đảm bảo thứ tự hiển thị
+    const locations = await db.Location.findAll({
+      where: { isActive: true },
+      order: [['id', 'ASC']]
+    });
 
-    // Tạo layout với thông tin chi tiết từng nhóm
-    const layout = groups.map(group => {
+    // Tạo layout theo thứ tự ID của locations
+    const layout = locations.map(location => {
+      const group = location.code;
       const groupShifts = Object.entries(shiftConfig)
         .filter(([code, config]) => config.group === group)
         .sort((a, b) => a[1].index - b[1].index);
@@ -3988,7 +3992,8 @@ export const getShiftLayout = async (req, res) => {
       const firstShift = groupShifts[0];
       return {
         code: group,
-        name: firstShift[1].name,
+        name: location.name, // Sử dụng tên từ location thay vì shift
+        locationId: location.id, // Thêm locationId để frontend có thể sắp xếp
         shifts: groupShifts.map(([code, config]) => ({
           code,
           name: config.name,

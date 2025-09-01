@@ -6,7 +6,7 @@ import { updateShiftConfigFromDatabase, updateFixedShifts } from '../config/shif
 export const getAllLocations = async (req, res) => {
   try {
     const locations = await Location.findAll({
-      order: [['name', 'ASC']]
+      order: [['id', 'ASC']] // Sắp xếp theo ID từ bé đến lớn để đảm bảo thứ tự
     });
     return res.json(locations);
   } catch (error) {

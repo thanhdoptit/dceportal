@@ -7,7 +7,7 @@ const getShiftConfigFromDatabase = async () => {
   try {
     const locations = await Location.findAll({
       where: { isActive: true },
-      order: [['code', 'ASC']]
+      order: [['id', 'ASC']] // Sắp xếp theo ID để đảm bảo thứ tự
     });
 
     const config = {};
