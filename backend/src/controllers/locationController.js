@@ -19,7 +19,7 @@ export const getAllLocations = async (req, res) => {
 export const getAllLocationsForManagement = async (req, res) => {
   try {
     const locations = await Location.findAll({
-      order: [['name', 'ASC']]
+      order: [['id', 'ASC']]
     });
     return res.json(locations);
   } catch (error) {
