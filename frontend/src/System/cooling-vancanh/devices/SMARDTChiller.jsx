@@ -12,7 +12,7 @@ const { Title, Paragraph, Text } = Typography;
 
 const SMARDTChiller = () => {
   return (
-    <div id="section-2.1" className="device-section">
+    <div id="section-2.1" className="content-section">
       <Title level={3} style={{ color: '#52c41a', marginBottom: '16px' }}>
         <SettingOutlined style={{ marginRight: '8px' }} />
         2.1. Chiller SMARDT AE Series - TTDL Vân Canh
@@ -120,7 +120,7 @@ const SMARDTChiller = () => {
         </Card>
 
         <Card title="Control Logic - Logic điều khiển hệ thống" style={{ marginBottom: '20px' }}>
-          <Title level={5} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Chế độ Commissioning (Khởi tạo)</Title>
+          <Title level={4} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Chế độ Commissioning (Khởi tạo)</Title>
           <Paragraph>
             <ul>
               <li>Nước ra khỏi Chiller ở <Text strong>10°C</Text></li>
@@ -132,7 +132,7 @@ const SMARDTChiller = () => {
             </ul>
           </Paragraph>
 
-          <Title level={5} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Chế độ BÌNH THƯỜNG (Normal Mode)</Title>
+          <Title level={4} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Chế độ BÌNH THƯỜNG (Normal Mode)</Title>
           <Paragraph>
             <ul>
               <li>Nước ra khỏi Chiller → Két dự phòng TES → CRAC</li>
@@ -144,7 +144,7 @@ const SMARDTChiller = () => {
             </ul>
           </Paragraph>
 
-          <Title level={5} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Chế độ XẢ (Discharge Mode)</Title>
+          <Title level={4} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Chế độ XẢ (Discharge Mode)</Title>
           <Paragraph>
             <ul>
               <li>Khi Chiller tắt do hỏng hóc/mất nguồn</li>
@@ -156,7 +156,7 @@ const SMARDTChiller = () => {
             </ul>
           </Paragraph>
 
-          <Title level={5} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Chế độ NẠP (Charge Mode)</Title>
+          <Title level={4} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Chế độ NẠP (Charge Mode)</Title>
           <Paragraph>
             <ul>
               <li>Van 2A & 2B và 3A & 3B: <Tag color="green">Mở</Tag></li>
@@ -172,11 +172,11 @@ const SMARDTChiller = () => {
 
       <div id="section-2.1.2" className="subsection">
         <Title level={4} style={{ color: '#1890ff', marginBottom: '12px' }}>
-          <CheckCircleOutlined style={{ marginRight: '8px' }} /> 2.1.2. Hướng dẫn lắp đặt
+          <CheckCircleOutlined style={{ marginRight: '8px' }} /> 2.1.2. Chế độ Commissioning (Khởi tạo)
         </Title>
 
         <Card title="Yêu cầu lắp đặt" style={{ marginBottom: '20px' }}>
-          <Title level={5} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Vị trí lắp đặt</Title>
+          <Title level={4} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Vị trí lắp đặt</Title>
           <Paragraph>
             <ul>
               <li>Đặt ngoài trời, trên sàn bê tông cốt thép</li>
@@ -186,7 +186,7 @@ const SMARDTChiller = () => {
             </ul>
           </Paragraph>
 
-          <Title level={5} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Hệ thống điện</Title>
+          <Title level={4} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Hệ thống điện</Title>
           <Paragraph>
             <ul>
               <li>Điện áp: 380V/3P/50Hz</li>
@@ -196,7 +196,7 @@ const SMARDTChiller = () => {
             </ul>
           </Paragraph>
 
-          <Title level={5} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Hệ thống nước</Title>
+          <Title level={4} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Hệ thống nước</Title>
           <Paragraph>
             <ul>
               <li>Ống nước lạnh: DN150</li>
@@ -210,11 +210,11 @@ const SMARDTChiller = () => {
 
       <div id="section-2.1.3" className="subsection">
         <Title level={4} style={{ color: '#1890ff', marginBottom: '12px' }}>
-          <ToolOutlined style={{ marginRight: '8px' }} /> 2.1.3. Hướng dẫn vận hành và kiểm tra hàng ngày
+          <ToolOutlined style={{ marginRight: '8px' }} /> 2.1.3. Chế độ Bình thường (Normal Mode)
         </Title>
 
         <Card title="Quy trình khởi động hệ thống" style={{ marginBottom: '20px' }}>
-          <Title level={5} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Bước 1: Khởi động Cụm Chiller đầu tiên</Title>
+          <Title level={4} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Bước 1: Khởi động Cụm Chiller đầu tiên</Title>
           <Paragraph>
             <ol>
               <li><Text strong>Ra lệnh bật Chiller 01</Text>
@@ -238,7 +238,7 @@ const SMARDTChiller = () => {
             </ol>
           </Paragraph>
 
-          <Title level={5} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Bước 2: Vận hành hệ thống van Bypass</Title>
+          <Title level={4} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Bước 2: Vận hành hệ thống van Bypass</Title>
           <Paragraph>
             <ul>
               <li>Vận hành dựa theo chênh lệch áp suất giữa đường ống nước lạnh cấp và hồi</li>
@@ -247,7 +247,7 @@ const SMARDTChiller = () => {
             </ul>
           </Paragraph>
 
-          <Title level={5} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Bước 3: Vận hành hệ thống Két dự phòng TES ở chế độ Commissioning</Title>
+          <Title level={4} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Bước 3: Vận hành hệ thống Két dự phòng TES ở chế độ Commissioning</Title>
           <Paragraph>
             <ul>
               <li><Tag color="red">Đóng hoàn toàn Van V1A, V1B</Tag></li>
@@ -256,7 +256,7 @@ const SMARDTChiller = () => {
             </ul>
           </Paragraph>
 
-          <Title level={5} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Bước 4: Vận hành hệ thống bơm bù áp</Title>
+          <Title level={4} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Bước 4: Vận hành hệ thống bơm bù áp</Title>
           <Paragraph>
             <ul>
               <li>Vận hành dựa theo áp suất tĩnh đo được trên đường ống</li>
@@ -268,7 +268,7 @@ const SMARDTChiller = () => {
         </Card>
 
         <Card title="Quy trình vận hành chế độ BÌNH THƯỜNG" style={{ marginBottom: '20px' }}>
-          <Title level={5} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Bước 1: Hệ thống vận hành sau khi khởi động hoàn tất</Title>
+          <Title level={4} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Bước 1: Hệ thống vận hành sau khi khởi động hoàn tất</Title>
           <Paragraph>
             <ul>
               <li><Text strong>Điều chỉnh tần số bơm nước lạnh:</Text> Tăng giảm theo tải lạnh của DC, dựa trên chênh lệch áp suất giữa đường nước cấp – hồi</li>
@@ -285,9 +285,9 @@ const SMARDTChiller = () => {
             </ul>
           </Paragraph>
 
-          <Title level={5} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Bước 2: Quy trình gọi thêm, cắt bớt cụm Chiller</Title>
+          <Title level={4} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Bước 2: Quy trình gọi thêm, cắt bớt cụm Chiller</Title>
           
-          <Title level={6} style={{ color: '#8c8c8c', marginBottom: '8px', fontSize: '14px' }}>2.1 Gọi thêm cụm Chiller</Title>
+          <Title level={4} style={{ color: '#8c8c8c', marginBottom: '8px', fontSize: '14px' }}>2.1 Gọi thêm cụm Chiller</Title>
           <Paragraph>
             <Text strong>Điều kiện:</Text>
             <ul>
@@ -303,7 +303,7 @@ const SMARDTChiller = () => {
             </ol>
           </Paragraph>
 
-          <Title level={6} style={{ color: '#8c8c8c', marginBottom: '8px', fontSize: '14px' }}>2.2 Cắt bớt cụm Chiller</Title>
+          <Title level={4} style={{ color: '#8c8c8c', marginBottom: '8px', fontSize: '14px' }}>2.2 Cắt bớt cụm Chiller</Title>
           <Paragraph>
             <Text strong>Điều kiện:</Text>
             <ul>
@@ -319,7 +319,7 @@ const SMARDTChiller = () => {
             </ol>
           </Paragraph>
 
-          <Title level={5} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Bước 3: Quy trình vận hành luân phiên hệ thống</Title>
+          <Title level={4} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Bước 3: Quy trình vận hành luân phiên hệ thống</Title>
           <Paragraph>
             <ul>
               <li>BMS theo dõi trạng thái hoạt động của các thành phần</li>
@@ -331,7 +331,7 @@ const SMARDTChiller = () => {
         </Card>
 
         <Card title="Quy trình vận hành chế độ SỰ CỐ" style={{ marginBottom: '20px' }}>
-          <Title level={5} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Khi 01 cụm Chiller bị lỗi</Title>
+          <Title level={4} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Khi 01 cụm Chiller bị lỗi</Title>
           <Paragraph>
             <Text strong>Nguyên nhân:</Text>
             <ul>
@@ -347,7 +347,7 @@ const SMARDTChiller = () => {
             </ul>
           </Paragraph>
 
-          <Title level={5} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Khi xảy ra sự cố mất điện</Title>
+          <Title level={4} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Khi xảy ra sự cố mất điện</Title>
           <Paragraph>
             <ol>
               <li><Text strong>Chuyển TES sang chế độ XẢ:</Text> Cung cấp nước lạnh cho DC trong 10 phút</li>
@@ -359,7 +359,7 @@ const SMARDTChiller = () => {
         </Card>
 
         <Card title="Các chế độ vận hành" style={{ marginBottom: '20px' }}>
-          <Title level={5} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Chế độ vận hành tự động (Auto)</Title>
+          <Title level={4} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Chế độ vận hành tự động (Auto)</Title>
           <Paragraph>
             <ul>
               <li>Hệ thống vận hành tự động theo chương trình lập trình sẵn</li>
@@ -376,7 +376,7 @@ const SMARDTChiller = () => {
             </ul>
           </Paragraph>
 
-          <Title level={5} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Chế độ vận hành bằng tay (Manual)</Title>
+          <Title level={4} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Chế độ vận hành bằng tay (Manual)</Title>
           <Paragraph>
             <ul>
               <li>Chuyển sang trạng thái MAN trên giao diện vận hành</li>
@@ -386,7 +386,7 @@ const SMARDTChiller = () => {
             </ul>
           </Paragraph>
 
-          <Title level={5} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Chế độ vận hành tại chỗ (Local)</Title>
+          <Title level={4} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Chế độ vận hành tại chỗ (Local)</Title>
           <Paragraph>
             <ul>
               <li>Vận hành tại nút nhấn điều khiển trên tủ động lực</li>
@@ -396,7 +396,7 @@ const SMARDTChiller = () => {
         </Card>
 
         <Card title="Kiểm tra hàng ngày" style={{ marginBottom: '20px' }}>
-          <Title level={5} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Thông số cần kiểm tra</Title>
+          <Title level={4} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Thông số cần kiểm tra</Title>
           <Table
             dataSource={[
               { key: '1', parameter: 'Nhiệt độ nước lạnh ra', normal: '10°C', check: 'Ghi chép và so sánh' },
@@ -439,112 +439,29 @@ const SMARDTChiller = () => {
 
       <div id="section-2.1.4" className="subsection">
         <Title level={4} style={{ color: '#1890ff', marginBottom: '12px' }}>
-          <ExclamationCircleOutlined style={{ marginRight: '8px' }} /> 2.1.4. Hướng dẫn xác định nguyên nhân lỗi
+          <ExclamationCircleOutlined style={{ marginRight: '8px' }} /> 2.1.4. Chế độ Xả (Discharge Mode)
         </Title>
 
-        <Alert
-          message="Xử lý sự cố"
-          description="Khi có sự cố, hệ thống sẽ hiển thị mã lỗi trên màn hình điều khiển. Dưới đây là các lỗi thường gặp và cách xử lý."
-          type="warning"
-          showIcon
-          style={{ marginBottom: '20px' }}
-        />
-
-        <Alert
-          message="Tham khảo Error Codes chi tiết"
-          description="Xem mục 4.2 'Tổng hợp mã lỗi, nguyên nhân và cách giải quyết' để có thông tin đầy đủ về 50+ mã lỗi SMARDT từ tài liệu chính thức."
-          type="info"
-          showIcon
-          style={{ marginBottom: '20px' }}
-        />
-
-        <Card title="Các lỗi nghiêm trọng thường gặp SMARDT" style={{ marginBottom: '20px' }}>
-          <Table
-            dataSource={[
-              {
-                key: '1',
-                error: 'System 1 LP Fault',
-                cause: 'Low evaporator pressure - Thiếu gas R134a, evaporator bẩn',
-                action: 'Kiểm tra mức gas, làm sạch evaporator, check bơm nước lạnh',
-                severity: 'Trung bình'
-              },
-              {
-                key: '2',
-                error: 'System 1 HP Fault',
-                cause: 'High condenser pressure - 10 quạt EBM lỗi, condenser bẩn',
-                action: 'Kiểm tra 10 quạt AxiBlade, làm sạch condenser coil',
-                severity: 'Cao'
-              },
-              {
-                key: '3',
-                error: 'CoW Flow Lockout Fault',
-                cause: 'No condenser water flow after 5 attempts - Bơm nước lỗi',
-                action: 'Khởi động bơm nước, mở van, kiểm tra flow switch',
-                severity: 'Nghiêm trọng'
-              },
-              {
-                key: '4',
-                error: 'C1 - Generator Mode',
-                cause: 'DC Bus voltage low - Sự cố nguồn điện 400V',
-                action: 'Kiểm tra nguồn điện, kiểm tra DC bus, reset power',
-                severity: 'Nghiêm trọng'
-              },
-              {
-                key: '5',
-                error: 'C1 - High Current',
-                cause: 'RMS Current exceeded limit - Motor quá tải, điện áp thấp',
-                action: 'Giảm tải, ổn định điện áp 400V, kiểm tra motor',
-                severity: 'Nghiêm trọng'
-              },
-              {
-                key: '6',
-                error: 'C1 - Motor Winding Temperature',
-                cause: 'Motor thermal > 155°C - Motor quá nóng',
-                action: 'TẮT MÁY NGAY, kiểm tra làm mát motor, thay motor',
-                severity: 'Nghiêm trọng'
-              }
-            ]}
-            columns={[
-              {
-                title: 'Mã lỗi',
-                dataIndex: 'error',
-                key: 'error',
-                width: '20%',
-                render: (text) => <Tag color="red">{text}</Tag>
-              },
-              {
-                title: 'Nguyên nhân',
-                dataIndex: 'cause',
-                key: 'cause',
-                width: '30%',
-                render: (text) => <Text>{text}</Text>
-              },
-              {
-                title: 'Cách xử lý',
-                dataIndex: 'action',
-                key: 'action',
-                width: '35%',
-                render: (text) => <Text>{text}</Text>
-              },
-              {
-                title: 'Mức độ',
-                dataIndex: 'severity',
-                key: 'severity',
-                width: '15%',
-                render: (text) => {
-                  let color = 'blue';
-                  if (text === 'Nghiêm trọng') color = 'red';
-                  else if (text === 'Cao') color = 'orange';
-                  else if (text === 'Trung bình') color = 'yellow';
-                  return <Tag color={color}>{text}</Tag>
-                }
-              }
-            ]}
-            pagination={false}
-            size="small"
-            bordered
-          />
-        </Card>
+        <Card title="Chế độ Xả TES" style={{ marginBottom: '20px' }}>
+          <Paragraph>
+            <Text strong>Khi nào sử dụng chế độ Xả:</Text>
+            <ul>
+              <li>Khi có sự cố mất điện</li>
+              <li>Khi Chiller bị lỗi</li>
+              <li>Khi cần dự phòng khẩn cấp</li>
+            </ul>
+          </Paragraph>
+          
+          <Paragraph>
+            <Text strong>Quy trình chuyển sang chế độ Xả:</Text>
+            <ol>
+              <li>Đóng hoàn toàn Van V1A, V1B (ngăn nước từ Chiller)</li>
+              <li>Mở hoàn toàn Van V2A, V2B (cho phép nước từ TES)</li>
+              <li>Mở hoàn toàn Van V3A, V3B (cho phép nước đến DC)</li>
+              <li>TES cung cấp nước lạnh trong 10 phút</li>
+            </ol>
+          </Paragraph>
+                </Card>
       </div>
 
       <div id="section-2.1.5" className="subsection">
@@ -553,7 +470,7 @@ const SMARDTChiller = () => {
         </Title>
 
         <Card title="Bảo trì định kỳ" style={{ marginBottom: '20px' }}>
-          <Title level={5} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Bảo trì hàng tháng</Title>
+          <Title level={4} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Bảo trì hàng tháng</Title>
           <Paragraph>
             <ul>
               <li>Kiểm tra thông số vận hành</li>
@@ -564,7 +481,7 @@ const SMARDTChiller = () => {
             </ul>
           </Paragraph>
 
-          <Title level={5} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Bảo trì hàng quý</Title>
+          <Title level={4} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Bảo trì hàng quý</Title>
           <Paragraph>
             <ul>
               <li>Vệ sinh dàn nóng</li>
@@ -574,7 +491,7 @@ const SMARDTChiller = () => {
             </ul>
           </Paragraph>
 
-          <Title level={5} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Bảo trì hàng năm</Title>
+          <Title level={4} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Bảo trì hàng năm</Title>
           <Paragraph>
             <ul>
               <li>Kiểm tra toàn bộ hệ thống</li>

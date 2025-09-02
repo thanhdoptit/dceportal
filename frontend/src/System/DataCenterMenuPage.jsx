@@ -108,15 +108,6 @@ const DataCenterMenuPage = () => {
   // Dữ liệu menu cho TTDL Vân Canh
   const vanCanhMenuItems = [
     {
-      key: 'overview',
-      title: 'Giới thiệu chung',
-      icon: <DatabaseOutlined />,
-      description: 'Tổng quan về TTDL Vân Canh',
-      route: '/dc/vancanh-overview',
-      color: '#1890ff',
-      gradient: 'linear-gradient(135deg, #1890ff 0%, #096dd9 100%)'
-    },
-    {
       key: 'cooling',
       title: 'Hệ thống làm mát',
       icon: <CloudOutlined />,
@@ -209,29 +200,71 @@ const DataCenterMenuPage = () => {
           </div>
         </div>
 
-        {/* System count badge */}
+        {/* System count badge and overview button */}
         <div style={{
           display: 'flex',
           alignItems: 'center',
-          gap: '6px',
-          padding: '6px 12px',
-          background: 'rgba(24, 144, 255, 0.1)',
-          borderRadius: '16px',
-          border: '1px solid rgba(24, 144, 255, 0.2)'
+          gap: '12px'
         }}>
+          {/* System count badge */}
           <div style={{
-            width: '6px',
-            height: '6px',
-            borderRadius: '50%',
-            background: '#1890ff'
-          }} />
-          <Text style={{
-            fontSize: '11px',
-            color: '#1890ff',
-            fontWeight: '600'
+            display: 'flex',
+            alignItems: 'center',
+            gap: '6px',
+            padding: '6px 12px',
+            background: 'rgba(24, 144, 255, 0.1)',
+            borderRadius: '16px',
+            border: '1px solid rgba(24, 144, 255, 0.2)'
           }}>
-            {items.length} hệ thống
-          </Text>
+            <div style={{
+              width: '6px',
+              height: '6px',
+              borderRadius: '50%',
+              background: '#1890ff'
+            }} />
+            <Text style={{
+              fontSize: '11px',
+              color: '#1890ff',
+              fontWeight: '600'
+            }}>
+              {items.length} hệ thống
+            </Text>
+          </div>
+
+          {/* Overview button - chỉ hiển thị cho TTDL Vân Canh */}
+          {title === 'TTDL Vân Canh' && (
+            <Button
+              type="primary"
+              size="small"
+              icon={<DatabaseOutlined />}
+              style={{
+                background: 'linear-gradient(135deg, #1890ff 0%, #096dd9 100%)',
+                border: 'none',
+                borderRadius: '16px',
+                height: '32px',
+                padding: '0 16px',
+                fontSize: '12px',
+                fontWeight: '600',
+                boxShadow: '0 2px 8px rgba(24, 144, 255, 0.3)',
+                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
+              }}
+              onClick={() => {
+                const currentPath = window.location.pathname;
+                const prefix = currentPath.split('/')[1] || 'dc';
+                navigate(`/${prefix}/vancanh-overview`);
+              }}
+              onMouseEnter={(e) => {
+                e.target.style.transform = 'translateY(-2px)';
+                e.target.style.boxShadow = '0 4px 16px rgba(24, 144, 255, 0.4)';
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.transform = 'translateY(0)';
+                e.target.style.boxShadow = '0 2px 8px rgba(24, 144, 255, 0.3)';
+              }}
+            >
+              Giới thiệu chung
+            </Button>
+          )}
         </div>
       </div>
 

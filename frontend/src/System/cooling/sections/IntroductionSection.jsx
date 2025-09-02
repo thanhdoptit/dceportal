@@ -57,9 +57,9 @@ const IntroductionSection = () => {
         </Paragraph>
       </Card> */}
 
-      <div id="section-1a" className="subsection">
+      <div id="section-1.1" className="subsection">
         <Title level={3} style={{ color: '#52c41a', marginBottom: '16px' }}>
-          1.1 Thông số kĩ thuật theo tài liệu hãng các thiết bị thuộc hệ thống làm mát của TTDL Hòa Lạc
+          1.1. Thông số kĩ thuật theo tài liệu hãng các thiết bị thuộc hệ thống làm mát của TTDL Hòa Lạc
         </Title>
         <Paragraph>
           Danh mục thiết bị dưới đây bao gồm các dòng Uniflair và APC by Schneider Electric với hướng dẫn chi tiết cho từng model của TTDL Hòa Lạc.
@@ -141,8 +141,10 @@ const IntroductionSection = () => {
         </Card>
       </div>
 
-      <div id="section-1b" className="subsection">
-        <Title level={3}>1.2 Cấu trúc đặt tên của các model thuộc TTDL Hòa Lạc</Title>
+      <div id="section-1.2" className="subsection">
+        <Title level={3} style={{ color: '#52c41a', marginBottom: '16px' }}>
+          1.2. Cấu trúc đặt tên của các model thuộc TTDL Hòa Lạc
+        </Title>
 
         <Card title="Cấu trúc đặt tên model TDAVxxxxA" style={{ marginBottom: '20px' }}>
           <Paragraph>
@@ -239,9 +241,9 @@ const IntroductionSection = () => {
         </Card>
       </div>
 
-      <div id="section-1c" className="subsection">
+      <div id="section-1.3" className="subsection">
         <Title level={3} style={{ color: '#52c41a', marginBottom: '16px' }}>
-          1.3 Nguyên lý hoạt động của hệ thống làm mát Trung tâm dữ liệu Hòa Lạc
+          1.3. Nguyên lý hoạt động của hệ thống làm mát Trung tâm dữ liệu Hòa Lạc
         </Title>
 
         <Card title="Tạo Hành lang nóng/lạnh (Hot/Cold Aisle Containment)" style={{ marginBottom: '20px' }}>

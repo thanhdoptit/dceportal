@@ -12,7 +12,7 @@ const { Title, Paragraph, Text } = Typography;
 
 const EasyInRowCW = () => {
   return (
-    <div id="section-2.4" className="device-section">
+    <div id="section-2.4" className="content-section">
       <Title level={3} style={{ color: '#52c41a', marginBottom: '16px' }}>
         <SettingOutlined style={{ marginRight: '8px' }} />
         2.4. Easy InRow CW Series - TTDL Vân Canh
@@ -116,7 +116,7 @@ const EasyInRowCW = () => {
         </Title>
 
         <Card title="Yêu cầu lắp đặt" style={{ marginBottom: '20px' }}>
-          <Title level={5} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Vị trí lắp đặt</Title>
+          <Title level={4} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Vị trí lắp đặt</Title>
           <Paragraph>
             <ul>
               <li>Lắp đặt trong hàng rack, giữa các tủ server</li>
@@ -126,7 +126,7 @@ const EasyInRowCW = () => {
             </ul>
           </Paragraph>
 
-          <Title level={5} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Hệ thống nước</Title>
+          <Title level={4} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Hệ thống nước</Title>
           <Paragraph>
             <ul>
               <li>Kết nối nước lạnh DN25</li>
@@ -137,7 +137,7 @@ const EasyInRowCW = () => {
             </ul>
           </Paragraph>
 
-          <Title level={5} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Hệ thống điện</Title>
+          <Title level={4} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Hệ thống điện</Title>
           <Paragraph>
             <ul>
               <li>Điện áp quạt: 24V DC</li>
@@ -169,7 +169,7 @@ const EasyInRowCW = () => {
         </Title>
 
         <Card title="Khởi động hệ thống" style={{ marginBottom: '20px' }}>
-          <Title level={5} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Kiểm tra trước khi khởi động</Title>
+          <Title level={4} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Kiểm tra trước khi khởi động</Title>
           <Paragraph>
             <ul>
               <li>Kiểm tra hệ thống nước lạnh</li>
@@ -180,7 +180,7 @@ const EasyInRowCW = () => {
             </ul>
           </Paragraph>
 
-          <Title level={5} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Quy trình khởi động</Title>
+          <Title level={4} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Quy trình khởi động</Title>
           <Paragraph>
             <ol>
               <li>Mở van nước lạnh</li>
@@ -194,7 +194,7 @@ const EasyInRowCW = () => {
         </Card>
 
         <Card title="Kiểm tra hàng ngày" style={{ marginBottom: '20px' }}>
-          <Title level={5} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Thông số cần kiểm tra</Title>
+          <Title level={4} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Thông số cần kiểm tra</Title>
           <Table
             dataSource={[
               { key: '1', parameter: 'Nhiệt độ nước vào', normal: '7°C', check: 'Đọc cảm biến nhiệt độ' },
@@ -324,7 +324,7 @@ const EasyInRowCW = () => {
         </Title>
 
         <Card title="Bảo trì định kỳ" style={{ marginBottom: '20px' }}>
-          <Title level={5} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Bảo trì hàng tháng</Title>
+          <Title level={4} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Bảo trì hàng tháng</Title>
           <Paragraph>
             <ul>
               <li>Kiểm tra thông số vận hành</li>
@@ -335,7 +335,7 @@ const EasyInRowCW = () => {
             </ul>
           </Paragraph>
 
-          <Title level={5} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Bảo trì hàng quý</Title>
+          <Title level={4} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Bảo trì hàng quý</Title>
           <Paragraph>
             <ul>
               <li>Vệ sinh bộ trao đổi nhiệt</li>
@@ -345,7 +345,7 @@ const EasyInRowCW = () => {
             </ul>
           </Paragraph>
 
-          <Title level={5} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Bảo trì hàng năm</Title>
+          <Title level={4} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Bảo trì hàng năm</Title>
           <Paragraph>
             <ul>
               <li>Kiểm tra toàn bộ hệ thống</li>

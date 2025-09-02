@@ -12,7 +12,7 @@ const { Title, Paragraph, Text } = Typography;
 
 const LDCVSeries = () => {
   return (
-    <div id="section-2.3" className="device-section">
+    <div id="section-2.3" className="content-section">
       <Title level={3} style={{ color: '#52c41a', marginBottom: '16px' }}>
         <SettingOutlined style={{ marginRight: '8px' }} />
         2.3. PAC UNIFLAIR LDCV Series - TTDL Vân Canh
@@ -124,7 +124,7 @@ const LDCVSeries = () => {
         </Title>
 
         <Card title="Yêu cầu lắp đặt" style={{ marginBottom: '20px' }}>
-          <Title level={5} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Vị trí lắp đặt</Title>
+          <Title level={4} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Vị trí lắp đặt</Title>
           <Paragraph>
             <ul>
               <li>Đặt trong phòng server, cách tường tối thiểu 1m</li>
@@ -135,7 +135,7 @@ const LDCVSeries = () => {
             </ul>
           </Paragraph>
 
-          <Title level={5} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Hệ thống điện</Title>
+          <Title level={4} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Hệ thống điện</Title>
           <Paragraph>
             <ul>
               <li>Điện áp: 380V/3P/50Hz</li>
@@ -146,7 +146,7 @@ const LDCVSeries = () => {
             </ul>
           </Paragraph>
 
-          <Title level={5} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Hệ thống ống gió</Title>
+          <Title level={4} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Hệ thống ống gió</Title>
           <Paragraph>
             <ul>
               <li>Ống gió cấp và hồi phù hợp</li>
@@ -179,7 +179,7 @@ const LDCVSeries = () => {
         </Title>
 
         <Card title="Khởi động hệ thống" style={{ marginBottom: '20px' }}>
-          <Title level={5} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Kiểm tra trước khi khởi động</Title>
+          <Title level={4} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Kiểm tra trước khi khởi động</Title>
           <Paragraph>
             <ul>
               <li>Kiểm tra nguồn điện 380V</li>
@@ -191,7 +191,7 @@ const LDCVSeries = () => {
             </ul>
           </Paragraph>
 
-          <Title level={5} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Quy trình khởi động</Title>
+          <Title level={4} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Quy trình khởi động</Title>
           <Paragraph>
             <ol>
               <li>Bật nguồn tủ điện</li>
@@ -205,7 +205,7 @@ const LDCVSeries = () => {
         </Card>
 
         <Card title="Kiểm tra hàng ngày" style={{ marginBottom: '20px' }}>
-          <Title level={5} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Thông số cần kiểm tra</Title>
+          <Title level={4} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Thông số cần kiểm tra</Title>
           <Table
             dataSource={[
               { key: '1', parameter: 'Nhiệt độ phòng', normal: '22±2°C', check: 'Đọc cảm biến nhiệt độ' },
@@ -336,7 +336,7 @@ const LDCVSeries = () => {
         </Title>
 
         <Card title="Bảo trì định kỳ" style={{ marginBottom: '20px' }}>
-          <Title level={5} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Bảo trì hàng tháng</Title>
+          <Title level={4} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Bảo trì hàng tháng</Title>
           <Paragraph>
             <ul>
               <li>Kiểm tra thông số vận hành</li>
@@ -348,7 +348,7 @@ const LDCVSeries = () => {
             </ul>
           </Paragraph>
 
-          <Title level={5} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Bảo trì hàng quý</Title>
+          <Title level={4} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Bảo trì hàng quý</Title>
           <Paragraph>
             <ul>
               <li>Vệ sinh dàn nóng</li>
@@ -359,7 +359,7 @@ const LDCVSeries = () => {
             </ul>
           </Paragraph>
 
-          <Title level={5} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Bảo trì hàng năm</Title>
+          <Title level={4} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Bảo trì hàng năm</Title>
           <Paragraph>
             <ul>
               <li>Kiểm tra toàn bộ hệ thống</li>

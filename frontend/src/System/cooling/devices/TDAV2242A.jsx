@@ -53,7 +53,7 @@ const TDAV2242A = () => {
   ];
 
   return (
-    <div id="section-2.2" className="device-section">
+    <div id="section-2.2" className="subsection">
       <Title level={3} style={{ color: '#52c41a', marginBottom: '16px' }}>
         <ToolOutlined style={{ marginRight: '8px' }} /> 2.2. TDAV2242A - UNIFLAIR
       </Title>

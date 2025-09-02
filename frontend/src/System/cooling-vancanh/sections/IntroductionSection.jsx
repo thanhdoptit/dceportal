@@ -1,210 +1,169 @@
 import React from 'react';
-import { Typography, Card, Row, Col, Table, Tag, Divider, Alert } from 'antd';
+import { Typography, Card, Row, Col, Table, Tag, Divider, Alert, Descriptions } from 'antd';
 import { 
   CloudOutlined, 
   ThunderboltOutlined, 
   SettingOutlined,
   InfoCircleOutlined,
   CheckCircleOutlined,
-  ExclamationCircleOutlined
+  ExclamationCircleOutlined,
+  SafetyOutlined,
+  EnvironmentOutlined
 } from '@ant-design/icons';
 
 const { Title, Paragraph, Text } = Typography;
 
 const IntroductionSection = () => {
-  // Thông số kỹ thuật chính
+  // Thông số kỹ thuật chính từ tài liệu thực tế TTDL Vân Canh
   const systemSpecs = [
     {
       category: 'Chiller SMARDT',
-      model: 'AE054.2B.F2HAJA.A010DX.E10',
+      model: 'AE Series (Oil-free)',
       capacity: '632kW (180RT)',
       type: 'Air-cooled, Oil-free',
-      features: ['Công nghệ Oil-free', 'Hiệu suất cao', 'Điều khiển thông minh']
+      features: ['Công nghệ Oil-free tiên tiến', 'Hiệu suất cao', 'Điều khiển thông minh qua BMS', 'Hỗ trợ chế độ TES']
     },
     {
       category: 'PAC UNIFLAIR SDCV',
-      model: 'SDCV Series (3-15.6kW)',
+      model: 'SDCV Series',
       capacity: '3-15.6kW',
       type: 'Precision Air Conditioning',
-      features: ['Độ chính xác cao', 'Tiết kiệm năng lượng', 'Dễ bảo trì']
+      features: ['Độ chính xác cao ±0.5°C', 'Tiết kiệm năng lượng', 'Dễ bảo trì', 'Phù hợp phòng server nhỏ']
     },
     {
       category: 'PAC UNIFLAIR LDCV',
-      model: 'LDCV Series (16.8-110kW)',
+      model: 'LDCV Series',
       capacity: '16.8-110kW',
       type: 'Large Room Cooling',
-      features: ['Công suất lớn', 'Phù hợp phòng server', 'Hiệu suất tối ưu']
+      features: ['Công suất lớn', 'Phù hợp phòng server lớn', 'Hiệu suất tối ưu', 'Điều khiển thông minh']
     },
     {
       category: 'InRow Cooling',
       model: 'Easy InRow CW ERC311',
       capacity: '21.6kW',
       type: 'Chilled Water InRow',
-      features: ['Làm mát trực tiếp', 'Tiết kiệm không gian', 'Hiệu quả cao']
+      features: ['Làm mát trực tiếp tại rack', 'Tiết kiệm không gian', 'Hiệu quả cao', 'Dễ lắp đặt']
     }
   ];
 
-  // Cấu trúc đặt tên model
-  const namingStructure = [
+  // Cấu trúc hệ thống và nguyên lý hoạt động
+  const systemStructure = [
     {
-      prefix: 'AE',
-      meaning: 'Air-cooled Chiller Series',
-      example: 'AE054.2B.F2HAJA.A010DX.E10',
-      description: 'Chiller làm mát bằng không khí, công nghệ Oil-free'
+      component: 'Hệ thống Chiller chính',
+      description: '2 Chiller SMARDT AE Series hoạt động song song với 1 dự phòng',
+      function: 'Làm lạnh nước xuống 10°C để cung cấp cho hệ thống CRAC',
+      control: 'Điều khiển tự động qua BMS với chế độ Local/Manual/Auto'
     },
     {
-      prefix: 'SDCV',
-      meaning: 'Small Data Center Ventilation',
-      example: 'SDCV0300A, SDCV0400A, SDCV0600A',
-      description: 'Điều hòa chính xác cho phòng server nhỏ'
+      component: 'Hệ thống bơm nước lạnh',
+      description: '3 bơm PCH-01, PCH-02, PCH-03 với cơ chế 2N+N',
+      function: 'Tuần hoàn nước lạnh từ Chiller đến CRAC và TES',
+      control: 'Điều khiển VFD theo chênh áp với cảm biến PDT 4-20mA'
     },
     {
-      prefix: 'LDCV',
-      meaning: 'Large Data Center Ventilation',
-      example: 'LDCV0600A, LDCV1800A, LDCV3400A, LDCV4300A',
-      description: 'Điều hòa chính xác cho phòng server lớn'
+      component: 'Hệ thống TES (Thermal Energy Storage)',
+      description: 'Bình dự trữ nước lạnh với dung tích 360m³',
+      function: 'Dự trữ nước lạnh 10°C cho trường hợp khẩn cấp (10 phút)',
+      control: '3 chế độ: Commissioning, Normal, Discharge với van V1A, V1B, V2A, V2B, V3A, V3B'
     },
     {
-      prefix: 'ERC',
-      meaning: 'Easy Row Cooling',
-      example: 'ERC311AD0HPE',
-      description: 'Hệ thống làm mát InRow dễ lắp đặt'
+      component: 'Hệ thống CRAC (Computer Room Air Conditioning)',
+      description: 'PAC UNIFLAIR SDCV, LDCV và Easy InRow CW',
+      function: 'Làm mát không khí trong phòng server với độ chính xác cao',
+      control: 'Điều khiển nhiệt độ ±0.5°C và độ ẩm 45-55%'
     }
   ];
 
-  // Nguyên lý hoạt động
-  const operationPrinciple = [
+  // Các chế độ vận hành chính
+  const operationModes = [
     {
-      step: '1',
-      title: 'Thu nhiệt từ server',
-      description: 'Server trong phòng datacenter sinh nhiệt do hoạt động, nhiệt độ không khí tăng lên',
-      details: [
-        'Server hoạt động sinh nhiệt từ CPU, GPU, các linh kiện điện tử',
-        'Nhiệt độ không khí trong phòng tăng lên 22-25°C',
-        'Độ ẩm không khí cần được duy trì 45-55%',
-        'Luồng không khí nóng cần được thu gom và làm mát'
-      ]
+      mode: 'Commissioning (Nạp)',
+      description: 'Chế độ khởi động và nạp nước lạnh vào TES',
+      vanStatus: 'V1A, V1B: Đóng; V2A, V2B: Mở 10-30%; V3A, V3B: Mở 100%',
+      temperature: 'Nước ra Chiller: 10°C, nạp vào TES cho đến khi đỉnh TES đạt 10°C',
+      purpose: 'Chuẩn bị hệ thống cho vận hành bình thường'
     },
     {
-      step: '2',
-      title: 'Hệ thống bơm và phân phối nước',
-      description: 'Hệ thống bơm nước lạnh với điều khiển VFD và các thiết bị phụ trợ đảm bảo cung cấp nước lạnh ổn định',
-      details: [
-        'Hệ thống 2N+N: 3 bơm nước lạnh (2 hoạt động + 1 dự phòng)',
-        'Điều khiển VFD với cảm biến chênh áp (PDT) 4-20mA',
-        'Tự động điều chỉnh tốc độ bơm theo tải nhiệt và áp suất',
-        'Bình TES dự trữ nước lạnh cho trường hợp khẩn cấp (10 phút)'
-      ]
+      mode: 'Normal (Bình thường)',
+      description: 'Chế độ vận hành hàng ngày',
+      vanStatus: 'V1A, V1B: Mở; V2A, V2B: Đóng; V3A, V3B: Đóng',
+      temperature: 'Nước từ Chiller qua TES đến CRAC, duy trì 10°C',
+      purpose: 'Vận hành ổn định, tiết kiệm năng lượng'
     },
     {
-      step: '3',
-      title: 'Làm mát bằng PAC và InRow',
-      description: 'PAC UNIFLAIR và Easy InRow CW hấp thụ nhiệt từ không khí nóng, làm mát xuống nhiệt độ mục tiêu',
-      details: [
-        'PAC UNIFLAIR: Làm mát không khí toàn phòng với độ chính xác ±0.5°C',
-        'Easy InRow CW: Làm mát trực tiếp tại nguồn nhiệt trong hàng rack',
-        'Nước lạnh 7°C từ chiller chảy qua bộ trao đổi nhiệt',
-        'Không khí nóng được làm mát xuống 16-18°C'
-      ]
+      mode: 'Discharge (Xả)',
+      description: 'Chế độ khẩn cấp khi Chiller mất nguồn',
+      vanStatus: 'V1A, V1B: Mở; V2A, V2B: Đóng; V3A, V3B: Đóng',
+      temperature: 'Nước từ TES cung cấp cho CRAC, duy trì 10°C trong 10 phút',
+      purpose: 'Đảm bảo hoạt động liên tục khi có sự cố'
+    }
+  ];
+
+  // Thông tin về hệ thống điều khiển BMS
+  const bmsInfo = [
+    {
+      feature: 'Điều khiển tự động Chiller',
+      description: 'Tự động khởi động/dừng Chiller theo tải nhiệt và thời gian hoạt động',
+      parameters: 'Nhiệt độ nước cấp: 10°C, Công suất Chiller: 80% (gọi thêm), 60% (cắt bớt)',
+      timing: 'Thời gian duy trì: 300s, Luân phiên: 8h'
     },
     {
-      step: '4',
-      title: 'Điều khiển lưu lượng nước lạnh',
-      description: 'Van PICV tự động điều chỉnh lưu lượng nước lạnh theo tải nhiệt và nhiệt độ phòng',
-      details: [
-        'Van PICV điều khiển lưu lượng độc lập áp suất theo tải nhiệt',
-        'Cảm biến nhiệt độ phòng gửi tín hiệu về BMS để điều khiển',
-        'Tự động mở/đóng van theo nhu cầu làm mát thực tế',
-        'Điều chỉnh áp suất đường ống thông qua cảm biến PDT'
-      ]
+      feature: 'Điều khiển bơm nước',
+      description: 'Tự động điều chỉnh tốc độ bơm theo chênh áp và lưu lượng',
+      parameters: 'Chênh áp tối thiểu: 0.1-0.3 bar, Lưu lượng tối thiểu qua Chiller',
+      control: 'VFD với cảm biến chênh áp PDT 4-20mA'
     },
     {
-      step: '5',
-      title: 'Chiller làm mát nước',
-      description: 'Chiller SMARDT hoạt động 24/7 với hệ thống điều khiển thông minh và bảo vệ an toàn',
-      details: [
-        'Hoạt động 24/7 với bộ vi xử lý điều chỉnh tự động theo tải nhiệt',
-        'Hệ thống 2N+N: 3 chiller (2 hoạt động + 1 dự phòng)',
-        'Tự động khởi động/dừng theo tín hiệu BMS và điều kiện tải',
-        'Bảo vệ an toàn với kiểm tra hệ thống trước khi vận hành'
-      ]
-    },
-    {
-      step: '6',
-      title: 'Quy trình khởi động hệ thống',
-      description: 'Trình tự khởi động an toàn: kiểm tra → bơm → quạt → chiller → PAC/CRAC',
-      details: [
-        'Kiểm tra an toàn hệ thống trước khi khởi động',
-        'Khởi động bơm nước lạnh đến tốc độ đầy tải',
-        'Khởi động quạt dàn ngưng khi máy nén đạt trạng thái đầy tải',
-        'Khởi động PAC/CRAC và bắt đầu điều khiển theo tải nhiệt'
-      ]
-    },
-    {
-      step: '7',
-      title: 'BMS giám sát và điều khiển hệ thống',
-      description: 'Hệ thống BMS điều khiển toàn bộ quá trình vận hành theo logic tương hỗ giữa chiller và bơm',
-      details: [
-        'Điều khiển logic tương hỗ: chiller ↔ bơm ↔ van PICV ↔ cảm biến',
-        'Giám sát lưu lượng nước qua lưu lượng kế trên từng bơm',
-        'Đảm bảo lưu lượng nước tối thiểu qua chiller khi vận hành',
-        'Tuân thủ tiêu chuẩn Uptime Institute Tier III cho độ tin cậy'
-      ]
+      feature: 'Điều khiển hệ thống TES',
+      description: 'Tự động chuyển đổi giữa các chế độ vận hành',
+      parameters: 'Nhiệt độ TES: 10°C, Thời gian dự phòng: 10 phút',
+      logic: 'Theo dõi nhiệt độ và trạng thái Chiller để quyết định chế độ'
     }
   ];
 
   return (
-    <div style={{ padding: '20px 0' }}>
+    <div className="content-section">
       <Title level={2} style={{ color: '#1890ff', marginBottom: '24px' }}>
         <InfoCircleOutlined style={{ marginRight: '12px' }} />
-        1. GIỚI THIỆU CHUNG - TTDL Vân Canh
+        1. Giới thiệu chung hệ thống làm mát TTDL Vân Canh
       </Title>
 
       <Alert
-        message="Hệ thống làm mát TTDL Vân Canh"
-        description="TTDL Vân Canh sử dụng công nghệ làm mát hiện đại với chiller SMARDT Oil-free, PAC UNIFLAIR và InRow cooling để đảm bảo hiệu suất tối ưu và độ tin cậy cao."
+        message="Hệ thống làm mát tiên tiến"
+        description="TTDL Vân Canh sử dụng hệ thống làm mát hiện đại với công nghệ Oil-free Chiller, hệ thống TES dự phòng và điều khiển thông minh qua BMS, đảm bảo độ tin cậy cao và hiệu suất tối ưu."
         type="info"
         showIcon
         style={{ marginBottom: '24px' }}
       />
 
-      {/* 1.1 Thông số kỹ thuật */}
-      <div id="section-1a" style={{ marginBottom: '32px' }}>
-        <Title level={3} style={{ color: '#52c41a', marginBottom: '16px' }}>
-          1.1 Thông số kỹ thuật
+      {/* Thông số kỹ thuật chính */}
+      <div id="section-1.1" className="subsection">
+      <Title level={3} style={{ color: '#52c41a', marginBottom: '16px' }}>
+      <SettingOutlined style={{ marginRight: '12px' }} />
+          1.1. Thông số kỹ thuật hệ thống
         </Title>
-        
         <Row gutter={[16, 16]}>
           {systemSpecs.map((spec, index) => (
-            <Col xs={24} lg={12} key={index}>
-              <Card
-                title={
-                  <div style={{ display: 'flex', alignItems: 'center' }}>
-                    <CloudOutlined style={{ marginRight: '8px', color: '#1890ff' }} />
-                    {spec.category}
-                  </div>
-                }
-                style={{ height: '100%' }}
-              >
-                <div style={{ marginBottom: '12px' }}>
+            <Col xs={24} sm={12} lg={6} key={index}>
+              <Card size="small" style={{ height: '100%' }}>
+                <Title level={4} style={{ color: '#1890ff', marginBottom: '12px' }}>
+                  {spec.category}
+                </Title>
+                <Paragraph style={{ marginBottom: '8px' }}>
                   <Text strong>Model:</Text> {spec.model}
-                </div>
-                <div style={{ marginBottom: '12px' }}>
+                </Paragraph>
+                <Paragraph style={{ marginBottom: '8px' }}>
                   <Text strong>Công suất:</Text> {spec.capacity}
-                </div>
-                <div style={{ marginBottom: '12px' }}>
+                </Paragraph>
+                <Paragraph style={{ marginBottom: '8px' }}>
                   <Text strong>Loại:</Text> {spec.type}
-                </div>
-                <div>
-                  <Text strong>Tính năng:</Text>
-                  <div style={{ marginTop: '8px' }}>
-                    {spec.features.map((feature, idx) => (
-                      <Tag key={idx} color="blue" style={{ marginBottom: '4px' }}>
-                        <CheckCircleOutlined style={{ marginRight: '4px' }} />
-                        {feature}
-                      </Tag>
-                    ))}
-                  </div>
+                </Paragraph>
+                <div style={{ marginTop: '12px' }}>
+                  {spec.features.map((feature, idx) => (
+                    <Tag key={idx} color="blue" style={{ marginBottom: '4px' }}>
+                      {feature}
+                    </Tag>
+                  ))}
                 </div>
               </Card>
             </Col>
@@ -212,81 +171,95 @@ const IntroductionSection = () => {
         </Row>
       </div>
 
-      <Divider />
-
-      {/* 1.2 Cấu trúc đặt tên model */}
-      <div id="section-1b" style={{ marginBottom: '32px' }}>
-        <Title level={3} style={{ color: '#52c41a', marginBottom: '16px' }}>
-          1.2 Cấu trúc đặt tên của các model thuộc TTDL Vân Canh
+      {/* Cấu trúc và nguyên lý hoạt động */}
+      <div id="section-1.2" className="subsection">
+        <Title level={3} style={{ color: '#1890ff', marginBottom: '20px', borderBottom: '2px solid #1890ff', paddingBottom: '8px' }}>
+          <CloudOutlined style={{ marginRight: '12px' }} />
+          1.2. Cấu trúc và nguyên lý hoạt động
         </Title>
-
-        <Table
-          dataSource={namingStructure}
-          columns={[
-            {
-              title: 'Prefix',
-              dataIndex: 'prefix',
-              key: 'prefix',
-              width: 120,
-              render: (text) => <Tag color="blue">{text}</Tag>
-            },
-            {
-              title: 'Ý nghĩa',
-              dataIndex: 'meaning',
-              key: 'meaning',
-              width: 200
-            },
-            {
-              title: 'Ví dụ',
-              dataIndex: 'example',
-              key: 'example',
-              width: 200,
-              render: (text) => <Text code>{text}</Text>
-            },
-            {
-              title: 'Mô tả',
-              dataIndex: 'description',
-              key: 'description'
-            }
-          ]}
-          pagination={false}
-          size="small"
-        />
+        <Row gutter={[16, 16]}>
+          {systemStructure.map((item, index) => (
+            <Col xs={24} lg={12} key={index}>
+              <Card size="small" style={{ height: '100%' }}>
+                <Title level={4} style={{ color: '#1890ff', marginBottom: '12px' }}>
+                  {item.component}
+                </Title>
+                <Paragraph style={{ marginBottom: '8px' }}>
+                  <Text strong>Mô tả:</Text> {item.description}
+                </Paragraph>
+                <Paragraph style={{ marginBottom: '8px' }}>
+                  <Text strong>Chức năng:</Text> {item.function}
+                </Paragraph>
+                <Paragraph style={{ marginBottom: '0' }}>
+                  <Text strong>Điều khiển:</Text> {item.control}
+                </Paragraph>
+              </Card>
+            </Col>
+          ))}
+        </Row>
       </div>
 
-      <Divider />
-
-      {/* 1.3 Nguyên lý hoạt động */}
-      <div id="section-1c" style={{ marginBottom: '32px' }}>
-        <Title level={3} style={{ color: '#52c41a', marginBottom: '16px' }}>
-          1.3 Nguyên lý hoạt động và chu trình làm mát của hệ thống TTDL Vân Canh
+      {/* Các chế độ vận hành chính */}
+      <div id="section-1.3" className="subsection">
+        <Title level={3} style={{ color: '#1890ff', marginBottom: '20px', borderBottom: '2px solid #1890ff', paddingBottom: '8px' }}>
+          <ThunderboltOutlined style={{ marginRight: '12px' }} />
+          1.3. Các chế độ vận hành chính
         </Title>
-
+      
         <Row gutter={[16, 16]}>
-          {operationPrinciple.map((principle, index) => (
-            <Col xs={24} lg={12} key={index}>
-              <Card
-                title={
-                  <div style={{ display: 'flex', alignItems: 'center' }}>
-                    <SettingOutlined style={{ marginRight: '8px', color: '#1890ff' }} />
-                    Bước {principle.step}: {principle.title}
-                  </div>
-                }
-                style={{ height: '100%' }}
+          {operationModes.map((mode, index) => (
+            <Col xs={24} lg={8} key={index}>
+              <Card 
+                size="small" 
+                style={{ 
+                  height: '100%', 
+                  
+                  background: index === 1 ? '#f6ffed' : 'white'
+                }}
               >
-                <Paragraph style={{ marginBottom: '12px' }}>
-                  {principle.description}
+                <Title level={4} style={{ color: '#52c41a', marginBottom: '12px' }}>
+                  {mode.mode}
+                </Title>
+                <Paragraph style={{ marginBottom: '8px' }}>
+                  <Text strong>Mô tả:</Text> {mode.description}
                 </Paragraph>
-                <div>
-                  <Text strong>Chi tiết:</Text>
-                  <ul style={{ marginTop: '8px', paddingLeft: '20px' }}>
-                    {principle.details.map((detail, idx) => (
-                      <li key={idx} style={{ marginBottom: '4px' }}>
-                        <Text>{detail}</Text>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                <Paragraph style={{ marginBottom: '8px' }}>
+                  <Text strong>Trạng thái van:</Text> {mode.vanStatus}
+                </Paragraph>
+                <Paragraph style={{ marginBottom: '8px' }}>
+                  <Text strong>Nhiệt độ:</Text> {mode.temperature}
+                </Paragraph>
+                <Paragraph style={{ marginBottom: '0' }}>
+                  <Text strong>Mục đích:</Text> {mode.purpose}
+                </Paragraph>
+              </Card>
+            </Col>
+          ))}
+        </Row>
+      </div>
+
+      {/* Hệ thống điều khiển BMS */}
+      <div id="section-1.4" className="subsection">
+        <Title level={3} style={{ color: '#1890ff', marginBottom: '20px', borderBottom: '2px solid #1890ff', paddingBottom: '8px' }}>
+          <SafetyOutlined style={{ marginRight: '12px' }} />
+          1.4. Hệ thống điều khiển BMS (Building Management System)
+        </Title>
+        <Row gutter={[16, 16]}>
+          {bmsInfo.map((info, index) => (
+            <Col xs={24} lg={8} key={index}>
+              <Card size="small" style={{ height: '100%' }}>
+                <Title level={4} style={{ color: '#722ed1', marginBottom: '12px' }}>
+                  {info.feature}
+                </Title>
+                <Paragraph style={{ marginBottom: '8px' }}>
+                  <Text strong>Mô tả:</Text> {info.description}
+                </Paragraph>
+                <Paragraph style={{ marginBottom: '8px' }}>
+                  <Text strong>Tham số:</Text> {info.parameters}
+                </Paragraph>
+                <Paragraph style={{ marginBottom: '0' }}>
+                  <Text strong>Điều khiển:</Text> {info.control}
+                </Paragraph>
               </Card>
             </Col>
           ))}
@@ -294,13 +267,30 @@ const IntroductionSection = () => {
       </div>
 
       {/* Thông tin bổ sung */}
-      <Alert
-        message="Lưu ý quan trọng"
-        description="Hệ thống làm mát TTDL Vân Canh được thiết kế với công nghệ tiên tiến, đảm bảo hiệu suất cao và độ tin cậy. Việc vận hành và bảo trì cần tuân thủ nghiêm ngặt các quy trình hướng dẫn."
-        type="warning"
-        showIcon
-        style={{ marginTop: '24px' }}
-      />
+      <div id="section-1.5" className="subsection">
+        <Title level={3} style={{ color: '#1890ff', marginBottom: '20px', borderBottom: '2px solid #1890ff', paddingBottom: '8px' }}>
+          <EnvironmentOutlined style={{ marginRight: '12px' }} />
+          1.5. Thông tin bổ sung
+        </Title>
+        <Row gutter={[16, 16]}>
+          <Col xs={24} lg={12}>
+            <Alert
+              message="Độ tin cậy cao"
+              description="Hệ thống được thiết kế với cơ chế dự phòng 2N+N cho bơm và Chiller, đảm bảo hoạt động liên tục 24/7."
+              type="success"
+              showIcon
+            />
+          </Col>
+          <Col xs={24} lg={12}>
+            <Alert
+              message="Tiết kiệm năng lượng"
+              description="Sử dụng công nghệ Oil-free Chiller và điều khiển VFD thông minh, giảm thiểu tiêu thụ năng lượng."
+              type="warning"
+              showIcon
+            />
+          </Col>
+        </Row>
+      </div>
     </div>
   );
 };

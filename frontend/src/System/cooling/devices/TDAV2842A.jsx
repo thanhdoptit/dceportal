@@ -11,7 +11,7 @@ const { Title, Paragraph, Text } = Typography;
 
 const TDAV2842A = () => {
   return (
-    <div id="section-2.3" className="device-section">
+    <div id="section-2.3" className="subsection">
       <Title level={3} style={{ color: '#52c41a', marginBottom: '16px' }}>
         2.3. TDAV2842A - UNIFLAIR
       </Title>

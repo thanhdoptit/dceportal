@@ -18,8 +18,8 @@ const ApplicationSection = () => {
       </Title>
 
       <div id="section-4.1" className="subsection">
-        <Title level={3} style={{ color: '#52c41a', marginBottom: '16px' }}>
-          4.1. Quy trình vận hành hàng ngày chung của hệ thống làm mát
+      <Title level={3} style={{ color: '#52c41a', marginBottom: '16px' }}>
+      4.1. Quy trình vận hành hàng ngày chung của hệ thống làm mát
         </Title>
 
         <Card title="Quy trình kiểm tra ban đầu" style={{ marginBottom: '20px' }}>

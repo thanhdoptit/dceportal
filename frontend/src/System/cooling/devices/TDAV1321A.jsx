@@ -11,16 +11,14 @@ const { Title, Paragraph, Text } = Typography;
 
 const TDAV1321A = () => {
   return (
-    <div id="section-2.1" className="device-section">
+    <div id="section-2.1" className="subsection">
       <Title level={3} style={{ color: '#52c41a', marginBottom: '16px' }}>
         2.1. TDAV1321A - UNIFLAIR
       </Title>
-
       <div id="section-2.1.1" className="subsection">
         <Title level={4} style={{ color: '#1890ff', marginBottom: '12px' }}>
           <InfoCircleOutlined style={{ marginRight: '8px' }} /> 2.1.1. Thông tin chung
         </Title>
-
         <div style={{ textAlign: 'center', marginBottom: '20px' }}>
           <img
             src="/cooling/1321.png"

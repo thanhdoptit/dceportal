@@ -15,7 +15,7 @@ const { Title, Paragraph, Text } = Typography;
 
 const FM40H = () => {
   return (
-    <div id="section-2.4" className="device-section">
+          <div id="section-2.4" className="subsection">
       <Title level={3} style={{ color: '#52c41a', marginBottom: '16px' }}>
         2.4. FM40H-AGB-ESD-APC
       </Title>

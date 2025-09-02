@@ -8,7 +8,7 @@ import {
 } from '@ant-design/icons';
 
 const { Title, Text, Paragraph } = Typography;
-const { TabPane } = Tabs;
+
 
 const PerformanceCharts = () => {
   // SMARDT Performance Data từ tài liệu APC
@@ -64,265 +64,278 @@ const PerformanceCharts = () => {
         style={{ marginBottom: '24px' }}
       />
 
-      <Tabs defaultActiveKey="1">
-        <TabPane tab="SMARDT Chiller Performance" key="1">
-          <Card>
-            <Title level={4} style={{ color: '#52c41a', marginBottom: '16px' }}>
-              <ThunderboltOutlined style={{ marginRight: '8px' }} />
-              SMARDT AE054.2B.F2HAJA.A010DX.E10 - Performance Curves
-            </Title>
-            
-            <Alert
-              message="Điều kiện thiết kế"
-              description="Evap: 16.00/10.00°C - Condenser: 43.0°C - Flow rate: 25.1 L/s - Ambient: 43°C dry bulb"
-              type="success"
-              showIcon
-              style={{ marginBottom: '20px' }}
-            />
+      <Tabs 
+        defaultActiveKey="1"
+        items={[
+          {
+            key: '1',
+            label: 'SMARDT Chiller Performance',
+            children: (
+              <Card>
+                <Title level={4} style={{ color: '#52c41a', marginBottom: '16px' }}>
+                  <ThunderboltOutlined style={{ marginRight: '8px' }} />
+                  SMARDT AE054.2B.F2HAJA.A010DX.E10 - Performance Curves
+                </Title>
+                
+                <Alert
+                  message="Điều kiện thiết kế"
+                  description="Evap: 16.00/10.00°C - Condenser: 43.0°C - Flow rate: 25.1 L/s - Ambient: 43°C dry bulb"
+                  type="success"
+                  showIcon
+                  style={{ marginBottom: '20px' }}
+                />
 
-            <Table
-              dataSource={smartdPerformanceData}
-              columns={[
-                {
-                  title: 'Tải (%)',
-                  dataIndex: 'load',
-                  key: 'load',
-                  width: '8%',
-                  render: (text) => <Tag color="blue">{text}</Tag>
-                },
-                {
-                  title: 'Capacity (kWr)',
-                  dataIndex: 'capacity',
-                  key: 'capacity',
-                  width: '12%',
-                  render: (text) => <Text strong>{text}</Text>
-                },
-                {
-                  title: 'COP',
-                  dataIndex: 'cop',
-                  key: 'cop',
-                  width: '10%',
-                  render: (text) => {
-                    const copValue = parseFloat(text);
-                    let color = 'green';
-                    if (copValue < 5) color = 'orange';
-                    if (copValue < 3) color = 'red';
-                    return <Tag color={color}>{text}</Tag>
-                  }
-                },
-                {
-                  title: 'Power (kW)',
-                  dataIndex: 'power',
-                  key: 'power',
-                  width: '10%'
-                },
-                {
-                  title: 'CHWR (°C)',
-                  dataIndex: 'chwr',
-                  key: 'chwr',
-                  width: '10%'
-                },
-                {
-                  title: 'CHWS (°C)',
-                  dataIndex: 'chws',
-                  key: 'chws',
-                  width: '10%'
-                },
-                {
-                  title: 'Amb Temp (°C)',
-                  dataIndex: 'ambTemp',
-                  key: 'ambTemp',
-                  width: '12%'
-                },
-                {
-                  title: 'Sound dB(A)',
-                  dataIndex: 'sound',
-                  key: 'sound',
-                  width: '12%',
-                  render: (text) => {
-                    const soundLevel = parseFloat(text);
-                    let color = 'green';
-                    if (soundLevel > 65) color = 'orange';
-                    if (soundLevel > 68) color = 'red';
-                    return <Tag color={color}>{text}</Tag>
-                  }
-                }
-              ]}
-              pagination={false}
-              size="small"
-              bordered
-              scroll={{ x: 800 }}
-            />
+                <Table
+                  dataSource={smartdPerformanceData}
+                  columns={[
+                    {
+                      title: 'Tải (%)',
+                      dataIndex: 'load',
+                      key: 'load',
+                      width: '8%',
+                      render: (text) => <Tag color="blue">{text}</Tag>
+                    },
+                    {
+                      title: 'Capacity (kWr)',
+                      dataIndex: 'capacity',
+                      key: 'capacity',
+                      width: '12%',
+                      render: (text) => <Text strong>{text}</Text>
+                    },
+                    {
+                      title: 'COP',
+                      dataIndex: 'cop',
+                      key: 'cop',
+                      width: '10%',
+                      render: (text) => {
+                        const copValue = parseFloat(text);
+                        let color = 'green';
+                        if (copValue < 5) color = 'orange';
+                        if (copValue < 3) color = 'red';
+                        return <Tag color={color}>{text}</Tag>
+                      }
+                    },
+                    {
+                      title: 'Power (kW)',
+                      dataIndex: 'power',
+                      key: 'power',
+                      width: '10%'
+                    },
+                    {
+                      title: 'CHWR (°C)',
+                      dataIndex: 'chwr',
+                      key: 'chwr',
+                      width: '10%'
+                    },
+                    {
+                      title: 'CHWS (°C)',
+                      dataIndex: 'chws',
+                      key: 'chws',
+                      width: '10%'
+                    },
+                    {
+                      title: 'Amb Temp (°C)',
+                      dataIndex: 'ambTemp',
+                      key: 'ambTemp',
+                      width: '12%'
+                    },
+                    {
+                      title: 'Sound dB(A)',
+                      dataIndex: 'sound',
+                      key: 'sound',
+                      width: '12%',
+                      render: (text) => {
+                        const soundLevel = parseFloat(text);
+                        let color = 'green';
+                        if (soundLevel > 65) color = 'orange';
+                        if (soundLevel > 68) color = 'red';
+                        return <Tag color={color}>{text}</Tag>
+                      }
+                    }
+                  ]}
+                  pagination={false}
+                  size="small"
+                  bordered
+                  scroll={{ x: 800 }}
+                />
 
-            <Divider />
+                <Divider />
 
-            <div style={{ marginTop: '20px' }}>
-              <Title level={5} style={{ color: '#595959' }}>Phân tích hiệu suất:</Title>
-              <Space direction="vertical" size="small">
-                <Text>• <strong>COP tối ưu:</strong> 14.80 tại tải 25% (tiết kiệm năng lượng tối đa)</Text>
-                <Text>• <strong>COP full load:</strong> 3.238 tại tải 100% (điều kiện thiết kế)</Text>
-                <Text>• <strong>Vùng vận hành tối ưu:</strong> 40-75% tải (COP 5.0-11.14)</Text>
-                <Text>• <strong>Sound level:</strong> Giảm từ 69.0 dB(A) xuống 57.3 dB(A) theo tải</Text>
-                <Text>• <strong>Công suất tiêu thụ:</strong> Từ 194.6 kW (100%) xuống 6.557 kW (10%)</Text>
-              </Space>
-            </div>
-          </Card>
-        </TabPane>
+                <div style={{ marginTop: '20px' }}>
+                  <Title level={4} style={{ color: '#595959' }}>Phân tích hiệu suất:</Title>
+                  <Space direction="vertical" size="small">
+                    <Text>• <strong>COP tối ưu:</strong> 14.80 tại tải 25% (tiết kiệm năng lượng tối đa)</Text>
+                    <Text>• <strong>COP full load:</strong> 3.238 tại tải 100% (điều kiện thiết kế)</Text>
+                    <Text>• <strong>Vùng vận hành tối ưu:</strong> 40-75% tải (COP 5.0-11.14)</Text>
+                    <Text>• <strong>Sound level:</strong> Giảm từ 69.0 dB(A) xuống 57.3 dB(A) theo tải</Text>
+                    <Text>• <strong>Công suất tiêu thụ:</strong> Từ 194.6 kW (100%) xuống 6.557 kW (10%)</Text>
+                  </Space>
+                </div>
+              </Card>
+            )
+          },
+          {
+            key: '2',
+            label: 'UNIFLAIR PAC Performance',
+            children: (
+              <Card>
+                <Title level={4} style={{ color: '#52c41a', marginBottom: '16px' }}>
+                  <LineChartOutlined style={{ marginRight: '8px' }} />
+                  UNIFLAIR LDCV Series - Performance Data
+                </Title>
+                
+                <Alert
+                  message="Điều kiện thiết kế UNIFLAIR"
+                  description="Dry bulb: 25°C, Wet bulb: 17.9°C, Chilled water: 10/16°C, External static: 20 Pa"
+                  type="success"
+                  showIcon
+                  style={{ marginBottom: '20px' }}
+                />
 
-        <TabPane tab="UNIFLAIR PAC Performance" key="2">
-          <Card>
-            <Title level={4} style={{ color: '#52c41a', marginBottom: '16px' }}>
-              <LineChartOutlined style={{ marginRight: '8px' }} />
-              UNIFLAIR LDCV Series - Performance Data
-            </Title>
-            
-            <Alert
-              message="Điều kiện thiết kế UNIFLAIR"
-              description="Dry bulb: 25°C, Wet bulb: 17.9°C, Chilled water: 10/16°C, External static: 20 Pa"
-              type="success"
-              showIcon
-              style={{ marginBottom: '20px' }}
-            />
+                <Table
+                  dataSource={ldcvPerformanceData}
+                  columns={[
+                    {
+                      title: 'Model',
+                      dataIndex: 'model',
+                      key: 'model',
+                      width: '15%',
+                      render: (text) => <Tag color="purple">{text}</Tag>
+                    },
+                    {
+                      title: 'Net Capacity (kW)',
+                      dataIndex: 'netCapacity',
+                      key: 'netCapacity',
+                      width: '15%',
+                      render: (text) => <Text strong>{text}</Text>
+                    },
+                    {
+                      title: 'Total Capacity (kW)',
+                      dataIndex: 'totalCapacity',
+                      key: 'totalCapacity',
+                      width: '15%'
+                    },
+                    {
+                      title: 'SHR (%)',
+                      dataIndex: 'shr',
+                      key: 'shr',
+                      width: '10%',
+                      render: (text) => <Tag color="green">{text}</Tag>
+                    },
+                    {
+                      title: 'EER',
+                      dataIndex: 'eer',
+                      key: 'eer',
+                      width: '10%',
+                      render: (text) => <Tag color="gold">{text}</Tag>
+                    },
+                    {
+                      title: 'Flow Rate (m³/h)',
+                      dataIndex: 'flowRate',
+                      key: 'flowRate',
+                      width: '15%'
+                    },
+                    {
+                      title: 'Max Pressure (Pa)',
+                      dataIndex: 'pressure',
+                      key: 'pressure',
+                      width: '15%'
+                    },
+                    {
+                      title: 'Sound dB(A)',
+                      dataIndex: 'sound',
+                      key: 'sound',
+                      width: '15%',
+                      render: (text) => <Tag color="cyan">{text}</Tag>
+                    }
+                  ]}
+                  pagination={false}
+                  size="small"
+                  bordered
+                />
 
-            <Table
-              dataSource={ldcvPerformanceData}
-              columns={[
-                {
-                  title: 'Model',
-                  dataIndex: 'model',
-                  key: 'model',
-                  width: '15%',
-                  render: (text) => <Tag color="purple">{text}</Tag>
-                },
-                {
-                  title: 'Net Capacity (kW)',
-                  dataIndex: 'netCapacity',
-                  key: 'netCapacity',
-                  width: '15%',
-                  render: (text) => <Text strong>{text}</Text>
-                },
-                {
-                  title: 'Total Capacity (kW)',
-                  dataIndex: 'totalCapacity',
-                  key: 'totalCapacity',
-                  width: '15%'
-                },
-                {
-                  title: 'SHR (%)',
-                  dataIndex: 'shr',
-                  key: 'shr',
-                  width: '10%',
-                  render: (text) => <Tag color="green">{text}</Tag>
-                },
-                {
-                  title: 'EER',
-                  dataIndex: 'eer',
-                  key: 'eer',
-                  width: '10%',
-                  render: (text) => <Tag color="gold">{text}</Tag>
-                },
-                {
-                  title: 'Flow Rate (m³/h)',
-                  dataIndex: 'flowRate',
-                  key: 'flowRate',
-                  width: '15%'
-                },
-                {
-                  title: 'Max Pressure (Pa)',
-                  dataIndex: 'pressure',
-                  key: 'pressure',
-                  width: '15%'
-                },
-                {
-                  title: 'Sound dB(A)',
-                  dataIndex: 'sound',
-                  key: 'sound',
-                  width: '15%',
-                  render: (text) => <Tag color="cyan">{text}</Tag>
-                }
-              ]}
-              pagination={false}
-              size="small"
-              bordered
-            />
+                <div style={{ marginTop: '20px' }}>
+                  <Title level={4} style={{ color: '#595959' }}>Đặc điểm kỹ thuật UNIFLAIR:</Title>
+                  <Space direction="vertical" size="small">
+                    <Text>• <strong>LDCV0600A:</strong> 16.8kW - Phòng server nhỏ, EER cao nhất 38.6</Text>
+                    <Text>• <strong>LDCV1800A:</strong> 64.4kW - Phòng server trung bình</Text>
+                    <Text>• <strong>LDCV3400A:</strong> 79.8kW - Phòng server lớn</Text>
+                    <Text>• <strong>LDCV4300A:</strong> 110.0kW - Phòng server rất lớn</Text>
+                    <Text>• <strong>SHR:</strong> 94-98% (tỷ lệ nhiệt hiển cao, phù hợp IT load)</Text>
+                  </Space>
+                </div>
+              </Card>
+            )
+          },
+          {
+            key: '3',
+            label: 'Sound Analysis',
+            children: (
+              <Card>
+                <Title level={4} style={{ color: '#52c41a', marginBottom: '16px' }}>
+                  <InfoCircleOutlined style={{ marginRight: '8px' }} />
+                  SMARDT Sound Frequency Analysis @ 1m
+                </Title>
 
-            <div style={{ marginTop: '20px' }}>
-              <Title level={5} style={{ color: '#595959' }}>Đặc điểm kỹ thuật UNIFLAIR:</Title>
-              <Space direction="vertical" size="small">
-                <Text>• <strong>LDCV0600A:</strong> 16.8kW - Phòng server nhỏ, EER cao nhất 38.6</Text>
-                <Text>• <strong>LDCV1800A:</strong> 64.4kW - Phòng server trung bình</Text>
-                <Text>• <strong>LDCV3400A:</strong> 79.8kW - Phòng server lớn</Text>
-                <Text>• <strong>LDCV4300A:</strong> 110.0kW - Phòng server rất lớn</Text>
-                <Text>• <strong>SHR:</strong> 94-98% (tỷ lệ nhiệt hiển cao, phù hợp IT load)</Text>
-              </Space>
-            </div>
-          </Card>
-        </TabPane>
+                <Table
+                  dataSource={soundAnalysisData}
+                  columns={[
+                    {
+                      title: 'Frequency',
+                      dataIndex: 'frequency',
+                      key: 'frequency',
+                      width: '15%',
+                      render: (text) => <Tag color="blue">{text}</Tag>
+                    },
+                    {
+                      title: '100% Load',
+                      dataIndex: 'smardt100',
+                      key: 'smardt100',
+                      width: '20%',
+                      render: (text) => <Text strong>{text} dB</Text>
+                    },
+                    {
+                      title: '75% Load',
+                      dataIndex: 'smardt75',
+                      key: 'smardt75',
+                      width: '20%',
+                      render: (text) => <Text>{text} dB</Text>
+                    },
+                    {
+                      title: '50% Load',
+                      dataIndex: 'smardt50',
+                      key: 'smardt50',
+                      width: '20%',
+                      render: (text) => <Text>{text} dB</Text>
+                    },
+                    {
+                      title: '25% Load',
+                      dataIndex: 'smardt25',
+                      key: 'smardt25',
+                      width: '20%',
+                      render: (text) => <Text type="success">{text} dB</Text>
+                    }
+                  ]}
+                  pagination={false}
+                  size="small"
+                  bordered
+                />
 
-        <TabPane tab="Sound Analysis" key="3">
-          <Card>
-            <Title level={4} style={{ color: '#52c41a', marginBottom: '16px' }}>
-              <InfoCircleOutlined style={{ marginRight: '8px' }} />
-              SMARDT Sound Frequency Analysis @ 1m
-            </Title>
-
-            <Table
-              dataSource={soundAnalysisData}
-              columns={[
-                {
-                  title: 'Frequency',
-                  dataIndex: 'frequency',
-                  key: 'frequency',
-                  width: '15%',
-                  render: (text) => <Tag color="blue">{text}</Tag>
-                },
-                {
-                  title: '100% Load',
-                  dataIndex: 'smardt100',
-                  key: 'smardt100',
-                  width: '20%',
-                  render: (text) => <Text strong>{text} dB</Text>
-                },
-                {
-                  title: '75% Load',
-                  dataIndex: 'smardt75',
-                  key: 'smardt75',
-                  width: '20%',
-                  render: (text) => <Text>{text} dB</Text>
-                },
-                {
-                  title: '50% Load',
-                  dataIndex: 'smardt50',
-                  key: 'smardt50',
-                  width: '20%',
-                  render: (text) => <Text>{text} dB</Text>
-                },
-                {
-                  title: '25% Load',
-                  dataIndex: 'smardt25',
-                  key: 'smardt25',
-                  width: '20%',
-                  render: (text) => <Text type="success">{text} dB</Text>
-                }
-              ]}
-              pagination={false}
-              size="small"
-              bordered
-            />
-
-            <div style={{ marginTop: '20px' }}>
-              <Title level={5} style={{ color: '#595959' }}>Phân tích tần số âm thanh:</Title>
-              <Space direction="vertical" size="small">
-                <Text>• <strong>Tần số cao nhất:</strong> 1000 Hz (65.2 dB @ 100% load)</Text>
-                <Text>• <strong>Tần số thấp nhất:</strong> 63 Hz (46.7 dB @ 100% load)</Text>
-                <Text>• <strong>Giảm âm theo tải:</strong> ~7-8 dB khi giảm từ 100% xuống 25%</Text>
-                <Text>• <strong>Tần số ảnh hưởng nhiều:</strong> 500-2000 Hz (phạm vi nghe rõ nhất)</Text>
-                <Text>• <strong>Khuyến nghị:</strong> Vận hành &lt;75% load để giảm tiếng ồn</Text>
-              </Space>
-            </div>
-          </Card>
-        </TabPane>
-      </Tabs>
+                <div style={{ marginTop: '20px' }}>
+                  <Title level={4} style={{ color: '#595959' }}>Phân tích tần số âm thanh:</Title>
+                  <Space direction="vertical" size="small">
+                    <Text>• <strong>Tần số cao nhất:</strong> 1000 Hz (65.2 dB @ 100% load)</Text>
+                    <Text>• <strong>Tần số thấp nhất:</strong> 63 Hz (46.7 dB @ 100% load)</Text>
+                    <Text>• <strong>Giảm âm theo tải:</strong> ~7-8 dB khi giảm từ 100% xuống 25%</Text>
+                    <Text>• <strong>Tần số ảnh hưởng nhiều:</strong> 500-2000 Hz (phạm vi nghe rõ nhất)</Text>
+                    <Text>• <strong>Khuyến nghị:</strong> Vận hành &lt;75% load để giảm tiếng ồn</Text>
+                  </Space>
+                </div>
+              </Card>
+            )
+          }
+        ]}
+      />
 
       <Divider />
 

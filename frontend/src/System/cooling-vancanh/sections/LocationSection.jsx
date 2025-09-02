@@ -9,11 +9,12 @@ import {
   HomeOutlined,
   ApartmentOutlined,
   RadarChartOutlined,
-  DownloadOutlined
+  DownloadOutlined,
+  CloudOutlined
 } from '@ant-design/icons';
 
 const { Title, Paragraph, Text } = Typography;
-const { TabPane } = Tabs;
+
 
 const LocationSection = () => {
   // Function to handle drawing download
@@ -217,7 +218,7 @@ const LocationSection = () => {
     <div style={{ padding: '20px 0' }}>
       <Title level={2} style={{ color: '#1890ff', marginBottom: '24px' }}>
         <EnvironmentOutlined style={{ marginRight: '12px' }} />
-        3. VỊ TRÍ HỆ THỐNG - TTDL Vân Canh
+        4. VỊ TRÍ HỆ THỐNG - TTDL Vân Canh
       </Title>
 
       <Alert
@@ -228,11 +229,11 @@ const LocationSection = () => {
         style={{ marginBottom: '24px' }}
       />
 
-      <div id="section-3.1" style={{ marginBottom: '24px' }}>
+      <div id="section-4.1" className="subsection" style={{ marginBottom: '24px' }}>
         <Card>
           <Title level={3} style={{ color: '#1890ff', marginBottom: '16px' }}>
             <ApartmentOutlined style={{ marginRight: '8px' }} />
-            3.1. Sơ đồ bố trí tổng thể
+            4.1. Sơ đồ bố trí tổng thể
           </Title>
 
           <Alert
@@ -245,171 +246,182 @@ const LocationSection = () => {
 
           <HVACSystemDiagram />
 
-          <Tabs defaultActiveKey="1" style={{ marginTop: '20px' }}>
-            <TabPane tab="Mặt bằng tầng" key="1">
-              <Table
-                dataSource={floorPlansData}
-                columns={[
-                  {
-                    title: 'Tầng',
-                    dataIndex: 'floor',
-                    key: 'floor',
-                    width: '15%',
-                    render: (text) => <Tag color="blue">{text}</Tag>
-                  },
-                  {
-                    title: 'Mã bản vẽ',
-                    dataIndex: 'drawing',
-                    key: 'drawing',
-                    width: '15%',
-                    render: (text) => <Text code>{text}</Text>
-                  },
-                  {
-                    title: 'Mô tả',
-                    dataIndex: 'description',
-                    key: 'description',
-                    width: '30%'
-                  },
-                  {
-                    title: 'Thiết bị chính',
-                    dataIndex: 'equipment',
-                    key: 'equipment',
-                    width: '30%',
-                    render: (equipment) => (
-                      <div>
-                        {equipment.map((item, index) => (
-                          <Tag key={index} color="green" style={{ marginBottom: '4px' }}>
-                            {item}
-                          </Tag>
-                        ))}
-                      </div>
-                    )
-                  },
-                  {
-                    title: 'Tỷ lệ',
-                    dataIndex: 'scale',
-                    key: 'scale',
-                    width: '8%',
-                    render: (text) => <Tag color="orange">{text}</Tag>
-                  },
-                  {
-                    title: 'Tải bản vẽ',
-                    dataIndex: 'drawing',
-                    key: 'download',
-                    width: '12%',
-                    render: (drawingCode) => (
-                      <Button 
-                        type="primary" 
-                        size="small"
-                        icon={<DownloadOutlined />}
-                        onClick={() => handleDownload(drawingCode)}
-                        title={`Tải ${drawingCode}.pdf`}
-                      >
-                        PDF
-                      </Button>
-                    )
-                  }
-                ]}
-                pagination={false}
-                size="small"
-                bordered
-              />
-            </TabPane>
+          <Tabs 
+            defaultActiveKey="1" 
+            style={{ marginTop: '20px' }}
+            items={[
+              {
+                key: '1',
+                label: 'Mặt bằng tầng',
+                children: (
+                  <Table
+                    dataSource={floorPlansData}
+                    columns={[
+                      {
+                        title: 'Tầng',
+                        dataIndex: 'floor',
+                        key: 'floor',
+                        width: '15%',
+                        render: (text) => <Tag color="blue">{text}</Tag>
+                      },
+                      {
+                        title: 'Mã bản vẽ',
+                        dataIndex: 'drawing',
+                        key: 'drawing',
+                        width: '15%',
+                        render: (text) => <Text code>{text}</Text>
+                      },
+                      {
+                        title: 'Mô tả',
+                        dataIndex: 'description',
+                        key: 'description',
+                        width: '30%'
+                      },
+                      {
+                        title: 'Thiết bị chính',
+                        dataIndex: 'equipment',
+                        key: 'equipment',
+                        width: '30%',
+                        render: (equipment) => (
+                          <div>
+                            {equipment.map((item, index) => (
+                              <Tag key={index} color="green" style={{ marginBottom: '4px' }}>
+                                {item}
+                              </Tag>
+                            ))}
+                          </div>
+                        )
+                      },
+                      {
+                        title: 'Tỷ lệ',
+                        dataIndex: 'scale',
+                        key: 'scale',
+                        width: '8%',
+                        render: (text) => <Tag color="orange">{text}</Tag>
+                      },
+                      {
+                        title: 'Tải bản vẽ',
+                        dataIndex: 'drawing',
+                        key: 'download',
+                        width: '12%',
+                        render: (drawingCode) => (
+                          <Button 
+                            type="primary" 
+                            size="small"
+                            icon={<DownloadOutlined />}
+                            onClick={() => handleDownload(drawingCode)}
+                            title={`Tải ${drawingCode}.pdf`}
+                          >
+                            PDF
+                          </Button>
+                        )
+                      }
+                    ]}
+                    pagination={false}
+                    size="small"
+                    bordered
+                  />
+                )
+              },
+              {
+                key: '2',
+                label: 'Tổng quan hệ thống',
+                children: (
+                  <Space direction="vertical" size="large" style={{ width: '100%' }}>
+                    <Card title="Tầng thượng - Thiết bị chính" size="small">
+                      <Row gutter={[16, 16]}>
+                        <Col span={8}>
+                          <div style={{ textAlign: 'center' }}>
+                            <div style={{ fontSize: '48px', color: '#1890ff' }}>❄️</div>
+                            <Text strong>3x CHILLER</Text>
+                            <br />
+                            <Text type="secondary">CH-01,02,03</Text>
+                            <br />
+                            <Tag color="blue">632kW each</Tag>
+                          </div>
+                        </Col>
+                        <Col span={8}>
+                          <div style={{ textAlign: 'center' }}>
+                            <div style={{ fontSize: '48px', color: '#52c41a' }}>🌊</div>
+                            <Text strong>3x PUMP</Text>
+                            <br />
+                            <Text type="secondary">P-01,02,03</Text>
+                            <br />
+                            <Tag color="green">25.3 L/s each</Tag>
+                          </div>
+                        </Col>
+                        <Col span={8}>
+                          <div style={{ textAlign: 'center' }}>
+                            <div style={{ fontSize: '48px', color: '#faad14' }}>🏭</div>
+                            <Text strong>1x PAU</Text>
+                            <br />
+                            <Text type="secondary">PAU-01</Text>
+                            <br />
+                            <Tag color="gold">850 L/s</Tag>
+                          </div>
+                        </Col>
+                      </Row>
+                    </Card>
 
-            <TabPane tab="Tổng quan hệ thống" key="2">
-              <Space direction="vertical" size="large" style={{ width: '100%' }}>
-                <Card title="Tầng thượng - Thiết bị chính" size="small">
-                  <Row gutter={[16, 16]}>
-                    <Col span={8}>
-                      <div style={{ textAlign: 'center' }}>
-                        <div style={{ fontSize: '48px', color: '#1890ff' }}>❄️</div>
-                        <Text strong>3x CHILLER</Text>
-                        <br />
-                        <Text type="secondary">CH-01,02,03</Text>
-                        <br />
-                        <Tag color="blue">632kW each</Tag>
-                      </div>
-                    </Col>
-                    <Col span={8}>
-                      <div style={{ textAlign: 'center' }}>
-                        <div style={{ fontSize: '48px', color: '#52c41a' }}>🌊</div>
-                        <Text strong>3x PUMP</Text>
-                        <br />
-                        <Text type="secondary">P-01,02,03</Text>
-                        <br />
-                        <Tag color="green">25.3 L/s each</Tag>
-                      </div>
-                    </Col>
-                    <Col span={8}>
-                      <div style={{ textAlign: 'center' }}>
-                        <div style={{ fontSize: '48px', color: '#faad14' }}>🏭</div>
-                        <Text strong>1x PAU</Text>
-                        <br />
-                        <Text type="secondary">PAU-01</Text>
-                        <br />
-                        <Tag color="gold">850 L/s</Tag>
-                      </div>
-                    </Col>
-                  </Row>
-                </Card>
-
-                <Card title="Tầng 1 - DC Hall & Phòng hỗ trợ" size="small">
-                  <Row gutter={[16, 16]}>
-                    <Col span={6}>
-                      <div style={{ textAlign: 'center' }}>
-                        <div style={{ fontSize: '36px', color: '#1890ff' }}>🏢</div>
-                        <Text strong>8x CRAC-DCH</Text>
-                        <br />
-                        <Text type="secondary">DC Hall</Text>
-                        <br />
-                        <Tag color="blue">102.8kW each</Tag>
-                      </div>
-                    </Col>
-                    <Col span={6}>
-                      <div style={{ textAlign: 'center' }}>
-                        <div style={{ fontSize: '36px', color: '#52c41a' }}>📦</div>
-                        <Text strong>6x INROW</Text>
-                        <br />
-                        <Text type="secondary">DC Hall</Text>
-                        <br />
-                        <Tag color="green">21.6kW each</Tag>
-                      </div>
-                    </Col>
-                    <Col span={6}>
-                      <div style={{ textAlign: 'center' }}>
-                        <div style={{ fontSize: '36px', color: '#faad14' }}>⚡</div>
-                        <Text strong>4x CRAC-ER</Text>
-                        <br />
-                        <Text type="secondary">Phòng điện</Text>
-                        <br />
-                        <Tag color="gold">64.4-79.8kW</Tag>
-                      </div>
-                    </Col>
-                    <Col span={6}>
-                      <div style={{ textAlign: 'center' }}>
-                        <div style={{ fontSize: '36px', color: '#f5222d' }}>🔋</div>
-                        <Text strong>4x CRAC-BR</Text>
-                        <br />
-                        <Text type="secondary">Phòng ắc quy</Text>
-                        <br />
-                        <Tag color="red">9.5-15.6kW</Tag>
-                      </div>
-                    </Col>
-                  </Row>
-                </Card>
-              </Space>
-            </TabPane>
-          </Tabs>
+                    <Card title="Tầng 1 - DC Hall & Phòng hỗ trợ" size="small">
+                      <Row gutter={[16, 16]}>
+                        <Col span={6}>
+                          <div style={{ textAlign: 'center' }}>
+                            <div style={{ fontSize: '36px', color: '#1890ff' }}>🏢</div>
+                            <Text strong>8x CRAC-DCH</Text>
+                            <br />
+                            <Text type="secondary">DC Hall</Text>
+                            <br />
+                            <Tag color="blue">102.8kW each</Tag>
+                          </div>
+                        </Col>
+                        <Col span={6}>
+                          <div style={{ textAlign: 'center' }}>
+                            <div style={{ fontSize: '36px', color: '#52c41a' }}>📦</div>
+                            <Text strong>6x INROW</Text>
+                            <br />
+                            <Text type="secondary">DC Hall</Text>
+                            <br />
+                            <Tag color="green">21.6kW each</Tag>
+                          </div>
+                        </Col>
+                        <Col span={6}>
+                          <div style={{ textAlign: 'center' }}>
+                            <div style={{ fontSize: '36px', color: '#faad14' }}>⚡</div>
+                            <Text strong>4x CRAC-ER</Text>
+                            <br />
+                            <Text type="secondary">Phòng điện</Text>
+                            <br />
+                            <Tag color="gold">64.4-79.8kW</Tag>
+                          </div>
+                        </Col>
+                        <Col span={6}>
+                          <div style={{ textAlign: 'center' }}>
+                            <div style={{ fontSize: '36px', color: '#f5222d' }}>🔋</div>
+                            <Text strong>4x CRAC-BR</Text>
+                            <br />
+                            <Text type="secondary">Phòng ắc quy</Text>
+                            <br />
+                            <Tag color="red">9.5-15.6kW</Tag>
+                          </div>
+                        </Col>
+                      </Row>
+                    </Card>
+                  </Space>
+                )
+              }
+            ]}
+          />
         </Card>
       </div>
 
       <Divider />
 
-      <div id="section-3.2" style={{ marginBottom: '24px' }}>
+      <div id="section-4.2" className="subsection" style={{ marginBottom: '24px' }}>
         <Card>
           <Title level={3} style={{ color: '#1890ff', marginBottom: '16px' }}>
             <SettingOutlined style={{ marginRight: '8px' }} />
-            3.2. Vị trí các thiết bị chính
+            4.2. Vị trí các thiết bị chính
           </Title>
 
           <Table
@@ -474,11 +486,11 @@ const LocationSection = () => {
 
       <Divider />
 
-      <div id="section-3.3" style={{ marginBottom: '24px' }}>
+      <div id="section-4.3" className="subsection" style={{ marginBottom: '24px' }}>
         <Card>
           <Title level={3} style={{ color: '#1890ff', marginBottom: '16px' }}>
             <RadarChartOutlined style={{ marginRight: '8px' }} />
-            3.3. Đường ống và hệ thống phân phối
+            4.3. Đường ống và hệ thống phân phối
           </Title>
 
           <Alert
@@ -563,9 +575,57 @@ const LocationSection = () => {
         </Card>
       </div>
 
+      <Divider />
+
+      <div id="section-4.4" className="subsection" style={{ marginBottom: '24px' }}>
+        <Card>
+          <Title level={3} style={{ color: '#1890ff', marginBottom: '16px' }}>
+            <CloudOutlined style={{ marginRight: '8px' }} />
+            4.4. Hệ thống thông gió và hút khói
+          </Title>
+
+          <Alert
+            message="Hệ thống thông gió HVAC"
+            description="Hệ thống thông gió và hút khói được thiết kế để đảm bảo chất lượng không khí và an toàn phòng cháy chữa cháy"
+            type="success"
+            showIcon
+            style={{ marginBottom: '20px' }}
+          />
+
+          <Row gutter={[16, 16]}>
+            <Col xs={24} lg={12}>
+              <Card size="small" title="Hệ thống thông gió">
+                <div style={{ padding: '16px' }}>
+                  <Text strong>Thiết bị chính:</Text>
+                  <ul style={{ marginTop: '8px', paddingLeft: '20px' }}>
+                    <li>PAU-01: 850 L/s (Tầng thượng)</li>
+                    <li>Quạt hút khói khẩn cấp</li>
+                    <li>Hệ thống ống gió phân phối</li>
+                    <li>Van điều hòa và điều khiển</li>
+                  </ul>
+                </div>
+              </Card>
+            </Col>
+            <Col xs={24} lg={12}>
+              <Card size="small" title="Hệ thống hút khói">
+                <div style={{ padding: '16px' }}>
+                  <Text strong>Chức năng:</Text>
+                  <ul style={{ marginTop: '8px', paddingLeft: '20px' }}>
+                    <li>Hút khói khi có cháy</li>
+                    <li>Thông gió khẩn cấp</li>
+                    <li>Kiểm soát áp suất phòng</li>
+                    <li>Tích hợp với hệ thống PCCC</li>
+                  </ul>
+                </div>
+              </Card>
+            </Col>
+          </Row>
+        </Card>
+      </div>
+
       <Alert
         message="Tham khảo bản vẽ kỹ thuật"
-        description="Để tải về các bản vẽ HVAC chính thức, vui lòng truy cập mục 6. TÀI LIỆU. Có sẵn 32 bản vẽ PDF được phân loại theo từng hệ thống."
+        description="Để tải về các bản vẽ HVAC chính thức, vui lòng truy cập mục 7. TÀI LIỆU. Có sẵn 32 bản vẽ PDF được phân loại theo từng hệ thống."
         type="info"
         showIcon
         style={{ marginTop: '20px' }}

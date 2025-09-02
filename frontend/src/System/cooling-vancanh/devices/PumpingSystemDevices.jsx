@@ -124,10 +124,10 @@ const PumpingSystemDevices = () => {
 
   return (
     <div style={{ padding: '20px 0' }}>
-      <div id="2.6" style={{ scrollMarginTop: '20px' }}>
-        <Title level={4} style={{ color: '#1890ff', marginBottom: '16px' }}>
-          <ToolOutlined style={{ marginRight: '8px' }} />
-          2.6 - Hệ thống bơm nước và thiết bị phụ trợ TTDL Vân Canh
+      <div id="section-2.6" className="content-section">
+        <Title level={3} style={{ color: '#1890ff', marginBottom: '20px', borderBottom: '2px solid #1890ff', paddingBottom: '8px' }}>
+          <ToolOutlined style={{ marginRight: '12px' }} />
+          2.6. Hệ thống bơm nước & thiết bị phụ trợ
         </Title>
       </div>
 
@@ -142,7 +142,7 @@ const PumpingSystemDevices = () => {
       <Row gutter={[16, 16]}>
         {pumpingDevices.map((device, index) => (
           <Col xs={24} sm={12} lg={8} xl={6} key={device.id}>
-            <div id={`2.6.${index + 1}`} style={{ scrollMarginTop: '20px' }}>
+            <div id={`section-2.6.${index + 1}`} style={{ scrollMarginTop: '20px' }}>
               <Card
               style={{ 
                 height: '100%', 

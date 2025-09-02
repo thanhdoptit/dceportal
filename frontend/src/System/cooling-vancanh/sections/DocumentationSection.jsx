@@ -37,7 +37,7 @@ const DocumentationSection = () => {
     <div style={{ padding: '20px 0' }}>
       <Title level={2} style={{ color: '#1890ff', marginBottom: '24px' }}>
         <FileTextOutlined style={{ marginRight: '12px' }} />
-        6. TÀI LIỆU KÈM THEO - TTDL Vân Canh
+        7. TÀI LIỆU & THAM KHẢO - TTDL Vân Canh
       </Title>
 
       <Alert
@@ -568,14 +568,12 @@ const DocumentationSection = () => {
             <p><strong>Hệ thống thoát khói:</strong> 4 bản vẽ thoát khói theo tầng (VTB-FC-M-801~804)</p>
             <p><strong>Shaft HVAC:</strong> VTB-FC-M-904 - Mặt cắt shaft kỹ thuật</p>
             <p><strong>Bản vẽ hoàn công:</strong> 3 phiên bản bản vẽ as-built (VTB-AS-HVAC)</p>
-            <br />
-            <p><strong style={{ color: '#1890ff' }}>📊 Tổng cộng: 32 bản vẽ PDF chính thức</strong> | 
-            <strong style={{ color: '#52c41a' }}> ✅ Đã số hóa và sẵn sàng tải về</strong></p>
+            <br />            
           </div>
         }
         type="success"
         showIcon
-        style={{ marginTop: '20px' }}
+        style={{ marginTop: '10px' }}
       />
     </div>
   );

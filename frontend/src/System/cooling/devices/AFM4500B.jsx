@@ -15,7 +15,7 @@ const { Title, Paragraph, Text } = Typography;
 
 const AFM4500B = () => {
   return (
-    <div id="section-2.6" className="device-section">
+          <div id="section-2.6" className="subsection">
       <Title level={3} style={{ color: '#52c41a', marginBottom: '16px' }}>
         2.6. Quạt sàn AFM4500B
       </Title>

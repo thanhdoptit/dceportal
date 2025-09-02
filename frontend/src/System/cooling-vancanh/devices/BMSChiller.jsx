@@ -13,7 +13,7 @@ const { Title, Paragraph, Text } = Typography;
 
 const BMSChiller = () => {
   return (
-    <div id="section-2.5" className="device-section">
+    <div id="section-2.5" className="content-section">
       <Title level={3} style={{ color: '#52c41a', marginBottom: '16px' }}>
         <SettingOutlined style={{ marginRight: '8px' }} />
         2.5. Hệ thống BMS Chiller - TTDL Vân Canh
@@ -131,7 +131,7 @@ const BMSChiller = () => {
         </Card>
 
         <Card title="Các chế độ vận hành TES Tank" style={{ marginBottom: '20px' }}>
-          <Title level={5} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>1. Chế độ Commissioning (Khởi tạo)</Title>
+          <Title level={4} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>1. Chế độ Commissioning (Khởi tạo)</Title>
           <Paragraph>
             <ul>
               <li><Tag color="green">Van V2A, V2B, V3A, V3B: MỞ</Tag></li>
@@ -141,7 +141,7 @@ const BMSChiller = () => {
             </ul>
           </Paragraph>
 
-          <Title level={5} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>2. Chế độ Normal (Bình thường)</Title>
+          <Title level={4} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>2. Chế độ Normal (Bình thường)</Title>
           <Paragraph>
             <ul>
               <li><Tag color="green">Van V1A, V1B: MỞ</Tag></li>
@@ -151,7 +151,7 @@ const BMSChiller = () => {
             </ul>
           </Paragraph>
 
-          <Title level={5} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>3. Chế độ Charge (Nạp lạnh)</Title>
+          <Title level={4} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>3. Chế độ Charge (Nạp lạnh)</Title>
           <Paragraph>
             <ul>
               <li><Tag color="orange">Van V2A, V2B: Điều tiết theo tải (tối thiểu 10%)</Tag></li>
@@ -162,7 +162,7 @@ const BMSChiller = () => {
             </ul>
           </Paragraph>
 
-          <Title level={5} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>4. Chế độ Discharge (Xả lạnh)</Title>
+          <Title level={4} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>4. Chế độ Discharge (Xả lạnh)</Title>
           <Paragraph>
             <ul>
               <li>Kích hoạt khi Chiller tắt (hỏng hóc/mất nguồn)</li>
@@ -185,7 +185,7 @@ const BMSChiller = () => {
         </Title>
 
         <Card title="Yêu cầu cài đặt" style={{ marginBottom: '20px' }}>
-          <Title level={5} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Phần cứng</Title>
+          <Title level={4} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Phần cứng</Title>
           <Paragraph>
             <ul>
               <li>PLC S7-1200 với module mở rộng</li>
@@ -196,7 +196,7 @@ const BMSChiller = () => {
             </ul>
           </Paragraph>
 
-          <Title level={5} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Phần mềm</Title>
+          <Title level={4} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Phần mềm</Title>
           <Paragraph>
             <ul>
               <li>Phần mềm lập trình PLC</li>
@@ -206,7 +206,7 @@ const BMSChiller = () => {
             </ul>
           </Paragraph>
 
-          <Title level={5} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Kết nối mạng</Title>
+          <Title level={4} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Kết nối mạng</Title>
           <Paragraph>
             <ul>
               <li>Mạng Ethernet cho PLC và HMI</li>
@@ -239,7 +239,7 @@ const BMSChiller = () => {
         </Title>
 
         <Card title="Khởi động hệ thống" style={{ marginBottom: '20px' }}>
-          <Title level={5} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Kiểm tra trước khi khởi động</Title>
+          <Title level={4} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Kiểm tra trước khi khởi động</Title>
           <Paragraph>
             <ul>
               <li>Kiểm tra nguồn điện PLC và HMI</li>
@@ -250,7 +250,7 @@ const BMSChiller = () => {
             </ul>
           </Paragraph>
 
-          <Title level={5} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Quy trình khởi động</Title>
+          <Title level={4} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Quy trình khởi động</Title>
           <Paragraph>
             <ol>
               <li>Bật nguồn PLC và HMI</li>
@@ -264,7 +264,7 @@ const BMSChiller = () => {
         </Card>
 
         <Card title="Kiểm tra hàng ngày" style={{ marginBottom: '20px' }}>
-          <Title level={5} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Thông số cần kiểm tra</Title>
+          <Title level={4} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Thông số cần kiểm tra</Title>
           <Table
             dataSource={[
               { key: '1', parameter: 'Trạng thái PLC', normal: 'Online', check: 'Kiểm tra đèn LED' },
@@ -388,7 +388,7 @@ const BMSChiller = () => {
         </Title>
 
         <Card title="Bảo trì định kỳ" style={{ marginBottom: '20px' }}>
-          <Title level={5} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Bảo trì hàng tháng</Title>
+          <Title level={4} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Bảo trì hàng tháng</Title>
           <Paragraph>
             <ul>
               <li>Kiểm tra hoạt động PLC và HMI</li>
@@ -399,7 +399,7 @@ const BMSChiller = () => {
             </ul>
           </Paragraph>
 
-          <Title level={5} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Bảo trì hàng quý</Title>
+          <Title level={4} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Bảo trì hàng quý</Title>
           <Paragraph>
             <ul>
               <li>Vệ sinh thiết bị</li>
@@ -409,7 +409,7 @@ const BMSChiller = () => {
             </ul>
           </Paragraph>
 
-          <Title level={5} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Bảo trì hàng năm</Title>
+          <Title level={4} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Bảo trì hàng năm</Title>
           <Paragraph>
             <ul>
               <li>Kiểm tra toàn bộ hệ thống</li>

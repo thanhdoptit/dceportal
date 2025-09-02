@@ -455,7 +455,64 @@ scroll-padding-top: 20px;
 }
 ```
 
-### 2. Tables
+### 2. Steps Implementation Pattern
+```javascript
+// State management cho Steps
+const [currentStep, setCurrentStep] = React.useState(0);
+const [currentDetailStep, setCurrentDetailStep] = React.useState(0);
+const [currentEmergencyStep, setCurrentEmergencyStep] = React.useState(0);
+const [currentMaintenanceStep, setCurrentMaintenanceStep] = React.useState(0);
+
+// State riêng cho từng phase (khi cần Steps độc lập)
+const [phase1Step, setPhase1Step] = React.useState(0);
+const [phase2Step, setPhase2Step] = React.useState(0);
+
+// Basic Steps Component
+<Steps
+  current={currentStep}
+  onChange={setCurrentStep}
+  direction="vertical"
+  size="small"
+  items={items.map((item, index) => ({
+    title: item.title,
+    description: item.description
+  }))}
+/>
+
+// Steps với state riêng cho từng phase
+{phases.map((phase, index) => (
+  <div key={index}>
+    <Title level={4}>{phase.title}</Title>
+    <Steps
+      current={index === 0 ? phase1Step : phase2Step}
+      onChange={index === 0 ? setPhase1Step : setPhase2Step}
+      direction="vertical"
+      size="small"
+      items={phase.actions.map((action, idx) => ({
+        title: action,
+        description: null
+      }))}
+    />
+  </div>
+))}
+
+// Steps trong Card wrapper
+<Card title="Quy trình thực hiện" style={{ marginBottom: '20px' }}>
+  <Paragraph>
+    Mô tả quy trình...
+  </Paragraph>
+  
+  <Steps
+    current={currentStep}
+    onChange={setCurrentStep}
+    direction="vertical"
+    size="small"
+    items={procedureSteps}
+  />
+</Card>
+```
+
+### 3. Tables
 ```css
 .ant-table {
   border-radius: 8px;
@@ -471,7 +528,7 @@ scroll-padding-top: 20px;
 }
 ```
 
-### 3. Buttons
+### 4. Buttons
 ```css
 .ant-btn {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -483,7 +540,7 @@ scroll-padding-top: 20px;
 }
 ```
 
-### 4. Tags
+### 5. Tags
 ```css
 .ant-tag {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -495,7 +552,7 @@ scroll-padding-top: 20px;
 }
 ```
 
-### 5. Progress Bars
+### 6. Progress Bars
 ```css
 .ant-progress {
   margin: 0;
@@ -516,6 +573,73 @@ scroll-padding-top: 20px;
 .ant-alert-success {
   background: linear-gradient(135deg, #f6ffed 0%, #e6f7ff 100%);
   border-color: #b7eb8f;
+}
+```
+
+### 7. Steps Component
+```css
+/* Steps Container */
+.ant-steps {
+  margin: 16px 0;
+}
+
+/* Steps Items */
+.ant-steps-item {
+  margin-bottom: 8px;
+}
+
+.ant-steps-item-title {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333333;
+  line-height: 1.4;
+}
+
+.ant-steps-item-description {
+  font-size: 12px;
+  color: #595959;
+  line-height: 1.5;
+}
+
+/* Steps Vertical Direction */
+.ant-steps-vertical .ant-steps-item {
+  padding-left: 16px;
+}
+
+.ant-steps-vertical .ant-steps-item-tail {
+  left: 16px;
+}
+
+/* Steps Small Size */
+.ant-steps-small .ant-steps-item-title {
+  font-size: 13px;
+  line-height: 1.3;
+}
+
+.ant-steps-small .ant-steps-item-description {
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+/* Steps Hover Effects */
+.ant-steps-item:hover .ant-steps-item-title {
+  color: #1890ff;
+  transform: translateX(2px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Steps Active State */
+.ant-steps-item-process .ant-steps-item-title {
+  color: #1890ff;
+  font-weight: 600;
+}
+
+.ant-steps-item-finish .ant-steps-item-title {
+  color: #52c41a;
+}
+
+.ant-steps-item-wait .ant-steps-item-title {
+  color: #8c8c8c;
 }
 ```
 
@@ -652,3 +776,41 @@ scroll-padding-top: 20px;
 - **Progressive enhancement** - tải nội dung theo nhu cầu
 - **Auto collapse timing** - đảm bảo sidebar thu gọn xong rồi mới load dữ liệu
 - **Smooth transitions** - tất cả animations phải mượt mà và nhất quán
+
+## 🎯 Steps Component Best Practices
+
+### 1. State Management
+- **Single Steps**: Sử dụng `currentStep` và `setCurrentStep` cho Steps đơn lẻ
+- **Multiple Steps**: Sử dụng state riêng cho từng Steps khi cần độc lập
+- **Phase-based Steps**: Sử dụng `phase1Step`, `phase2Step` cho các phase khác nhau
+
+### 2. Implementation Patterns
+- **Basic Steps**: Luôn có `current`, `onChange`, `direction="vertical"`, `size="small"`
+- **Card Wrapper**: Bọc Steps trong Card với title và mô tả
+- **Independent Steps**: Mỗi phase có Steps riêng với state độc lập
+- **Nested Steps**: Steps nhỏ bên trong Steps lớn cho quy trình chi tiết
+
+### 3. CSS Styling
+- **Vertical Direction**: `padding-left: 16px` cho `.ant-steps-vertical .ant-steps-item`
+- **Small Size**: Font size 13px cho title, 11px cho description
+- **Hover Effects**: `transform: translateX(2px)` và color change
+- **Active States**: Blue cho process, green cho finish, gray cho wait
+
+### 4. Content Structure
+- **Title**: Sử dụng `Title level={4}` cho phase headers
+- **Description**: Sử dụng `Paragraph` với `Text strong` cho labels
+- **Actions**: Map actions thành Steps items với `title: action, description: null`
+- **Parameters**: Hiển thị tham số sau Steps với `marginTop: '16px'`
+
+### 5. Performance Considerations
+- **State Isolation**: Không để Steps ảnh hưởng lẫn nhau
+- **Efficient Mapping**: Sử dụng `map()` trực tiếp thay vì nested components
+- **Memory Management**: Cleanup state khi component unmount
+- **Re-render Optimization**: Sử dụng `useCallback` cho onChange handlers nếu cần
+
+
+.content-section cho các section chính
+.subsection cho các section con
+
+Section chính có styling riêng
+Subsection có styling riêng

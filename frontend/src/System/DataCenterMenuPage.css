@@ -82,6 +82,16 @@
   color: white !important;
 }
 
+/* Overview button hover effects */
+.overview-button {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.overview-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(24, 144, 255, 0.4);
+}
+
 /* Responsive adjustments */
 @media (max-width: 1200px) {
   .system-menu-card {

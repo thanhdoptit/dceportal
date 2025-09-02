@@ -8,47 +8,67 @@ const CoolingContent = () => {
   const [loadedSections, setLoadedSections] = useState(0);
   const [forceLoadAll, setForceLoadAll] = useState(false);
 
-  // Section configurations với ID tương ứng với menu - tối ưu loading cho TTDL Vân Canh
+  // Section configurations với ID tương ứng với menu - cập nhật theo cấu trúc mới
   const sections = [
     {
       id: '1',
       name: 'Giới thiệu chung',
       importFunc: () => import('./sections/IntroductionSection'),
       priority: 'high',
-      preload: true // Preload section đầu tiên
+      preload: true, // Preload section đầu tiên
+      
     },
     {
       id: '2',
-      name: 'Hướng dẫn thiết bị',
+      name: 'Hệ thống Chiller & PAC',
       importFunc: () => import('./sections/DeviceGuideSection'),
       priority: 'high',
-      preload: false
+      preload: false,      
     },
     {
       id: '3',
-      name: 'Vị trí hệ thống',
-      importFunc: () => import('./sections/LocationSection'),
-      priority: 'medium',
-      preload: false
+      name: 'Hệ thống bơm & thiết bị phụ trợ',
+      importFunc: () => import('./sections/PumpSystemSection'),
+      priority: 'high',
+      preload: false,
+      
     },
     {
       id: '4',
-      name: 'Ứng dụng',
-      importFunc: () => import('./sections/ApplicationSection'),
+      name: 'Vị trí & bố trí hệ thống',
+      importFunc: () => import('./sections/LocationSection'),
       priority: 'medium',
-      preload: false
+      preload: false,
+      
     },
     {
       id: '5',
-      name: 'Liên hệ',
-      importFunc: () => import('./sections/ContactSection'),
-      priority: 'low',
-      preload: false
+      name: 'Quy trình vận hành',
+      importFunc: () => import('./sections/OperationSection'),
+      priority: 'high',
+      preload: false,
+      
     },
     {
       id: '6',
-      name: 'Tài liệu',
+      name: 'An toàn & bảo trì',
+      importFunc: () => import('./sections/SafetySection'),
+      priority: 'medium',
+      preload: false,
+      
+    },
+    {
+      id: '7',
+      name: 'Tài liệu & tham khảo',
       importFunc: () => import('./sections/DocumentationSection'),
+      priority: 'low',
+      preload: false,
+      
+    },
+    {
+      id: '8',
+      name: 'Liên hệ & hỗ trợ',
+      importFunc: () => import('./sections/ContactSection'),
       priority: 'low',
       preload: false
     }
@@ -172,6 +192,73 @@ const CoolingContent = () => {
             scrollMarginTop: '20px'
           }}
         >
+          {/* Section Header với Subsections */}
+          {section.subsections && (
+            <div style={{
+              background: 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)',
+              padding: '20px',
+              borderRadius: '12px',
+              marginBottom: '20px',
+              border: '1px solid #dee2e6'
+            }}>
+              <h2 style={{
+                color: '#1890ff',
+                marginBottom: '16px',
+                fontSize: '20px',
+                fontWeight: '600',
+                borderBottom: '2px solid #1890ff',
+                paddingBottom: '8px'
+              }}>
+                {section.name}
+              </h2>
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+                gap: '12px'
+              }}>
+                {section.subsections.map((subsection) => (
+                  <div
+                    key={subsection.id}
+                    id={`section-${subsection.id}`}
+                    style={{
+                      background: 'white',
+                      padding: '12px 16px',
+                      borderRadius: '8px',
+                      border: '1px solid #e8e8e8',
+                      cursor: 'pointer',
+                      transition: 'all 0.2s ease',
+                      scrollMarginTop: '20px'
+                    }}
+                    className="subsection-item"
+                    onMouseEnter={(e) => {
+                      e.target.style.transform = 'translateY(-2px)';
+                      e.target.style.boxShadow = '0 4px 12px rgba(24, 144, 255, 0.15)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.target.style.transform = 'translateY(0)';
+                      e.target.style.boxShadow = 'none';
+                    }}
+                  >
+                    <div style={{
+                      color: '#1890ff',
+                      fontSize: '14px',
+                      fontWeight: '600',
+                      marginBottom: '4px'
+                    }}>
+                      {subsection.id}
+                    </div>
+                    <div style={{
+                      color: '#595959',
+                      fontSize: '13px'
+                    }}>
+                      {subsection.name}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
           <LazySection
             importFunc={section.importFunc}
             forceLoad={forceLoadAll}
