@@ -1,33 +1,33 @@
-import React, { useState, useEffect, useCallback, useRef, useTransition, useDeferredValue, useId, useMemo } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Spin } from 'antd';
+import locale from 'antd/es/date-picker/locale/vi_VN';
 import { format } from 'date-fns';
 import { vi } from 'date-fns/locale';
-import locale from 'antd/es/date-picker/locale/vi_VN';
 import dayjs from 'dayjs';
-import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
-import axios from '../utils/axios';
+import utc from 'dayjs/plugin/utc';
+import React, { useCallback, useDeferredValue, useEffect, useId, useMemo, useRef, useState, useTransition } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-import { Spin } from 'antd';
+import axios from '../utils/axios';
 import ErrorBoundary from './common/ErrorBoundary';
 
 // Import modal lịch trực
-import ShiftScheduleModal from './common/ShiftScheduleModal';
 import '../styles/ShiftSchedule.css';
+import ShiftScheduleModal from './common/ShiftScheduleModal';
 
 // Extend dayjs with timezone support
 dayjs.extend(utc);
 dayjs.extend(timezone);
 dayjs.tz.setDefault('Asia/Bangkok');
 
-import Table from 'antd/es/table';
+import { CalendarOutlined, InfoCircleOutlined } from '@ant-design/icons';
 import Button from 'antd/es/button';
+import DatePicker from 'antd/es/date-picker';
 import Modal from 'antd/es/modal/Modal';
 import Space from 'antd/es/space';
-import DatePicker from 'antd/es/date-picker';
-import { InfoCircleOutlined, CalendarOutlined } from '@ant-design/icons';
-import Tooltip from 'antd/es/tooltip';
+import Table from 'antd/es/table';
 import Tabs from 'antd/es/tabs';
+import Tooltip from 'antd/es/tooltip';
 
 const API_URL = import.meta.env.VITE_API_URL;
 const WS_URL = API_URL.replace('http', 'ws') + '/ws';
@@ -298,7 +298,7 @@ const ShiftCard = React.memo(({ shift, onSelect, currentShift }) => {
     if (shift.status === 'done' || shift.status === 'handover') return false;
     
     // Chỉ có thể chọn ca ở trạng thái waiting hoặc doing
-    return ['waiting', 'doing', 'not-started'].includes(shift.status);
+    return ['waiting', 'doing'].includes(shift.status);
   }, [currentShift, shift.status, isManager]);
   return (
     <div

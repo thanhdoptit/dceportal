@@ -1,12 +1,11 @@
-import React from 'react';
-import { Typography, Card, Tag, Alert, Space, Divider, Row, Col } from 'antd';
-import { 
-  ThunderboltOutlined, 
-  BulbOutlined, 
-  CheckCircleOutlined,
+import {
+  BulbOutlined,
+  DatabaseOutlined,
   PictureOutlined,
-  DatabaseOutlined
+  ThunderboltOutlined
 } from '@ant-design/icons';
+import { Alert, Card, Col, Divider, Row, Space, Tag, Typography } from 'antd';
+import React from 'react';
 
 const { Title, Paragraph, Text } = Typography;
 
@@ -31,10 +30,9 @@ const PowerSystemSection = () => {
           style={{ marginBottom: '20px' }}
         />
 
-        {/* Image placeholders từ PPTX */}
         <Row gutter={[16, 16]} style={{ marginBottom: '20px' }}>
-          <Col xs={24} lg={12}>
-            <Card 
+          <Col >
+            <Card
               title={
                 <Space>
                   <PictureOutlined />
@@ -43,8 +41,8 @@ const PowerSystemSection = () => {
               }
             >
               <div style={{ textAlign: 'center' }}>
-                <img 
-                  src="/vancanh-overview/electrical_system_digital.jpg"
+                <img
+                  src="/vancanh-overview/sododien.jpg"
                   alt="Hệ thống điện được số hóa, giám sát, điều khiển tự động 100%"
                   style={{
                     maxWidth: '100%',
@@ -53,50 +51,91 @@ const PowerSystemSection = () => {
                     boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
                   }}
                 />
-                <p style={{ 
-                  color: '#666', 
-                  margin: '8px 0 0 0', 
+                <p style={{
+                  color: '#666',
+                  margin: '8px 0 0 0',
                   fontSize: '12px',
                   fontStyle: 'italic'
                 }}>
-                  Hệ thống điện được số hóa, giám sát, điều khiển tự động 100% (từ slide PPTX)
+                  Hệ thống điện được số hóa, giám sát, điều khiển tự động 100%
                 </p>
               </div>
             </Card>
           </Col>
-          <Col xs={24} lg={12}>
-            <Card 
+
+        </Row>
+        <Row gutter={[16, 16]} style={{ marginBottom: '20px' }}>
+          <Col span={12}>
+            <Card
               title={
                 <Space>
                   <PictureOutlined />
-                  Hình ảnh trạm biến áp
+                  Hình ảnh trạm biến áp A
                 </Space>
               }
             >
               <div style={{ textAlign: 'center' }}>
-                <img 
-                  src="/vancanh-overview/transformer_station_2500kva_3.jpg"
+                <img
+                  src="/vancanh-overview/trambienap1.jpg"
                   alt="Hệ thống cấp nguồn gồm 2 trạm biến áp 2500KVA"
                   style={{
                     maxWidth: '100%',
                     height: 'auto',
-                    borderRadius: '8px',
-                    boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
+                    border: '1px solid #d9d9d9',
+                    borderRadius: '6px',
+                    boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+                    display: 'block',
+                    margin: '0 auto'
                   }}
                 />
-                <p style={{ 
-                  color: '#666', 
-                  margin: '8px 0 0 0', 
+
+                <p style={{
+                  color: '#666',
+                  margin: '8px 0 0 0',
                   fontSize: '12px',
                   fontStyle: 'italic'
                 }}>
-                  Hệ thống cấp nguồn gồm 2 trạm biến áp 2500KVA (từ slide PPTX)
+                  Hệ thống cấp nguồn gồm 2 trạm biến áp 2500KVA
+                </p>
+              </div>
+            </Card>
+          </Col>
+          <Col span={12}>
+            <Card
+              title={
+                <Space>
+                  <PictureOutlined />
+                  Hình ảnh trạm biến áp B
+                </Space>
+              }
+            >
+              <div style={{ textAlign: 'center' }}>
+                <img
+                  src="/vancanh-overview/trambienap2.jpg"
+                  alt="Hệ thống cấp nguồn gồm 2 trạm biến áp 2500KVA"
+                  style={{
+                    maxWidth: '100%',
+                    height: 'auto',
+                    border: '1px solid #d9d9d9',
+                    borderRadius: '6px',
+                    boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+                    display: 'block',
+                    margin: '0 auto'
+                  }}
+                />
+
+                <p style={{
+                  color: '#666',
+                  margin: '8px 0 0 0',
+                  fontSize: '12px',
+                  fontStyle: 'italic'
+                }}>
+                  Hệ thống cấp nguồn gồm 2 trạm biến áp 2500KVA
                 </p>
               </div>
             </Card>
           </Col>
         </Row>
-
         <Card title="Thông số kỹ thuật trạm biến áp" style={{ marginBottom: '20px' }}>
           <Space direction="vertical" size="middle" style={{ width: '100%' }}>
             <div>
@@ -129,7 +168,79 @@ const PowerSystemSection = () => {
             </div>
           </Space>
         </Card>
+        <Row gutter={[16, 16]} style={{ marginBottom: '20px' }}>
+          <Col span={12}>
+            <Card
+              title={
+                <Space>
+                  <PictureOutlined />
+                  Hình ảnh máy phát A
+                </Space>
+              }
+            >
+              <div style={{ textAlign: 'center' }}>
+                <img
+                  src="/vancanh-overview/mayphatdien2.jpg"
+                  alt="Hệ thống cấp nguồn gồm 2 trạm biến áp 2500KVA"
+                  style={{
+                    maxWidth: '100%',
+                    height: 'auto',
+                    border: '1px solid #d9d9d9',
+                    borderRadius: '6px',
+                    boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+                    display: 'block',
+                    margin: '0 auto'
+                  }}
+                />
 
+                <p style={{
+                  color: '#666',
+                  margin: '8px 0 0 0',
+                  fontSize: '12px',
+                  fontStyle: 'italic'
+                }}>
+                  Hệ thống máy phát điện
+                </p>
+              </div>
+            </Card>
+          </Col>
+          <Col span={12}>
+            <Card
+              title={
+                <Space>
+                  <PictureOutlined />
+                  Hình ảnh máy phát B
+                </Space>
+              }
+            >
+              <div style={{ textAlign: 'center' }}>
+                <img
+                  src="/vancanh-overview/mayphatdien1.jpg"
+                  alt="Hệ thống cấp nguồn gồm 2 trạm biến áp 2500KVA"
+                  style={{
+                    maxWidth: '100%',
+                    height: 'auto',
+                    border: '1px solid #d9d9d9',
+                    borderRadius: '6px',
+                    boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+                    display: 'block',
+                    margin: '0 auto'
+                  }}
+                />
+
+                <p style={{
+                  color: '#666',
+                  margin: '8px 0 0 0',
+                  fontSize: '12px',
+                  fontStyle: 'italic'
+                }}>
+                  Hệ thống máy phát điện
+                </p>
+              </div>
+            </Card>
+          </Col>
+
+        </Row>
         <Card title="Hệ thống máy phát điện" style={{ marginBottom: '20px' }}>
           <Space direction="vertical" size="middle" style={{ width: '100%' }}>
             <div>
@@ -150,7 +261,78 @@ const PowerSystemSection = () => {
             </div>
           </Space>
         </Card>
+        <Row gutter={[16, 16]} style={{ marginBottom: '20px' }}>
+          <Col span={12}>
+            <Card
+              title={
+                <Space>
+                  <PictureOutlined />
+                  Hình ảnh bồn dầu
+                </Space>
+              }
+            >
+              <div style={{ textAlign: 'center' }}>
+                <img
+                  src="/vancanh-overview/bondau1.jpg"
+                  alt="Hệ thống cấp nguồn gồm 2 trạm biến áp 2500KVA"
+                  style={{
+                    maxWidth: '100%',
+                    height: 'auto',
+                    border: '1px solid #d9d9d9',
+                    borderRadius: '6px',
+                    boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+                    display: 'block',
+                    margin: '0 auto'
+                  }}
+                />
 
+                <p style={{
+                  color: '#666',
+                  margin: '8px 0 0 0',
+                  fontSize: '12px',
+                  fontStyle: 'italic'
+                }}>
+                  Hệ thống bồn dầu
+                </p>
+              </div>
+            </Card>
+          </Col>
+          <Col span={12}>
+            <Card
+              title={
+                <Space>
+                  <PictureOutlined />
+                  Hình ảnh bồn dầu
+                </Space>
+              }
+            >
+              <div style={{ textAlign: 'center' }}>
+                <img
+                  src="/vancanh-overview/bondau2.jpg"
+                  alt="Hệ thống cấp nguồn gồm 2 trạm biến áp 2500KVA"
+                  style={{
+                    maxWidth: '100%',
+                    height: 'auto',
+                    border: '1px solid #d9d9d9',
+                    borderRadius: '6px',
+                    boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+                    display: 'block',
+                    margin: '0 auto'
+                  }}
+                />
+
+                <p style={{
+                  color: '#666',
+                  margin: '8px 0 0 0',
+                  fontSize: '12px',
+                  fontStyle: 'italic'
+                }}>
+                  Hệ thống bồn dầu
+                </p>
+              </div>
+            </Card>
+          </Col>
+        </Row>
         <Card title="Hệ thống bồn dầu" style={{ marginBottom: '20px' }}>
           <Space direction="vertical" size="middle" style={{ width: '100%' }}>
             <div>
@@ -181,11 +363,9 @@ const PowerSystemSection = () => {
           showIcon
           style={{ marginBottom: '20px' }}
         />
-
-        {/* Image placeholders cho UPS */}
         <Row gutter={[16, 16]} style={{ marginBottom: '20px' }}>
-          <Col xs={24} lg={12}>
-            <Card 
+          <Col span={12}>
+            <Card
               title={
                 <Space>
                   <PictureOutlined />
@@ -194,59 +374,68 @@ const PowerSystemSection = () => {
               }
             >
               <div style={{ textAlign: 'center' }}>
-                <img 
-                  src="/vancanh-overview/ups_schneider_500kva_3.jpg"
-                  alt="Hệ thống UPS Schneider gồm 05 UPS 500 KVA"
+                <img
+                  src="/vancanh-overview/ups2.jpg"
+                  alt="Hệ thống cấp nguồn gồm 2 trạm biến áp 2500KVA"
                   style={{
                     maxWidth: '100%',
                     height: 'auto',
-                    borderRadius: '8px',
-                    boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
+                    border: '1px solid #d9d9d9',
+                    borderRadius: '6px',
+                    boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+                    display: 'block',
+                    margin: '0 auto'
                   }}
                 />
-                <p style={{ 
-                  color: '#666', 
-                  margin: '8px 0 0 0', 
+
+                <p style={{
+                  color: '#666',
+                  margin: '8px 0 0 0',
                   fontSize: '12px',
                   fontStyle: 'italic'
                 }}>
-                  Hệ thống UPS Schneider (từ slide PPTX)
+                  Hình ảnh hệ thống UPS
                 </p>
               </div>
             </Card>
           </Col>
-          <Col xs={24} lg={12}>
-            <Card 
+          <Col span={12}>
+            <Card
               title={
                 <Space>
                   <PictureOutlined />
-                  Hình ảnh tủ phân phối
+                  Hình ảnh hệ thống UPS
                 </Space>
               }
             >
               <div style={{ textAlign: 'center' }}>
-                <img 
-                  src="/vancanh-overview/ups_distribution_3.jpg"
-                  alt="Tủ phân phối điện UPS"
+                <img
+                  src="/vancanh-overview/ups1.jpg"
+                  alt="Hệ thống cấp nguồn gồm 2 trạm biến áp 2500KVA"
                   style={{
                     maxWidth: '100%',
                     height: 'auto',
-                    borderRadius: '8px',
-                    boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
+                    border: '1px solid #d9d9d9',
+                    borderRadius: '6px',
+                    boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+                    display: 'block',
+                    margin: '0 auto'
                   }}
                 />
-                <p style={{ 
-                  color: '#666', 
-                  margin: '8px 0 0 0', 
+
+                <p style={{
+                  color: '#666',
+                  margin: '8px 0 0 0',
                   fontSize: '12px',
                   fontStyle: 'italic'
                 }}>
-                  Tủ phân phối điện (từ slide PPTX)
+                  Hình ảnh hệ thống UPS
                 </p>
               </div>
             </Card>
           </Col>
         </Row>
+
 
         <Card title="Thông số kỹ thuật UPS" style={{ marginBottom: '20px' }}>
           <Space direction="vertical" size="middle" style={{ width: '100%' }}>
@@ -281,126 +470,7 @@ const PowerSystemSection = () => {
           </Space>
         </Card>
       </div>
-
-      <div id="section-3.3" className="subsection">
-        <Title level={4} style={{ color: '#1890ff', marginBottom: '12px' }}>
-          <DatabaseOutlined style={{ marginRight: '8px' }} /> 3.3 Máy phát điện và bồn dầu
-        </Title>
-
-        <Alert
-          message="HỆ THỐNG BỒN DẦU NGẦM 1500 LÍT, BƠM TỰ ĐỘNG"
-          description="Đáp ứng 40 giờ chạy máy liên tục với điều kiện full tải toàn bộ DC."
-          type="success"
-          showIcon
-          style={{ marginBottom: '20px' }}
-        />
-
-        {/* Image placeholders cho máy phát và bồn dầu */}
-        <Row gutter={[16, 16]} style={{ marginBottom: '20px' }}>
-          <Col xs={24} lg={12}>
-            <Card 
-              title={
-                <Space>
-                  <PictureOutlined />
-                  Hình ảnh máy phát điện
-                </Space>
-              }
-            >
-              <div style={{ textAlign: 'center' }}>
-                <img 
-                  src="/vancanh-overview/fuel_tank_1500l_3.jpg"
-                  alt="Hệ thống bồn dầu ngầm 1500 lít"
-                  style={{
-                    maxWidth: '100%',
-                    height: 'auto',
-                    borderRadius: '8px',
-                    boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
-                  }}
-                />
-                <p style={{ 
-                  color: '#666', 
-                  margin: '8px 0 0 0', 
-                  fontSize: '12px',
-                  fontStyle: 'italic'
-                }}>
-                  Hệ thống bồn dầu ngầm 1500 lít, bơm tự động (từ slide PPTX)
-                </p>
-              </div>
-            </Card>
-          </Col>
-          <Col xs={24} lg={12}>
-            <Card 
-              title={
-                <Space>
-                  <PictureOutlined />
-                  Hình ảnh bồn dầu
-                </Space>
-              }
-            >
-              <div style={{ textAlign: 'center' }}>
-                <img 
-                  src="/vancanh-overview/fuel_tank_details_3.jpg"
-                  alt="Bồn dầu ngầm 1500 lít"
-                  style={{
-                    maxWidth: '100%',
-                    height: 'auto',
-                    borderRadius: '8px',
-                    boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
-                  }}
-                />
-                <p style={{ 
-                  color: '#666', 
-                  margin: '8px 0 0 0', 
-                  fontSize: '12px',
-                  fontStyle: 'italic'
-                }}>
-                  Bồn dầu ngầm 1500 lít (từ slide PPTX)
-                </p>
-              </div>
-            </Card>
-          </Col>
-        </Row>
-
-        <Card title="Thông số kỹ thuật máy phát điện" style={{ marginBottom: '20px' }}>
-          <Space direction="vertical" size="middle" style={{ width: '100%' }}>
-            <div>
-              <Tag color="blue">Số lượng</Tag>
-              <Text>02 máy phát điện</Text>
-            </div>
-            <div>
-              <Tag color="blue">Công suất mỗi máy</Tag>
-              <Text>2500KVA</Text>
-            </div>
-            <div>
-              <Tag color="blue">Tổng công suất</Tag>
-              <Text>5000KVA</Text>
-            </div>
-            <div>
-              <Tag color="blue">Nhiên liệu</Tag>
-              <Text>Diesel</Text>
-            </div>
-            <div>
-              <Tag color="blue">Bồn dầu</Tag>
-              <Text>1500 lít (ngầm)</Text>
-            </div>
-            <div>
-              <Tag color="blue">Thời gian chạy</Tag>
-              <Text>40 giờ (full tải)</Text>
-            </div>
-            <div>
-              <Tag color="blue">Hệ thống bơm</Tag>
-              <Text>Tự động</Text>
-            </div>
-            <div>
-              <Tag color="blue">Khởi động</Tag>
-              <Text>Tự động khi mất điện</Text>
-            </div>
-          </Space>
-        </Card>
-      </div>
-
       <Divider />
-
       <Alert
         message="Tóm tắt hệ thống cấp nguồn"
         description="Hệ thống cấp nguồn TTDL Vân Canh được thiết kế hoàn chỉnh với 2 trạm biến áp 2500KVA, 5 UPS Schneider 500KVA, 2 máy phát điện 2500KVA và bồn dầu 1500 lít. Hệ thống đảm bảo cung cấp điện liên tục 24/7 với độ tin cậy cao."
@@ -408,7 +478,7 @@ const PowerSystemSection = () => {
         showIcon
         style={{ marginTop: '20px' }}
       />
-    </div>
+    </div >
   );
 };
 

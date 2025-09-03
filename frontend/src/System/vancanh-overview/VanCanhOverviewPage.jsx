@@ -1,7 +1,7 @@
 import React from 'react';
-import { 
-  BookOutlined, 
-  SettingOutlined, 
+import {
+  BookOutlined,
+  SettingOutlined,
   InfoCircleOutlined,
   EnvironmentOutlined,
   AppstoreOutlined,
@@ -48,11 +48,7 @@ const VanCanhOverviewPage = () => {
         },
         {
           key: '2.2',
-          label: '2.2 Quy mô và công suất',
-        },
-        {
-          key: '2.3',
-          label: '2.3 Tiêu chuẩn thiết kế',
+          label: '2.2 Tiêu chuẩn thiết kế',
         },
       ],
     },
@@ -68,10 +64,6 @@ const VanCanhOverviewPage = () => {
         {
           key: '3.2',
           label: '3.2 Hệ thống UPS',
-        },
-        {
-          key: '3.3',
-          label: '3.3 Máy phát điện và bồn dầu',
         },
       ],
     },

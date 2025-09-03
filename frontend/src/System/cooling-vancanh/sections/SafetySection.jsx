@@ -1,7 +1,7 @@
 import React from 'react';
 import { Typography, Card, Row, Col, Table, Tag, Divider, Alert, Steps, Timeline } from 'antd';
-import { 
-  SafetyOutlined, 
+import {
+  SafetyOutlined,
   ToolOutlined,
   InfoCircleOutlined,
   CheckCircleOutlined,
@@ -347,7 +347,7 @@ const SafetySection = () => {
       />
 
       {/* Biện pháp an toàn vận hành */}
-      <div id="section-6.1" className="content-section">
+      <div id="section-6.1" className="subsection">
         <Title level={3} style={{ color: '#1890ff', marginBottom: '20px', borderBottom: '2px solid #1890ff', paddingBottom: '8px' }}>
           <SafetyOutlined style={{ marginRight: '12px' }} />
           6.1. Biện pháp an toàn vận hành
@@ -383,7 +383,7 @@ const SafetySection = () => {
       </div>
 
       {/* Quy trình bảo trì thiết bị */}
-      <div id="section-6.2" className="content-section">
+      <div id="section-6.2" className="subsection">
         <Title level={3} style={{ color: '#1890ff', marginBottom: '20px', borderBottom: '2px solid #1890ff', paddingBottom: '8px' }}>
           <ToolOutlined style={{ marginRight: '12px' }} />
           6.2. Quy trình bảo trì thiết bị
@@ -426,7 +426,7 @@ const SafetySection = () => {
       </div>
 
       {/* Xử lý mã lỗi và sự cố */}
-      <div id="section-6.3" className="content-section">
+      <div id="section-6.3" className="subsection">
         <Title level={3} style={{ color: '#1890ff', marginBottom: '20px', borderBottom: '2px solid #1890ff', paddingBottom: '8px' }}>
           <ExclamationCircleOutlined style={{ marginRight: '12px' }} />
           6.3. Xử lý mã lỗi và sự cố
@@ -471,12 +471,12 @@ const SafetySection = () => {
       </div>
 
       {/* Kiểm tra và kiểm định */}
-      <div id="section-6.4" className="content-section">
+      <div id="section-6.4" className="subsection">
         <Title level={3} style={{ color: '#1890ff', marginBottom: '20px', borderBottom: '2px solid #1890ff', paddingBottom: '8px' }}>
           <CheckCircleOutlined style={{ marginRight: '12px' }} />
           6.4. Kiểm tra và kiểm định
         </Title>
-      
+
         <Row gutter={[16, 16]}>
           {inspectionProcedures.map((inspection, index) => (
             <Col xs={24} lg={6} key={index}>
@@ -507,7 +507,7 @@ const SafetySection = () => {
       </div>
 
       {/* Thông tin bổ sung */}
-      <div id="section-6.5" className="content-section">
+      <div id="section-6.5" className="subsection">
         <Title level={3} style={{ color: '#1890ff', marginBottom: '20px', borderBottom: '2px solid #1890ff', paddingBottom: '8px' }}>
           <InfoCircleOutlined style={{ marginRight: '12px' }} />
           6.5. Thông tin bổ sung

@@ -1,12 +1,11 @@
-import React from 'react';
-import { Typography, Card, Table, Tag, Alert, Space, Divider, Image } from 'antd';
-import { 
-  InfoCircleOutlined, 
-  CheckCircleOutlined, 
+import {
   ClockCircleOutlined,
-  TrophyOutlined,
-  PictureOutlined
+  InfoCircleOutlined,
+  PictureOutlined,
+  TrophyOutlined
 } from '@ant-design/icons';
+import { Alert, Card, Divider, Space, Table, Tag, Typography } from 'antd';
+import React from 'react';
 
 const { Title, Paragraph, Text } = Typography;
 
@@ -104,43 +103,44 @@ const ProjectOverviewSection = () => {
         1. TỔNG QUAN DỰ ÁN TTDL VÂN CANH
       </Title>
 
-      {/* Image placeholder từ PPTX */}
-      <Card 
-        title={
-          <Space>
-            <PictureOutlined />
-            Hình ảnh dự án TTDL Vân Canh
-          </Space>
-        } 
-        style={{ marginBottom: '20px' }}
-      >
-        <div style={{ textAlign: 'center' }}>
-                          <img 
-                  src="/vancanh-overview/project_overview_3.jpg"
-                  alt="Tổng quan dự án TTDL Vân Canh"
-                  style={{
-                    maxWidth: '100%',
-                    height: 'auto',
-                    borderRadius: '8px',
-                    boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
-                  }}
-                />
-          <p style={{ 
-            color: '#666', 
-            margin: '8px 0 0 0', 
-            fontSize: '12px',
-            fontStyle: 'italic'
-          }}>
-            Hình ảnh tổng quan dự án TTDL Vân Canh (từ slide PPTX gốc)
-          </p>
-        </div>
-      </Card>
+
 
       <div id="section-1.1" className="subsection">
         <Title level={4} style={{ color: '#1890ff', marginBottom: '12px' }}>
           <InfoCircleOutlined style={{ marginRight: '8px' }} /> 1.1 Khái quát dự án
         </Title>
-
+        <Card
+          title={
+            <Space>
+              <PictureOutlined />
+              Hình ảnh dự án TTDL Vân Canh
+            </Space>
+          }
+          style={{ marginBottom: '20px' }}      >
+          <div style={{ textAlign: 'center' }}>
+            <img
+              src="/vancanh-overview/project_overview_3.jpg"
+              alt="Tổng quan dự án TTDL Vân Canh"
+              style={{
+                maxWidth: '75%',
+                height: 'auto',
+                border: '1px solid #d9d9d9',
+                borderRadius: '6px',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+                display: 'block',
+                margin: '0 auto'
+              }}
+            />
+            <p style={{
+              color: '#666',
+              margin: '8px 0 0 0',
+              fontSize: '12px',
+              fontStyle: 'italic'
+            }}>
+              Hình ảnh tổng quan dự án TTDL Vân Canh
+            </p>
+          </div>
+        </Card>
         <Alert
           message="DỰ ÁN ĐƯỢC THIẾT KẾ BỞI CHUYÊN GIA COC CỦA IBM"
           description="Giám sát tác giả bởi Kyndryl. Đặt trong khuân viên trường ĐT & PTNNL tại Vân Canh."

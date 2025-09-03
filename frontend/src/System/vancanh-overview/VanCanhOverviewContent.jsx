@@ -24,7 +24,7 @@ const VanCanhOverviewContent = () => {
       importFunc: () => import('./sections/ArchitectureSection'),
       priority: 'high',
       preload: false,
-      subsections: ['2.1', '2.2', '2.3']
+      subsections: ['2.1', '2.2']
     },
     {
       id: '3',
@@ -32,7 +32,7 @@ const VanCanhOverviewContent = () => {
       importFunc: () => import('./sections/PowerSystemSection'),
       priority: 'high',
       preload: false,
-      subsections: ['3.1', '3.2', '3.3']
+      subsections: ['3.1', '3.2']
     },
     {
       id: '4',
@@ -103,7 +103,7 @@ const VanCanhOverviewContent = () => {
       const timer = setTimeout(() => {
         setForceLoadAll(true);
       }, 200);
-      
+
       return () => clearTimeout(timer);
     }
   }, [sidebarReady, isAnimating]);
@@ -187,8 +187,8 @@ const VanCanhOverviewContent = () => {
               {progressPercent}%
             </div>
           </div>
-          <Progress 
-            percent={progressPercent} 
+          <Progress
+            percent={progressPercent}
             strokeColor={{
               '0%': '#1890ff',
               '100%': '#0072BC',
@@ -204,8 +204,8 @@ const VanCanhOverviewContent = () => {
       )}
 
       {sections.map((section, index) => (
-        <div 
-          key={index} 
+        <div
+          key={index}
           id={`section-${section.id}`}
           style={{
             scrollMarginTop: '20px'
@@ -215,8 +215,8 @@ const VanCanhOverviewContent = () => {
             importFunc={section.importFunc}
             forceLoad={forceLoadAll}
             placeholder={
-              <div style={{ 
-                padding: '30px', 
+              <div style={{
+                padding: '30px',
                 textAlign: 'center',
                 background: 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)',
                 border: '2px dashed #d9d9d9',
@@ -225,32 +225,32 @@ const VanCanhOverviewContent = () => {
                 transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
                 cursor: 'pointer'
               }}
-              className="lazy-section-placeholder"
-            >
-              <div style={{ 
-                fontSize: '36px', 
-                color: '#1890ff', 
-                marginBottom: '12px',
-                animation: 'pulse 2s ease-in-out infinite'
-              }}>
-                ⏳
+                className="lazy-section-placeholder"
+              >
+                <div style={{
+                  fontSize: '36px',
+                  color: '#1890ff',
+                  marginBottom: '12px',
+                  animation: 'pulse 2s ease-in-out infinite'
+                }}>
+                  ⏳
+                </div>
+                <h3 style={{
+                  color: '#1890ff',
+                  marginBottom: '8px',
+                  fontSize: '16px',
+                  fontWeight: '600'
+                }}>
+                  {section.name}
+                </h3>
+                <p style={{
+                  color: '#666',
+                  fontSize: '12px',
+                  margin: 0
+                }}>
+                  Cuộn xuống để tải nội dung
+                </p>
               </div>
-              <h3 style={{ 
-                color: '#1890ff', 
-                marginBottom: '8px',
-                fontSize: '16px',
-                fontWeight: '600'
-              }}>
-                {section.name}
-              </h3>
-              <p style={{ 
-                color: '#666', 
-                fontSize: '12px',
-                margin: 0
-              }}>
-                Cuộn xuống để tải nội dung
-              </p>
-            </div>
             }
             threshold={0.1}
             rootMargin="100px"

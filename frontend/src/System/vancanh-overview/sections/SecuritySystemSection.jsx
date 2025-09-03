@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography, Card, Tag, Alert, Space } from 'antd';
+import { Typography, Card, Tag, Alert, Space, Row, Col } from 'antd';
 import { SafetyOutlined, PictureOutlined, AppstoreOutlined } from '@ant-design/icons';
 
 const { Title, Text } = Typography;
@@ -21,42 +21,35 @@ const SecuritySystemSection = () => {
       />
 
       {/* Hình ảnh hệ thống an ninh */}
-      <Card 
-        title={
-          <Space>
-            <PictureOutlined />
-            Hệ thống CCTV, ACS, PA
-          </Space>
-        }
-        style={{ marginBottom: '20px' }}
-      >
-        <div style={{ textAlign: 'center' }}>
-          <img 
-            src="/vancanh-overview/security_cctv_acs_pa.jpg"
-            alt="Hệ thống CCTV, ACS, PA giám sát toàn bộ DC Vân Canh"
-            style={{
-              maxWidth: '100%',
-              height: 'auto',
-              borderRadius: '8px',
-              boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
-            }}
-          />
-          <p style={{ 
-            color: '#666', 
-            margin: '8px 0 0 0', 
-            fontSize: '12px',
-            fontStyle: 'italic'
-          }}>
-            Hệ thống CCTV, ACS, PA giám sát toàn bộ DC Vân Canh (từ slide PPTX)
-          </p>
-        </div>
-      </Card>
 
       <div id="section-6.1" className="subsection">
         <Title level={4} style={{ color: '#1890ff', marginBottom: '12px' }}>
           <AppstoreOutlined style={{ marginRight: '8px' }} /> 6.1 Hệ thống CCTV
         </Title>
-
+        <Card
+          title={
+            <Space>
+              <PictureOutlined />
+              CCTV
+            </Space>
+          }
+        >
+          <div style={{ textAlign: 'center' }}>
+            <img
+              src="/vancanh-overview/cctv1.jpg"
+              alt="Hệ thống cấp nguồn gồm 2 trạm biến áp 2500KVA"
+              style={{
+                maxWidth: '100%',
+                height: 'auto',
+                border: '1px solid #d9d9d9',
+                borderRadius: '6px',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+                display: 'block',
+                margin: '0 auto'
+              }}
+            />
+          </div>
+        </Card>
         <Card title="Hệ thống CCTV" style={{ marginBottom: '20px' }}>
           <Space direction="vertical" size="middle" style={{ width: '100%' }}>
             <div>
@@ -87,7 +80,66 @@ const SecuritySystemSection = () => {
         <Title level={4} style={{ color: '#1890ff', marginBottom: '12px' }}>
           <AppstoreOutlined style={{ marginRight: '8px' }} /> 6.2 Hệ thống kiểm soát vào ra ACS
         </Title>
+        <Card
+          title={
+            <Space>
+              <PictureOutlined />
+              Hệ thống kiểm soát vào ra
+            </Space>
+          } >
+          <div style={{ textAlign: 'center' }}>
+            <img
+              src="/vancanh-overview/cctv2.jpg"
+              alt="Hệ thống cấp nguồn gồm 2 trạm biến áp 2500KVA"
+              style={{
+                maxWidth: '100%',
+                height: 'auto',
+                border: '1px solid #d9d9d9',
+                borderRadius: '6px',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+                display: 'block',
+                margin: '0 auto'
+              }}
+            />
+          </div>
+        </Card>
+        <Row gutter={[16, 16]} style={{ marginBottom: '20px' }}>
+          <Col span={12}  >
+            <div style={{ textAlign: 'center' }}>
+              <img
+                src="/vancanh-overview/cctv3.jpg"
+                alt="Hệ thống cấp nguồn gồm 2 trạm biến áp 2500KVA"
+                style={{
+                  maxWidth: '100%',
+                  height: 'auto',
+                  border: '1px solid #d9d9d9',
+                  borderRadius: '6px',
+                  boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+                  display: 'block',
+                  margin: '0 auto'
+                }}
+              />
 
+            </div>
+          </Col>
+          <Col span={12} >
+            <div style={{ textAlign: 'center' }}>
+              <img
+                src="/vancanh-overview/cctv4.jpg"
+                alt="Hệ thống cấp nguồn gồm 2 trạm biến áp 2500KVA"
+                style={{
+                  maxWidth: '100%',
+                  height: 'auto',
+                  border: '1px solid #d9d9d9',
+                  borderRadius: '6px',
+                  boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+                  display: 'block',
+                  margin: '0 auto'
+                }}
+              />
+            </div>
+          </Col>
+        </Row>
         <Card title="Hệ thống kiểm soát vào ra (ACS)" style={{ marginBottom: '20px' }}>
           <Space direction="vertical" size="middle" style={{ width: '100%' }}>
             <div>
@@ -140,31 +192,6 @@ const SecuritySystemSection = () => {
           </Space>
         </Card>
       </div>
-
-      <Card title="Hệ thống Network" style={{ marginBottom: '20px' }}>
-        <Space direction="vertical" size="middle" style={{ width: '100%' }}>
-          <div>
-            <Tag color="purple">Cáp quang</Tag>
-            <Text>2 tuyến cáp quang trái và phải từ 2 nhà cung cấp (FPT và VNPT)</Text>
-          </div>
-          <div>
-            <Tag color="purple">Phòng IPS</Tag>
-            <Text>IPS A có 6 tủ rack, IPS B có 7 tủ rack</Text>
-          </div>
-          <div>
-            <Tag color="purple">Cáp quang tầng 2</Tag>
-            <Text>Single mode OM5 cho SAN, OM4 cho LAN</Text>
-          </div>
-          <div>
-            <Tag color="purple">Tủ rack</Tag>
-            <Text>24 port quang và 24 port đồng</Text>
-          </div>
-          <div>
-            <Tag color="purple">Core switch</Tag>
-            <Text>2 core switch đặt gần nhau</Text>
-          </div>
-        </Space>
-      </Card>
     </div>
   );
 };

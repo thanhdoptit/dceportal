@@ -1,21 +1,18 @@
-import React from 'react';
-import { Typography, Card, Row, Col, Tag, Divider, Alert, Collapse } from 'antd';
-import { 
-  CloudOutlined, 
-  SettingOutlined,
-  InfoCircleOutlined,
+import {
   CheckCircleOutlined,
-  ExclamationCircleOutlined,
-  ToolOutlined
+  CloudOutlined,
+  SettingOutlined
 } from '@ant-design/icons';
+import { Alert, Card, Col, Collapse, Divider, Row, Tag, Typography } from 'antd';
+import React from 'react';
 
 // Import các thiết bị
-import SMARDTChiller from '../devices/SMARDTChiller';
-import SDCVSeries from '../devices/SDCVSeries';
-import LDCVSeries from '../devices/LDCVSeries';
-import EasyInRowCW from '../devices/EasyInRowCW';
 import BMSChiller from '../devices/BMSChiller';
+import EasyInRowCW from '../devices/EasyInRowCW';
+import LDCVSeries from '../devices/LDCVSeries';
 import PumpingSystemDevices from '../devices/PumpingSystemDevices';
+import SDCVSeries from '../devices/SDCVSeries';
+import SMARDTChiller from '../devices/SMARDTChiller';
 
 const { Title, Paragraph, Text } = Typography;
 const { Panel } = Collapse;
@@ -128,12 +125,11 @@ const DeviceGuideSection = () => {
   };
 
   return (
-    <div style={{ padding: '20px 0' }}>
+    <div style={{ padding: '20px 0'}} className="content-section">
       <Title level={2} style={{ color: '#1890ff', marginBottom: '24px' }}>
         <SettingOutlined style={{ marginRight: '12px' }} />
-        2. HƯỚNG DẪN CHI TIẾT TỪNG THIẾT BỊ - TTDL Vân Canh
+        2. Hướng dẫn chi tiết từng thiết bị - TTDL Vân Canh
       </Title>
-
       <Alert
         message="Hướng dẫn thiết bị"
         description="Dưới đây là hướng dẫn chi tiết cho từng thiết bị trong hệ thống làm mát TTDL Vân Canh. Mỗi thiết bị có các section riêng biệt để dễ dàng tra cứu và thực hiện."
@@ -141,7 +137,6 @@ const DeviceGuideSection = () => {
         showIcon
         style={{ marginBottom: '24px' }}
       />
-
       {/* Danh sách thiết bị */}
       <Row gutter={[16, 16]}>
         {devices.map((device, index) => (

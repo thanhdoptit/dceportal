@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography, Card, Tag, Alert, Space } from 'antd';
+import { Typography, Card, Tag, Alert, Space, Col, Row } from 'antd';
 import { EnvironmentOutlined, PictureOutlined } from '@ant-design/icons';
 
 const { Title, Text } = Typography;
@@ -21,36 +21,71 @@ const NetworkSystemSection = () => {
       />
 
       {/* Hình ảnh hệ thống network */}
-      <Card 
+      <Card
         title={
           <Space>
             <PictureOutlined />
-            Hệ thống Network
+            Hệ thống NetWork
           </Space>
         }
-        style={{ marginBottom: '20px' }}
       >
-        <div style={{ textAlign: 'center' }}>
-          <img 
-            src="/vancanh-overview/network_fiber_copper_100g_3.jpg"
-            alt="Hệ thống cáp quang, cáp đồng tốc độ cao 1G/10G/40G"
-            style={{
-              maxWidth: '100%',
-              height: 'auto',
-              borderRadius: '8px',
-              boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
-            }}
-          />
-          <p style={{ 
-            color: '#666', 
-            margin: '8px 0 0 0', 
-            fontSize: '12px',
-            fontStyle: 'italic'
-          }}>
-            Hệ thống cáp quang, cáp đồng tốc độ cao 1G/10G/40G (từ slide PPTX)
-          </p>
-        </div>
+        <Row gutter={[8, 8]} style={{ marginBottom: '20px' }}>
+          <Col span={8}>
+            <div style={{ textAlign: 'center' }}>
+              <img
+                src="/vancanh-overview/net1.jpg"
+                alt="Hệ thống cấp nguồn gồm 2 trạm biến áp 2500KVA"
+                style={{
+                  maxWidth: '100%',
+                  height: 'auto',
+                  border: '1px solid #d9d9d9',
+                  borderRadius: '6px',
+                  boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+                  display: 'block',
+                  margin: '0 auto'
+                }}
+              />
+            </div>
+          </Col>
+          <Col span={8}>
+            <div style={{ textAlign: 'center' }}>
+              <img
+                src="/vancanh-overview/net3.jpg"
+                alt="Hệ thống cấp nguồn gồm 2 trạm biến áp 2500KVA"
+                style={{
+                  maxWidth: '100%',
+                  height: 'auto',
+                  border: '1px solid #d9d9d9',
+                  borderRadius: '6px',
+                  boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+                  display: 'block',
+                  margin: '0 auto'
+                }}
+              />
+
+            </div>
+          </Col>
+          <Col span={16}>
+            <div style={{ textAlign: 'center' }}>
+              <img
+                src="/vancanh-overview/net2.jpg"
+                alt="Hệ thống cấp nguồn gồm 2 trạm biến áp 2500KVA"
+                style={{
+                  maxWidth: '100%',
+                  height: 'auto',
+                  border: '1px solid #d9d9d9',
+                  borderRadius: '6px',
+                  boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+                  display: 'block',
+                  margin: '0 auto'
+                }}
+              />
+
+            </div>
+          </Col>
+        </Row>
       </Card>
+
 
       <div id="section-7.1" className="subsection">
         <Title level={4} style={{ color: '#1890ff', marginBottom: '12px' }}>

@@ -1,8 +1,8 @@
 import React from 'react';
 import { Typography, Card, Tag, Alert, Space, Divider, Row, Col } from 'antd';
-import { 
-  SafetyOutlined, 
-  FireOutlined, 
+import {
+  SafetyOutlined,
+  FireOutlined,
   CheckCircleOutlined,
   PictureOutlined
 } from '@ant-design/icons';
@@ -24,146 +24,182 @@ const FireProtectionSection = () => {
         showIcon
         style={{ marginBottom: '20px' }}
       />
+      <div id="section-5.1" className="subsection">
+        <Title level={4} style={{ color: '#1890ff', marginBottom: '12px' }}>
+          <SafetyOutlined style={{ marginRight: '8px' }} /> 5.1 HỆ THỐNG PCCC TỰ ĐỘNG BẰNG KHÍ NOVEC 1230
+        </Title>
+        {/* Hình ảnh hệ thống PCCC */}
+        <Row gutter={[16, 16]} style={{ marginBottom: '20px' }}>
+          <Col span={12}>
+            <div style={{ textAlign: 'center' }}>
+              <img
+                src="/vancanh-overview/pccc1.jpg"
+                alt="Hệ thống cấp nguồn gồm 2 trạm biến áp 2500KVA"
+                style={{
+                  maxWidth: '100%',
+                  height: 'auto',
+                  border: '1px solid #d9d9d9',
+                  borderRadius: '6px',
+                  boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+                  display: 'block',
+                  margin: '0 auto'
+                }}
+              />
+            </div>
+            <div style={{ textAlign: 'center' }}>
+              <img
+                src="/vancanh-overview/pccc3.jpg"
+                alt="Hệ thống cấp nguồn gồm 2 trạm biến áp 2500KVA"
+                style={{
+                  maxWidth: '100%',
+                  height: 'auto',
+                  border: '1px solid #d9d9d9',
+                  borderRadius: '6px',
+                  boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+                  display: 'block',
+                  margin: '0 auto'
+                }}
+              />
 
-      {/* Hình ảnh hệ thống PCCC */}
-      <Card 
-        title={
-          <Space>
-            <PictureOutlined />
-            Hệ thống PCCC Novec 1230
+            </div>
+          </Col>
+          <Col span={12}>
+            <div style={{ textAlign: 'center' }}>
+              <img
+                src="/vancanh-overview/pccc2.jpg"
+                alt="Hệ thống cấp nguồn gồm 2 trạm biến áp 2500KVA"
+                style={{
+                  maxWidth: '100%',
+                  height: 'auto',
+                  border: '1px solid #d9d9d9',
+                  borderRadius: '6px',
+                  boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+                  display: 'block',
+                  margin: '0 auto'
+                }}
+              />
+
+            </div>
+          </Col>
+        </Row>
+        <p style={{
+          color: '#666',
+          margin: '8px 0 0 0',
+          fontSize: '12px',
+          fontStyle: 'italic',
+          textAlign: 'center'
+        }}>
+          HỆ THỐNG PCCC TỤ ĐỘNG BẰNG KHÍ NOVEC 1230 KÈM HỆ THỐNG BÁO KHÓI SỚM, HỆ THỐNG GIÁM SÁT ĐỒ HỌA.
+        </p>
+
+        <Card title="Thông số kỹ thuật hệ thống PCCC" style={{ marginBottom: '20px' }}>
+          <Space direction="vertical" size="middle" style={{ width: '100%' }}>
+            <div>
+              <Tag color="red">Chất chữa cháy</Tag>
+              <Text>Khí Novec 1230</Text>
+            </div>
+            <div>
+              <Tag color="red">Tổng số bình</Tag>
+              <Text>34 bình</Text>
+            </div>
+            <div>
+              <Tag color="red">Phân bố bình</Tag>
+              <Text>Tầng 1: 10 bình, Tầng 2: 16 bình, Tầng 3: 8 bình</Text>
+            </div>
+            <div>
+              <Tag color="red">Trọng lượng bình</Tag>
+              <Text>Tầng 1: 70kg, Tầng 2: 110kg, Tầng 3: 130kg</Text>
+            </div>
+            <div>
+              <Tag color="red">Áp suất</Tag>
+              <Text>50 Bar</Text>
+            </div>
+            <div>
+              <Tag color="red">Đặc điểm</Tag>
+              <Text>Chất chữa cháy sạch, an toàn, không dẫn điện, không ăn mòn</Text>
+            </div>
+            <div>
+              <Tag color="red">Hiệu quả</Tag>
+              <Text>Dập tắt đám cháy bằng hấp thụ nhiệt, không làm cạn kiệt oxy</Text>
+            </div>
           </Space>
-        }
-        style={{ marginBottom: '20px' }}
-      >
-        <div style={{ textAlign: 'center' }}>
-                      <img 
-              src="/vancanh-overview/fire_protection_novec1230.jpg"
-              alt="Hệ thống PCCC tự động bằng khí Novec 1230"
-              style={{
-                maxWidth: '100%',
-                height: 'auto',
-                borderRadius: '8px',
-                boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
-              }}
-            />
-          <p style={{ 
-            color: '#666', 
-            margin: '8px 0 0 0', 
-            fontSize: '12px',
-            fontStyle: 'italic'
-          }}>
-            Hệ thống PCCC tự động bằng khí Novec 1230 (từ slide PPTX)
-          </p>
-        </div>
-      </Card>
+        </Card>
 
-      <Card title="Thông số kỹ thuật hệ thống PCCC" style={{ marginBottom: '20px' }}>
-        <Space direction="vertical" size="middle" style={{ width: '100%' }}>
-          <div>
-            <Tag color="red">Chất chữa cháy</Tag>
-            <Text>Khí Novec 1230</Text>
-          </div>
-          <div>
-            <Tag color="red">Tổng số bình</Tag>
-            <Text>34 bình</Text>
-          </div>
-          <div>
-            <Tag color="red">Phân bố bình</Tag>
-            <Text>Tầng 1: 10 bình, Tầng 2: 16 bình, Tầng 3: 8 bình</Text>
-          </div>
-          <div>
-            <Tag color="red">Trọng lượng bình</Tag>
-            <Text>Tầng 1: 70kg, Tầng 2: 110kg, Tầng 3: 130kg</Text>
-          </div>
-          <div>
-            <Tag color="red">Áp suất</Tag>
-            <Text>50 Bar</Text>
-          </div>
-          <div>
-            <Tag color="red">Đặc điểm</Tag>
-            <Text>Chất chữa cháy sạch, an toàn, không dẫn điện, không ăn mòn</Text>
-          </div>
-          <div>
-            <Tag color="red">Hiệu quả</Tag>
-            <Text>Dập tắt đám cháy bằng hấp thụ nhiệt, không làm cạn kiệt oxy</Text>
-          </div>
-        </Space>
-      </Card>
+        <Card title="Hệ thống báo cháy" style={{ marginBottom: '20px' }}>
+          <Space direction="vertical" size="middle" style={{ width: '100%' }}>
+            <div>
+              <Tag color="orange">Tủ trung tâm</Tag>
+              <Text>ADVANCED với 2 loops quản lý</Text>
+            </div>
+            <div>
+              <Tag color="orange">Đầu báo</Tag>
+              <Text>Đầu báo khói/nhiệt dạng địa chỉ</Text>
+            </div>
+            <div>
+              <Tag color="orange">Báo khói sớm</Tag>
+              <Text>Hệ thống lấy mẫu qua đầu dò, phân tích và phát hiện</Text>
+            </div>
+            <div>
+              <Tag color="orange">Tủ báo cháy khu vực</Tag>
+              <Text>Tại các phòng chức năng với màn hình hiển thị</Text>
+            </div>
+          </Space>
+        </Card>
 
-      <Card title="Hệ thống báo cháy" style={{ marginBottom: '20px' }}>
-        <Space direction="vertical" size="middle" style={{ width: '100%' }}>
-          <div>
-            <Tag color="orange">Tủ trung tâm</Tag>
-            <Text>ADVANCED với 2 loops quản lý</Text>
-          </div>
-          <div>
-            <Tag color="orange">Đầu báo</Tag>
-            <Text>Đầu báo khói/nhiệt dạng địa chỉ</Text>
-          </div>
-          <div>
-            <Tag color="orange">Báo khói sớm</Tag>
-            <Text>Hệ thống lấy mẫu qua đầu dò, phân tích và phát hiện</Text>
-          </div>
-          <div>
-            <Tag color="orange">Tủ báo cháy khu vực</Tag>
-            <Text>Tại các phòng chức năng với màn hình hiển thị</Text>
-          </div>
-        </Space>
-      </Card>
+        <Card title="Trung tâm điều khiển" style={{ marginBottom: '20px' }}>
+          <Space direction="vertical" size="middle" style={{ width: '100%' }}>
+            <div>
+              <Tag color="blue">Vị trí</Tag>
+              <Text>Cuối phòng NOC</Text>
+            </div>
+            <div>
+              <Tag color="blue">Tủ trung tâm PCCC</Tag>
+              <Text>Quản lý, giám sát toàn bộ hệ thống báo cháy, báo khói sớm</Text>
+            </div>
+            <div>
+              <Tag color="blue">Tủ điều khiển loa</Tag>
+              <Text>Thông báo sự cố, có bộ đàm và hệ thống loa</Text>
+            </div>
+            <div>
+              <Tag color="blue">Tủ MFD Panel</Tag>
+              <Text>Điều khiển mô tơ đóng mở đường ống dẫn khói, bụi</Text>
+            </div>
+            <div>
+              <Tag color="blue">Tủ cảnh báo dò nước</Tag>
+              <Text>Giám sát rò rỉ nước tại các tầng</Text>
+            </div>
+          </Space>
+        </Card>
 
-      <Card title="Trung tâm điều khiển" style={{ marginBottom: '20px' }}>
-        <Space direction="vertical" size="middle" style={{ width: '100%' }}>
-          <div>
-            <Tag color="blue">Vị trí</Tag>
-            <Text>Cuối phòng NOC</Text>
-          </div>
-          <div>
-            <Tag color="blue">Tủ trung tâm PCCC</Tag>
-            <Text>Quản lý, giám sát toàn bộ hệ thống báo cháy, báo khói sớm</Text>
-          </div>
-          <div>
-            <Tag color="blue">Tủ điều khiển loa</Tag>
-            <Text>Thông báo sự cố, có bộ đàm và hệ thống loa</Text>
-          </div>
-          <div>
-            <Tag color="blue">Tủ MFD Panel</Tag>
-            <Text>Điều khiển mô tơ đóng mở đường ống dẫn khói, bụi</Text>
-          </div>
-          <div>
-            <Tag color="blue">Tủ cảnh báo dò nước</Tag>
-            <Text>Giám sát rò rỉ nước tại các tầng</Text>
-          </div>
-        </Space>
-      </Card>
-
-      <Card title="Đặc điểm an toàn" style={{ marginBottom: '20px' }}>
-        <Space direction="vertical" size="middle" style={{ width: '100%' }}>
-          <div>
-            <Tag color="green">✅ An toàn cho người</Tag>
-            <Text>Khí Novec 1230 không độc hại</Text>
-          </div>
-          <div>
-            <Tag color="green">✅ Không làm hư thiết bị</Tag>
-            <Text>Không gây ăn mòn điện tử</Text>
-          </div>
-          <div>
-            <Tag color="green">✅ Phát hiện sớm</Tag>
-            <Text>Hệ thống báo khói sớm</Text>
-          </div>
-          <div>
-            <Tag color="green">✅ Tự động kích hoạt</Tag>
-            <Text>Không cần can thiệp thủ công</Text>
-          </div>
-          <div>
-            <Tag color="green">✅ Thân thiện môi trường</Tag>
-            <Text>Không ảnh hưởng tầng ozone</Text>
-          </div>
-          <div>
-            <Tag color="green">✅ Hiệu quả cao</Tag>
-            <Text>Dập tắt đám cháy bằng hấp thụ nhiệt</Text>
-          </div>
-        </Space>
-      </Card>
+        <Card title="Đặc điểm an toàn" style={{ marginBottom: '20px' }}>
+          <Space direction="vertical" size="middle" style={{ width: '100%' }}>
+            <div>
+              <Tag color="green">✅ An toàn cho người</Tag>
+              <Text>Khí Novec 1230 không độc hại</Text>
+            </div>
+            <div>
+              <Tag color="green">✅ Không làm hư thiết bị</Tag>
+              <Text>Không gây ăn mòn điện tử</Text>
+            </div>
+            <div>
+              <Tag color="green">✅ Phát hiện sớm</Tag>
+              <Text>Hệ thống báo khói sớm</Text>
+            </div>
+            <div>
+              <Tag color="green">✅ Tự động kích hoạt</Tag>
+              <Text>Không cần can thiệp thủ công</Text>
+            </div>
+            <div>
+              <Tag color="green">✅ Thân thiện môi trường</Tag>
+              <Text>Không ảnh hưởng tầng ozone</Text>
+            </div>
+            <div>
+              <Tag color="green">✅ Hiệu quả cao</Tag>
+              <Text>Dập tắt đám cháy bằng hấp thụ nhiệt</Text>
+            </div>
+          </Space>
+        </Card>
+      </div>
 
       <div id="section-5.2" className="subsection">
         <Title level={4} style={{ color: '#1890ff', marginBottom: '12px' }}>

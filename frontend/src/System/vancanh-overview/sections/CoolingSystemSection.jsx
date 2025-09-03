@@ -1,8 +1,8 @@
 import React from 'react';
 import { Typography, Card, Tag, Alert, Space, Divider, Row, Col } from 'antd';
-import { 
-  SettingOutlined, 
-  CloudOutlined, 
+import {
+  SettingOutlined,
+  CloudOutlined,
   CheckCircleOutlined,
   PictureOutlined
 } from '@ant-design/icons';
@@ -17,10 +17,9 @@ const CoolingSystemSection = () => {
         4. HỆ THỐNG LÀM MÁT TTDL VÂN CANH
       </Title>
 
-      {/* Image placeholders từ PPTX */}
       <Row gutter={[16, 16]} style={{ marginBottom: '20px' }}>
-        <Col xs={24} lg={12}>
-          <Card 
+        <Row>
+          <Card
             title={
               <Space>
                 <PictureOutlined />
@@ -29,8 +28,8 @@ const CoolingSystemSection = () => {
             }
           >
             <div style={{ textAlign: 'center' }}>
-              <img 
-                src="/vancanh-overview/cooling_system_overview_3.jpg"
+              <img
+                src="/vancanh-overview/chiller1.jpg"
                 alt="Hệ thống làm mát DC"
                 style={{
                   maxWidth: '100%',
@@ -39,29 +38,29 @@ const CoolingSystemSection = () => {
                   boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
                 }}
               />
-              <p style={{ 
-                color: '#666', 
-                margin: '8px 0 0 0', 
+              <p style={{
+                color: '#666',
+                margin: '8px 0 0 0',
                 fontSize: '12px',
                 fontStyle: 'italic'
               }}>
-                Hệ thống làm mát DC (từ slide PPTX)
+                Hệ thống làm mát
               </p>
             </div>
           </Card>
-        </Col>
-        <Col xs={24} lg={12}>
-          <Card 
+        </Row>
+        <Col >
+          <Card
             title={
               <Space>
                 <PictureOutlined />
-                Hình ảnh Chiller SMARDT
+                Hình ảnh hệ thống Chiller
               </Space>
             }
           >
             <div style={{ textAlign: 'center' }}>
-              <img 
-                src="/vancanh-overview/chiller_smardt_632kw_3.jpg"
+              <img
+                src="/vancanh-overview/chiller2.jpg"
                 alt="Chiller SMARDT 632kW"
                 style={{
                   maxWidth: '100%',
@@ -70,13 +69,13 @@ const CoolingSystemSection = () => {
                   boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
                 }}
               />
-              <p style={{ 
-                color: '#666', 
-                margin: '8px 0 0 0', 
+              <p style={{
+                color: '#666',
+                margin: '8px 0 0 0',
                 fontSize: '12px',
                 fontStyle: 'italic'
               }}>
-                Chiller SMARDT 632kW (từ slide PPTX)
+                Hình ảnh hệ thống Chiller
               </p>
             </div>
           </Card>
@@ -154,31 +153,6 @@ const CoolingSystemSection = () => {
             <div>
               <Tag color="green">Nhiệm vụ</Tag>
               <Text>Bơm tuần hoàn nước từ chiller qua TES, cấp cho tải, hồi về chiller</Text>
-            </div>
-          </Space>
-        </Card>
-
-        <Card title="Hệ thống TES (Thermal Energy Storage)" style={{ marginBottom: '20px' }}>
-          <Space direction="vertical" size="middle" style={{ width: '100%' }}>
-            <div>
-              <Tag color="orange">Số lượng</Tag>
-              <Text>2 bình TES (A & B)</Text>
-            </div>
-            <div>
-              <Tag color="orange">Dung tích mỗi bình</Tag>
-              <Text>20 m³</Text>
-            </div>
-            <div>
-              <Tag color="orange">Tổng dung tích</Tag>
-              <Text>40 m³</Text>
-            </div>
-            <div>
-              <Tag color="orange">Thời gian dự phòng</Tag>
-              <Text>10 phút đầy tải khi mất điện hoặc tạm dừng Chiller</Text>
-            </div>
-            <div>
-              <Tag color="orange">Chế độ hoạt động</Tag>
-              <Text>BT và Xả, Nạp, ByPass</Text>
             </div>
           </Space>
         </Card>
@@ -284,7 +258,7 @@ const CoolingSystemSection = () => {
         />
 
         {/* Image placeholder cho TES */}
-        <Card 
+        <Card
           title={
             <Space>
               <PictureOutlined />
@@ -294,23 +268,28 @@ const CoolingSystemSection = () => {
           style={{ marginBottom: '20px' }}
         >
           <div style={{ textAlign: 'center' }}>
-            <img 
-              src="/vancanh-overview/tes_system_10min_3.jpg"
+            <img
+              src="/vancanh-overview/tes.jpg"
               alt="Hệ thống trữ nhiệt TES"
               style={{
-                maxWidth: '100%',
+                maxWidth: '40%',
                 height: 'auto',
-                borderRadius: '8px',
-                boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
+                border: '1px solid #d9d9d9',
+                borderRadius: '6px',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+                display: 'block',
+                margin: '0 auto',
+                transform: "scaleX(1.4)",
+                transformOrigin: "center"
               }}
             />
-            <p style={{ 
-              color: '#666', 
-              margin: '8px 0 0 0', 
+            <p style={{
+              color: '#666',
+              margin: '8px 0 0 0',
               fontSize: '12px',
               fontStyle: 'italic'
             }}>
-              Hệ thống trữ nhiệt TES (từ slide PPTX)
+              Hệ thống trữ nhiệt TES đặt ở bên hông trái TTDL
             </p>
           </div>
         </Card>
@@ -344,7 +323,7 @@ const CoolingSystemSection = () => {
           </Space>
         </Card>
 
-        <Card title="Nguyên lý hoạt động" style={{ marginBottom: '20px' }}>
+        <Card title="Nguyên lý hoạt động" style={{ marginBottom: '10px' }}>
           <Space direction="vertical" size="middle" style={{ width: '100%' }}>
             <div>
               <Tag color="green">✅ Chế độ bình thường</Tag>
@@ -375,7 +354,7 @@ const CoolingSystemSection = () => {
         showIcon
         style={{ marginTop: '20px' }}
       />
-    </div>
+    </div >
   );
 };
 

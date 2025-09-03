@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography, Card, Tag, Alert, Space } from 'antd';
+import { Typography, Card, Tag, Alert, Space, Col, Row } from 'antd';
 import { BookOutlined, PictureOutlined } from '@ant-design/icons';
 
 const { Title, Text } = Typography;
@@ -21,35 +21,52 @@ const RackSystemSection = () => {
       />
 
       {/* Hình ảnh hệ thống rack */}
-      <Card 
+      <Card
         title={
           <Space>
             <PictureOutlined />
             Hệ thống Rack Server
           </Space>
         }
-        style={{ marginBottom: '20px' }}
       >
-        <div style={{ textAlign: 'center' }}>
-          <img 
-            src="/vancanh-overview/rack_system_120_racks.jpg"
-            alt="120 Rack Server, công suất trung bình 5KW/rack"
-            style={{
-              maxWidth: '100%',
-              height: 'auto',
-              borderRadius: '8px',
-              boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
-            }}
-          />
-          <p style={{ 
-            color: '#666', 
-            margin: '8px 0 0 0', 
-            fontSize: '12px',
-            fontStyle: 'italic'
-          }}>
-            120 Rack Server, công suất trung bình 5KW/rack (từ slide PPTX)
-          </p>
-        </div>
+        <Row gutter={[8, 8]} style={{ marginBottom: '20px' }}>
+          <Col span={8}>
+            <div style={{ textAlign: 'center' }}>
+              <img
+                src="/vancanh-overview/rack1.jpg"
+                alt="Hệ thống cấp nguồn gồm 2 trạm biến áp 2500KVA"
+                style={{
+                  maxWidth: '100%',
+                  height: 'auto',
+                  border: '1px solid #d9d9d9',
+                  borderRadius: '6px',
+                  boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+                  display: 'block',
+                  margin: '0 auto'
+                }}
+              />
+            </div>
+          </Col>
+          <Col span={8}>
+            <div style={{ textAlign: 'center' }}>
+              <img
+                src="/vancanh-overview/rack2.jpg"
+                alt="Hệ thống cấp nguồn gồm 2 trạm biến áp 2500KVA"
+                style={{
+                  maxWidth: '100%',
+                  height: 'auto',
+                  border: '1px solid #d9d9d9',
+                  borderRadius: '6px',
+                  boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+                  display: 'block',
+                  margin: '0 auto'
+                }}
+              />
+
+            </div>
+          </Col>
+
+        </Row>
       </Card>
 
       <div id="section-8.1" className="subsection">

@@ -1,12 +1,12 @@
-import React from 'react';
-import { Typography, Card, Tag, Alert, Space, Divider, Row, Col } from 'antd';
-import { 
-  CloudOutlined, 
-  SafetyOutlined, 
-  CheckCircleOutlined,
+import {
   BuildOutlined,
-  PictureOutlined
+  CheckCircleOutlined,
+  CloudOutlined,
+  PictureOutlined,
+  SafetyOutlined
 } from '@ant-design/icons';
+import { Alert, Card, Col, Divider, Row, Space, Tag, Typography } from 'antd';
+import React from 'react';
 
 const { Title, Paragraph, Text } = Typography;
 
@@ -32,7 +32,7 @@ const ArchitectureSection = () => {
         />
 
         {/* Hình ảnh kiến trúc tổng quan */}
-        <Card 
+        <Card
           title={
             <Space>
               <PictureOutlined />
@@ -42,23 +42,26 @@ const ArchitectureSection = () => {
           style={{ marginBottom: '20px' }}
         >
           <div style={{ textAlign: 'center' }}>
-            <img 
-              src="/vancanh-overview/project_overview_3.jpg"
+            <img
+              src="/vancanh-overview/electrical_system_digital.jpg"
               alt="Kiến trúc tổng quan TTDL Vân Canh"
               style={{
-                maxWidth: '100%',
+                maxWidth: '75%',
                 height: 'auto',
-                borderRadius: '8px',
-                boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
+                border: '1px solid #d9d9d9',
+                borderRadius: '6px',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+                display: 'block',
+                margin: '0 auto'
               }}
             />
-            <p style={{ 
-              color: '#666', 
-              margin: '8px 0 0 0', 
+            <p style={{
+              color: '#666',
+              margin: '8px 0 0 0',
               fontSize: '12px',
               fontStyle: 'italic'
             }}>
-              Kiến trúc tổng quan TTDL Vân Canh - Thiết kế phân vùng độc lập (từ slide PPTX)
+              Kiến trúc tổng quan TTDL Vân Canh - Thiết kế phân vùng độc lập
             </p>
           </div>
         </Card>
@@ -89,76 +92,8 @@ const ArchitectureSection = () => {
         </Card>
       </div>
 
+
       <div id="section-2.2" className="subsection">
-        <Title level={4} style={{ color: '#1890ff', marginBottom: '12px' }}>
-          <CheckCircleOutlined style={{ marginRight: '8px' }} /> 2.2 Quy mô và công suất
-        </Title>
-
-        <Row gutter={[16, 16]}>
-          <Col xs={24} lg={12}>
-            <Card title="Quy mô xây dựng" style={{ marginBottom: '20px' }}>
-              <Space direction="vertical" size="middle" style={{ width: '100%' }}>
-                <div>
-                  <Tag color="blue">Vị trí</Tag>
-                  <Text>Trường Đào tạo và Phát triển Nguồn nhân lực Vietinbank</Text>
-                </div>
-                <div>
-                  <Tag color="blue">Kích thước</Tag>
-                  <Text>54m x 65m (rộng x sâu)</Text>
-                </div>
-                <div>
-                  <Tag color="blue">Diện tích sàn</Tag>
-                  <Text>952m²/tầng (34m x 28m)</Text>
-                </div>
-                <div>
-                  <Tag color="blue">Cấu trúc</Tag>
-                  <Text>3 tầng + 1 tầng mái</Text>
-                </div>
-                <div>
-                  <Tag color="blue">Tổng số phòng</Tag>
-                  <Text>29 phòng chức năng</Text>
-                </div>
-                <div>
-                  <Tag color="blue">Khu vực ngoài</Tag>
-                  <Text>Trạm biến áp, máy phát, bể dầu</Text>
-                </div>
-                <div>
-                  <Tag color="blue">Khu vực trong</Tag>
-                  <Text>Thiết bị hạ tầng TTDL</Text>
-                </div>
-              </Space>
-            </Card>
-          </Col>
-          <Col xs={24} lg={12}>
-            <Card title="Công suất và mật độ" style={{ marginBottom: '20px' }}>
-              <Space direction="vertical" size="middle" style={{ width: '100%' }}>
-                <div>
-                  <Tag color="orange">Giai đoạn 1</Tag>
-                  <Text>120 rack server</Text>
-                </div>
-                <div>
-                  <Tag color="orange">Mở rộng tương lai</Tag>
-                  <Text>+30 rack (tổng 150 rack)</Text>
-                </div>
-                <div>
-                  <Tag color="purple">Mật độ trung bình</Tag>
-                  <Text>5KW/rack</Text>
-                </div>
-                <div>
-                  <Tag color="purple">Mật độ cao</Tag>
-                  <Text>15KW/rack</Text>
-                </div>
-                <div>
-                  <Tag color="red">Công suất tối đa</Tag>
-                  <Text>2250KW (150 rack × 15KW)</Text>
-                </div>
-              </Space>
-            </Card>
-          </Col>
-        </Row>
-      </div>
-
-      <div id="section-2.3" className="subsection">
         <Title level={4} style={{ color: '#1890ff', marginBottom: '12px' }}>
           <SafetyOutlined style={{ marginRight: '8px' }} /> 2.3 Tiêu chuẩn thiết kế
         </Title>

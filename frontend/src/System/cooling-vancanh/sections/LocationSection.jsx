@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Typography, Card, Row, Col, Tag, Divider, Alert, Table, Tabs, Space, Image, Button } from 'antd';
 import HVACSystemDiagram from '../components/HVACSystemDiagram';
-import { 
-  EnvironmentOutlined, 
+import {
+  EnvironmentOutlined,
   SettingOutlined,
   InfoCircleOutlined,
   CheckCircleOutlined,
@@ -21,7 +21,7 @@ const LocationSection = () => {
   const handleDownload = (drawingCode) => {
     const fileMapping = {
       'VTB-FC-M-302': 'VTB-FC-M-302- Layout of equipment on 1st FP-Layout1.pdf',
-      'VTB-FC-M-303': 'VTB-FC-M-303- Layout of equipment on 2nd FP-Layout1.pdf', 
+      'VTB-FC-M-303': 'VTB-FC-M-303- Layout of equipment on 2nd FP-Layout1.pdf',
       'VTB-FC-M-304': 'VTB-FC-M-304- Layout of equipment on 4th FP-Layout1.pdf',
       'VTB-FC-M-306': 'VTB-FC-M-306- Layout of equipment on ceiling 1st FP-Layout1.pdf',
       'VTB-FC-M-307': 'VTB-FC-M-307- Layout of equipment on ceiling 2nd FP-Layout1.pdf',
@@ -31,7 +31,7 @@ const LocationSection = () => {
       'VTB-FC-M-504': 'VTB-FC-M-504 - Chiller water system for CRAC 4th FP-Layout1.pdf',
       'VTB-FC-M-505': 'VTB-FC-M-505 - Chiller water system from TES water tank - Copy-Layout1.pdf'
     };
-    
+
     const filename = fileMapping[drawingCode];
     if (filename) {
       const link = document.createElement('a');
@@ -55,7 +55,7 @@ const LocationSection = () => {
       notes: '2 chạy, 1 dự phòng, điều khiển VFD'
     },
     {
-      key: '2', 
+      key: '2',
       equipment: 'Pump P-01,02,03',
       quantity: '3',
       location: 'Tầng thượng',
@@ -68,7 +68,7 @@ const LocationSection = () => {
       key: '3',
       equipment: 'CRAC-DCH-01~08',
       quantity: '8',
-      location: 'Tầng 1 - DC Hall',
+      location: 'Tầng 2 - DC Hall',
       model: 'CRAC nước lạnh',
       capacity: '102.8kW',
       power: '8kW',
@@ -77,8 +77,8 @@ const LocationSection = () => {
     {
       key: '4',
       equipment: 'INROW-DCH-01~06',
-      quantity: '6', 
-      location: 'Tầng 1 - DC Hall',
+      quantity: '6',
+      location: 'Tầng 2 - DC Hall',
       model: 'Đơn vị InRow nước lạnh',
       capacity: '21.6kW (7RT)',
       power: '1.5kW',
@@ -98,7 +98,7 @@ const LocationSection = () => {
       key: '6',
       equipment: 'CRAC-ER.B-01,02',
       quantity: '2',
-      location: 'Tầng 1 - Phòng điện B', 
+      location: 'Tầng 1 - Phòng điện B',
       model: 'CRAC nước lạnh',
       capacity: '79.8kW (23RT)',
       power: '15kW',
@@ -139,7 +139,7 @@ const LocationSection = () => {
     {
       key: '2',
       floor: 'Tầng 1',
-      drawing: 'VTB-FC-M-302', 
+      drawing: 'VTB-FC-M-302',
       description: 'Bố trí thiết bị trên tầng 1',
       equipment: ['8x CRAC-DCH', '6x INROW-DCH', '4x CRAC-ER', '4x CRAC-BR', '4x CRAC-ISP'],
       scale: '1/125'
@@ -148,7 +148,7 @@ const LocationSection = () => {
       key: '3',
       floor: 'Tầng 2',
       drawing: 'VTB-FC-M-303',
-      description: 'Bố trí thiết bị trên tầng 2', 
+      description: 'Bố trí thiết bị trên tầng 2',
       equipment: ['2x FCU-TL', '4x FCU-HR'],
       scale: '1/125'
     },
@@ -162,7 +162,7 @@ const LocationSection = () => {
     },
     {
       key: '5',
-      floor: 'Trần tầng 2', 
+      floor: 'Trần tầng 2',
       drawing: 'VTB-FC-M-307',
       description: 'Bố trí thiết bị trên trần tầng 2',
       equipment: ['Thiết bị gắn trần', 'Đường ống gió', 'Đường ống nước'],
@@ -191,7 +191,7 @@ const LocationSection = () => {
     {
       key: '3',
       system: 'CRAC Tầng 3',
-      drawing: 'VTB-FC-M-503', 
+      drawing: 'VTB-FC-M-503',
       description: 'Hệ thống nước lạnh cho CRAC tầng 3',
       equipment: 'Khu vực văn phòng',
       scale: '1/125'
@@ -200,7 +200,7 @@ const LocationSection = () => {
       key: '4',
       system: 'CRAC Tầng 4',
       drawing: 'VTB-FC-M-504',
-      description: 'Hệ thống nước lạnh cho CRAC tầng 4', 
+      description: 'Hệ thống nước lạnh cho CRAC tầng 4',
       equipment: 'Khu vực kỹ thuật',
       scale: '1/125'
     },
@@ -244,10 +244,9 @@ const LocationSection = () => {
             style={{ marginBottom: '20px' }}
           />
 
-          <HVACSystemDiagram />
 
-          <Tabs 
-            defaultActiveKey="1" 
+          {/* <Tabs
+            defaultActiveKey="1"
             style={{ marginTop: '20px' }}
             items={[
               {
@@ -305,8 +304,8 @@ const LocationSection = () => {
                         key: 'download',
                         width: '12%',
                         render: (drawingCode) => (
-                          <Button 
-                            type="primary" 
+                          <Button
+                            type="primary"
                             size="small"
                             icon={<DownloadOutlined />}
                             onClick={() => handleDownload(drawingCode)}
@@ -411,7 +410,7 @@ const LocationSection = () => {
                 )
               }
             ]}
-          />
+          /> */}
         </Card>
       </div>
 
@@ -544,10 +543,11 @@ const LocationSection = () => {
                 key: 'download',
                 width: '10%',
                 render: (drawingCode) => (
-                  <Button 
-                    type="primary" 
+                  <Button
+                    type="primary"
                     size="small"
                     icon={<DownloadOutlined />}
+                    style={{ width: '100%', backgroundColor: '#003c71', color: 'white', borderColor: '#003c71' }}
                     onClick={() => handleDownload(drawingCode)}
                     title={`Tải ${drawingCode}.pdf`}
                   >
@@ -622,14 +622,6 @@ const LocationSection = () => {
           </Row>
         </Card>
       </div>
-
-      <Alert
-        message="Tham khảo bản vẽ kỹ thuật"
-        description="Để tải về các bản vẽ HVAC chính thức, vui lòng truy cập mục 7. TÀI LIỆU. Có sẵn 32 bản vẽ PDF được phân loại theo từng hệ thống."
-        type="info"
-        showIcon
-        style={{ marginTop: '20px' }}
-      />
     </div>
   );
 };
