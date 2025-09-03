@@ -1,6 +1,7 @@
+import { AppstoreOutlined, PictureOutlined, SafetyOutlined } from '@ant-design/icons';
+import { Alert, Card, Col, Row, Space, Tag, Typography } from 'antd';
 import React from 'react';
-import { Typography, Card, Tag, Alert, Space, Row, Col } from 'antd';
-import { SafetyOutlined, PictureOutlined, AppstoreOutlined } from '@ant-design/icons';
+import { ImageGallery, ImagePreview } from '../../shared';
 
 const { Title, Text } = Typography;
 
@@ -26,29 +27,26 @@ const SecuritySystemSection = () => {
         <Title level={4} style={{ color: '#1890ff', marginBottom: '12px' }}>
           <AppstoreOutlined style={{ marginRight: '8px' }} /> 6.1 Hệ thống CCTV
         </Title>
+        
+        {/* Hiển thị gallery ảnh CCTV */}
         <Card
           title={
             <Space>
               <PictureOutlined />
-              CCTV
+              Hình ảnh hệ thống CCTV
             </Space>
           }
+          style={{ marginBottom: '20px' }}
         >
-          <div style={{ textAlign: 'center' }}>
-            <img
-              src="/vancanh-overview/cctv1.jpg"
-              alt="Hệ thống cấp nguồn gồm 2 trạm biến áp 2500KVA"
-              style={{
-                maxWidth: '100%',
-                height: 'auto',
-                border: '1px solid #d9d9d9',
-                borderRadius: '6px',
-                boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
-                display: 'block',
-                margin: '0 auto'
-              }}
-            />
-          </div>
+          <ImageGallery
+            images={[
+              '/vancanh-overview/cctv1.jpg',             
+            ]}
+            columns={1}
+            imageWidth= '100%'
+            imageHeight= 'auto'  
+            maskText="Click để xem chi tiết"
+          />
         </Card>
         <Card title="Hệ thống CCTV" style={{ marginBottom: '20px' }}>
           <Space direction="vertical" size="middle" style={{ width: '100%' }}>
@@ -88,12 +86,12 @@ const SecuritySystemSection = () => {
             </Space>
           } >
           <div style={{ textAlign: 'center' }}>
-            <img
+            <ImagePreview
               src="/vancanh-overview/cctv2.jpg"
               alt="Hệ thống cấp nguồn gồm 2 trạm biến áp 2500KVA"
-              style={{
-                maxWidth: '100%',
-                height: 'auto',
+              width='80%'
+                height= 'auto'  
+                style={{                
                 border: '1px solid #d9d9d9',
                 borderRadius: '6px',
                 boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
@@ -106,12 +104,12 @@ const SecuritySystemSection = () => {
         <Row gutter={[16, 16]} style={{ marginBottom: '20px' }}>
           <Col span={12}  >
             <div style={{ textAlign: 'center' }}>
-              <img
+              <ImagePreview
                 src="/vancanh-overview/cctv3.jpg"
                 alt="Hệ thống cấp nguồn gồm 2 trạm biến áp 2500KVA"
-                style={{
-                  maxWidth: '100%',
-                  height: 'auto',
+                width='100%'
+                height= 'auto'  
+                style={{                  
                   border: '1px solid #d9d9d9',
                   borderRadius: '6px',
                   boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
@@ -124,12 +122,12 @@ const SecuritySystemSection = () => {
           </Col>
           <Col span={12} >
             <div style={{ textAlign: 'center' }}>
-              <img
+              <ImagePreview
                 src="/vancanh-overview/cctv4.jpg"
                 alt="Hệ thống cấp nguồn gồm 2 trạm biến áp 2500KVA"
-                style={{
-                  maxWidth: '100%',
-                  height: 'auto',
+                width='100%'
+                height= 'auto'  
+                style={{                  
                   border: '1px solid #d9d9d9',
                   borderRadius: '6px',
                   boxShadow: '0 2px 8px rgba(0,0,0,0.1)',

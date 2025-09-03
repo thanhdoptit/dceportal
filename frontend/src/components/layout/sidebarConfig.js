@@ -21,6 +21,7 @@ export const SIDEBAR_CONFIG = {
   '/dc/cooling-system-vancanh': { autoCollapse: true, defaultCollapsed: true }, // Tự động thu gọn cho cooling system vân canh
   '/dc/vancanh-overview': { autoCollapse: true, defaultCollapsed: true }, // Tự động thu gọn cho vân canh overview
   '/dc/ups-system': { autoCollapse: true, defaultCollapsed: true },
+  '/dc/ups-vancanh': { autoCollapse: true, defaultCollapsed: true },
 
   '/dc/fire-system': { autoCollapse: true, defaultCollapsed: true },
   '/dc/security-system': { autoCollapse: true, defaultCollapsed: true },

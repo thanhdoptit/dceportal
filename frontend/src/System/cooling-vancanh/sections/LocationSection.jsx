@@ -1,17 +1,14 @@
-import React, { useState } from 'react';
-import { Typography, Card, Row, Col, Tag, Divider, Alert, Table, Tabs, Space, Image, Button } from 'antd';
-import HVACSystemDiagram from '../components/HVACSystemDiagram';
 import {
-  EnvironmentOutlined,
-  SettingOutlined,
-  InfoCircleOutlined,
-  CheckCircleOutlined,
-  HomeOutlined,
   ApartmentOutlined,
-  RadarChartOutlined,
+  CloudOutlined,
   DownloadOutlined,
-  CloudOutlined
+  EnvironmentOutlined,
+  RadarChartOutlined,
+  SettingOutlined
 } from '@ant-design/icons';
+import { Alert, Button, Card, Col, Divider, Row, Space, Table, Tag, Typography } from 'antd';
+import React from 'react';
+import '../../shared/styles/SystemSection.css';
 
 const { Title, Paragraph, Text } = Typography;
 
@@ -126,49 +123,7 @@ const LocationSection = () => {
     }
   ];
 
-  // Floor Plans Data
-  const floorPlansData = [
-    {
-      key: '1',
-      floor: 'Tầng thượng',
-      drawing: 'VTB-FC-M-304',
-      description: 'Bố trí thiết bị trên tầng thượng',
-      equipment: ['Chiller CH-01,02,03', 'Pump P-01,02,03', 'PAU-01'],
-      scale: '1/125'
-    },
-    {
-      key: '2',
-      floor: 'Tầng 1',
-      drawing: 'VTB-FC-M-302',
-      description: 'Bố trí thiết bị trên tầng 1',
-      equipment: ['8x CRAC-DCH', '6x INROW-DCH', '4x CRAC-ER', '4x CRAC-BR', '4x CRAC-ISP'],
-      scale: '1/125'
-    },
-    {
-      key: '3',
-      floor: 'Tầng 2',
-      drawing: 'VTB-FC-M-303',
-      description: 'Bố trí thiết bị trên tầng 2',
-      equipment: ['2x FCU-TL', '4x FCU-HR'],
-      scale: '1/125'
-    },
-    {
-      key: '4',
-      floor: 'Trần tầng 1',
-      drawing: 'VTB-FC-M-306',
-      description: 'Bố trí thiết bị trên trần tầng 1',
-      equipment: ['Thiết bị gắn trần', 'Đường ống gió', 'Đường ống nước'],
-      scale: '1/125'
-    },
-    {
-      key: '5',
-      floor: 'Trần tầng 2',
-      drawing: 'VTB-FC-M-307',
-      description: 'Bố trí thiết bị trên trần tầng 2',
-      equipment: ['Thiết bị gắn trần', 'Đường ống gió', 'Đường ống nước'],
-      scale: '1/125'
-    }
-  ];
+
 
   // Chilled Water System Layout
   const chilledWaterSystemData = [
@@ -215,8 +170,8 @@ const LocationSection = () => {
   ];
 
   return (
-    <div style={{ padding: '20px 0' }}>
-      <Title level={2} style={{ color: '#1890ff', marginBottom: '24px' }}>
+    <div className="location-section">
+      <Title level={2} className="section-title">
         <EnvironmentOutlined style={{ marginRight: '12px' }} />
         4. VỊ TRÍ HỆ THỐNG - TTDL Vân Canh
       </Title>
@@ -229,9 +184,9 @@ const LocationSection = () => {
         style={{ marginBottom: '24px' }}
       />
 
-      <div id="section-4.1" className="subsection" style={{ marginBottom: '24px' }}>
-        <Card>
-          <Title level={3} style={{ color: '#1890ff', marginBottom: '16px' }}>
+      <div id="section-4.1" className="subsection">
+        <Card className="subsection-card">
+          <Title level={3} className="subsection-title">
             <ApartmentOutlined style={{ marginRight: '8px' }} />
             4.1. Sơ đồ bố trí tổng thể
           </Title>
@@ -416,9 +371,9 @@ const LocationSection = () => {
 
       <Divider />
 
-      <div id="section-4.2" className="subsection" style={{ marginBottom: '24px' }}>
-        <Card>
-          <Title level={3} style={{ color: '#1890ff', marginBottom: '16px' }}>
+      <div id="section-4.2" className="subsection">
+        <Card className="subsection-card">
+          <Title level={3} className="subsection-title">
             <SettingOutlined style={{ marginRight: '8px' }} />
             4.2. Vị trí các thiết bị chính
           </Title>
@@ -485,9 +440,9 @@ const LocationSection = () => {
 
       <Divider />
 
-      <div id="section-4.3" className="subsection" style={{ marginBottom: '24px' }}>
-        <Card>
-          <Title level={3} style={{ color: '#1890ff', marginBottom: '16px' }}>
+      <div id="section-4.3" className="subsection">
+        <Card className="subsection-card">
+          <Title level={3} className="subsection-title">
             <RadarChartOutlined style={{ marginRight: '8px' }} />
             4.3. Đường ống và hệ thống phân phối
           </Title>
@@ -547,7 +502,7 @@ const LocationSection = () => {
                     type="primary"
                     size="small"
                     icon={<DownloadOutlined />}
-                    style={{ width: '100%', backgroundColor: '#003c71', color: 'white', borderColor: '#003c71' }}
+                    className="download-button"
                     onClick={() => handleDownload(drawingCode)}
                     title={`Tải ${drawingCode}.pdf`}
                   >
@@ -561,8 +516,8 @@ const LocationSection = () => {
             bordered
           />
 
-          <div style={{ marginTop: '20px' }}>
-            <Title level={4} style={{ color: '#595959' }}>Đặc điểm hệ thống đường ống:</Title>
+          <div className="system-features">
+            <Title level={4} className="feature-title">Đặc điểm hệ thống đường ống:</Title>
             <Space direction="vertical" size="small">
               <Text>• <strong>Cấp chính:</strong> Từ tầng thượng (Chiller + Pump) xuống các tầng</Text>
               <Text>• <strong>Tích hợp TES:</strong> Bản vẽ VTB-FC-M-505 cho kết nối bể TES</Text>
@@ -577,9 +532,9 @@ const LocationSection = () => {
 
       <Divider />
 
-      <div id="section-4.4" className="subsection" style={{ marginBottom: '24px' }}>
-        <Card>
-          <Title level={3} style={{ color: '#1890ff', marginBottom: '16px' }}>
+      <div id="section-4.4" className="subsection">
+        <Card className="subsection-card">
+          <Title level={3} className="subsection-title">
             <CloudOutlined style={{ marginRight: '8px' }} />
             4.4. Hệ thống thông gió và hút khói
           </Title>
@@ -595,9 +550,9 @@ const LocationSection = () => {
           <Row gutter={[16, 16]}>
             <Col xs={24} lg={12}>
               <Card size="small" title="Hệ thống thông gió">
-                <div style={{ padding: '16px' }}>
+                <div className="feature-content">
                   <Text strong>Thiết bị chính:</Text>
-                  <ul style={{ marginTop: '8px', paddingLeft: '20px' }}>
+                  <ul>
                     <li>PAU-01: 850 L/s (Tầng thượng)</li>
                     <li>Quạt hút khói khẩn cấp</li>
                     <li>Hệ thống ống gió phân phối</li>
@@ -608,9 +563,9 @@ const LocationSection = () => {
             </Col>
             <Col xs={24} lg={12}>
               <Card size="small" title="Hệ thống hút khói">
-                <div style={{ padding: '16px' }}>
+                <div className="feature-content">
                   <Text strong>Chức năng:</Text>
-                  <ul style={{ marginTop: '8px', paddingLeft: '20px' }}>
+                  <ul>
                     <li>Hút khói khi có cháy</li>
                     <li>Thông gió khẩn cấp</li>
                     <li>Kiểm soát áp suất phòng</li>

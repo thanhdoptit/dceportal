@@ -6,6 +6,7 @@ import {
   CheckCircleOutlined,
   PictureOutlined
 } from '@ant-design/icons';
+import { ImageGallery } from '../../shared';
 
 const { Title, Paragraph, Text } = Typography;
 
@@ -29,59 +30,27 @@ const FireProtectionSection = () => {
           <SafetyOutlined style={{ marginRight: '8px' }} /> 5.1 HỆ THỐNG PCCC TỰ ĐỘNG BẰNG KHÍ NOVEC 1230
         </Title>
         {/* Hình ảnh hệ thống PCCC */}
-        <Row gutter={[16, 16]} style={{ marginBottom: '20px' }}>
-          <Col span={12}>
-            <div style={{ textAlign: 'center' }}>
-              <img
-                src="/vancanh-overview/pccc1.jpg"
-                alt="Hệ thống cấp nguồn gồm 2 trạm biến áp 2500KVA"
-                style={{
-                  maxWidth: '100%',
-                  height: 'auto',
-                  border: '1px solid #d9d9d9',
-                  borderRadius: '6px',
-                  boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
-                  display: 'block',
-                  margin: '0 auto'
-                }}
-              />
-            </div>
-            <div style={{ textAlign: 'center' }}>
-              <img
-                src="/vancanh-overview/pccc3.jpg"
-                alt="Hệ thống cấp nguồn gồm 2 trạm biến áp 2500KVA"
-                style={{
-                  maxWidth: '100%',
-                  height: 'auto',
-                  border: '1px solid #d9d9d9',
-                  borderRadius: '6px',
-                  boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
-                  display: 'block',
-                  margin: '0 auto'
-                }}
-              />
-
-            </div>
-          </Col>
-          <Col span={12}>
-            <div style={{ textAlign: 'center' }}>
-              <img
-                src="/vancanh-overview/pccc2.jpg"
-                alt="Hệ thống cấp nguồn gồm 2 trạm biến áp 2500KVA"
-                style={{
-                  maxWidth: '100%',
-                  height: 'auto',
-                  border: '1px solid #d9d9d9',
-                  borderRadius: '6px',
-                  boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
-                  display: 'block',
-                  margin: '0 auto'
-                }}
-              />
-
-            </div>
-          </Col>
-        </Row>
+        <Card
+          title={
+            <Space>
+              <PictureOutlined />
+              Hình ảnh hệ thống PCCC
+            </Space>
+          }
+          style={{ marginBottom: '20px' }}
+        >
+          <ImageGallery
+            images={[
+              '/vancanh-overview/pccc1.jpg',
+              '/vancanh-overview/pccc2.jpg',
+              '/vancanh-overview/pccc3.jpg'
+            ]}
+            columns={3}
+            imageWidth={250}
+            imageHeight={180}
+            maskText="Click để xem chi tiết"
+          />
+        </Card>
         <p style={{
           color: '#666',
           margin: '8px 0 0 0',

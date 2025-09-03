@@ -1,11 +1,11 @@
 import {
   BulbOutlined,
-  DatabaseOutlined,
   PictureOutlined,
   ThunderboltOutlined
 } from '@ant-design/icons';
 import { Alert, Card, Col, Divider, Row, Space, Tag, Typography } from 'antd';
 import React from 'react';
+import { ImagePreview } from '../../shared';
 
 const { Title, Paragraph, Text } = Typography;
 
@@ -41,12 +41,12 @@ const PowerSystemSection = () => {
               }
             >
               <div style={{ textAlign: 'center' }}>
-                <img
+                <ImagePreview
                   src="/vancanh-overview/sododien.jpg"
                   alt="Hệ thống điện được số hóa, giám sát, điều khiển tự động 100%"
+                  width='90%'
+                  height= 'auto'  
                   style={{
-                    maxWidth: '100%',
-                    height: 'auto',
                     borderRadius: '8px',
                     boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
                   }}
@@ -75,17 +75,15 @@ const PowerSystemSection = () => {
               }
             >
               <div style={{ textAlign: 'center' }}>
-                <img
+                <ImagePreview
                   src="/vancanh-overview/trambienap1.jpg"
                   alt="Hệ thống cấp nguồn gồm 2 trạm biến áp 2500KVA"
+                  width='100%'
+                  height= 'auto'  
                   style={{
-                    maxWidth: '100%',
-                    height: 'auto',
                     border: '1px solid #d9d9d9',
                     borderRadius: '6px',
-                    boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
-                    display: 'block',
-                    margin: '0 auto'
+                    boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
                   }}
                 />
 
@@ -110,12 +108,12 @@ const PowerSystemSection = () => {
               }
             >
               <div style={{ textAlign: 'center' }}>
-                <img
+                <ImagePreview
                   src="/vancanh-overview/trambienap2.jpg"
                   alt="Hệ thống cấp nguồn gồm 2 trạm biến áp 2500KVA"
+                  width='100%'
+                  height= 'auto'  
                   style={{
-                    maxWidth: '100%',
-                    height: 'auto',
                     border: '1px solid #d9d9d9',
                     borderRadius: '6px',
                     boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
@@ -179,7 +177,7 @@ const PowerSystemSection = () => {
               }
             >
               <div style={{ textAlign: 'center' }}>
-                <img
+                <ImagePreview
                   src="/vancanh-overview/mayphatdien2.jpg"
                   alt="Hệ thống cấp nguồn gồm 2 trạm biến áp 2500KVA"
                   style={{
@@ -214,7 +212,7 @@ const PowerSystemSection = () => {
               }
             >
               <div style={{ textAlign: 'center' }}>
-                <img
+                <ImagePreview
                   src="/vancanh-overview/mayphatdien1.jpg"
                   alt="Hệ thống cấp nguồn gồm 2 trạm biến áp 2500KVA"
                   style={{
@@ -272,7 +270,7 @@ const PowerSystemSection = () => {
               }
             >
               <div style={{ textAlign: 'center' }}>
-                <img
+                <ImagePreview
                   src="/vancanh-overview/bondau1.jpg"
                   alt="Hệ thống cấp nguồn gồm 2 trạm biến áp 2500KVA"
                   style={{
@@ -307,7 +305,7 @@ const PowerSystemSection = () => {
               }
             >
               <div style={{ textAlign: 'center' }}>
-                <img
+                <ImagePreview
                   src="/vancanh-overview/bondau2.jpg"
                   alt="Hệ thống cấp nguồn gồm 2 trạm biến áp 2500KVA"
                   style={{
@@ -374,7 +372,7 @@ const PowerSystemSection = () => {
               }
             >
               <div style={{ textAlign: 'center' }}>
-                <img
+                <ImagePreview
                   src="/vancanh-overview/ups2.jpg"
                   alt="Hệ thống cấp nguồn gồm 2 trạm biến áp 2500KVA"
                   style={{
@@ -409,7 +407,7 @@ const PowerSystemSection = () => {
               }
             >
               <div style={{ textAlign: 'center' }}>
-                <img
+                <ImagePreview
                   src="/vancanh-overview/ups1.jpg"
                   alt="Hệ thống cấp nguồn gồm 2 trạm biến áp 2500KVA"
                   style={{

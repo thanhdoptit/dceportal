@@ -5,6 +5,7 @@ import {
 } from '@ant-design/icons';
 import { Alert, Card, Col, Collapse, Divider, Row, Tag, Typography } from 'antd';
 import React from 'react';
+import '../../shared/styles/SystemSection.css';
 
 // Import các thiết bị
 import BMSChiller from '../devices/BMSChiller';
@@ -125,8 +126,8 @@ const DeviceGuideSection = () => {
   };
 
   return (
-    <div style={{ padding: '20px 0'}} className="content-section">
-      <Title level={2} style={{ color: '#1890ff', marginBottom: '24px' }}>
+    <div className="content-section">
+      <Title level={2}>
         <SettingOutlined style={{ marginRight: '12px' }} />
         2. Hướng dẫn chi tiết từng thiết bị - TTDL Vân Canh
       </Title>

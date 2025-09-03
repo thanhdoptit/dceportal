@@ -1,11 +1,11 @@
-import React from 'react';
-import { Typography, Card, Row, Col, Image, Tag, Alert, Divider } from 'antd';
-import { 
-  EyeOutlined, 
-  InfoCircleOutlined, 
-  ToolOutlined, 
-  ExperimentOutlined 
+import {
+    EyeOutlined,
+    InfoCircleOutlined,
+    ToolOutlined
 } from '@ant-design/icons';
+import { Alert, Card, Col, Divider, Image, Row, Tag, Typography } from 'antd';
+import React from 'react';
+import '../../shared/styles/SystemSection.css';
 
 const { Title, Text } = Typography;
 

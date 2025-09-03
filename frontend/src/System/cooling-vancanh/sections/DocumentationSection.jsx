@@ -1,12 +1,10 @@
-import React from 'react';
-import { Typography, Card, Row, Col, Tag, Divider, Alert, Button, Tabs, Space } from 'antd';
-import { 
-  FileTextOutlined, 
-  SettingOutlined,
-  InfoCircleOutlined,
-  CheckCircleOutlined,
-  DownloadOutlined
+import {
+    DownloadOutlined,
+    FileTextOutlined
 } from '@ant-design/icons';
+import { Alert, Button, Card, Col, Divider, Row, Space, Tabs, Typography } from 'antd';
+import React from 'react';
+import '../../shared/styles/SystemSection.css';
 
 const { Title, Paragraph, Text } = Typography;
 const { TabPane } = Tabs;
@@ -34,8 +32,8 @@ const DocumentationSection = () => {
   );
 
   return (
-    <div style={{ padding: '20px 0' }}>
-      <Title level={2} style={{ color: '#1890ff', marginBottom: '24px' }}>
+    <div className="content-section">
+      <Title level={2}>
         <FileTextOutlined style={{ marginRight: '12px' }} />
         7. TÀI LIỆU & THAM KHẢO - TTDL Vân Canh
       </Title>
@@ -50,7 +48,7 @@ const DocumentationSection = () => {
 
       <div style={{ marginBottom: '24px' }}>
         <Card>
-          <Title level={3} style={{ color: '#1890ff', marginBottom: '16px' }}>
+          <Title level={3}>
             <DownloadOutlined style={{ marginRight: '8px' }} />
             Thư viện bản vẽ HVAC
           </Title>

@@ -7,6 +7,7 @@ import {
 } from '@ant-design/icons';
 import { Alert, Card, Col, Divider, Row, Space, Tag, Typography } from 'antd';
 import React from 'react';
+import { ImagePreview } from '../../shared';
 
 const { Title, Paragraph, Text } = Typography;
 
@@ -42,17 +43,15 @@ const ArchitectureSection = () => {
           style={{ marginBottom: '20px' }}
         >
           <div style={{ textAlign: 'center' }}>
-            <img
+            <ImagePreview
               src="/vancanh-overview/electrical_system_digital.jpg"
               alt="Kiến trúc tổng quan TTDL Vân Canh"
+              width={600}
+              height={400}
               style={{
-                maxWidth: '75%',
-                height: 'auto',
                 border: '1px solid #d9d9d9',
                 borderRadius: '6px',
-                boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
-                display: 'block',
-                margin: '0 auto'
+                boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
               }}
             />
             <p style={{

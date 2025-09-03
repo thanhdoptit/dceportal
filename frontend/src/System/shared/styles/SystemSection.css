@@ -1,0 +1,320 @@
+/* ========================================
+ * SYSTEM SECTION STYLING - CSS for section content consistency
+ * Based on cooling-vancanh template standards
+ * ======================================== */
+
+/* Content section base styling */
+.content-section {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Section title (level 2) styling - consistent with cooling-vancanh */
+.content-section .ant-typography h2 {
+  color: #1890ff !important;
+  margin-bottom: 24px !important;
+  margin-top: 0 !important;
+  font-size: 22px !important;
+  font-weight: 600 !important;
+  border-bottom: 2px solid #1890ff;
+  padding-bottom: 8px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+}
+
+.content-section .ant-typography h2 .anticon {
+  margin-right: 12px;
+}
+
+/* Subsection container styling */
+.subsection {
+  scroll-margin-top: 20px; /* For smooth navigation */
+  margin-bottom: 8px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Subsection title (level 3) styling - consistent with cooling-vancanh */
+.subsection .ant-typography h3 {
+  color: #1890ff !important;
+  margin-bottom: 20px !important;
+  margin-top: 0 !important;
+  font-size: 20px !important;
+  font-weight: 500 !important;
+  border-bottom: 2px solid #1890ff;
+  padding-bottom: 8px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+}
+
+.subsection .ant-typography h3 .anticon {
+  margin-right: 12px;
+}
+
+/* Sub-subsection title (level 4) styling - consistent with cooling-vancanh */
+.subsection .ant-typography h4 {
+  color: #1890ff !important;
+  margin-bottom: 12px !important;
+  margin-top: 0 !important;
+  font-size: 16px !important;
+  font-weight: 500 !important;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+}
+
+/* Sub-sub-subsection title (level 5) styling - consistent with cooling-vancanh */
+.subsection .ant-typography h5 {
+  color: #595959 !important;
+  margin-bottom: 8px !important;
+  margin-top: 0 !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+}
+
+/* Special color variations for different content types - based on cooling-vancanh */
+/* Success/Positive content (level 3) */
+.subsection .ant-typography h3.success-title {
+  color: #52c41a !important;
+  border-bottom: 2px solid #52c41a;
+}
+
+/* Success/Positive content (level 4) */
+.subsection .ant-typography h4.success-title {
+  color: #52c41a !important;
+}
+
+/* Purple/Technical content (level 4) */
+.subsection .ant-typography h4.technical-title {
+  color: #722ed1 !important;
+}
+
+/* Dark blue/Corporate content (level 4) */
+.subsection .ant-typography h4.corporate-title {
+  color: #003c71 !important;
+}
+
+/* Card spacing - consistent with cooling-vancanh */
+.content-section .ant-card {
+  margin-bottom: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e8e8e8;
+  width: 100%;
+}
+
+.content-section .ant-card .ant-card {
+  margin-bottom: 16px; /* Nested cards have less margin */
+}
+
+/* Small card styling */
+.content-section .ant-card-small .ant-card-head {
+  background: #fafafa;
+  border-bottom: 1px solid #e8e8e8;
+  padding: 8px 12px;
+}
+
+.content-section .ant-card-small .ant-card-body {
+  padding: 12px;
+}
+
+/* Divider spacing */
+.content-section .ant-divider {
+  margin: 24px 0;
+}
+
+/* Alert spacing */
+.content-section .ant-alert {
+  margin-bottom: 16px;
+}
+
+/* Table spacing */
+.content-section .ant-table-wrapper {
+  margin-bottom: 16px;
+}
+
+/* Steps component spacing */
+.content-section .ant-steps {
+  margin-bottom: 16px;
+}
+
+/* Collapse component spacing */
+.content-section .ant-collapse {
+  margin-bottom: 16px;
+}
+
+/* Row spacing */
+.content-section .ant-row {
+  margin-bottom: 0;
+}
+
+/* Typography improvements */
+.content-section .ant-typography {
+  line-height: 1.6;
+}
+
+.content-section .ant-typography p {
+  margin-bottom: 16px;
+}
+
+/* List styling */
+.content-section ul,
+.content-section ol {
+  padding-left: 20px;
+  margin-bottom: 16px;
+}
+
+.content-section li {
+  margin-bottom: 8px;
+  line-height: 1.6;
+}
+
+/* Strong text styling - consistent with cooling-vancanh */
+.content-section .ant-typography strong {
+  color: #1890ff;
+  font-weight: 600;
+}
+
+/* Tag spacing and styling */
+.content-section .ant-tag {
+  margin-bottom: 8px;
+  margin-right: 8px;
+}
+
+/* Descriptions component styling */
+.content-section .ant-descriptions {
+  margin-bottom: 16px;
+}
+
+.content-section .ant-descriptions-bordered .ant-descriptions-item-label {
+  background: #fafafa;
+  font-weight: 600;
+}
+
+/* Footer text styling - consistent with cooling-vancanh */
+.content-section .section-footer,
+.content-section p[style*="text-align: center"][style*="color: #666"][style*="font-size: 12px"] {
+  text-align: center;
+  color: #666 !important;
+  font-size: 12px !important;
+  margin-top: 24px;
+  margin-bottom: 0;
+}
+
+/* Override any inline styles that conflict with standardized CSS */
+.content-section .ant-typography h2[style],
+.content-section .ant-typography h3[style],
+.content-section .ant-typography h4[style],
+.content-section .ant-typography h5[style] {
+  color: inherit !important;
+  font-size: inherit !important;
+  font-weight: inherit !important;
+  font-family: inherit !important;
+  margin-top: 0 !important;
+}
+
+/* Specific overrides for different heading levels - based on cooling-vancanh */
+.content-section .ant-typography h2[style] {
+  color: #1890ff !important;
+  font-size: 22px !important;
+  font-weight: 600 !important;
+  margin-bottom: 24px !important;
+}
+
+.content-section .ant-typography h3[style] {
+  color: #1890ff !important;
+  font-size: 20px !important;
+  font-weight: 500 !important;
+  margin-bottom: 20px !important;
+}
+
+.content-section .ant-typography h4[style] {
+  color: #1890ff !important;
+  font-size: 16px !important;
+  font-weight: 500 !important;
+  margin-bottom: 12px !important;
+}
+
+.content-section .ant-typography h5[style] {
+  color: #595959 !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  margin-bottom: 8px !important;
+}
+
+/* Remove scrollMarginTop from inline styles */
+.subsection[style*="scrollMarginTop"] {
+  scroll-margin-top: 20px !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .content-section .ant-typography h2 {
+    font-size: 20px;
+    margin-bottom: 16px !important;
+  }
+  
+  .subsection .ant-typography h3 {
+    font-size: 18px;
+    margin-bottom: 16px !important;
+  }
+  
+  .subsection .ant-typography h4 {
+    font-size: 16px;
+    margin-bottom: 8px !important;
+  }
+  
+  .content-section .ant-card {
+    margin-bottom: 16px;
+  }
+  
+  .content-section .ant-divider {
+    margin: 16px 0;
+  }
+}
+
+/* Animation and transitions */
+.content-section * {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Hover effects for interactive elements */
+.content-section .ant-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.content-section .ant-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(24, 144, 255, 0.3);
+}
+
+.content-section .ant-tag:hover {
+  transform: scale(1.05);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Special styling for cooling-vancanh specific elements */
+/* Success status indicators */
+.content-section .success-indicator {
+  color: #52c41a !important;
+  font-weight: 600;
+}
+
+/* Technical/System information */
+.content-section .technical-info {
+  color: #722ed1 !important;
+}
+
+/* Corporate/Important information */
+.content-section .corporate-info {
+  color: #003c71 !important;
+}
+
+/* Standard information */
+.content-section .standard-info {
+  color: #1890ff !important;
+}
+
+/* Secondary information */
+.content-section .secondary-info {
+  color: #595959 !important;
+}

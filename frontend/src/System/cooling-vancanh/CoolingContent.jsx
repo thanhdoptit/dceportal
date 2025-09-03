@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
 import { Divider, Progress, Spin } from 'antd';
-import { LazySection } from '../shared';
+import React, { useEffect, useState } from 'react';
 import { useSidebar } from '../../contexts/SidebarContext';
+import { LazySection } from '../shared';
 
 const CoolingContent = () => {
   const { sidebarReady, isAnimating } = useSidebar();

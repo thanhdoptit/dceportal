@@ -1,6 +1,7 @@
-import React from 'react';
-import { Typography, Card, Tag, Alert, Space, Col, Row } from 'antd';
 import { EnvironmentOutlined, PictureOutlined } from '@ant-design/icons';
+import { Alert, Card, Space, Tag, Typography } from 'antd';
+import React from 'react';
+import { ImageGallery } from '../../shared';
 
 const { Title, Text } = Typography;
 
@@ -25,65 +26,22 @@ const NetworkSystemSection = () => {
         title={
           <Space>
             <PictureOutlined />
-            Hệ thống NetWork
+            Hình ảnh hệ thống Network
           </Space>
         }
+        style={{ marginBottom: '20px' }}
       >
-        <Row gutter={[8, 8]} style={{ marginBottom: '20px' }}>
-          <Col span={8}>
-            <div style={{ textAlign: 'center' }}>
-              <img
-                src="/vancanh-overview/net1.jpg"
-                alt="Hệ thống cấp nguồn gồm 2 trạm biến áp 2500KVA"
-                style={{
-                  maxWidth: '100%',
-                  height: 'auto',
-                  border: '1px solid #d9d9d9',
-                  borderRadius: '6px',
-                  boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
-                  display: 'block',
-                  margin: '0 auto'
-                }}
-              />
-            </div>
-          </Col>
-          <Col span={8}>
-            <div style={{ textAlign: 'center' }}>
-              <img
-                src="/vancanh-overview/net3.jpg"
-                alt="Hệ thống cấp nguồn gồm 2 trạm biến áp 2500KVA"
-                style={{
-                  maxWidth: '100%',
-                  height: 'auto',
-                  border: '1px solid #d9d9d9',
-                  borderRadius: '6px',
-                  boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
-                  display: 'block',
-                  margin: '0 auto'
-                }}
-              />
-
-            </div>
-          </Col>
-          <Col span={16}>
-            <div style={{ textAlign: 'center' }}>
-              <img
-                src="/vancanh-overview/net2.jpg"
-                alt="Hệ thống cấp nguồn gồm 2 trạm biến áp 2500KVA"
-                style={{
-                  maxWidth: '100%',
-                  height: 'auto',
-                  border: '1px solid #d9d9d9',
-                  borderRadius: '6px',
-                  boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
-                  display: 'block',
-                  margin: '0 auto'
-                }}
-              />
-
-            </div>
-          </Col>
-        </Row>
+        <ImageGallery
+          images={[
+            '/vancanh-overview/net1.jpg',
+            '/vancanh-overview/net3.jpg',
+            '/vancanh-overview/net2.jpg'
+          ]}
+          columns={3}
+          imageWidth= '100%'
+          imageHeight= 'auto'  
+          maskText="Click để xem chi tiết"
+        />
       </Card>
 
 

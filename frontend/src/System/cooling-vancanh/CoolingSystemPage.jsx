@@ -1,16 +1,14 @@
-import React, { useState } from 'react';
-import { 
-  BookOutlined, 
-  SettingOutlined, 
-  InfoCircleOutlined,
-  EnvironmentOutlined,
-  AppstoreOutlined,
-  PhoneOutlined,
-  FileTextOutlined,
-  ThunderboltOutlined,
-  SafetyOutlined,
-  CloudOutlined
+import {
+    AppstoreOutlined,
+    EnvironmentOutlined,
+    FileTextOutlined,
+    InfoCircleOutlined,
+    PhoneOutlined,
+    SafetyOutlined,
+    SettingOutlined,
+    ThunderboltOutlined
 } from '@ant-design/icons';
+import React, { useState } from 'react';
 import { SystemLayout } from '../shared';
 import CoolingContent from './CoolingContent';
 

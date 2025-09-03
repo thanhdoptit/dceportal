@@ -1,7 +1,8 @@
 # 🎨 Tiêu Chuẩn Thiết Kế UI/UX - Hệ Thống Tài Liệu Kỹ Thuật
 
 ## 📋 Tổng Quan
-Tiêu chuẩn này được xây dựng dựa trên thiết kế của **Cooling System Vân Canh** và sẽ được áp dụng cho tất cả các hệ thống tài liệu kỹ thuật khác. Bao gồm các tiêu chuẩn về lazy loading, performance optimization, auto thu gọn menu sidebar và UX enhancement.
+
+Sử dụng các file function, CSS trong /srv/dce-portal/frontend/src/System/shared/ để build page. Không tự động tạo CSS riêng để đảm bảo đồng nhất.
 
 ## 🏗️ Cấu Trúc Layout
 
@@ -445,7 +446,110 @@ scroll-padding-top: 20px;
 
 ## 🔧 Component Standards
 
-### 1. Cards
+### 1. Shared Components Usage
+Tất cả hệ thống phải sử dụng các shared components để đảm bảo tính nhất quán:
+
+#### SystemLayout Component
+```javascript
+import { SystemLayout, createMenuItem, createSubMenuItem, createLeafMenuItem } from '../shared';
+
+// Sử dụng menu utility functions
+const menuItems = [
+  createMenuItem(
+    '1',
+    <InfoCircleOutlined />,
+    '1. GIỚI THIỆU CHUNG',
+    [
+      createLeafMenuItem('1.1', '1.1. Thông số kỹ thuật hệ thống UPS'),
+      createSubMenuItem('1.2', '1.2. Cấu trúc hệ thống', [
+        createLeafMenuItem('1.2.1', '1.2.1. Chi tiết cấu trúc'),
+      ])
+    ]
+  )
+];
+
+<SystemLayout
+  title="HỆ THỐNG UPS & ẮC QUY BMS - TTDL VÂN CANH"
+  menuItems={menuItems}
+  selectedKey={selectedKey}
+  onMenuClick={handleMenuClick}
+  headerBgColor="#0072BC"
+>
+  <UPSContent selectedKey={selectedKey} />
+</SystemLayout>
+```
+
+#### LazySection Component
+```javascript
+import { LazySection } from '../shared';
+
+<div id={`section-${section.id}`}>
+  <LazySection
+    importFunc={() => import('./sections/IntroductionSection')}
+    placeholder={
+      <div className="lazy-section-loading">
+        <div style={{ fontSize: '48px', color: '#1890ff', marginBottom: '16px' }}>⏳</div>
+        <h3>Tên Section</h3>
+        <p>Click để tải nội dung hoặc cuộn xuống...</p>
+      </div>
+    }
+    threshold={0.1}
+    rootMargin="100px"
+    onLoad={() => setLoadedSections(prev => prev + 1)}
+    forceLoad={forceLoadAll}
+  />
+</div>
+```
+
+#### ImageGallery & ImagePreview Components
+```javascript
+import { ImageGallery, ImagePreview } from '../shared';
+
+// Gallery nhiều ảnh
+<ImageGallery
+  images={[
+    { src: 'path/to/image1.jpg', alt: 'Mô tả ảnh 1', caption: 'Caption 1' },
+    { src: 'path/to/image2.jpg', alt: 'Mô tả ảnh 2', caption: 'Caption 2' }
+  ]}
+  columns={3}
+  imageWidth={200}
+  imageHeight={150}
+  maskText="Xem ảnh"
+/>
+
+// Preview ảnh đơn
+<ImagePreview
+  src="path/to/image.jpg"
+  alt="Mô tả ảnh"
+  width={100}
+  height={100}
+  maskText="Xem chi tiết"
+/>
+```
+
+#### PasswordField Component
+```javascript
+import { PasswordField } from '../shared';
+
+<PasswordField
+  placeholder="Nhập mật khẩu"
+  value={password}
+  onChange={(value) => setPassword(value)}
+/>
+```
+
+#### useIntersectionObserver Hook
+```javascript
+import { useIntersectionObserver } from '../shared';
+
+const [ref, isIntersecting] = useIntersectionObserver({
+  threshold: 0.1,
+  rootMargin: '100px',
+  triggerOnce: true
+});
+```
+
+### 2. Cards
 ```css
 .ant-card {
   border-radius: 8px;
@@ -767,15 +871,281 @@ const [phase2Step, setPhase2Step] = React.useState(0);
 - [ ] Code splitting và lazy loading
 - [ ] Auto collapse timing optimization
 
+## 🔄 Synchronization Standards
+
+### 1. Import Structure
+Tất cả hệ thống phải sử dụng import structure nhất quán:
+
+```javascript
+// ĐÚNG - Sử dụng shared components
+import { SystemLayout, LazySection, ImageGallery, createMenuItem } from '../shared';
+
+// SAI - Import trực tiếp hoặc không sử dụng shared
+import SystemLayout from '../shared/components/SystemLayout';
+```
+
+### 2. Class Naming Convention
+Sử dụng class names chuẩn từ shared CSS:
+
+```javascript
+// ĐÚNG - Sử dụng shared class names (backward compatible)
+<div className="cooling-content">  // Hoặc "system-content"
+  <div className="loading-container">
+    <div className="loading-text">
+    <div className="progress-indicator">
+    <div className="lazy-section-placeholder">
+
+// SAI - Sử dụng class names riêng
+<div className="ups-content">
+  <div className="ups-loading">
+```
+
+#### CSS Class Hierarchy
+```
+Primary Classes (dùng cho content wrapper):
+- .system-content      (mới, preferred)
+- .cooling-content     (cũ, backward compatible)
+
+Loading Classes:
+- .loading-container   (container chính cho loading state)
+- .loading-text        (text hiển thị khi loading)
+- .progress-indicator  (thanh progress và thông tin)
+
+LazySection Classes:
+- .lazy-section-placeholder  (placeholder khi chưa load)
+- .lazy-section-loading      (loading state cho section)
+
+Layout Classes:
+- .system-layout       (layout wrapper)
+- .menu-container      (menu sidebar container)  
+- .system-sider        (menu sider)
+- .system-menu         (menu component)
+
+Section Content Classes (QUAN TRỌNG):
+- .content-section     (dành cho các đầu mục lớn nhất: 1., 2., 3., 4., 5., 6.)
+- .subsection         (dành cho các đầu mục con: 1.1, 1.2, 1.1.1, 1.1.2, 2.1, 2.1.1, etc.)
+```
+
+#### Section Class Usage Examples
+```javascript
+// ĐÚNG - Sử dụng content-section cho main sections
+<div className="content-section">
+  <Title level={2} id="section-1">
+    1. GIỚI THIỆU CHUNG
+  </Title>
+  
+  {/* Subsections bên trong */}
+  <div id="1.1" className="subsection" style={{ scrollMarginTop: '20px' }}>
+    <Title level={3}>
+      1.1. Thông số kỹ thuật hệ thống
+    </Title>
+  </div>
+  
+  <div id="1.2" className="subsection" style={{ scrollMarginTop: '20px' }}>
+    <Title level={3}>
+      1.2. Cấu trúc và nguyên lý hoạt động
+    </Title>
+  </div>
+</div>
+
+// SAI - Không phân biệt class cho main section và subsection
+<div>
+  <div id="1">
+    <Title level={2}>1. GIỚI THIỆU CHUNG</Title>
+  </div>
+</div>
+```
+
+### 3. Menu Structure Pattern
+Tất cả hệ thống phải sử dụng menu utility functions:
+
+```javascript
+// ĐÚNG - Sử dụng utility functions
+const menuItems = [
+  createMenuItem('1', <InfoCircleOutlined />, 'Label', [
+    createLeafMenuItem('1.1', 'Sub Label'),
+    createSubMenuItem('1.2', 'Sub with children', [
+      createLeafMenuItem('1.2.1', 'Leaf item')
+    ])
+  ])
+];
+
+// SAI - Tạo object thủ công
+const menuItems = [
+  {
+    key: '1',
+    icon: <InfoCircleOutlined />,
+    label: 'Label',
+    children: [...]
+  }
+];
+```
+
+### 4. Content Organization Pattern
+Tất cả sections phải có ID và wrapper chuẩn:
+
+```javascript
+// ĐÚNG - Có ID và wrapper
+<div id={`section-${section.id}`}>
+  <LazySection
+    importFunc={section.importFunc}
+    // ... other props
+  />
+</div>
+
+// SAI - Không có ID wrapper
+<LazySection
+  key={section.id}
+  id={`section-${section.id}`}
+  // ... props
+/>
+```
+
+### 5. Shared Components Integration Checklist
+
+#### ✅ SystemLayout Integration
+- [ ] Import từ '../shared'
+- [ ] Sử dụng createMenuItem, createSubMenuItem, createLeafMenuItem
+- [ ] Truyền đúng props: title, menuItems, selectedKey, onMenuClick, headerBgColor
+- [ ] Sử dụng handleMenuClick từ menuUtils (nếu không có custom logic)
+
+#### ✅ LazySection Integration  
+- [ ] Import từ '../shared'
+- [ ] Wrapper với ID: `<div id={`section-${section.id}`}>`
+- [ ] Placeholder sử dụng class "lazy-section-loading"
+- [ ] onLoad callback để update progress
+- [ ] forceLoad prop để load tất cả sau delay
+
+#### ✅ Content Container Integration
+- [ ] Sử dụng className="system-content" thay vì custom class
+- [ ] Loading container sử dụng className="loading-container"
+- [ ] Loading text sử dụng className="loading-text"
+
+#### ✅ Image Components Integration (khi cần)
+- [ ] ImageGallery cho nhiều ảnh
+- [ ] ImagePreview cho ảnh đơn
+- [ ] Cấu hình đúng props: columns, imageWidth, imageHeight, maskText
+
+#### ✅ CSS Integration
+- [ ] Import CSS từ shared: import '../shared/styles/SystemLayout.css'
+- [ ] KHÔNG tạo CSS riêng trừ khi thực sự cần thiết
+- [ ] Override styles chỉ khi cần custom màu sắc hoặc spacing đặc biệt
+
+### 6. Performance Integration Standards
+
+#### Auto-Collapse với SidebarContext
+```javascript
+import { useSidebar } from '../../contexts/SidebarContext';
+
+const SystemContent = () => {
+  const { sidebarReady, isAnimating } = useSidebar();
+  
+  // Loading state khi sidebar đang animating
+  if (isAnimating || !sidebarReady) {
+    return (
+      <div className="cooling-content">
+        <div className="loading-container">
+          <Spin size="large" />
+          <p className="loading-text">Đang tải tài liệu...</p>
+        </div>
+      </div>
+    );
+  }
+};
+```
+
+#### Lazy Loading với SidebarContext
+```javascript
+// Section configuration với subsections metadata
+const sections = [
+  {
+    id: '1',
+    name: 'Section name',
+    importFunc: () => import('./sections/SectionComponent'),
+    priority: 'high',
+    preload: true, // Chỉ section đầu tiên
+    subsections: ['1.1', '1.2', '1.3'] // Metadata cho menu
+  }
+];
+
+// Preload chỉ khi sidebar ready
+useEffect(() => {
+  if (sidebarReady && !isAnimating) {
+    const firstSection = sections.find(s => s.preload);
+    if (firstSection) {
+      firstSection.importFunc().then(() => {
+        setLoadedSections(1);
+      });
+    }
+  }
+}, [sidebarReady, isAnimating]);
+
+// Force load chỉ khi sidebar ready
+useEffect(() => {
+  if (sidebarReady && !isAnimating) {
+    const timer = setTimeout(() => {
+      setForceLoadAll(true);
+    }, 200);
+    return () => clearTimeout(timer);
+  }
+}, [sidebarReady, isAnimating]);
+```
+
+#### Progress Tracking Pattern
+```javascript
+// State management chuẩn
+const [loadedSections, setLoadedSections] = useState(0);
+const [forceLoadAll, setForceLoadAll] = useState(false);
+
+// Progress calculation
+const progressPercent = Math.round((loadedSections / sections.length) * 100);
+
+// Section load handler
+const handleSectionLoad = () => {
+  setLoadedSections(prev => {
+    const newCount = prev + 1;
+    console.log(`Section loaded. Total: ${newCount}/${sections.length}`);
+    return newCount;
+  });
+};
+
+// Error handling
+const handleSectionError = (sectionName, error) => {
+  console.error(`Error loading section ${sectionName}:`, error);
+};
+```
+
+#### Section Structure Pattern
+```javascript
+{sections.map((section, index) => (
+  <div
+    key={index}
+    id={`section-${section.id}`}
+    style={{ scrollMarginTop: '20px' }}
+  >
+    <LazySection
+      importFunc={section.importFunc}
+      forceLoad={forceLoadAll}
+      placeholder={/* inline styles cho consistency */}
+      onLoad={handleSectionLoad}
+      onError={() => handleSectionError(section.name, 'Failed to load section')}
+    />
+    {index < sections.length - 1 && (
+      <Divider style={{ margin: '32px 0', borderColor: '#e8e8e8', opacity: 0.6 }} />
+    )}
+  </div>
+))}
+
 ## 📝 Notes
 - **Không thay đổi nội dung** đã được phê duyệt
 - Chỉ áp dụng thiết kế cho **cấu trúc và giao diện**
-- Đảm bảo **tính nhất quán** giữa các hệ thống
+- Đảm bảo **tính nhất quán** giữa các hệ thống bằng shared components
 - **Tối ưu UX** cho việc navigation và reading
 - **Performance first** - ưu tiên tốc độ load và smooth UX
 - **Progressive enhancement** - tải nội dung theo nhu cầu
 - **Auto collapse timing** - đảm bảo sidebar thu gọn xong rồi mới load dữ liệu
 - **Smooth transitions** - tất cả animations phải mượt mà và nhất quán
+- **Shared components first** - Ưu tiên sử dụng shared components trước khi tạo mới
 
 ## 🎯 Steps Component Best Practices
 
@@ -809,8 +1179,19 @@ const [phase2Step, setPhase2Step] = React.useState(0);
 - **Re-render Optimization**: Sử dụng `useCallback` cho onChange handlers nếu cần
 
 
-.content-section cho các section chính
-.subsection cho các section con
+## 📏 CSS Class Naming Rules
 
-Section chính có styling riêng
-Subsection có styling riêng
+### Section Content Classification
+- **.content-section**: Dành cho các đầu mục lớn nhất (1., 2., 3., 4., 5., 6.)
+- **.subsection**: Dành cho các đầu mục con (1.1, 1.2, 1.1.1, 1.1.2, 2.1, 2.1.1, etc.)
+
+### Implementation Requirements
+1. **Main Sections**: Phải sử dụng `className="content-section"` cho wrapper div của các section chính
+2. **Sub Sections**: Phải sử dụng `className="subsection"` cho tất cả các sub-sections
+3. **ID Attributes**: Mỗi section và subsection phải có ID tương ứng với menu key
+4. **Scroll Margin**: Tất cả subsections phải có `style={{ scrollMarginTop: '20px' }}`
+
+### Styling Differences
+- **content-section**: Có styling và spacing đặc biệt cho main sections
+- **subsection**: Có styling và spacing đặc biệt cho sub-sections
+- **Inheritance**: Subsections inherit từ parent content-section nhưng có override riêng

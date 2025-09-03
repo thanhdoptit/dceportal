@@ -1,36 +1,37 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { ConfigProvider } from 'antd';
-import Login from './pages/Login';
-import UserProfile from './pages/UserProfile';
-import AppLayout from './components/layout/AppLayout';
-import ShiftSelector from './components/ShiftSelector';
-import TaskPage from './pages/TaskPage';
-import ManagerOverview from './pages/manager/ManagerOverview';
-import HandoverPage from './pages/HandoverPage';
-import { AuthProvider } from './contexts/AuthContext.jsx';
-import { SidebarProvider } from './contexts/SidebarContext';
-import HandoverDetailPage from './pages/HandoverDetailPage';
-import CreateHandoverPage from './pages/CreateHandoverPage';
-import DeviceCheckFormPage from './pages/DeviceCheckFormPage';
-import MyShiftsPage from './pages/MyShiftsPage';
-import UserManagementPage from './pages/manager/UserManagementPage';
-import SettingsPage from './pages/manager/SettingsPage';
-import './styles/TimePicker.css';
-import DevicePage from './pages/DevicePage';
-import TapePage from './pages/TapePage';
-import ExportCheckPage from './pages/ExportCheckPage';
-import PartnerPage from './pages/PartnerPage';
-import SystemInfoPage from './pages/SystemInfoPage';
-import SystemInfoManagerPage from './pages/SystemInfoManagerPage';
-import SystemInfoEditPage from './pages/SystemInfoEditPage';
-import DatacenterFAQ from './pages/DatacenterFAQ.jsx';
+import React from 'react';
+import { Navigate, Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+import DataCenterMenuPage from './System/DataCenterMenuPage';
 import { CoolingSystemPage } from './System/cooling';
 import CoolingSystemVancanhPage from './System/cooling-vancanh';
+import { UPSSystemPage } from './System/ups-vancanh';
 import VanCanhOverviewPage from './System/vancanh-overview';
-import DataCenterMenuPage from './System/DataCenterMenuPage';
-import ShiftSchedulePage from './pages/ShiftSchedulePage';
+import ShiftSelector from './components/ShiftSelector';
+import AppLayout from './components/layout/AppLayout';
+import { AuthProvider } from './contexts/AuthContext.jsx';
+import { SidebarProvider } from './contexts/SidebarContext';
+import CreateHandoverPage from './pages/CreateHandoverPage';
+import DatacenterFAQ from './pages/DatacenterFAQ.jsx';
+import DeviceCheckFormPage from './pages/DeviceCheckFormPage';
+import DevicePage from './pages/DevicePage';
+import ExportCheckPage from './pages/ExportCheckPage';
+import HandoverDetailPage from './pages/HandoverDetailPage';
+import HandoverPage from './pages/HandoverPage';
+import Login from './pages/Login';
+import MyShiftsPage from './pages/MyShiftsPage';
+import PartnerPage from './pages/PartnerPage';
 import ShiftScheduleDemo from './pages/ShiftScheduleDemo';
+import ShiftSchedulePage from './pages/ShiftSchedulePage';
+import SystemInfoEditPage from './pages/SystemInfoEditPage';
+import SystemInfoManagerPage from './pages/SystemInfoManagerPage';
+import SystemInfoPage from './pages/SystemInfoPage';
+import TapePage from './pages/TapePage';
+import TaskPage from './pages/TaskPage';
+import UserProfile from './pages/UserProfile';
+import ManagerOverview from './pages/manager/ManagerOverview';
+import SettingsPage from './pages/manager/SettingsPage';
+import UserManagementPage from './pages/manager/UserManagementPage';
+import './styles/TimePicker.css';
 
 const ProtectedRoute = ({ children }) => {
   const token = localStorage.getItem('token');
@@ -125,6 +126,7 @@ function App() {
                 <Route path="faq" element={<DatacenterFAQ />} />
                 <Route path="cooling-system" element={<CoolingSystemPage />} />
                 <Route path="cooling-system-vancanh" element={<CoolingSystemVancanhPage />} />
+                <Route path="ups-vancanh" element={<UPSSystemPage />} />
                 <Route path="vancanh-overview" element={<VanCanhOverviewPage />} />
                 <Route path="datacenter-menu" element={<DataCenterMenuPage />} />
                 <Route path="shift-schedule" element={<ShiftSchedulePage />} />
@@ -148,6 +150,7 @@ function App() {
                 <Route path="system-info/edit/:id" element={<SystemInfoEditPage />} />
                 <Route path="cooling-system" element={<CoolingSystemPage />} />
                 <Route path="cooling-system-vancanh" element={<CoolingSystemVancanhPage />} />
+                <Route path="ups-vancanh" element={<UPSSystemPage />} />
                 <Route path="vancanh-overview" element={<VanCanhOverviewPage />} />
                 <Route path="datacenter-menu" element={<DataCenterMenuPage />} />
                 <Route path="shift-schedule" element={<ShiftSchedulePage />} />
@@ -165,6 +168,7 @@ function App() {
                 <Route path="system-info/edit/:id" element={<SystemInfoEditPage />} />
                 <Route path="cooling-system" element={<CoolingSystemPage />} />
                 <Route path="cooling-system-vancanh" element={<CoolingSystemVancanhPage />} />
+                <Route path="ups-vancanh" element={<UPSSystemPage />} />
                 <Route path="vancanh-overview" element={<VanCanhOverviewPage />} />
                 <Route path="datacenter-menu" element={<DataCenterMenuPage />} />
                 <Route path="shift-schedule" element={<ShiftSchedulePage />} />

@@ -1,16 +1,14 @@
-import React from 'react';
-import { Typography, Card, Row, Col, Table, Tag, Divider, Alert, Steps, Timeline } from 'antd';
 import {
-  PlayCircleOutlined,
-  SettingOutlined,
-  InfoCircleOutlined,
-  CheckCircleOutlined,
   ExclamationCircleOutlined,
+  InfoCircleOutlined,
+  PlayCircleOutlined,
   SafetyOutlined,
-  EnvironmentOutlined,
-  ToolOutlined,
+  SettingOutlined,
   ThunderboltOutlined
 } from '@ant-design/icons';
+import { Alert, Card, Col, Row, Steps, Typography } from 'antd';
+import React from 'react';
+import '../../shared/styles/SystemSection.css';
 
 const { Title, Paragraph, Text } = Typography;
 const { Step } = Steps;
@@ -184,7 +182,7 @@ const OperationSection = () => {
 
   return (
     <div className="content-section">
-      <Title level={2} style={{ color: '#1890ff', marginBottom: '24px' }}>
+      <Title level={2}>
         <PlayCircleOutlined style={{ marginRight: '12px' }} />
         5. Quy trình vận hành hệ thống làm mát
       </Title>
@@ -199,7 +197,7 @@ const OperationSection = () => {
 
       {/* 5.1 Quy trình khởi động hệ thống */}
       <div id="section-5.1" className="subsection">
-        <Title level={3} style={{ color: '#1890ff', marginBottom: '20px', borderBottom: '2px solid #1890ff', paddingBottom: '8px' }}>
+        <Title level={3}>
           <PlayCircleOutlined style={{ marginRight: '12px' }} />
           5.1. Quy trình khởi động hệ thống
         </Title>

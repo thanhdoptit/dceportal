@@ -1,25 +1,26 @@
-import React from 'react';
-import { Typography, Card, Table, Space, Tag, Alert } from 'antd';
 import {
-  InfoCircleOutlined,
   CheckCircleOutlined,
   ExclamationCircleOutlined,
-  ToolOutlined,
-  SettingOutlined
+  InfoCircleOutlined,
+  SettingOutlined,
+  ToolOutlined
 } from '@ant-design/icons';
+import { Alert, Card, Space, Table, Tag, Typography } from 'antd';
+import React from 'react';
+import '../../shared/styles/SystemSection.css';
 
 const { Title, Paragraph, Text } = Typography;
 
 const EasyInRowCW = () => {
   return (
-    <div id="section-2.4" className="content-section">
-      <Title level={3} style={{ color: '#52c41a', marginBottom: '16px' }}>
+    <div id="section-2.4" className="subsection">
+      <Title level={3} >
         <SettingOutlined style={{ marginRight: '8px' }} />
         2.4. Easy InRow CW Series - TTDL Vân Canh
       </Title>
 
       <div id="section-2.4.1" className="subsection">
-        <Title level={4} style={{ color: '#1890ff', marginBottom: '12px' }}>
+        <Title level={4}>
           <InfoCircleOutlined style={{ marginRight: '8px' }} /> 2.4.1. Thông tin chung
         </Title>
 
@@ -111,7 +112,7 @@ const EasyInRowCW = () => {
       </div>
 
       <div id="section-2.4.2" className="subsection">
-        <Title level={4} style={{ color: '#1890ff', marginBottom: '12px' }}>
+        <Title level={4}>
           <CheckCircleOutlined style={{ marginRight: '8px' }} /> 2.4.2. Hướng dẫn cài đặt và cấu hình ban đầu
         </Title>
 
@@ -164,7 +165,7 @@ const EasyInRowCW = () => {
       </div>
 
       <div id="section-2.4.3" className="subsection">
-        <Title level={4} style={{ color: '#1890ff', marginBottom: '12px' }}>
+        <Title level={4}>
           <ToolOutlined style={{ marginRight: '8px' }} /> 2.4.3. Hướng dẫn vận hành và kiểm tra hàng ngày
         </Title>
 
@@ -236,7 +237,7 @@ const EasyInRowCW = () => {
       </div>
 
       <div id="section-2.4.4" className="subsection">
-        <Title level={4} style={{ color: '#1890ff', marginBottom: '12px' }}>
+        <Title level={4}>
           <ExclamationCircleOutlined style={{ marginRight: '8px' }} /> 2.4.4. Hướng dẫn xác định nguyên nhân lỗi
         </Title>
 
@@ -319,7 +320,7 @@ const EasyInRowCW = () => {
       </div>
 
       <div id="section-2.4.5" className="subsection">
-        <Title level={4} style={{ color: '#1890ff', marginBottom: '12px' }}>
+        <Title level={4}>
           <ToolOutlined style={{ marginRight: '8px' }} /> 2.4.5. Quy định và chu kỳ bảo trì
         </Title>
 
@@ -378,7 +379,7 @@ const EasyInRowCW = () => {
       </div>
 
       <div id="section-2.4.6" className="subsection">
-        <Title level={4} style={{ color: '#1890ff', marginBottom: '12px' }}>
+        <Title level={4}>
           <ToolOutlined style={{ marginRight: '8px' }} /> 2.4.6. Hướng dẫn bảo trì từng thành phần
         </Title>
 

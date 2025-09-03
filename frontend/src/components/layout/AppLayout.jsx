@@ -1,34 +1,28 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import { Layout, Dropdown, Avatar, Menu } from 'antd';
-import { Outlet, useNavigate, useLocation } from 'react-router-dom';
+import {
+  BookOutlined,
+  CalendarOutlined,
+  CloudOutlined,
+  ContactsOutlined,
+  ControlOutlined,
+  DashboardOutlined,
+  DatabaseOutlined,
+  ExclamationCircleOutlined,
+  FileTextOutlined,
+  LogoutOutlined,
+  ScheduleOutlined,
+  SettingOutlined,
+  SwapOutlined,
+  TeamOutlined,
+  ToolOutlined,
+  UserOutlined
+} from '@ant-design/icons';
+import { Layout } from 'antd';
+import React, { useEffect, useMemo } from 'react';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { useSidebar } from '../../contexts/SidebarContext';
-import {
-  UserOutlined,
-  LogoutOutlined,
-  DownOutlined,
-  CalendarOutlined,
-  SwapOutlined,
-  ToolOutlined,
-  CheckCircleOutlined,
-  ScheduleOutlined,
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
-  DashboardOutlined,
-  SettingOutlined,
-  TeamOutlined,
-  FileTextOutlined,
-  IeOutlined,
-  ContactsOutlined,
-  BookOutlined,
-  ControlOutlined,
-  DatabaseOutlined,
-  CloudOutlined,
-  ExclamationCircleOutlined
-} from '@ant-design/icons';
 import AppHeader from './AppHeader';
 import AppSidebar from './AppSidebar';
-import { getSidebarConfig } from './sidebarConfig';
 
 // Constants
 const USER_MENU_ITEMS = [

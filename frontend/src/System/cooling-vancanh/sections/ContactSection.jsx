@@ -1,11 +1,12 @@
-import React from 'react';
-import { Typography, Card, Row, Col, Tag, Divider, Alert } from 'antd';
-import { 
-  PhoneOutlined, 
-  SettingOutlined,
+import {
+  CheckCircleOutlined,
   InfoCircleOutlined,
-  CheckCircleOutlined
+  PhoneOutlined,
+  SettingOutlined
 } from '@ant-design/icons';
+import { Alert, Card, Col, Row, Typography } from 'antd';
+import React from 'react';
+import '../../shared/styles/SystemSection.css';
 
 const { Title, Paragraph, Text } = Typography;
 
@@ -14,7 +15,7 @@ const ContactSection = () => {
     <div style={{ padding: '20px 0' }}> 
       
       <div id="section-8" className="content-section">
-        <Title level={3} style={{ color: '#1890ff', marginBottom: '20px', borderBottom: '2px solid #1890ff', paddingBottom: '8px' }}>
+        <Title level={3}>
           <PhoneOutlined style={{ marginRight: '12px' }} />
           8. LIÊN HỆ & HỖ TRỢ
         </Title>
@@ -27,7 +28,7 @@ const ContactSection = () => {
       />
 
         <div id="section-8.1" className="subsection">
-          <Title level={4} style={{ color: '#1890ff', marginBottom: '16px', borderLeft: '4px solid #1890ff', paddingLeft: '12px' }}>
+          <Title level={4}>
             <InfoCircleOutlined style={{ marginRight: '12px' }} />
             8.1. Thông tin liên hệ
           </Title>
@@ -56,7 +57,7 @@ const ContactSection = () => {
         </div>
 
         <div id="section-8.2" className="subsection">
-          <Title level={4} style={{ color: '#1890ff', marginBottom: '16px', borderLeft: '4px solid #1890ff', paddingLeft: '12px' }}>
+          <Title level={4}>
             <SettingOutlined style={{ marginRight: '12px' }} />
             8.2. Hỗ trợ kỹ thuật
           </Title>
@@ -81,7 +82,7 @@ const ContactSection = () => {
         </div>
 
         <div id="section-8.3" className="subsection">
-          <Title level={4} style={{ color: '#1890ff', marginBottom: '16px', borderLeft: '4px solid #1890ff', paddingLeft: '12px' }}>
+          <Title level={4}>
             <CheckCircleOutlined style={{ marginRight: '12px' }} />
             8.3. Báo cáo sự cố
           </Title>

@@ -1,11 +1,11 @@
 import {
-  ClockCircleOutlined,
   InfoCircleOutlined,
   PictureOutlined,
-  TrophyOutlined
+  ThunderboltOutlined
 } from '@ant-design/icons';
 import { Alert, Card, Divider, Space, Table, Tag, Typography } from 'antd';
 import React from 'react';
+import { ImagePreview } from '../../shared';
 
 const { Title, Paragraph, Text } = Typography;
 
@@ -116,19 +116,18 @@ const ProjectOverviewSection = () => {
               Hình ảnh dự án TTDL Vân Canh
             </Space>
           }
-          style={{ marginBottom: '20px' }}      >
+          style={{ marginBottom: '20px' }}
+        >
           <div style={{ textAlign: 'center' }}>
-            <img
+            <ImagePreview
               src="/vancanh-overview/project_overview_3.jpg"
               alt="Tổng quan dự án TTDL Vân Canh"
+              width='80%'
+              height= 'auto'  
               style={{
-                maxWidth: '75%',
-                height: 'auto',
                 border: '1px solid #d9d9d9',
                 borderRadius: '6px',
-                boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
-                display: 'block',
-                margin: '0 auto'
+                boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
               }}
             />
             <p style={{
@@ -227,7 +226,7 @@ const ProjectOverviewSection = () => {
 
       <div id="section-1.2" className="subsection">
         <Title level={4} style={{ color: '#1890ff', marginBottom: '12px' }}>
-          <ClockCircleOutlined style={{ marginRight: '8px' }} /> 1.2 Các mốc quan trọng
+          <ThunderboltOutlined style={{ marginRight: '8px' }} /> 1.2 Các mốc quan trọng
         </Title>
 
         <Card title="Lịch trình dự án" style={{ marginBottom: '20px' }}>
@@ -265,7 +264,7 @@ const ProjectOverviewSection = () => {
 
       <div id="section-1.3" className="subsection">
         <Title level={4} style={{ color: '#1890ff', marginBottom: '12px' }}>
-          <TrophyOutlined style={{ marginRight: '8px' }} /> 1.3 So sánh với tiêu chuẩn Uptime
+          <ThunderboltOutlined style={{ marginRight: '8px' }} /> 1.3 So sánh với tiêu chuẩn Uptime
         </Title>
 
         <Alert

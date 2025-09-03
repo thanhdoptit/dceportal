@@ -1,5 +1,5 @@
+import { Card, Col, Row, Tag } from 'antd';
 import React, { useState } from 'react';
-import { Card, Tooltip, Tag, Row, Col } from 'antd';
 
 const HVACSystemDiagram = () => {
   const [selectedFloor, setSelectedFloor] = useState(null);

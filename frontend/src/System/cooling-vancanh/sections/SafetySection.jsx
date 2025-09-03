@@ -1,15 +1,13 @@
-import React from 'react';
-import { Typography, Card, Row, Col, Table, Tag, Divider, Alert, Steps, Timeline } from 'antd';
 import {
-  SafetyOutlined,
-  ToolOutlined,
-  InfoCircleOutlined,
-  CheckCircleOutlined,
-  ExclamationCircleOutlined,
-  EnvironmentOutlined,
-  WarningOutlined,
-  ClockCircleOutlined
+    CheckCircleOutlined,
+    ExclamationCircleOutlined,
+    InfoCircleOutlined,
+    SafetyOutlined,
+    ToolOutlined
 } from '@ant-design/icons';
+import { Alert, Card, Col, Divider, Row, Steps, Typography } from 'antd';
+import React from 'react';
+import '../../shared/styles/SystemSection.css';
 
 const { Title, Paragraph, Text } = Typography;
 const { Step } = Steps;
@@ -333,7 +331,7 @@ const SafetySection = () => {
 
   return (
     <div className="content-section">
-      <Title level={2} style={{ color: '#1890ff', marginBottom: '24px' }}>
+      <Title level={2}>
         <SafetyOutlined style={{ marginRight: '12px' }} />
         6. An toàn & Bảo trì hệ thống làm mát
       </Title>
@@ -348,20 +346,20 @@ const SafetySection = () => {
 
       {/* Biện pháp an toàn vận hành */}
       <div id="section-6.1" className="subsection">
-        <Title level={3} style={{ color: '#1890ff', marginBottom: '20px', borderBottom: '2px solid #1890ff', paddingBottom: '8px' }}>
+        <Title level={3}>
           <SafetyOutlined style={{ marginRight: '12px' }} />
           6.1. Biện pháp an toàn vận hành
         </Title>
         {safetyMeasures.map((category, catIndex) => (
           <div key={catIndex} style={{ marginBottom: '24px' }}>
-            <Title level={4} style={{ color: '#52c41a', marginBottom: '16px' }}>
+            <Title level={4} className="success-title">
               {category.category}
             </Title>
             <Row gutter={[16, 16]}>
               {category.measures.map((measure, measureIndex) => (
                 <Col xs={24} lg={8} key={measureIndex}>
                   <Card size="small" style={{ height: '100%' }}>
-                    <Title level={4} style={{ color: '#52c41a', marginBottom: '12px' }}>
+                    <Title level={4} className="success-title">
                       {measure.title}
                     </Title>
                     <Paragraph style={{ marginBottom: '8px' }}>

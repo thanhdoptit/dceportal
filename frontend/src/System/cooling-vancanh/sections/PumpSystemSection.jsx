@@ -1,15 +1,13 @@
-import React from 'react';
-import { Typography, Card, Row, Col, Table, Tag, Divider, Alert, Descriptions } from 'antd';
-import { 
-  ThunderboltOutlined, 
-  SettingOutlined,
-  InfoCircleOutlined,
-  CheckCircleOutlined,
-  ExclamationCircleOutlined,
-  SafetyOutlined,
+import {
   EnvironmentOutlined,
+  InfoCircleOutlined,
+  SettingOutlined,
+  ThunderboltOutlined,
   ToolOutlined
 } from '@ant-design/icons';
+import { Alert, Card, Col, Row, Table, Tag, Typography } from 'antd';
+import React from 'react';
+import '../../shared/styles/SystemSection.css';
 
 const { Title, Paragraph, Text } = Typography;
 
@@ -70,123 +68,14 @@ const PumpSystemSection = () => {
     }
   ];
 
-  // Thiết bị phụ trợ hệ nước
-  const auxiliaryEquipment = [
-    {
-      category: 'Van điều khiển',
-      items: [
-        {
-          name: 'Van cổng F2B16 BRASS NRS GATE VALVE',
-          function: 'Đóng/mở ngăn dòng nước chảy qua đường ống',
-          operation: 'Vặn tay van theo chiều kim đồng hồ để khóa, ngược lại để mở',
-          maintenance: 'Có thể tháo tay van tránh vô tình khóa/mở van'
-        },
-        {
-          name: 'Van xả F4B25 BRASS BALL VALVE',
-          function: 'Đóng/mở ngăn dòng nước chảy qua đường ống',
-          operation: 'Gạt tay van song song với đường ống để mở, vuông góc để đóng',
-          maintenance: 'Có thể tháo tay van tránh vô tình khóa/mở van'
-        },
-        {
-          name: 'Van PICV 4206 (DN32, DN40)',
-          function: 'Thiết lập tự động theo lưu lượng yêu cầu của CRAC',
-          operation: 'Tự động duy trì dòng chảy theo mong muốn',
-          maintenance: 'Nhấn giữ nút trên thân và rút để tháo motor PICV'
-        },
-        {
-          name: 'Van cân bằng F4006 (DN80)',
-          function: 'Thiết lập tự động theo lưu lượng và nhiệt độ yêu cầu',
-          operation: 'Tự động đóng/mở để duy trì nhiệt độ phòng',
-          maintenance: 'Sử dụng lục đặt bên thân van để tháo motor'
-        }
-      ]
-    },
-    {
-      category: 'Thiết bị lọc và đo',
-      items: [
-        {
-          name: 'Lọc Y F7B16 BRASS Y-TYPE STRAINER',
-          function: 'Lọc rác và cặn bã trên hệ thống đường ống',
-          operation: 'Bảo vệ thiết bị hoạt động ổn định',
-          maintenance: 'Bảo trì 2 năm 1 lần, vệ sinh rọ lưới lọc'
-        },
-        {
-          name: 'Đồng hồ áp suất FP31',
-          function: 'Đo áp lực của chất lỏng trên đường ống',
-          operation: 'Xác định áp suất hiện tại để điều chỉnh hợp lý',
-          maintenance: 'Kiểm định lại hằng năm'
-        },
-        {
-          name: 'Đồng hồ nhiệt độ FT11/FT12',
-          function: 'Đo kiểm, theo dõi nhiệt độ đường ống nước lạnh',
-          operation: 'Căn chỉnh điều hòa, kiểm tra kết quả điện tử, cơ khí',
-          maintenance: 'Kiểm tra định kỳ độ chính xác'
-        }
-      ]
-    },
-    {
-      category: 'Thiết bị đặc biệt',
-      items: [
-        {
-          name: 'Van tách khí KVS-870',
-          function: 'Tự động đẩy không khí ra khỏi hệ thống đường ống',
-          operation: 'Lắp đặt tại vị trí cao nhất và phía trên bơm',
-          maintenance: 'Kiểm tra định kỳ hoạt động tự động'
-        },
-        {
-          name: 'Khớp nối mềm F83SJ16 (DN80, DN125)',
-          function: 'Bảo vệ đường ống khỏi thay đổi nhiệt độ và áp suất',
-          operation: 'Kiểm soát chấn động, giảm tiếng ồn và độ rung',
-          maintenance: 'Có thể tháo rời đường ống tại vị trí lắp nối mềm'
-        },
-        {
-          name: 'Khớp nối mềm F85DJ16 (DN32, DN40)',
-          function: 'Bảo vệ đường ống khỏi thay đổi nhiệt độ và áp suất',
-          operation: 'Kiểm soát chấn động, giảm tiếng ồn và độ rung',
-          maintenance: 'Tháo rời bulong tại 1 bên của nối mềm'
-        }
-      ]
-    }
-  ];
 
-  // Hệ thống TES (Thermal Energy Storage)
-  const tesSystem = [
-    {
-      component: 'Bình dự trữ nước lạnh',
-      specification: 'Dung tích: 360m³',
-      function: 'Dự trữ nước lạnh 10°C cho trường hợp khẩn cấp',
-      backup: 'Thời gian dự phòng: 10 phút'
-    },
-    {
-      component: 'Hệ thống van điều khiển',
-      specification: 'Van V1A, V1B, V2A, V2B, V3A, V3B',
-      function: 'Điều khiển 3 chế độ vận hành: Commissioning, Normal, Discharge',
-      control: 'Điều khiển tự động qua BMS theo trạng thái Chiller'
-    },
-    {
-      component: 'Chế độ Commissioning',
-      specification: 'V1A, V1B: Đóng; V2A, V2B: Mở 10-30%; V3A, V3B: Mở 100%',
-      function: 'Nạp nước lạnh vào TES cho đến khi đỉnh TES đạt 10°C',
-      purpose: 'Chuẩn bị hệ thống cho vận hành bình thường'
-    },
-    {
-      component: 'Chế độ Normal',
-      specification: 'V1A, V1B: Mở; V2A, V2B: Đóng; V3A, V3B: Đóng',
-      function: 'Nước từ Chiller qua TES đến CRAC, duy trì 10°C',
-      purpose: 'Vận hành ổn định, tiết kiệm năng lượng'
-    },
-    {
-      component: 'Chế độ Discharge',
-      specification: 'V1A, V1B: Mở; V2A, V2B: Đóng; V3A, V3B: Đóng',
-      function: 'Nước từ TES cung cấp cho CRAC khi Chiller mất nguồn',
-      purpose: 'Đảm bảo hoạt động liên tục trong 10 phút'
-    }
-  ];
+
+
 
   return (
     <div className="content-section">
       <div id="section-3" className="content-section">
-        <Title level={2} style={{ color: '#1890ff', marginBottom: '24px' }}>
+        <Title level={2}>
           <ThunderboltOutlined style={{ marginRight: '12px' }} />
           3.Hệ thống bơm & thiết bị phụ trợ
         </Title>
@@ -202,12 +91,12 @@ const PumpSystemSection = () => {
 
       {/* Hệ thống bơm nước lạnh */}
       <div id="section-3.1" className="subsection">
-        <Title level={3} style={{ color: '#1890ff', marginBottom: '20px', borderBottom: '2px solid #1890ff', paddingBottom: '8px' }}>
+        <Title level={3} className="success-title">
           <ThunderboltOutlined style={{ marginRight: '12px' }} />
           3.1. Hệ thống bơm nước lạnh
         </Title>
         <div id="section-3.1.1" className="subsection">
-          <Title level={4} style={{ color: '#1890ff', marginBottom: '16px',  paddingLeft: '12px' }}>
+          <Title level={4}>
             <ThunderboltOutlined style={{ marginRight: '12px' }} />
             3.1.1. Bơm PCH-01, PCH-02, PCH-03
           </Title>
@@ -215,7 +104,7 @@ const PumpSystemSection = () => {
             {pumpSystem.map((pump, index) => (
               <Col xs={24} lg={8} key={index}>
                 <Card size="small" style={{ height: '100%' }}>
-                  <Title level={4} style={{ color: '#1890ff', marginBottom: '12px' }}>
+                  <Title level={4}>
                     {pump.pump}
                   </Title>
                   <Paragraph style={{ marginBottom: '8px' }}>
@@ -240,13 +129,13 @@ const PumpSystemSection = () => {
         </div>
       
       <div id="section-3.1.2" className="subsection">
-        <Title level={4} style={{ color: '#1890ff', marginBottom: '16px',  paddingLeft: '12px' }}>
+        <Title level={4}>
           <SettingOutlined style={{ marginRight: '12px' }} />
           3.1.2. Điều khiển VFD và chênh áp
         </Title>
         
         <Card style={{ marginBottom: '16px' }}>
-          <Title level={5} style={{ color: '#1890ff', marginBottom: '12px' }}>
+          <Title level={5}>
             <ThunderboltOutlined style={{ marginRight: '8px' }} />
             Nguyên lý điều khiển VFD
           </Title>
@@ -259,7 +148,7 @@ const PumpSystemSection = () => {
         </Card>
 
         <Card style={{ marginBottom: '16px' }}>
-          <Title level={5} style={{ color: '#1890ff', marginBottom: '12px' }}>
+          <Title level={5}>
             <SettingOutlined style={{ marginRight: '8px' }} />
             Hệ thống van Bypass
           </Title>
@@ -272,7 +161,7 @@ const PumpSystemSection = () => {
         </Card>
 
         <Card style={{ marginBottom: '16px' }}>
-          <Title level={5} style={{ color: '#1890ff', marginBottom: '12px' }}>
+          <Title level={5}>
             <InfoCircleOutlined style={{ marginRight: '8px' }} />
             Thiết bị đo chênh áp
           </Title>
@@ -290,20 +179,16 @@ const PumpSystemSection = () => {
 
       {/* Bảng dữ liệu Testing & Commissioning */}
       <div id="section-3.1.3" className="subsection">
-        <Title level={4} style={{ color: '#1890ff', marginBottom: '16px',  paddingLeft: '12px' }}>
+        <Title level={4}>
           <SettingOutlined style={{ marginRight: '12px' }} />
           3.1.3. Quy trình Testing & Commissioning
         </Title>
-      </div>
-      <Card 
-        title={
-          <span>
-            <SettingOutlined style={{ marginRight: '8px', color: '#1890ff' }} />
-            3.1.3 Quy trình Testing & Commissioning
-          </span>
-        }
-        style={{ marginBottom: '24px' }}
-      >
+   
+      <Card style={{ marginBottom: '16px' }}>
+      <Title level={5} style={{ color: '#1890ff', marginBottom: '12px' }}>
+            <ThunderboltOutlined style={{ marginRight: '8px' }} />
+            Quy trình Testing & Commissioning
+          </Title>
         <Table
           dataSource={tcData}
           rowKey={(record) => `tc-${record.scenario || record.pump || Math.random().toString(36).substr(2, 9)}`}
@@ -350,9 +235,9 @@ const PumpSystemSection = () => {
           scroll={{ x: 800 }}
         />
       </Card>
-      
+      </div>      
       <div id="section-3.1.4" className="subsection">
-        <Title level={4} style={{ color: '#1890ff', marginBottom: '16px',  paddingLeft: '12px' }}>
+        <Title level={4}>
           <InfoCircleOutlined style={{ marginRight: '12px' }} />
           3.1.4. Bảng dữ liệu vận hành
         </Title>
@@ -430,7 +315,7 @@ const PumpSystemSection = () => {
       
       {/* 3.2 Thiết bị phụ trợ hệ nước */}
       <div id="section-3.2" className="subsection">
-        <Title level={3} style={{ color: '#1890ff', marginBottom: '20px', borderBottom: '2px solid #1890ff', paddingBottom: '8px' }}>
+        <Title level={3} className="success-title">
           <ToolOutlined style={{ marginRight: '12px' }} />
           3.2. Thiết bị phụ trợ hệ nước
         </Title>
@@ -438,7 +323,7 @@ const PumpSystemSection = () => {
       
       {/* 3.2.1 Van cổng, van xả, van PICV */}
       <div id="section-3.2.1" className="subsection">
-        <Title level={4} style={{ color: '#1890ff', marginBottom: '16px', paddingLeft: '12px' }}>
+        <Title level={4}>
           <ToolOutlined style={{ marginRight: '12px' }} />
           3.2.1. Van cổng, van xả, van PICV
         </Title>
@@ -541,16 +426,15 @@ const PumpSystemSection = () => {
       </div>
 
       {/* Hệ thống TES */}
-      <div id="section-3.3" className="content-section">
-        <Title level={3} style={{ color: '#1890ff', marginBottom: '20px', borderBottom: '2px solid #1890ff', paddingBottom: '8px' }}>
+      <div id="section-3.3" className="subsection">
+        <Title level={3} >
           <EnvironmentOutlined style={{ marginRight: '12px' }} />
           3.3. Hệ thống TES (Thermal Energy Storage)
         </Title>
-      </div>
       
       {/* 3.3.1 Bình dự trữ nước lạnh */}
               <div id="section-3.3.1" className="subsection">
-        <Title level={4} style={{ color: '#1890ff', marginBottom: '12px' }}>
+        <Title level={4} >
           <EnvironmentOutlined style={{ marginRight: '8px' }} />
           3.3.1. Bình dự trữ nước lạnh
         </Title>
@@ -683,6 +567,8 @@ const PumpSystemSection = () => {
         </Row>
       </Card>
     </div>
+    </div>
+
   );
 };
 

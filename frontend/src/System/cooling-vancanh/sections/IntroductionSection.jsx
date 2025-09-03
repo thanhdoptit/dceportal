@@ -1,15 +1,14 @@
-import React from 'react';
-import { Typography, Card, Row, Col, Table, Tag, Divider, Alert, Descriptions } from 'antd';
-import { 
-  CloudOutlined, 
-  ThunderboltOutlined, 
-  SettingOutlined,
+import {
+  CloudOutlined,
+  EnvironmentOutlined,
   InfoCircleOutlined,
-  CheckCircleOutlined,
-  ExclamationCircleOutlined,
   SafetyOutlined,
-  EnvironmentOutlined
+  SettingOutlined,
+  ThunderboltOutlined
 } from '@ant-design/icons';
+import { Alert, Card, Col, Row, Tag, Typography } from 'antd';
+import React from 'react';
+import '../../shared/styles/SystemSection.css';
 
 const { Title, Paragraph, Text } = Typography;
 
@@ -58,7 +57,7 @@ const IntroductionSection = () => {
       component: 'Hệ thống bơm nước lạnh',
       description: '3 bơm PCH-01, PCH-02, PCH-03 với cơ chế 2N+N',
       function: 'Tuần hoàn nước lạnh từ Chiller đến CRAC và TES',
-      control: 'Điều khiển VFD theo chênh áp với cảm biến PDT 4-20mA'
+      control: 'VFD với cảm biến chênh áp PDT 4-20mA'
     },
     {
       component: 'Hệ thống TES (Thermal Energy Storage)',
@@ -123,7 +122,7 @@ const IntroductionSection = () => {
 
   return (
     <div className="content-section">
-      <Title level={2} style={{ color: '#1890ff', marginBottom: '24px' }}>
+      <Title level={2}>
         <InfoCircleOutlined style={{ marginRight: '12px' }} />
         1. Giới thiệu chung hệ thống làm mát TTDL Vân Canh
       </Title>
@@ -138,15 +137,15 @@ const IntroductionSection = () => {
 
       {/* Thông số kỹ thuật chính */}
       <div id="section-1.1" className="subsection">
-      <Title level={3} style={{ color: '#52c41a', marginBottom: '16px' }}>
-      <SettingOutlined style={{ marginRight: '12px' }} />
+        <Title level={3} className="success-title">
+          <SettingOutlined style={{ marginRight: '12px' }} />
           1.1. Thông số kỹ thuật hệ thống
         </Title>
         <Row gutter={[16, 16]}>
           {systemSpecs.map((spec, index) => (
             <Col xs={24} sm={12} lg={6} key={index}>
               <Card size="small" style={{ height: '100%' }}>
-                <Title level={4} style={{ color: '#1890ff', marginBottom: '12px' }}>
+                <Title level={4}>
                   {spec.category}
                 </Title>
                 <Paragraph style={{ marginBottom: '8px' }}>
@@ -173,7 +172,7 @@ const IntroductionSection = () => {
 
       {/* Cấu trúc và nguyên lý hoạt động */}
       <div id="section-1.2" className="subsection">
-        <Title level={3} style={{ color: '#1890ff', marginBottom: '20px', borderBottom: '2px solid #1890ff', paddingBottom: '8px' }}>
+        <Title level={3}>
           <CloudOutlined style={{ marginRight: '12px' }} />
           1.2. Cấu trúc và nguyên lý hoạt động
         </Title>
@@ -181,7 +180,7 @@ const IntroductionSection = () => {
           {systemStructure.map((item, index) => (
             <Col xs={24} lg={12} key={index}>
               <Card size="small" style={{ height: '100%' }}>
-                <Title level={4} style={{ color: '#1890ff', marginBottom: '12px' }}>
+                <Title level={4}>
                   {item.component}
                 </Title>
                 <Paragraph style={{ marginBottom: '8px' }}>
@@ -201,7 +200,7 @@ const IntroductionSection = () => {
 
       {/* Các chế độ vận hành chính */}
       <div id="section-1.3" className="subsection">
-        <Title level={3} style={{ color: '#1890ff', marginBottom: '20px', borderBottom: '2px solid #1890ff', paddingBottom: '8px' }}>
+        <Title level={3}>
           <ThunderboltOutlined style={{ marginRight: '12px' }} />
           1.3. Các chế độ vận hành chính
         </Title>
@@ -213,11 +212,10 @@ const IntroductionSection = () => {
                 size="small" 
                 style={{ 
                   height: '100%', 
-                  
                   background: index === 1 ? '#f6ffed' : 'white'
                 }}
               >
-                <Title level={4} style={{ color: '#52c41a', marginBottom: '12px' }}>
+                <Title level={4} className="success-title">
                   {mode.mode}
                 </Title>
                 <Paragraph style={{ marginBottom: '8px' }}>
@@ -240,7 +238,7 @@ const IntroductionSection = () => {
 
       {/* Hệ thống điều khiển BMS */}
       <div id="section-1.4" className="subsection">
-        <Title level={3} style={{ color: '#1890ff', marginBottom: '20px', borderBottom: '2px solid #1890ff', paddingBottom: '8px' }}>
+        <Title level={3}>
           <SafetyOutlined style={{ marginRight: '12px' }} />
           1.4. Hệ thống điều khiển BMS (Building Management System)
         </Title>
@@ -248,7 +246,7 @@ const IntroductionSection = () => {
           {bmsInfo.map((info, index) => (
             <Col xs={24} lg={8} key={index}>
               <Card size="small" style={{ height: '100%' }}>
-                <Title level={4} style={{ color: '#722ed1', marginBottom: '12px' }}>
+                <Title level={4} className="technical-title">
                   {info.feature}
                 </Title>
                 <Paragraph style={{ marginBottom: '8px' }}>
@@ -268,7 +266,7 @@ const IntroductionSection = () => {
 
       {/* Thông tin bổ sung */}
       <div id="section-1.5" className="subsection">
-        <Title level={3} style={{ color: '#1890ff', marginBottom: '20px', borderBottom: '2px solid #1890ff', paddingBottom: '8px' }}>
+        <Title level={3}>
           <EnvironmentOutlined style={{ marginRight: '12px' }} />
           1.5. Thông tin bổ sung
         </Title>

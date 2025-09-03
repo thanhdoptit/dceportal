@@ -1,11 +1,12 @@
-import React from 'react';
-import { Typography, Card, Tag, Alert, Space, Divider, Row, Col } from 'antd';
 import {
-  SettingOutlined,
-  CloudOutlined,
   CheckCircleOutlined,
-  PictureOutlined
+  CloudOutlined,
+  PictureOutlined,
+  SettingOutlined
 } from '@ant-design/icons';
+import { Alert, Card, Col, Divider, Row, Space, Tag, Typography } from 'antd';
+import React from 'react';
+import { ImagePreview } from '../../shared';
 
 const { Title, Paragraph, Text } = Typography;
 
@@ -28,12 +29,12 @@ const CoolingSystemSection = () => {
             }
           >
             <div style={{ textAlign: 'center' }}>
-              <img
+              <ImagePreview
                 src="/vancanh-overview/chiller1.jpg"
                 alt="Hệ thống làm mát DC"
+                width={400}
+                height={300}
                 style={{
-                  maxWidth: '100%',
-                  height: 'auto',
                   borderRadius: '8px',
                   boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
                 }}
@@ -59,12 +60,12 @@ const CoolingSystemSection = () => {
             }
           >
             <div style={{ textAlign: 'center' }}>
-              <img
+              <ImagePreview
                 src="/vancanh-overview/chiller2.jpg"
                 alt="Chiller SMARDT 632kW"
+                width={400}
+                height={300}
                 style={{
-                  maxWidth: '100%',
-                  height: 'auto',
                   borderRadius: '8px',
                   boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
                 }}
@@ -268,12 +269,12 @@ const CoolingSystemSection = () => {
           style={{ marginBottom: '20px' }}
         >
           <div style={{ textAlign: 'center' }}>
-            <img
+            <ImagePreview
               src="/vancanh-overview/tes.jpg"
               alt="Hệ thống trữ nhiệt TES"
+              width={400}
+              height={300}
               style={{
-                maxWidth: '40%',
-                height: 'auto',
                 border: '1px solid #d9d9d9',
                 borderRadius: '6px',
                 boxShadow: '0 2px 8px rgba(0,0,0,0.1)',

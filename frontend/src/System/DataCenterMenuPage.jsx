@@ -1,24 +1,17 @@
-import React from 'react';
-import { Layout, Card, Row, Col, Typography, Space, Button } from 'antd';
 import {
+  ApiOutlined,
+  BulbOutlined,
   CloudOutlined,
-  ThunderboltOutlined,
-  SafetyOutlined,
-  WifiOutlined,
+  DashboardOutlined,
   DatabaseOutlined,
-  ToolOutlined,
-  SettingOutlined,
-  RightOutlined,
   EnvironmentOutlined,
   FireOutlined,
-  MonitorOutlined,
-  BulbOutlined,
-  ApiOutlined,
   KeyOutlined,
-  WarningOutlined,
-  DashboardOutlined,
-  DesktopOutlined
+  MonitorOutlined,
+  ThunderboltOutlined
 } from '@ant-design/icons';
+import { Button, Card, Col, Layout, Row, Typography } from 'antd';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './DataCenterMenuPage.css';
 
@@ -117,13 +110,22 @@ const DataCenterMenuPage = () => {
       gradient: 'linear-gradient(135deg, #52c41a 0%, #389e0d 100%)'
     },
     {
+      key: 'ups',
+      title: 'Hệ thống UPS & Ắc quy',
+      icon: <ThunderboltOutlined />,
+      description: 'UPS Galaxy VL, ắc quy BMS, giám sát',
+      route: '/dc/system-info/UPS',
+      color: '#722ed1',
+      gradient: 'linear-gradient(135deg, #722ed1 0%, #531dab 100%)'
+    },
+    {
       key: 'electrical',
       title: 'Hệ thống điện',
       icon: <BulbOutlined />,
       description: 'UPS, ATS, tủ điện phân phối',
       route: '/dc/system-info/ELECTRICAL',
-      color: '#722ed1',
-      gradient: 'linear-gradient(135deg, #722ed1 0%, #531dab 100%)'
+      color: '#fa8c16',
+      gradient: 'linear-gradient(135deg, #fa8c16 0%, #d46b08 100%)'
     }
   ];
 
@@ -131,6 +133,10 @@ const DataCenterMenuPage = () => {
     // Lấy prefix từ URL hiện tại (dc, manager, be)
     const currentPath = window.location.pathname;
     const prefix = currentPath.split('/')[1] || 'dc';
+    
+    console.log('handleCardClick - Route:', route);
+    console.log('handleCardClick - Datacenter:', datacenter);
+    console.log('handleCardClick - Prefix:', prefix);
 
     // Chỉ navigate đến prefix phù hợp với role hiện tại
     if (route === '/dc/system-info/COOLING') {
@@ -142,6 +148,18 @@ const DataCenterMenuPage = () => {
       } else {
         navigate(`/${prefix}/cooling-system`);
       }
+    } else if (route === '/dc/system-info/UPS') {
+      // Chuyển đến UPS system với prefix hiện tại và datacenter
+      if (datacenter === 'vancanh') {
+        console.log('Navigating to ups-vancanh');
+        navigate(`/${prefix}/ups-vancanh`);
+      } else {
+        console.log('Navigating to ups-system');
+        navigate(`/${prefix}/ups-system`);
+      }
+    } else if (route === '/dc/system-info/UPS_DISTRIBUTION') {
+      // Chuyển đến UPS distribution system
+      navigate(`/${prefix}/ups-distribution`);
     } else if (route === '/dc/vancanh-overview') {
       // Chuyển đến Van Canh Overview
       navigate(`/${prefix}/vancanh-overview`);

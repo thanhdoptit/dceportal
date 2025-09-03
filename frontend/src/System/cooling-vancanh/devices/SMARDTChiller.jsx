@@ -1,25 +1,26 @@
-import React from 'react';
-import { Typography, Card, Table, Space, Tag, Alert } from 'antd';
 import {
-  InfoCircleOutlined,
   CheckCircleOutlined,
   ExclamationCircleOutlined,
-  ToolOutlined,
-  SettingOutlined
+  InfoCircleOutlined,
+  SettingOutlined,
+  ToolOutlined
 } from '@ant-design/icons';
+import { Alert, Card, Space, Table, Tag, Typography } from 'antd';
+import React from 'react';
+import '../../shared/styles/SystemSection.css';
 
 const { Title, Paragraph, Text } = Typography;
 
 const SMARDTChiller = () => {
   return (
-    <div id="section-2.1" className="content-section">
-      <Title level={3} style={{ color: '#52c41a', marginBottom: '16px' }}>
+    <div id="section-2.1" className="subsection">
+      <Title level={3} >
         <SettingOutlined style={{ marginRight: '8px' }} />
         2.1. Chiller SMARDT AE Series - TTDL Vân Canh
       </Title>
 
       <div id="section-2.1.1" className="subsection">
-        <Title level={4} style={{ color: '#1890ff', marginBottom: '12px' }}>
+        <Title level={4}>
           <InfoCircleOutlined style={{ marginRight: '8px' }} /> 2.1.1. Thông tin chung
         </Title>
 
@@ -171,7 +172,7 @@ const SMARDTChiller = () => {
       </div>
 
       <div id="section-2.1.2" className="subsection">
-        <Title level={4} style={{ color: '#1890ff', marginBottom: '12px' }}>
+        <Title level={4}>
           <CheckCircleOutlined style={{ marginRight: '8px' }} /> 2.1.2. Chế độ Commissioning (Khởi tạo)
         </Title>
 
@@ -209,7 +210,7 @@ const SMARDTChiller = () => {
       </div>
 
       <div id="section-2.1.3" className="subsection">
-        <Title level={4} style={{ color: '#1890ff', marginBottom: '12px' }}>
+        <Title level={4}>
           <ToolOutlined style={{ marginRight: '8px' }} /> 2.1.3. Chế độ Bình thường (Normal Mode)
         </Title>
 
@@ -438,7 +439,7 @@ const SMARDTChiller = () => {
       </div>
 
       <div id="section-2.1.4" className="subsection">
-        <Title level={4} style={{ color: '#1890ff', marginBottom: '12px' }}>
+        <Title level={4}>
           <ExclamationCircleOutlined style={{ marginRight: '8px' }} /> 2.1.4. Chế độ Xả (Discharge Mode)
         </Title>
 
@@ -465,7 +466,7 @@ const SMARDTChiller = () => {
       </div>
 
       <div id="section-2.1.5" className="subsection">
-        <Title level={4} style={{ color: '#1890ff', marginBottom: '12px' }}>
+        <Title level={4}>
           <ToolOutlined style={{ marginRight: '8px' }} /> 2.1.5. Quy trình và chu kỳ bảo trì
         </Title>
 

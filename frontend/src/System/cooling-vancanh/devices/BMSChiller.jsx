@@ -1,26 +1,27 @@
-import React from 'react';
-import { Typography, Card, Table, Space, Tag, Alert, Divider } from 'antd';
 import {
-  InfoCircleOutlined,
   CheckCircleOutlined,
   ExclamationCircleOutlined,
-  ToolOutlined,
-  SettingOutlined
+  InfoCircleOutlined,
+  SettingOutlined,
+  ToolOutlined
 } from '@ant-design/icons';
+import { Alert, Card, Divider, Space, Table, Tag, Typography } from 'antd';
+import React from 'react';
+import '../../shared/styles/SystemSection.css';
 import WaterSystemDevices from '../components/WaterSystemDevices';
 
 const { Title, Paragraph, Text } = Typography;
 
 const BMSChiller = () => {
   return (
-    <div id="section-2.5" className="content-section">
-      <Title level={3} style={{ color: '#52c41a', marginBottom: '16px' }}>
+    <div id="section-2.5" className="subsection">
+      <Title level={3} >
         <SettingOutlined style={{ marginRight: '8px' }} />
         2.5. Hệ thống BMS Chiller - TTDL Vân Canh
       </Title>
 
       <div id="section-2.5.1" className="subsection">
-        <Title level={4} style={{ color: '#1890ff', marginBottom: '12px' }}>
+        <Title level={4}>
           <InfoCircleOutlined style={{ marginRight: '8px' }} /> 2.5.1. Thông tin chung
         </Title>
 
@@ -180,7 +181,7 @@ const BMSChiller = () => {
       </div>
 
       <div id="section-2.5.2" className="subsection">
-        <Title level={4} style={{ color: '#1890ff', marginBottom: '12px' }}>
+        <Title level={4}>
           <CheckCircleOutlined style={{ marginRight: '8px' }} /> 2.5.2. Hướng dẫn cài đặt và cấu hình ban đầu
         </Title>
 
@@ -234,7 +235,7 @@ const BMSChiller = () => {
       </div>
 
       <div id="section-2.5.3" className="subsection">
-        <Title level={4} style={{ color: '#1890ff', marginBottom: '12px' }}>
+        <Title level={4}>
           <ToolOutlined style={{ marginRight: '8px' }} /> 2.5.3. Hướng dẫn vận hành và kiểm tra hàng ngày
         </Title>
 
@@ -306,7 +307,7 @@ const BMSChiller = () => {
       </div>
 
       <div id="section-2.5.4" className="subsection">
-        <Title level={4} style={{ color: '#1890ff', marginBottom: '12px' }}>
+        <Title level={4}>
           <ExclamationCircleOutlined style={{ marginRight: '8px' }} /> 2.5.4. Hướng dẫn xác định nguyên nhân lỗi
         </Title>
 
@@ -383,7 +384,7 @@ const BMSChiller = () => {
       </div>
 
       <div id="section-2.5.5" className="subsection">
-        <Title level={4} style={{ color: '#1890ff', marginBottom: '12px' }}>
+        <Title level={4}>
           <ToolOutlined style={{ marginRight: '8px' }} /> 2.5.5. Quy định và chu kỳ bảo trì
         </Title>
 
@@ -442,7 +443,7 @@ const BMSChiller = () => {
       </div>
 
       <div id="section-2.5.6" className="subsection">
-        <Title level={4} style={{ color: '#1890ff', marginBottom: '12px' }}>
+        <Title level={4}>
           <ToolOutlined style={{ marginRight: '8px' }} /> 2.5.6. Hướng dẫn bảo trì từng thành phần
         </Title>
 

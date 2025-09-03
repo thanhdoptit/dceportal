@@ -1,5 +1,5 @@
 // Components
-export { LazySection, PasswordField, SystemLayout } from './components';
+export { ImageGallery, ImagePreview, LazySection, PasswordField, SystemLayout } from './components';
 
 // Hooks
 export { useIntersectionObserver } from './hooks';
@@ -10,4 +10,4 @@ export * from './utils';
 // Styles
 import './styles/SystemLayout.css';
 // CSS Template cho hệ thống mới (optional)
-// import './styles/SystemTemplate.css';
+// import './styles/SystemLayout.css';
