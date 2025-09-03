@@ -1,3 +1,4 @@
+
 import {
   CloudOutlined,
   EnvironmentOutlined,
@@ -7,7 +8,6 @@ import {
   ThunderboltOutlined
 } from '@ant-design/icons';
 import { Alert, Card, Col, Row, Tag, Typography } from 'antd';
-import React from 'react';
 import '../../shared/styles/SystemSection.css';
 
 const { Title, Paragraph, Text } = Typography;
@@ -137,7 +137,7 @@ const IntroductionSection = () => {
 
       {/* Thông số kỹ thuật chính */}
       <div id="section-1.1" className="subsection">
-        <Title level={3} className="success-title">
+        <Title level={3} >
           <SettingOutlined style={{ marginRight: '12px' }} />
           1.1. Thông số kỹ thuật hệ thống
         </Title>
@@ -204,14 +204,14 @@ const IntroductionSection = () => {
           <ThunderboltOutlined style={{ marginRight: '12px' }} />
           1.3. Các chế độ vận hành chính
         </Title>
-      
+
         <Row gutter={[16, 16]}>
           {operationModes.map((mode, index) => (
             <Col xs={24} lg={8} key={index}>
-              <Card 
-                size="small" 
-                style={{ 
-                  height: '100%', 
+              <Card
+                size="small"
+                style={{
+                  height: '100%',
                   background: index === 1 ? '#f6ffed' : 'white'
                 }}
               >
