@@ -1,14 +1,16 @@
 import {
-  MonitorOutlined,
-  PoweroffOutlined,
-  SafetyOutlined,
-  ThunderboltOutlined,
-  DatabaseOutlined,
-  GlobalOutlined
+    DatabaseOutlined,
+    MonitorOutlined,
+    PoweroffOutlined,
+    SafetyOutlined,
+    ThunderboltOutlined
 } from '@ant-design/icons';
-import { Card, Col, Divider, Row, Steps, Tag, Typography, Alert, Descriptions } from 'antd';
+import { Alert, Card, Col, Descriptions, Divider, Row, Tag, Typography } from 'antd';
 import React from 'react';
+// Import CSS từ shared - Đảm bảo thứ tự import đúng
+import '../../shared/styles/SystemLayout.css';
 import '../../shared/styles/SystemSection.css';
+import '../../shared/styles/SystemTemplate.css';
 
 const { Title, Paragraph, Text } = Typography;
 

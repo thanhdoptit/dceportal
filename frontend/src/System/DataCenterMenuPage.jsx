@@ -119,13 +119,13 @@ const DataCenterMenuPage = () => {
       gradient: 'linear-gradient(135deg, #722ed1 0%, #531dab 100%)'
     },
     {
-      key: 'electrical',
-      title: 'Hệ thống điện',
-      icon: <BulbOutlined />,
-      description: 'UPS, ATS, tủ điện phân phối',
-      route: '/dc/system-info/ELECTRICAL',
-      color: '#fa8c16',
-      gradient: 'linear-gradient(135deg, #fa8c16 0%, #d46b08 100%)'
+      key: 'electric',
+      title: 'Hệ thống phân phối điện',
+      icon: <ThunderboltOutlined />,
+      description: 'Tủ điện hạ thế, bảo vệ, điều khiển, chiếu sáng',
+      route: '/dc/system-info/ELECTRIC',
+      color: '#0072BC',
+      gradient: 'linear-gradient(135deg, #0072BC 0%, #005c9b 100%)'
     }
   ];
 
@@ -156,6 +156,15 @@ const DataCenterMenuPage = () => {
       } else {
         console.log('Navigating to ups-system');
         navigate(`/${prefix}/ups-system`);
+      }
+    } else if (route === '/dc/system-info/ELECTRIC') {
+      // Chuyển đến Electric system với prefix hiện tại và datacenter
+      if (datacenter === 'vancanh') {
+        console.log('Navigating to electric-vancanh');
+        navigate(`/${prefix}/electric-vancanh`);
+      } else {
+        console.log('Navigating to electric-system');
+        navigate(`/${prefix}/electric-system`);
       }
     } else if (route === '/dc/system-info/UPS_DISTRIBUTION') {
       // Chuyển đến UPS distribution system

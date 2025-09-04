@@ -14,7 +14,7 @@ dotenv.config();
 // Hàm xác thực AD - chỉ cần bind thành công
 const simpleADAuth = (username, password) => {
   return new Promise((resolve, reject) => {
-    const bindDN = `icbv\\${username}`; // hoặc `${username}@icbv.com`
+    const bindDN = `icbv\\${username}`;
     const ldap = new LdapAuth({
       url: 'ldap://icbv.com:389',
       bindDN: bindDN,

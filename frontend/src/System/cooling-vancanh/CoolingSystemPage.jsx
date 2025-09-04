@@ -1,12 +1,12 @@
 import {
-    AppstoreOutlined,
-    EnvironmentOutlined,
-    FileTextOutlined,
-    InfoCircleOutlined,
-    PhoneOutlined,
-    SafetyOutlined,
-    SettingOutlined,
-    ThunderboltOutlined
+  AppstoreOutlined,
+  EnvironmentOutlined,
+  FileTextOutlined,
+  InfoCircleOutlined,
+  PhoneOutlined,
+  SafetyOutlined,
+  SettingOutlined,
+  ThunderboltOutlined
 } from '@ant-design/icons';
 import React, { useState } from 'react';
 import { SystemLayout } from '../shared';

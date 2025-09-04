@@ -4,6 +4,7 @@ import { Navigate, Route, BrowserRouter as Router, Routes } from 'react-router-d
 import DataCenterMenuPage from './System/DataCenterMenuPage';
 import { CoolingSystemPage } from './System/cooling';
 import CoolingSystemVancanhPage from './System/cooling-vancanh';
+import ElectricSystemVancanhPage from './System/electric-vancanh';
 import { UPSSystemPage } from './System/ups-vancanh';
 import VanCanhOverviewPage from './System/vancanh-overview';
 import ShiftSelector from './components/ShiftSelector';
@@ -127,6 +128,7 @@ function App() {
                 <Route path="cooling-system" element={<CoolingSystemPage />} />
                 <Route path="cooling-system-vancanh" element={<CoolingSystemVancanhPage />} />
                 <Route path="ups-vancanh" element={<UPSSystemPage />} />
+                <Route path="electric-vancanh" element={<ElectricSystemVancanhPage />} />
                 <Route path="vancanh-overview" element={<VanCanhOverviewPage />} />
                 <Route path="datacenter-menu" element={<DataCenterMenuPage />} />
                 <Route path="shift-schedule" element={<ShiftSchedulePage />} />
@@ -151,6 +153,7 @@ function App() {
                 <Route path="cooling-system" element={<CoolingSystemPage />} />
                 <Route path="cooling-system-vancanh" element={<CoolingSystemVancanhPage />} />
                 <Route path="ups-vancanh" element={<UPSSystemPage />} />
+                <Route path="electric-vancanh" element={<ElectricSystemVancanhPage />} />
                 <Route path="vancanh-overview" element={<VanCanhOverviewPage />} />
                 <Route path="datacenter-menu" element={<DataCenterMenuPage />} />
                 <Route path="shift-schedule" element={<ShiftSchedulePage />} />
@@ -169,6 +172,7 @@ function App() {
                 <Route path="cooling-system" element={<CoolingSystemPage />} />
                 <Route path="cooling-system-vancanh" element={<CoolingSystemVancanhPage />} />
                 <Route path="ups-vancanh" element={<UPSSystemPage />} />
+                <Route path="electric-vancanh" element={<ElectricSystemVancanhPage />} />
                 <Route path="vancanh-overview" element={<VanCanhOverviewPage />} />
                 <Route path="datacenter-menu" element={<DataCenterMenuPage />} />
                 <Route path="shift-schedule" element={<ShiftSchedulePage />} />

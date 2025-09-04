@@ -9,6 +9,10 @@ import {
 import React from 'react';
 import { SystemLayout, createLeafMenuItem, createMenuItem, createSubMenuItem } from '../shared';
 import UPSContent from './UPSContent';
+// Import CSS từ shared để đảm bảo menu styling đúng
+import '../shared/styles/SystemLayout.css';
+import '../shared/styles/SystemSection.css';
+import '../shared/styles/SystemTemplate.css';
 
 const UPSSystemPage = () => {
 
@@ -179,8 +183,9 @@ const UPSSystemPage = () => {
     <SystemLayout
       title="HỆ THỐNG UPS & ẮC QUY BMS - TTDL VÂN CANH"
       menuItems={menuItems}
-      headerBgColor="#0072BC"
+      headerBgColor="#1890ff"      
       defaultOpenKeys={['1', '2', '3', '4', '5', '6']}
+      selectedKey="1"
     >
       <UPSContent />
     </SystemLayout>

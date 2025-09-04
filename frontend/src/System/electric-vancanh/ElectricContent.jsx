@@ -1,4 +1,4 @@
-import { Divider, Progress, Spin } from 'antd';
+import { Divider, Progress, Spin, Typography } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useSidebar } from '../../contexts/SidebarContext';
 import { LazySection } from '../shared';
@@ -7,64 +7,63 @@ import '../shared/styles/SystemLayout.css';
 import '../shared/styles/SystemSection.css';
 import '../shared/styles/SystemTemplate.css';
 
-const UPSContent = () => {
+const { Title } = Typography;
+
+const ElectricContent = () => {
   const { sidebarReady, isAnimating } = useSidebar();
   const [loadedSections, setLoadedSections] = useState(0);
   const [forceLoadAll, setForceLoadAll] = useState(false);
 
-  // Section configurations với ID tương ứng với menu - tối ưu loading cho UPS Vân Canh
+  // Định nghĩa các sections dựa trên menu mới
   const sections = [
     {
-      id: '1',
+      id: 'introduction',
       name: 'Giới thiệu chung',
       importFunc: () => import('./sections/IntroductionSection'),
-      priority: 'high',
-      preload: true, // Preload section đầu tiên
-      subsections: ['1.1', '1.2', '1.3', '1.4']
+      description: 'Tổng quan hệ thống điện, sơ đồ đơn tuyến, cấu trúc và tiêu chuẩn'
     },
     {
-      id: '2',
-      name: 'Hệ thống UPS Galaxy VL',
-      importFunc: () => import('./sections/GalaxyVLSection'),
-      priority: 'high',
-      preload: false,
-      subsections: ['2.1', '2.1.1', '2.1.2', '2.1.3', '2.2', '2.2.1', '2.2.2', '2.2.3', '2.3', '2.3.1', '2.3.2', '2.3.3', '2.4', '2.4.1', '2.4.2', '2.4.3']
+      id: 'low-voltage',
+      name: 'Tủ điện hạ thế',
+      importFunc: () => import('./sections/LowVoltageSection'),
+      description: 'Các loại tủ điện ACIT, Blokset, máy cắt ACB, MCCB, MCB, RCBO & RCCB'
     },
     {
-      id: '3',
-      name: 'Hệ thống ắc quy & BMS',
-      importFunc: () => import('./sections/BatteryBMSSection'),
-      priority: 'high',
-      preload: false,
-      subsections: ['3.1', '3.1.1', '3.1.2', '3.1.3', '3.2', '3.2.1', '3.2.2', '3.2.3']
+      id: 'protection',
+      name: 'Hệ thống bảo vệ',
+      importFunc: () => import('./sections/ProtectionSection'),
+      description: 'Bảo vệ quá dòng, chạm đất, ngắn mạch và các thiết bị bảo vệ'
     },
     {
-      id: '4',
-      name: 'Giám sát & Điều khiển',
-      importFunc: () => import('./sections/MonitoringSection'),
-      priority: 'medium',
-      preload: false,
-      subsections: ['4.1', '4.1.1', '4.1.2', '4.1.3', '4.2', '4.2.1', '4.2.2', '4.2.3']
+      id: 'control',
+      name: 'Hệ thống điều khiển',
+      importFunc: () => import('./sections/ControlSection'),
+      description: 'PLC điều khiển, hệ thống ATS, điều khiển máy phát'
     },
     {
-      id: '5',
-      name: 'Quy trình vận hành',
+      id: 'lighting',
+      name: 'Hệ thống chiếu sáng',
+      importFunc: () => import('./sections/LightingSection'),
+      description: 'Chiếu sáng chung, khẩn cấp, hệ thống ổ cắm và công tắc'
+    },
+    {
+      id: 'cable',
+      name: 'Hệ thống cáp và máng',
+      importFunc: () => import('./sections/CableSection'),
+      description: 'Thang máng cáp, cáp điện lực, cáp điều khiển và kéo cáp'
+    },
+    {
+      id: 'operation',
+      name: 'Vận hành và bảo trì',
       importFunc: () => import('./sections/OperationSection'),
-      priority: 'medium',
-      preload: false,
-      subsections: [
-        '5.1', '5.1.1', '5.1.2', '5.1.3', '5.1.4', '5.1.5', '5.1.6', '5.1.7', 
-        '5.1.8', '5.1.9', '5.1.10', '5.1.11', '5.1.12',        
-      ]
+      description: 'Quy trình vận hành, kiểm tra hệ thống dự phòng, bảo trì định kỳ'
     },
     {
-      id: '6',
-      name: 'Xử lý sự cố & Khắc phục',
-      importFunc: () => import('./sections/TroubleshootingSection'),
-      priority: 'medium',
-      preload: false,
-      subsections: ['6.1', '6.1.1', '6.1.2', '6.1.3', '6.2', '6.2.1', '6.2.2', '6.2.3']
-    }
+      id: 'documentation',
+      name: 'Tài liệu và tiêu chuẩn',
+      importFunc: () => import('./sections/DocumentationSection'),
+      description: 'Tiêu chuẩn Việt Nam, quốc tế và chứng nhận sản phẩm'
+    },
   ];
 
   // Preload section đầu tiên khi sidebar đã sẵn sàng
@@ -94,33 +93,32 @@ const UPSContent = () => {
   const handleSectionLoad = () => {
     setLoadedSections(prev => {
       const newCount = prev + 1;
-      console.log(`UPS Section loaded. Total: ${newCount}/${sections.length}`);
+      console.log(`Electric Section loaded. Total: ${newCount}/${sections.length}`);
       return newCount;
     });
   };
 
   // Add error handling for section loading
   const handleSectionError = (sectionName, error) => {
-    console.error(`Error loading UPS section ${sectionName}:`, error);
+    console.error(`Error loading section ${sectionName}:`, error);
   };
-
-  const progressPercent = Math.round((loadedSections / sections.length) * 100);
 
   // Hiển thị loading khi sidebar đang animating
   if (isAnimating || !sidebarReady) {
     return (
-      <div className="system-content">
-        <div className="loading-container">
-          <div style={{ textAlign: 'center' }}>
-            <Spin size="large" />
-            <p className="loading-text">
-              Đang tải tài liệu hệ thống UPS & ắc quy BMS...
-            </p>
-          </div>
+      <div className="loading-container">
+        <div style={{ textAlign: 'center' }}>
+          <Spin size="large" />
+          <p className="loading-text">
+            Đang tải tài liệu hệ thống điện...
+          </p>
         </div>
       </div>
     );
   }
+
+  // Tính toán progress
+  const progressPercent = Math.round((loadedSections / sections.length) * 100);
 
   return (
     <>
@@ -151,7 +149,7 @@ const UPSContent = () => {
                   fontSize: '16px',
                   fontWeight: '600'
                 }}>
-                  Đang tải nội dung hệ thống UPS
+                  Đang tải nội dung
                 </h4>
                 <p style={{
                   margin: 0,
@@ -170,8 +168,8 @@ const UPSContent = () => {
               {progressPercent}%
             </div>
           </div>
-          <Progress
-            percent={progressPercent}
+          <Progress 
+            percent={progressPercent} 
             strokeColor={{
               '0%': '#1890ff',
               '100%': '#0072BC',
@@ -261,7 +259,7 @@ const UPSContent = () => {
         }}>
           <div style={{ fontSize: '24px', marginBottom: '8px' }}>✅</div>
           <p style={{ margin: 0, color: '#52c41a', fontWeight: '600' }}>
-            Tất cả nội dung hệ thống UPS & ắc quy BMS đã được tải xong!
+            Tất cả nội dung đã được tải xong!
           </p>
         </div>
       )}
@@ -269,4 +267,4 @@ const UPSContent = () => {
   );
 };
 
-export default UPSContent;
+export default ElectricContent;
