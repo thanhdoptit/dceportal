@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
 import { Layout, Menu } from 'antd';
-import { handleMenuClick, getMenuHeaderStyle, getMenuHeaderTitleStyle } from '../utils/menuUtils';
+import React, { useState } from 'react';
 import '../styles/SystemLayout.css';
+import { getMenuHeaderStyle, getMenuHeaderTitleStyle, handleMenuClick } from '../utils/menuUtils';
 
 const { Sider, Content } = Layout;
 
@@ -45,7 +45,7 @@ const SystemLayout = ({
       {/* Menu bên trái - Cố định width */}
       <div className="menu-container">
         <Sider 
-          width={380} 
+          width={320} 
           className="system-sider"
           theme="dark"
         >

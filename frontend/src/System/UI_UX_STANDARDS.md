@@ -22,7 +22,7 @@ Sử dụng các file function, CSS trong /srv/dce-portal/frontend/src/System/sh
 ```
 
 ### 2. Menu Container
-- **Width**: 380px (cố định)
+- **Width**: 320px (cố định)
 - **Background**: #ffffff
 - **Border**: 1px solid #e8e8e8
 - **Shadow**: 2px 0 10px rgba(0, 0, 0, 0.1)
