@@ -4,7 +4,7 @@
 
 /* Layout chính - Tối ưu cho content rộng nhất */
 .system-layout {
-  height: calc(100vh - 83px);
+  height: calc(100vh - 73px);
   background: #f5f5f5;
   display: flex;
   overflow: hidden;
@@ -18,7 +18,7 @@
 /* Menu container - Wrapper cho menu */
 .menu-container {
   width: 380px;
-  height: calc(100vh - 83px);
+  height: calc(100vh - 73px);
   flex-shrink: 0;
   position: relative;
   background: #ffffff;
@@ -35,7 +35,7 @@
   background: transparent !important;
   border-right: none !important;
   box-shadow: none !important;
-  height: calc(100vh - 83px);
+  height: calc(100vh - 73px);
   width: 100%;
   overflow-y: auto;
   overflow-x: hidden;
@@ -698,7 +698,7 @@
 
 /* Cooling System Layout - Backward compatibility */
 .cooling-system-layout {
-  height: calc(100vh - 83px);
+  height: calc(100vh - 74px);
   background: #f5f5f5;
   display: flex;
   overflow: hidden;
