@@ -12,14 +12,14 @@ const { Title, Paragraph, Text } = Typography;
 
 const CoolingSystemSection = () => {
   return (
-    <div id="section-4" className="device-section">
-      <Title level={3} style={{ color: '#52c41a', marginBottom: '16px' }}>
+    <div id="section-4" className="content-section">
+      <Title level={2} >
         <SettingOutlined style={{ marginRight: '8px' }} />
         4. HỆ THỐNG LÀM MÁT TTDL VÂN CANH
       </Title>
 
       <Row gutter={[16, 16]} style={{ marginBottom: '20px' }}>
-        <Row>
+        <Col span={12}>
           <Card
             title={
               <Space>
@@ -30,27 +30,20 @@ const CoolingSystemSection = () => {
           >
             <div style={{ textAlign: 'center' }}>
               <ImagePreview
+              
                 src="/vancanh-overview/chiller1.jpg"
                 alt="Hệ thống làm mát DC"
-                width={400}
-                height={300}
+                width='100%'
+                height='auto'
                 style={{
                   borderRadius: '8px',
                   boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
                 }}
               />
-              <p style={{
-                color: '#666',
-                margin: '8px 0 0 0',
-                fontSize: '12px',
-                fontStyle: 'italic'
-              }}>
-                Hệ thống làm mát
-              </p>
             </div>
           </Card>
-        </Row>
-        <Col >
+        </Col>
+        <Col span={12}>
           <Card
             title={
               <Space>
@@ -63,28 +56,20 @@ const CoolingSystemSection = () => {
               <ImagePreview
                 src="/vancanh-overview/chiller2.jpg"
                 alt="Chiller SMARDT 632kW"
-                width={400}
-                height={300}
+                width='100%'
+                height='auto'
                 style={{
                   borderRadius: '8px',
                   boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
                 }}
               />
-              <p style={{
-                color: '#666',
-                margin: '8px 0 0 0',
-                fontSize: '12px',
-                fontStyle: 'italic'
-              }}>
-                Hình ảnh hệ thống Chiller
-              </p>
             </div>
           </Card>
         </Col>
       </Row>
 
       <div id="section-4.1" className="subsection">
-        <Title level={4} style={{ color: '#1890ff', marginBottom: '12px' }}>
+        <Title level={3} >
           <CloudOutlined style={{ marginRight: '8px' }} /> 4.1 Hệ thống Chiller
         </Title>
 
@@ -160,7 +145,7 @@ const CoolingSystemSection = () => {
       </div>
 
       <div id="section-4.2" className="subsection">
-        <Title level={4} style={{ color: '#1890ff', marginBottom: '12px' }}>
+        <Title level={3} >
           <CloudOutlined style={{ marginRight: '8px' }} /> 4.2 Hệ thống điều hòa chính xác
         </Title>
 
@@ -246,7 +231,7 @@ const CoolingSystemSection = () => {
       </div>
 
       <div id="section-4.3" className="subsection">
-        <Title level={4} style={{ color: '#1890ff', marginBottom: '12px' }}>
+        <Title level={3} >
           <CheckCircleOutlined style={{ marginRight: '8px' }} /> 4.3 Hệ thống trữ nhiệt TES
         </Title>
 

@@ -1,22 +1,26 @@
-import React from 'react';
-import { Typography, Table, Card, Divider, Alert, Space, Tag } from 'antd';
 import {
-  InfoCircleOutlined,
-  ToolOutlined,
+  CheckCircleOutlined,
   ExclamationCircleOutlined,
-  CheckCircleOutlined
+  InfoCircleOutlined,
+  ToolOutlined
 } from '@ant-design/icons';
+import { Alert, Card, Space, Steps, Table, Tag, Typography } from 'antd';
+import React from 'react';
 
 const { Title, Paragraph, Text } = Typography;
+const { Step } = Steps;
 
 const TDAV1321A = () => {
+  // State management cho Steps theo UI_UX_STANDARDS.md
+  const [currentStep, setCurrentStep] = React.useState(0);
+
   return (
     <div id="section-2.1" className="subsection">
       <Title level={3} style={{ color: '#52c41a', marginBottom: '16px' }}>
         2.1. TDAV1321A - UNIFLAIR
       </Title>
       <div id="section-2.1.1" className="subsection">
-        <Title level={4} style={{ color: '#1890ff', marginBottom: '12px' }}>
+        <Title level={4}>
           <InfoCircleOutlined style={{ marginRight: '8px' }} /> 2.1.1. Thông tin chung
         </Title>
         <div style={{ textAlign: 'center', marginBottom: '20px' }}>
@@ -104,7 +108,7 @@ const TDAV1321A = () => {
       </div>
 
       <div id="section-2.1.2" className="subsection">
-        <Title level={4} style={{ color: '#1890ff', marginBottom: '12px' }}>
+        <Title level={4}>
           <CheckCircleOutlined style={{ marginRight: '8px' }} /> 2.1.2. Hướng dẫn lắp đặt
         </Title>
 
@@ -150,49 +154,90 @@ const TDAV1321A = () => {
       </div>
 
       <div id="section-2.1.3" className="subsection">
-        <Title level={4} style={{ color: '#1890ff', marginBottom: '12px' }}>
+        <Title level={4}>
           <ExclamationCircleOutlined style={{ marginRight: '8px' }} /> 2.1.3. Hướng dẫn vận hành và kiểm tra hàng ngày
         </Title>
 
-        <Card title="2.1.3.1. Vận hành cơ bản" style={{ marginBottom: '20px' }}>
+        <Card title="2.1.3.1. Vận hành cơ bản" className="subsection" style={{ marginBottom: '20px' }}>
           <Paragraph>
             Máy điều hòa chính xác TDAV1321A hoạt động theo chế độ tự động, điều khiển bằng vi xử lý (microprocessor controller) và giao diện màn hình semi-graphic. Người dùng chỉ cần vận hành theo các bước:
           </Paragraph>
 
-          <Title level={5} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Khởi động máy:</Title>
-          <ul>
-            <li>Đảm bảo nguồn cấp điện ổn định</li>
-            <li>Bật công tắc nguồn ở tủ điều khiển hoặc màn hình</li>
-            <li>Máy sẽ tự kiểm tra hệ thống (self-check)</li>
-            <li>Quan sát màn hình: trạng thái khởi động, cảnh báo nếu có, thông số cài đặt</li>
-          </ul>
-
-          <Title level={5} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Chọn chế độ vận hành:</Title>
-          <Paragraph>Trên màn hình điều khiển, có thể chọn:</Paragraph>
-          <ul>
-            <li>Cool (làm mát)</li>
-            <li>Heat (nếu sử dụng bộ sưởi)</li>
-            <li>Auto (tự động chuyển đổi theo điều kiện)</li>
-            <li>Dehumidify (hút ẩm)</li>
-          </ul>
-
-          <Title level={5} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Điều chỉnh các thông số:</Title>
-          <ul>
-            <li><Text strong>Nhiệt độ:</Text> 15°C &lt; t &lt; 27°C</li>
-            <li><Text strong>Giới hạn nhiệt độ cảnh báo:</Text> &plusmn;0.5°C</li>
-            <li><Text strong>Độ ẩm:</Text> 45% - 55% RH</li>
-            <li><Text strong>Giới hạn độ ẩm cảnh báo:</Text> &plusmn;3 %</li>
-            <li><Text strong>Cài đặt chế độ vận hành:</Text> Làm mát / Sưởi / Tự động</li>
-            <li><Text strong>Bật/tắt chức năng:</Text> Phun ẩm, bộ sưởi hoặc quạt theo thời gian</li>
-            <li><Text strong>Kiểm tra chế độ dự phòng N+1:</Text> Đảm bảo chỉ 1 thiết bị ở chế độ standby</li>
-          </ul>
-
-          <Title level={5} style={{ color: '#595959', marginBottom: '8px', fontSize: '16px' }}>Kết nối với hệ thống quản lý tập trung (tùy chọn):</Title>
-          <ul>
-            <li><Text strong>SNMP:</Text> Cấu hình IP thiết bị, subnet mask, gateway</li>
-            <li><Text strong>Modbus:</Text> Đặt địa chỉ thiết bị, tốc độ baud rate, parity, stop bit</li>
-            <li>Cài đặt tích hợp với NetBotz</li>
-          </ul>
+          <Steps
+            current={currentStep}
+            onChange={setCurrentStep}
+            direction="vertical"
+            size="small"
+            items={[
+              {
+                title: 'Khởi động máy',
+                description: (
+                  <div>
+                    <Paragraph style={{ marginBottom: '8px' }}>
+                      <Text strong>Các bước thực hiện:</Text>
+                    </Paragraph>
+                    <ul style={{ marginLeft: '20px', marginBottom: '8px' }}>
+                      <li>Đảm bảo nguồn cấp điện ổn định</li>
+                      <li>Bật công tắc nguồn ở tủ điều khiển hoặc màn hình</li>
+                      <li>Máy sẽ tự kiểm tra hệ thống (self-check)</li>
+                      <li>Quan sát màn hình: trạng thái khởi động, cảnh báo nếu có, thông số cài đặt</li>
+                    </ul>
+                  </div>
+                )
+              },
+              {
+                title: 'Chọn chế độ vận hành',
+                description: (
+                  <div>
+                    <Paragraph style={{ marginBottom: '8px' }}>
+                      <Text strong>Trên màn hình điều khiển, có thể chọn:</Text>
+                    </Paragraph>
+                    <ul style={{ marginLeft: '20px', marginBottom: '8px' }}>
+                      <li>Cool (làm mát) - Chế độ làm mát chính</li>
+                      <li>Heat (nếu sử dụng bộ sưởi) - Chế độ sưởi ấm khi cần thiết</li>
+                      <li>Auto (tự động chuyển đổi theo điều kiện) - Hệ thống tự động chọn chế độ phù hợp</li>
+                      <li>Dehumidify (hút ẩm) - Chế độ giảm độ ẩm trong phòng</li>
+                    </ul>
+                  </div>
+                )
+              },
+              {
+                title: 'Điều chỉnh các thông số',
+                description: (
+                  <div>
+                    <Paragraph style={{ marginBottom: '8px' }}>
+                      <Text strong>Các thông số cần điều chỉnh:</Text>
+                    </Paragraph>
+                    <ul style={{ marginLeft: '20px', marginBottom: '8px' }}>
+                      <li><Text strong>Nhiệt độ:</Text> 15°C {'<'} t {'<'} 27°C - Phạm vi nhiệt độ hoạt động an toàn</li>
+                      <li><Text strong>Giới hạn nhiệt độ cảnh báo:</Text> ±0.5°C - Ngưỡng cảnh báo khi nhiệt độ vượt quá</li>
+                      <li><Text strong>Độ ẩm:</Text> 45% - 55% RH - Phạm vi độ ẩm tối ưu cho thiết bị CNTT</li>
+                      <li><Text strong>Giới hạn độ ẩm cảnh báo:</Text> ±3% - Ngưỡng cảnh báo khi độ ẩm vượt quá</li>
+                      <li><Text strong>Cài đặt chế độ vận hành:</Text> Làm mát / Sưởi / Tự động - Lựa chọn chế độ hoạt động chính</li>
+                      <li><Text strong>Bật/tắt chức năng:</Text> Phun ẩm, bộ sưởi hoặc quạt theo thời gian - Điều khiển các chức năng phụ trợ</li>
+                      <li><Text strong>Kiểm tra chế độ dự phòng N+1:</Text> Đảm bảo chỉ 1 thiết bị ở chế độ standby - Đảm bảo hệ thống dự phòng hoạt động đúng</li>
+                    </ul>
+                  </div>
+                )
+              },
+              {
+                title: 'Kết nối với hệ thống quản lý tập trung (tùy chọn)',
+                description: (
+                  <div>
+                    <Paragraph style={{ marginBottom: '8px' }}>
+                      <Text strong>Các phương thức kết nối:</Text>
+                    </Paragraph>
+                    <ul style={{ marginLeft: '20px', marginBottom: '8px' }}>
+                      <li><Text strong>SNMP:</Text> Cấu hình IP thiết bị, subnet mask, gateway - Thiết lập kết nối mạng cho giám sát từ xa</li>
+                      <li><Text strong>Modbus:</Text> Đặt địa chỉ thiết bị, tốc độ baud rate, parity, stop bit - Cấu hình giao thức truyền thông công nghiệp</li>
+                      <li>Cài đặt tích hợp với NetBotz - Kết nối với hệ thống giám sát môi trường</li>
+                    </ul>
+                  </div>
+                )
+              }
+            ]}
+            style={{ marginBottom: '20px' }}
+          />
         </Card>
 
         <Card title="2.1.3.2. Kiểm tra hàng ngày" style={{ marginBottom: '20px' }}>
@@ -248,7 +293,7 @@ const TDAV1321A = () => {
       </div>
 
       <div id="section-2.1.4" className="subsection">
-        <Title level={4} style={{ color: '#1890ff', marginBottom: '12px' }}>
+        <Title level={4}>
           <ExclamationCircleOutlined style={{ marginRight: '8px' }} /> 2.1.4. Hướng dẫn xác định nguyên nhân lỗi
         </Title>
 
@@ -409,7 +454,7 @@ const TDAV1321A = () => {
       </div>
 
       <div id="section-2.1.5" className="subsection">
-        <Title level={4} style={{ color: '#1890ff', marginBottom: '12px' }}>
+        <Title level={4}>
           <ToolOutlined style={{ marginRight: '8px' }} /> 2.1.5. Quy trình và chu kỳ bảo trì
         </Title>
 

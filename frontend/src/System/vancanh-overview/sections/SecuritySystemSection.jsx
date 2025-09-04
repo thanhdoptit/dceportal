@@ -1,14 +1,14 @@
 import { AppstoreOutlined, PictureOutlined, SafetyOutlined } from '@ant-design/icons';
 import { Alert, Card, Col, Row, Space, Tag, Typography } from 'antd';
 import React from 'react';
-import { ImageGallery, ImagePreview } from '../../shared';
+import { ImagePreview } from '../../shared';
 
 const { Title, Text } = Typography;
 
 const SecuritySystemSection = () => {
   return (
-    <div id="section-6" className="device-section">
-      <Title level={3} style={{ color: '#52c41a', marginBottom: '16px' }}>
+    <div id="section-6" className="content-section">
+      <Title level={2} >
         <SafetyOutlined style={{ marginRight: '8px' }} />
         6. HỆ THỐNG AN NINH TTDL VÂN CANH
       </Title>
@@ -24,7 +24,7 @@ const SecuritySystemSection = () => {
       {/* Hình ảnh hệ thống an ninh */}
 
       <div id="section-6.1" className="subsection">
-        <Title level={4} style={{ color: '#1890ff', marginBottom: '12px' }}>
+        <Title level={3} >
           <AppstoreOutlined style={{ marginRight: '8px' }} /> 6.1 Hệ thống CCTV
         </Title>
         
@@ -36,17 +36,23 @@ const SecuritySystemSection = () => {
               Hình ảnh hệ thống CCTV
             </Space>
           }
-          style={{ marginBottom: '20px' }}
+          style={{ marginBottom: '20px', textAlign: 'center' }}
         >
-          <ImageGallery
-            images={[
-              '/vancanh-overview/cctv1.jpg',             
-            ]}
-            columns={1}
-            imageWidth= '100%'
-            imageHeight= 'auto'  
-            maskText="Click để xem chi tiết"
-          />
+          <div style={{ textAlign: 'center' }}>
+            <ImagePreview
+              src="/vancanh-overview/cctv1.jpg"
+              alt="Hệ thống CCTV"
+              width='90%'
+              height= 'auto'  
+                style={{                
+                border: '1px solid #d9d9d9',
+                borderRadius: '6px',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+                display: 'block',
+                margin: '0 auto'
+              }}
+            />
+          </div>
         </Card>
         <Card title="Hệ thống CCTV" style={{ marginBottom: '20px' }}>
           <Space direction="vertical" size="middle" style={{ width: '100%' }}>
@@ -75,7 +81,7 @@ const SecuritySystemSection = () => {
       </div>
 
       <div id="section-6.2" className="subsection">
-        <Title level={4} style={{ color: '#1890ff', marginBottom: '12px' }}>
+        <Title level={3} >
           <AppstoreOutlined style={{ marginRight: '8px' }} /> 6.2 Hệ thống kiểm soát vào ra ACS
         </Title>
         <Card
@@ -84,25 +90,30 @@ const SecuritySystemSection = () => {
               <PictureOutlined />
               Hệ thống kiểm soát vào ra
             </Space>
-          } >
-          <div style={{ textAlign: 'center' }}>
-            <ImagePreview
-              src="/vancanh-overview/cctv2.jpg"
-              alt="Hệ thống cấp nguồn gồm 2 trạm biến áp 2500KVA"
-              width='80%'
-                height= 'auto'  
-                style={{                
-                border: '1px solid #d9d9d9',
-                borderRadius: '6px',
-                boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
-                display: 'block',
-                margin: '0 auto'
-              }}
-            />
-          </div>
-        </Card>
+            }
+            style={{ marginBottom: '20px' }}
+          >
+          
         <Row gutter={[16, 16]} style={{ marginBottom: '20px' }}>
-          <Col span={12}  >
+          <Col span={8}  >
+            <div style={{ textAlign: 'center' }}>
+              <ImagePreview
+                src="/vancanh-overview/cctv2.jpg"
+                alt="Hệ thống kiểm soát vào ra"
+                width='100%'
+                height= 'auto'  
+                style={{                  
+                  border: '1px solid #d9d9d9',
+                  borderRadius: '6px',
+                  boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+                  display: 'block',
+                  margin: '0 auto'
+                }}
+              />
+
+            </div>
+          </Col>
+          <Col span={8} >
             <div style={{ textAlign: 'center' }}>
               <ImagePreview
                 src="/vancanh-overview/cctv3.jpg"
@@ -117,27 +128,30 @@ const SecuritySystemSection = () => {
                   margin: '0 auto'
                 }}
               />
-
             </div>
           </Col>
-          <Col span={12} >
-            <div style={{ textAlign: 'center' }}>
-              <ImagePreview
-                src="/vancanh-overview/cctv4.jpg"
-                alt="Hệ thống cấp nguồn gồm 2 trạm biến áp 2500KVA"
-                width='100%'
+          
+          <Col span={8} >
+          <div style={{ textAlign: 'center' }}>
+            <ImagePreview
+              src="/vancanh-overview/cctv4.jpg"
+              alt="Hệ thống kiểm soát vào ra"
+              width='100%'
                 height= 'auto'  
-                style={{                  
-                  border: '1px solid #d9d9d9',
-                  borderRadius: '6px',
-                  boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
-                  display: 'block',
-                  margin: '0 auto'
-                }}
-              />
-            </div>
+                style={{                
+                border: '1px solid #d9d9d9',
+                borderRadius: '6px',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+                display: 'block',
+                margin: '0 auto'
+              }}
+            />
+          </div>
           </Col>
         </Row>
+
+        </Card>
+
         <Card title="Hệ thống kiểm soát vào ra (ACS)" style={{ marginBottom: '20px' }}>
           <Space direction="vertical" size="middle" style={{ width: '100%' }}>
             <div>
@@ -165,7 +179,7 @@ const SecuritySystemSection = () => {
       </div>
 
       <div id="section-6.3" className="subsection">
-        <Title level={4} style={{ color: '#1890ff', marginBottom: '12px' }}>
+        <Title level={3} >
           <AppstoreOutlined style={{ marginRight: '8px' }} /> 6.3 Hệ thống thông báo PA
         </Title>
 

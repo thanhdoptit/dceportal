@@ -1,6 +1,6 @@
+import { AppstoreOutlined } from '@ant-design/icons';
+import { Alert, Card, Collapse, Steps, Table, Tag, Typography } from 'antd';
 import React from 'react';
-import { Typography, Card, Divider, Table, Tag, Space, Alert, Steps, Collapse } from 'antd';
-import { AppstoreOutlined, CheckCircleOutlined, ExclamationCircleOutlined, WarningOutlined } from '@ant-design/icons';
 import { PasswordField } from '../../shared';
 
 const { Title, Paragraph, Text } = Typography;
@@ -12,13 +12,13 @@ const ApplicationSection = () => {
 
   return (
     <section id="section-4" className="content-section">
-      <Title level={2} style={{ color: '#1890ff', marginBottom: '24px' }}>
+      <Title level={2}>
         <AppstoreOutlined style={{ marginRight: '12px' }} />
         4. ỨNG DỤNG - TTDL Hòa Lạc
       </Title>
 
       <div id="section-4.1" className="subsection">
-      <Title level={3} style={{ color: '#52c41a', marginBottom: '16px' }}>
+      <Title level={3}>
       4.1. Quy trình vận hành hàng ngày chung của hệ thống làm mát
         </Title>
 
@@ -221,7 +221,7 @@ const ApplicationSection = () => {
       </div>
 
       <div id="section-4.2" className="subsection">
-        <Title level={3} style={{ color: '#52c41a', marginBottom: '16px' }}>
+        <Title level={3}>
           4.2. Tổng hợp mã lỗi, nguyên nhân và cách giải quyết
         </Title>
 
@@ -431,7 +431,7 @@ const ApplicationSection = () => {
       </div>
 
       <div id="section-4.3" className="subsection">
-        <Title level={3} style={{ color: '#52c41a', marginBottom: '16px' }}>
+        <Title level={3}>
           4.3. Vị trí, Seri, IP, hợp đồng bảo trì liên quan cụ thể
         </Title>
 
@@ -738,7 +738,7 @@ const ApplicationSection = () => {
       </div>
 
       <div id="section-4.4" className="subsection">
-        <Title level={3} style={{ color: '#52c41a', marginBottom: '16px' }}>
+        <Title level={3}>
           4.4. Xem và thiết lập thông số của các điều hòa qua Website
         </Title>
 

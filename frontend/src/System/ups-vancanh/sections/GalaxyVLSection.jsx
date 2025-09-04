@@ -150,7 +150,7 @@ const GalaxyVLSection = () => {
           <Title level={4}>
             2.1.1. Đặc điểm kỹ thuật
           </Title>
-          <Card size="small" style={{ marginBottom: '16px' }}>
+          <Card size="small" style={{ marginBottom: '16px' }} title="Đặc điểm kỹ thuật">
             <ul>
               <li><Text strong>Công nghệ:</Text> Double-conversion online</li>
               <li><Text strong>Topology:</Text> IGBT-based inverter</li>

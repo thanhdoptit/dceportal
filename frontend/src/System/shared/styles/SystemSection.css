@@ -1,9 +1,24 @@
 /* ========================================
  * SYSTEM SECTION STYLING - CSS for section content consistency
  * Based on cooling-vancanh template standards
+ * 
+ * STRUCTURE:
+ * 1. BASE LAYOUT & CONTAINERS
+ * 2. TYPOGRAPHY - HEADING STYLES  
+ * 3. SPECIAL COLOR VARIATIONS
+ * 4. COMPONENT SPACING & STYLING
+ * 5. TYPOGRAPHY & TEXT STYLING
+ * 6. INLINE STYLE OVERRIDES
+ * 7. UTILITY CLASSES
+ * 8. RESPONSIVE DESIGN
+ * 9. ANIMATIONS & INTERACTIONS
  * ======================================== */
 
-/* Content section base styling */
+/* ========================================
+ * 1. BASE LAYOUT & CONTAINERS
+ * ======================================== */
+
+/* Main content section container */
 .content-section {
   padding: 0;
   margin: 0;
@@ -11,8 +26,23 @@
   box-sizing: border-box;
 }
 
-/* Section title (level 2) styling - consistent with cooling-vancanh */
-.content-section .ant-typography h2 {
+/* Subsection container for nested content */
+.subsection {
+  scroll-margin-top: 20px; /* For smooth navigation */
+  margin-bottom: 8px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* ========================================
+ * 2. TYPOGRAPHY - HEADING STYLES
+ * ======================================== */
+
+/* ========================================
+ * 2.1 MAIN SECTION HEADERS (H2)
+ * ======================================== */
+.content-section .ant-typography h2,
+.content-section h2.ant-typography {
   color: #1890ff !important;
   margin-bottom: 24px !important;
   margin-top: 0 !important;
@@ -23,46 +53,42 @@
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
 }
 
-.content-section .ant-typography h2 .anticon {
-  margin-right: 12px;
-}
-
-/* Subsection container styling */
-.subsection {
-  scroll-margin-top: 20px; /* For smooth navigation */
-  margin-bottom: 8px;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-/* Subsection title (level 3) styling - consistent with cooling-vancanh */
-.subsection .ant-typography h3 {
+/* ========================================
+ * 2.2 SUBSECTION HEADERS (H3)
+ * ======================================== */
+.subsection .ant-typography h3,
+.subsection h3.ant-typography,
+.subsection h3 {
   color: #1890ff !important;
-  margin-bottom: 20px !important;
+  margin-bottom: 16px !important;
   margin-top: 0 !important;
-  font-size: 20px !important;
-  font-weight: 500 !important;
+  font-size: 16px !important;
+  font-weight: 600 !important;
   border-bottom: 2px solid #1890ff;
   padding-bottom: 8px;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
 }
 
-.subsection .ant-typography h3 .anticon {
-  margin-right: 12px;
-}
-
-/* Sub-subsection title (level 4) styling - consistent with cooling-vancanh */
-.subsection .ant-typography h4 {
-  color: #1890ff !important;
+/* ========================================
+ * 2.3 DETAIL HEADERS (H4)
+ * ======================================== */
+.subsection .ant-typography h4,
+.subsection h4.ant-typography,
+.subsection h4 {
+  color: #000000 !important;
   margin-bottom: 12px !important;
   margin-top: 0 !important;
   font-size: 16px !important;
-  font-weight: 500 !important;
+  font-weight: 600 !important;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
 }
 
-/* Sub-sub-subsection title (level 5) styling - consistent with cooling-vancanh */
-.subsection .ant-typography h5 {
+/* ========================================
+ * 2.4 MINOR HEADERS (H5)
+ * ======================================== */
+.subsection .ant-typography h5,
+.subsection h5.ant-typography,
+.subsection h5 {
   color: #595959 !important;
   margin-bottom: 8px !important;
   margin-top: 0 !important;
@@ -71,29 +97,60 @@
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
 }
 
-/* Special color variations for different content types - based on cooling-vancanh */
-/* Success/Positive content (level 3) */
-.subsection .ant-typography h3.success-title {
+/* ========================================
+ * 2.5 ICON SPACING FOR ALL HEADINGS
+ * ======================================== */
+.content-section .ant-typography h2 .anticon,
+.subsection .ant-typography h3 .anticon,
+.subsection h3 .anticon,
+.subsection .ant-typography h4 .anticon,
+.subsection h4 .anticon,
+.subsection .ant-typography h5 .anticon,
+.subsection h5 .anticon {
+  margin-right: 12px;
+}
+
+/* ========================================
+ * 3. SPECIAL COLOR VARIATIONS
+ * ======================================== */
+
+/* ========================================
+ * 3.1 SUCCESS/POSITIVE CONTENT
+ * ======================================== */
+.subsection .ant-typography h3.success-title,
+.subsection h3.success-title {
   color: #52c41a !important;
   border-bottom: 2px solid #52c41a;
 }
 
-/* Success/Positive content (level 4) */
-.subsection .ant-typography h4.success-title {
+.subsection .ant-typography h4.success-title,
+.subsection h4.success-title {
   color: #52c41a !important;
 }
 
-/* Purple/Technical content (level 4) */
-.subsection .ant-typography h4.technical-title {
+/* ========================================
+ * 3.2 TECHNICAL/PURPLE CONTENT
+ * ======================================== */
+.subsection .ant-typography h4.technical-title,
+.subsection h4.technical-title {
   color: #722ed1 !important;
 }
 
-/* Dark blue/Corporate content (level 4) */
-.subsection .ant-typography h4.corporate-title {
+/* ========================================
+ * 3.3 CORPORATE/DARK BLUE CONTENT
+ * ======================================== */
+.subsection .ant-typography h4.corporate-title,
+.subsection h4.corporate-title {
   color: #003c71 !important;
 }
 
-/* Card spacing - consistent with cooling-vancanh */
+/* ========================================
+ * 4. COMPONENT SPACING & STYLING
+ * ======================================== */
+
+/* ========================================
+ * 4.1 CARD COMPONENTS
+ * ======================================== */
 .content-section .ant-card {
   margin-bottom: 20px;
   border-radius: 8px;
@@ -106,7 +163,6 @@
   margin-bottom: 16px; /* Nested cards have less margin */
 }
 
-/* Small card styling */
 .content-section .ant-card-small .ant-card-head {
   background: #fafafa;
   border-bottom: 1px solid #e8e8e8;
@@ -117,37 +173,43 @@
   padding: 12px;
 }
 
-/* Divider spacing */
+/* ========================================
+ * 4.2 LAYOUT COMPONENTS
+ * ======================================== */
 .content-section .ant-divider {
   margin: 24px 0;
 }
 
-/* Alert spacing */
-.content-section .ant-alert {
-  margin-bottom: 16px;
-}
-
-/* Table spacing */
-.content-section .ant-table-wrapper {
-  margin-bottom: 16px;
-}
-
-/* Steps component spacing */
-.content-section .ant-steps {
-  margin-bottom: 16px;
-}
-
-/* Collapse component spacing */
-.content-section .ant-collapse {
-  margin-bottom: 16px;
-}
-
-/* Row spacing */
 .content-section .ant-row {
   margin-bottom: 0;
 }
 
-/* Typography improvements */
+/* ========================================
+ * 4.3 DATA DISPLAY COMPONENTS
+ * ======================================== */
+.content-section .ant-alert {
+  margin-bottom: 16px;
+}
+
+.content-section .ant-table-wrapper {
+  margin-bottom: 16px;
+}
+
+.content-section .ant-steps {
+  margin-bottom: 16px;
+}
+
+.content-section .ant-collapse {
+  margin-bottom: 16px;
+}
+
+/* ========================================
+ * 5. TYPOGRAPHY & TEXT STYLING
+ * ======================================== */
+
+/* ========================================
+ * 5.1 BASE TYPOGRAPHY
+ * ======================================== */
 .content-section .ant-typography {
   line-height: 1.6;
 }
@@ -156,7 +218,9 @@
   margin-bottom: 16px;
 }
 
-/* List styling */
+/* ========================================
+ * 5.2 LIST STYLING
+ * ======================================== */
 .content-section ul,
 .content-section ol {
   padding-left: 20px;
@@ -168,19 +232,22 @@
   line-height: 1.6;
 }
 
-/* Strong text styling - consistent with cooling-vancanh */
+/* ========================================
+ * 5.3 TEXT EMPHASIS
+ * ======================================== */
 .content-section .ant-typography strong {
   color: #1890ff;
   font-weight: 600;
 }
 
-/* Tag spacing and styling */
+/* ========================================
+ * 5.4 FORM & DATA COMPONENTS
+ * ======================================== */
 .content-section .ant-tag {
   margin-bottom: 8px;
   margin-right: 8px;
 }
 
-/* Descriptions component styling */
 .content-section .ant-descriptions {
   margin-bottom: 16px;
 }
@@ -190,7 +257,9 @@
   font-weight: 600;
 }
 
-/* Footer text styling - consistent with cooling-vancanh */
+/* ========================================
+ * 5.5 FOOTER & SPECIAL TEXT
+ * ======================================== */
 .content-section .section-footer,
 .content-section p[style*="text-align: center"][style*="color: #666"][style*="font-size: 12px"] {
   text-align: center;
@@ -200,7 +269,13 @@
   margin-bottom: 0;
 }
 
-/* Override any inline styles that conflict with standardized CSS */
+/* ========================================
+ * 6. INLINE STYLE OVERRIDES
+ * ======================================== */
+
+/* ========================================
+ * 6.1 GENERAL INLINE STYLE OVERRIDES
+ * ======================================== */
 .content-section .ant-typography h2[style],
 .content-section .ant-typography h3[style],
 .content-section .ant-typography h4[style],
@@ -212,7 +287,9 @@
   margin-top: 0 !important;
 }
 
-/* Specific overrides for different heading levels - based on cooling-vancanh */
+/* ========================================
+ * 6.2 SPECIFIC HEADING LEVEL OVERRIDES
+ * ======================================== */
 .content-section .ant-typography h2[style] {
   color: #1890ff !important;
   font-size: 22px !important;
@@ -222,9 +299,9 @@
 
 .content-section .ant-typography h3[style] {
   color: #1890ff !important;
-  font-size: 20px !important;
-  font-weight: 500 !important;
-  margin-bottom: 20px !important;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  margin-bottom: 16px !important;
 }
 
 .content-section .ant-typography h4[style] {
@@ -241,28 +318,70 @@
   margin-bottom: 8px !important;
 }
 
-/* Remove scrollMarginTop from inline styles */
+/* ========================================
+ * 7. UTILITY CLASSES
+ * ======================================== */
+
+/* ========================================
+ * 7.1 SCROLL & POSITIONING UTILITIES
+ * ======================================== */
 .subsection[style*="scrollMarginTop"] {
   scroll-margin-top: 20px !important;
 }
 
-/* Responsive adjustments */
+/* ========================================
+ * 7.2 CONTENT TYPE INDICATORS
+ * ======================================== */
+.content-section .success-indicator {
+  color: #52c41a !important;
+  font-weight: 600;
+}
+
+.content-section .technical-info {
+  color: #722ed1 !important;
+}
+
+.content-section .corporate-info {
+  color: #003c71 !important;
+}
+
+.content-section .standard-info {
+  color: #1890ff !important;
+}
+
+.content-section .secondary-info {
+  color: #595959 !important;
+}
+
+/* ========================================
+ * 8. RESPONSIVE DESIGN
+ * ======================================== */
+
+/* ========================================
+ * 8.1 MOBILE DEVICES (max-width: 768px)
+ * ======================================== */
 @media (max-width: 768px) {
+  /* Main section headers */
   .content-section .ant-typography h2 {
     font-size: 20px;
     margin-bottom: 16px !important;
   }
   
-  .subsection .ant-typography h3 {
-    font-size: 18px;
+  /* Subsection headers */
+  .subsection .ant-typography h3,
+  .subsection h3 {
+    font-size: 16px;
     margin-bottom: 16px !important;
   }
   
-  .subsection .ant-typography h4 {
+  /* Detail headers */
+  .subsection .ant-typography h4,
+  .subsection h4 {
     font-size: 16px;
     margin-bottom: 8px !important;
   }
   
+  /* Component spacing */
   .content-section .ant-card {
     margin-bottom: 16px;
   }
@@ -272,12 +391,20 @@
   }
 }
 
-/* Animation and transitions */
+/* ========================================
+ * 9. ANIMATIONS & INTERACTIONS
+ * ======================================== */
+
+/* ========================================
+ * 9.1 SMOOTH TRANSITIONS
+ * ======================================== */
 .content-section * {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Hover effects for interactive elements */
+/* ========================================
+ * 9.2 HOVER EFFECTS
+ * ======================================== */
 .content-section .ant-card:hover {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
@@ -290,31 +417,4 @@
 .content-section .ant-tag:hover {
   transform: scale(1.05);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-}
-
-/* Special styling for cooling-vancanh specific elements */
-/* Success status indicators */
-.content-section .success-indicator {
-  color: #52c41a !important;
-  font-weight: 600;
-}
-
-/* Technical/System information */
-.content-section .technical-info {
-  color: #722ed1 !important;
-}
-
-/* Corporate/Important information */
-.content-section .corporate-info {
-  color: #003c71 !important;
-}
-
-/* Standard information */
-.content-section .standard-info {
-  color: #1890ff !important;
-}
-
-/* Secondary information */
-.content-section .secondary-info {
-  color: #595959 !important;
 }

@@ -137,7 +137,7 @@ const IntroductionSection = () => {
 
       {/* Thông số kỹ thuật chính */}
       <div id="section-1.1" className="subsection">
-        <Title level={3} className="success-title">
+        <Title level={3}>
           <SettingOutlined style={{ marginRight: '12px' }} />
           1.1. Thông số kỹ thuật hệ thống
         </Title>

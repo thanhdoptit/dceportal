@@ -16,7 +16,6 @@ const { Step } = Steps;
 const OperationSection = () => {
   // State để quản lý step hiện tại
   const [currentStep, setCurrentStep] = React.useState(0);
-  const [currentDetailStep, setCurrentDetailStep] = React.useState(0);
   const [currentEmergencyStep, setCurrentEmergencyStep] = React.useState(0);
   const [currentMaintenanceStep, setCurrentMaintenanceStep] = React.useState(0);
 
@@ -211,7 +210,7 @@ const OperationSection = () => {
             onChange={setCurrentStep}
             direction="vertical"
             size="small"
-            items={startupProcedure.map((step, index) => ({
+            items={startupProcedure.map((step) => ({
               title: step.title,
               description: (
                 <div>
@@ -237,7 +236,7 @@ const OperationSection = () => {
 
       {/* 5.2 Vận hành chế độ Normal */}
       <div id="section-5.2" className="subsection">
-        <Title level={3} style={{ color: '#1890ff', marginBottom: '20px', borderBottom: '2px solid #1890ff', paddingBottom: '8px' }}>
+        <Title level={3} >
           <SettingOutlined style={{ marginRight: '12px' }} />
           5.2. Vận hành chế độ Normal
         </Title>
@@ -263,7 +262,7 @@ const OperationSection = () => {
                 onChange={index === 0 ? setPhase1Step : setPhase2Step}
                 direction="vertical"
                 size="small"
-                items={phase.actions.map((action, idx) => ({
+                items={phase.actions.map((action) => ({
                   title: action,
                   description: null
                 }))}
@@ -278,7 +277,7 @@ const OperationSection = () => {
 
       {/* 5.3 Quy trình gọi thêm, cắt bớt cụm Chiller */}
       <div id="section-5.3" className="subsection">
-        <Title level={3} style={{ color: '#1890ff', marginBottom: '20px', borderBottom: '2px solid #1890ff', paddingBottom: '8px' }}>
+        <Title level={3} >
           <ThunderboltOutlined style={{ marginRight: '12px' }} />
           5.3. Quy trình gọi thêm, cắt bớt cụm Chiller
         </Title>
@@ -292,7 +291,7 @@ const OperationSection = () => {
             onChange={setCurrentEmergencyStep}
             direction="vertical"
             size="small"
-            items={chillerControl.map((control, index) => ({
+            items={chillerControl.map((control) => ({
               title: control.action,
               description: (
                 <div>
@@ -328,7 +327,7 @@ const OperationSection = () => {
 
       {/* 5.4 Quy trình vận hành luân phiên hệ thống */}
       <div id="section-5.4" className="subsection">
-        <Title level={3} style={{ color: '#1890ff', marginBottom: '20px', borderBottom: '2px solid #1890ff', paddingBottom: '8px' }}>
+        <Title level={3} >
           <SettingOutlined style={{ marginRight: '12px' }} />
           5.4. Quy trình vận hành luân phiên hệ thống
         </Title>
@@ -342,7 +341,7 @@ const OperationSection = () => {
 
       {/* 5.5 Xử lý sự cố và chế độ khẩn cấp */}
       <div id="section-5.5" className="subsection">
-        <Title level={3} style={{ color: '#1890ff', marginBottom: '20px', borderBottom: '2px solid #1890ff', paddingBottom: '8px' }}>
+        <Title level={3} >
           <ExclamationCircleOutlined style={{ marginRight: '12px' }} />
           5.5. Xử lý sự cố và chế độ khẩn cấp
         </Title>
@@ -357,7 +356,7 @@ const OperationSection = () => {
             onChange={setCurrentEmergencyStep}
             direction="vertical"
             size="small"
-            items={emergencyOperation.map((emergency, index) => ({
+            items={emergencyOperation.map((emergency) => ({
               title: emergency.scenario,
               description: (
                 <div>
@@ -400,7 +399,7 @@ const OperationSection = () => {
 
       {/* 5.6 Các chế độ vận hành */}
       <div id="section-5.6" className="subsection">
-        <Title level={3} style={{ color: '#1890ff', marginBottom: '20px', borderBottom: '2px solid #1890ff', paddingBottom: '8px' }}>
+        <Title level={3} >
           <SafetyOutlined style={{ marginRight: '12px' }} />
           5.6. Các chế độ vận hành
         </Title>
@@ -414,7 +413,7 @@ const OperationSection = () => {
             onChange={setCurrentMaintenanceStep}
             direction="vertical"
             size="small"
-            items={operationModes.map((mode, index) => ({
+            items={operationModes.map((mode) => ({
               title: mode.mode,
               description: (
                 <div>
@@ -433,7 +432,7 @@ const OperationSection = () => {
 
       {/* 5.7 Thông tin bổ sung */}
       <div id="section-5.7" className="subsection">
-        <Title level={3} style={{ color: '#1890ff', marginBottom: '20px', borderBottom: '2px solid #1890ff', paddingBottom: '8px' }}>
+        <Title level={3} >
           <InfoCircleOutlined style={{ marginRight: '12px' }} />
           5.7. Thông tin bổ sung
         </Title>

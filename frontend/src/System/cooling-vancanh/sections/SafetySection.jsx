@@ -1,9 +1,9 @@
 import {
-    CheckCircleOutlined,
-    ExclamationCircleOutlined,
-    InfoCircleOutlined,
-    SafetyOutlined,
-    ToolOutlined
+  CheckCircleOutlined,
+  ExclamationCircleOutlined,
+  InfoCircleOutlined,
+  SafetyOutlined,
+  ToolOutlined
 } from '@ant-design/icons';
 import { Alert, Card, Col, Divider, Row, Steps, Typography } from 'antd';
 import React from 'react';
@@ -350,9 +350,9 @@ const SafetySection = () => {
           <SafetyOutlined style={{ marginRight: '12px' }} />
           6.1. Biện pháp an toàn vận hành
         </Title>
-        {safetyMeasures.map((category, catIndex) => (
+        <Card >{safetyMeasures.map((category, catIndex) => (
           <div key={catIndex} style={{ marginBottom: '24px' }}>
-            <Title level={4} className="success-title">
+            <Title level={4} >
               {category.category}
             </Title>
             <Row gutter={[16, 16]}>
@@ -377,15 +377,17 @@ const SafetySection = () => {
             </Row>
             {catIndex < safetyMeasures.length - 1 && <Divider />}
           </div>
-        ))}
+        ))}</Card>
+        
       </div>
 
       {/* Quy trình bảo trì thiết bị */}
       <div id="section-6.2" className="subsection">
-        <Title level={3} style={{ color: '#1890ff', marginBottom: '20px', borderBottom: '2px solid #1890ff', paddingBottom: '8px' }}>
+        <Title level={3} >
           <ToolOutlined style={{ marginRight: '12px' }} />
           6.2. Quy trình bảo trì thiết bị
         </Title>
+        <Card >
         {maintenanceProcedures.map((equipment, equipIndex) => (
           <div key={equipIndex} style={{ marginBottom: '24px' }}>
             <Title level={4} style={{ color: '#1890ff', marginBottom: '16px' }}>
@@ -421,14 +423,16 @@ const SafetySection = () => {
             {equipIndex < maintenanceProcedures.length - 1 && <Divider />}
           </div>
         ))}
+        </Card>
       </div>
 
       {/* Xử lý mã lỗi và sự cố */}
       <div id="section-6.3" className="subsection">
-        <Title level={3} style={{ color: '#1890ff', marginBottom: '20px', borderBottom: '2px solid #1890ff', paddingBottom: '8px' }}>
+        <Title level={3} >
           <ExclamationCircleOutlined style={{ marginRight: '12px' }} />
           6.3. Xử lý mã lỗi và sự cố
         </Title>
+        <Card >
         <Row gutter={[16, 16]}>
           {errorHandling.map((error, index) => (
             <Col xs={24} lg={12} key={index}>
@@ -466,11 +470,12 @@ const SafetySection = () => {
             </Col>
           ))}
         </Row>
+        </Card>
       </div>
 
       {/* Kiểm tra và kiểm định */}
       <div id="section-6.4" className="subsection">
-        <Title level={3} style={{ color: '#1890ff', marginBottom: '20px', borderBottom: '2px solid #1890ff', paddingBottom: '8px' }}>
+        <Title level={3} >
           <CheckCircleOutlined style={{ marginRight: '12px' }} />
           6.4. Kiểm tra và kiểm định
         </Title>
@@ -506,7 +511,7 @@ const SafetySection = () => {
 
       {/* Thông tin bổ sung */}
       <div id="section-6.5" className="subsection">
-        <Title level={3} style={{ color: '#1890ff', marginBottom: '20px', borderBottom: '2px solid #1890ff', paddingBottom: '8px' }}>
+        <Title level={3} >
           <InfoCircleOutlined style={{ marginRight: '12px' }} />
           6.5. Thông tin bổ sung
         </Title>

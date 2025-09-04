@@ -1,6 +1,5 @@
 import {
   BuildOutlined,
-  CheckCircleOutlined,
   CloudOutlined,
   PictureOutlined,
   SafetyOutlined
@@ -13,14 +12,14 @@ const { Title, Paragraph, Text } = Typography;
 
 const ArchitectureSection = () => {
   return (
-    <div id="section-2" className="device-section">
-      <Title level={3} style={{ color: '#52c41a', marginBottom: '16px' }}>
+    <div id="section-2" className="content-section">
+      <Title level={2} >
         <CloudOutlined style={{ marginRight: '8px' }} />
         2. KIẾN TRÚC VÀ THIẾT KẾ TTDL VÂN CANH
       </Title>
 
       <div id="section-2.1" className="subsection">
-        <Title level={4} style={{ color: '#1890ff', marginBottom: '12px' }}>
+        <Title level={3} >
           <BuildOutlined style={{ marginRight: '8px' }} /> 2.1 Kiến trúc phân vùng
         </Title>
 
@@ -93,7 +92,7 @@ const ArchitectureSection = () => {
 
 
       <div id="section-2.2" className="subsection">
-        <Title level={4} style={{ color: '#1890ff', marginBottom: '12px' }}>
+        <Title level={3} >
           <SafetyOutlined style={{ marginRight: '8px' }} /> 2.3 Tiêu chuẩn thiết kế
         </Title>
 

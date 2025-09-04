@@ -1,19 +1,17 @@
-import React from 'react';
-import { Typography, Card, Tag, Alert, Space, Divider, Row, Col } from 'antd';
 import {
-  SafetyOutlined,
-  FireOutlined,
-  CheckCircleOutlined,
-  PictureOutlined
+  PictureOutlined,
+  SafetyOutlined
 } from '@ant-design/icons';
+import { Alert, Card, Space, Tag, Typography } from 'antd';
+import React from 'react';
 import { ImageGallery } from '../../shared';
 
 const { Title, Paragraph, Text } = Typography;
 
 const FireProtectionSection = () => {
   return (
-    <div id="section-5" className="device-section">
-      <Title level={3} style={{ color: '#52c41a', marginBottom: '16px' }}>
+    <div id="section-5" className="content-section">
+      <Title level={2} >
         <SafetyOutlined style={{ marginRight: '8px' }} />
         5. HỆ THỐNG PCCC TTDL VÂN CANH
       </Title>
@@ -26,7 +24,7 @@ const FireProtectionSection = () => {
         style={{ marginBottom: '20px' }}
       />
       <div id="section-5.1" className="subsection">
-        <Title level={4} style={{ color: '#1890ff', marginBottom: '12px' }}>
+        <Title level={3} >
           <SafetyOutlined style={{ marginRight: '8px' }} /> 5.1 HỆ THỐNG PCCC TỰ ĐỘNG BẰNG KHÍ NOVEC 1230
         </Title>
         {/* Hình ảnh hệ thống PCCC */}
@@ -46,12 +44,11 @@ const FireProtectionSection = () => {
               '/vancanh-overview/pccc3.jpg'
             ]}
             columns={3}
-            imageWidth={250}
-            imageHeight={180}
+            imageWidth='100%'
+            imageHeight='auto'
             maskText="Click để xem chi tiết"
           />
-        </Card>
-        <p style={{
+          <p style={{
           color: '#666',
           margin: '8px 0 0 0',
           fontSize: '12px',
@@ -60,7 +57,8 @@ const FireProtectionSection = () => {
         }}>
           HỆ THỐNG PCCC TỤ ĐỘNG BẰNG KHÍ NOVEC 1230 KÈM HỆ THỐNG BÁO KHÓI SỚM, HỆ THỐNG GIÁM SÁT ĐỒ HỌA.
         </p>
-
+        </Card>
+        
         <Card title="Thông số kỹ thuật hệ thống PCCC" style={{ marginBottom: '20px' }}>
           <Space direction="vertical" size="middle" style={{ width: '100%' }}>
             <div>
@@ -143,27 +141,27 @@ const FireProtectionSection = () => {
         <Card title="Đặc điểm an toàn" style={{ marginBottom: '20px' }}>
           <Space direction="vertical" size="middle" style={{ width: '100%' }}>
             <div>
-              <Tag color="green">✅ An toàn cho người</Tag>
+              <Tag color="green">An toàn cho người</Tag>
               <Text>Khí Novec 1230 không độc hại</Text>
             </div>
             <div>
-              <Tag color="green">✅ Không làm hư thiết bị</Tag>
+              <Tag color="green">Không làm hư thiết bị</Tag>
               <Text>Không gây ăn mòn điện tử</Text>
             </div>
             <div>
-              <Tag color="green">✅ Phát hiện sớm</Tag>
+              <Tag color="green">Phát hiện sớm</Tag>
               <Text>Hệ thống báo khói sớm</Text>
             </div>
             <div>
-              <Tag color="green">✅ Tự động kích hoạt</Tag>
+              <Tag color="green">Tự động kích hoạt</Tag>
               <Text>Không cần can thiệp thủ công</Text>
             </div>
             <div>
-              <Tag color="green">✅ Thân thiện môi trường</Tag>
+              <Tag color="green">Thân thiện môi trường</Tag>
               <Text>Không ảnh hưởng tầng ozone</Text>
             </div>
             <div>
-              <Tag color="green">✅ Hiệu quả cao</Tag>
+              <Tag color="green">Hiệu quả cao</Tag>
               <Text>Dập tắt đám cháy bằng hấp thụ nhiệt</Text>
             </div>
           </Space>
@@ -171,7 +169,7 @@ const FireProtectionSection = () => {
       </div>
 
       <div id="section-5.2" className="subsection">
-        <Title level={4} style={{ color: '#1890ff', marginBottom: '12px' }}>
+        <Title level={3} >
           <SafetyOutlined style={{ marginRight: '8px' }} /> 5.2 Hệ thống báo khói sớm
         </Title>
 
@@ -198,7 +196,7 @@ const FireProtectionSection = () => {
       </div>
 
       <div id="section-5.3" className="subsection">
-        <Title level={4} style={{ color: '#1890ff', marginBottom: '12px' }}>
+        <Title level={3} >
           <SafetyOutlined style={{ marginRight: '8px' }} /> 5.3 Hệ thống giám sát đồ họa
         </Title>
 

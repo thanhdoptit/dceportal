@@ -1,21 +1,22 @@
-import React from 'react';
-import { Typography, Table, Card, Space, Divider } from 'antd';
 import { InfoCircleOutlined } from '@ant-design/icons';
+import { Card, Divider, Table, Typography } from 'antd';
+import React from 'react';
+import '../../shared/styles/SystemSection.css';
 import {
-  uniflairTableColumns,
-  uniflairTableData,
+  acrp102StructureColumns,
+  acrp102StructureData,
   afmTableColumns,
   afmTableData,
   apcTableColumns,
   apcTableData,
-  tdavStructureColumns,
-  tdavStructureData,
-  tdavCapacityColumns,
-  tdavCapacityData,
   fm40hStructureColumns,
   fm40hStructureData,
-  acrp102StructureColumns,
-  acrp102StructureData
+  tdavCapacityColumns,
+  tdavCapacityData,
+  tdavStructureColumns,
+  tdavStructureData,
+  uniflairTableColumns,
+  uniflairTableData
 } from '../coolingTableData';
 // Dùng Google Model Viewer (web component) qua CDN khai báo trong index.html
 
@@ -24,7 +25,7 @@ const { Title, Paragraph, Text } = Typography;
 const IntroductionSection = () => {
   return (
     <section id="section-1" className="content-section">
-      <Title level={2} style={{ color: '#1890ff', marginBottom: '24px' }}>
+      <Title level={2}>
         <InfoCircleOutlined style={{ marginRight: '12px' }} />
         1. GIỚI THIỆU CHUNG - TTDL Hòa Lạc
       </Title>
@@ -58,7 +59,7 @@ const IntroductionSection = () => {
       </Card> */}
 
       <div id="section-1.1" className="subsection">
-        <Title level={3} style={{ color: '#52c41a', marginBottom: '16px' }}>
+        <Title level={3}>
           1.1. Thông số kĩ thuật theo tài liệu hãng các thiết bị thuộc hệ thống làm mát của TTDL Hòa Lạc
         </Title>
         <Paragraph>

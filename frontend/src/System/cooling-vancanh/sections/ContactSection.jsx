@@ -15,7 +15,7 @@ const ContactSection = () => {
     <div style={{ padding: '20px 0' }}> 
       
       <div id="section-8" className="content-section">
-        <Title level={3}>
+        <Title level={2}>
           <PhoneOutlined style={{ marginRight: '12px' }} />
           8. LIÊN HỆ & HỖ TRỢ
         </Title>
@@ -28,7 +28,7 @@ const ContactSection = () => {
       />
 
         <div id="section-8.1" className="subsection">
-          <Title level={4}>
+          <Title level={3}>
             <InfoCircleOutlined style={{ marginRight: '12px' }} />
             8.1. Thông tin liên hệ
           </Title>
@@ -57,7 +57,7 @@ const ContactSection = () => {
         </div>
 
         <div id="section-8.2" className="subsection">
-          <Title level={4}>
+          <Title level={3}>
             <SettingOutlined style={{ marginRight: '12px' }} />
             8.2. Hỗ trợ kỹ thuật
           </Title>
@@ -82,7 +82,7 @@ const ContactSection = () => {
         </div>
 
         <div id="section-8.3" className="subsection">
-          <Title level={4}>
+          <Title level={3}>
             <CheckCircleOutlined style={{ marginRight: '12px' }} />
             8.3. Báo cáo sự cố
           </Title>

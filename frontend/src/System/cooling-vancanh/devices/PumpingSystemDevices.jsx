@@ -1,7 +1,7 @@
 import {
-    EyeOutlined,
-    InfoCircleOutlined,
-    ToolOutlined
+  EyeOutlined,
+  InfoCircleOutlined,
+  ToolOutlined
 } from '@ant-design/icons';
 import { Alert, Card, Col, Divider, Image, Row, Tag, Typography } from 'antd';
 import React from 'react';
@@ -15,7 +15,7 @@ const PumpingSystemDevices = () => {
     {
       id: 'P-1',
       name: 'Bơm tuần hoàn 3D 40-200',
-      image: '/cooling/van-canh/Bơm 3D 40-200.png',
+      image: '//van-canh/Bơm 3D 40-200.png',
       type: 'Bơm tuần hoàn',
       function: 'Bơm tuần hoàn nước lạnh chính cho hệ thống CRAC',
       specs: 'Lưu lượng: 600L/min, Cột áp: 45m, Công suất: 7.5kW, Điện áp: 380V/3P/50Hz',
@@ -24,7 +24,7 @@ const PumpingSystemDevices = () => {
     {
       id: 'P-2',
       name: 'Tank duy trì áp suất SHC',
-      image: '/cooling/van-canh/Tank SHC.png',
+      image: '//van-canh/Tank SHC.png',
       type: 'Bình chứa áp suất',
       function: 'Duy trì áp suất hệ thống nước lạnh, giảm số lần khởi động bơm',
       specs: 'Dung tích: 300-1000L, Áp suất làm việc: 6-10 bar, Chất liệu: Thép carbon',
@@ -33,7 +33,7 @@ const PumpingSystemDevices = () => {
     {
       id: 'EX-1',
       name: 'Bình giãn nở màng ExpanSion',
-      image: '/cooling/van-canh/Bình giãn nở Ex.png',
+      image: '//van-canh/Bình giãn nở Ex.png',
       type: 'Thiết bị bù trừ nhiệt',
       function: 'Bù trừ sự giãn nở nhiệt của nước, bảo vệ hệ thống khỏi áp suất cao',
       specs: 'Dung tích: 80-500L, Áp suất max: 10 bar, Màng EPDM, Nhiệt độ: -10°C đến +110°C',
@@ -42,7 +42,7 @@ const PumpingSystemDevices = () => {
     {
       id: 'AS-1',
       name: 'Bộ tách khí tự động KVS-870',
-      image: '/cooling/van-canh/Bộ tách khí.png',
+      image: '//van-canh/Bộ tách khí.png',
       type: 'Thiết bị tách khí',
       function: 'Tách khí tự động khỏi hệ thống, ngăn ngừa cavitation và ăn mòn',
       specs: 'DN50-150, Tách khí micro và macro bubbles, Áp suất: PN16, Chất liệu: Gang xám',
@@ -51,7 +51,7 @@ const PumpingSystemDevices = () => {
     {
       id: 'DP-1',
       name: 'Cụm nạp hóa chất DPD-30',
-      image: '/cooling/van-canh/DPD-30.png',
+      image: '//van-canh/DPD-30.png',
       type: 'Hệ thống hóa chất',
       function: 'Nạp hóa chất chống ăn mòn và cặn bẩn vào hệ thống nước lạnh',
       specs: 'Dung tích: 30L, Áp suất: max 6 bar, Inox 316L, Bơm màng điện từ',
@@ -60,7 +60,7 @@ const PumpingSystemDevices = () => {
     {
       id: 'DP-2',
       name: 'Dosing Pot 22L',
-      image: '/cooling/van-canh/Dosing Pot 22L.png',
+      image: '//van-canh/Dosing Pot 22L.png',
       type: 'Bồn hóa chất',
       function: 'Bồn chứa hóa chất dự phòng và pha trộn',
       specs: 'Dung tích: 22L, Chất liệu: Inox 316L, Van xả tự động, Nắp an toàn',
@@ -69,7 +69,7 @@ const PumpingSystemDevices = () => {
     {
       id: 'BTU-1',
       name: 'BTU Meter F-1000',
-      image: '/cooling/van-canh/BTU Meter F-1000.png',
+      image: '//van-canh/BTU Meter F-1000.png',
       type: 'Đồng hồ năng lượng',
       function: 'Đo năng lượng tiêu thụ hệ thống làm lạnh, tính toán hiệu suất',
       specs: 'DN15-200, Độ chính xác: ±2%, Modbus RTU, Pulse output, Nhiệt độ: -40°C đến +180°C',
@@ -78,7 +78,7 @@ const PumpingSystemDevices = () => {
     {
       id: 'BTU-2',
       name: 'BTU System-10 Dry-Tap',
-      image: '/cooling/van-canh/BTU System-10.png',
+      image: '//van-canh/BTU System-10.png',
       type: 'Đồng hồ năng lượng',
       function: 'BTU meter lắp đặt không cần cắt ống, đo năng lượng từ xa',
       specs: 'DN50-300, Ultrasonic sensor, Battery powered, Wireless communication, ±3% accuracy',
@@ -87,7 +87,7 @@ const PumpingSystemDevices = () => {
     {
       id: 'FM-1',
       name: 'Đồng hồ lưu lượng LXLC',
-      image: '/cooling/van-canh/LXLC Flow Meter.png',
+      image: '//van-canh/LXLC Flow Meter.png',
       type: 'Đồng hồ lưu lượng',
       function: 'Đo lưu lượng nước với xung pulse, giám sát hiệu suất hệ thống',
       specs: 'DN50-300, Pulse output, Magnetic drive, ±2% accuracy, Nhiệt độ: -20°C đến +80°C',
@@ -96,7 +96,7 @@ const PumpingSystemDevices = () => {
     {
       id: 'TES-1',
       name: 'TES Tank BTD-360',
-      image: '/cooling/van-canh/TES Tank BTD-360.png',
+      image: '//van-canh/TES Tank BTD-360.png',
       type: 'Bồn tích trữ năng lượng',
       function: 'Tích trữ nước lạnh giờ thấp điểm, dự phòng khi mất điện',
       specs: 'Dung tích: 360 tấn, Cách nhiệt 10cm, Inox 316L, Thời gian dự phòng: 10 phút',
@@ -105,7 +105,7 @@ const PumpingSystemDevices = () => {
     {
       id: 'V-1',
       name: 'Van cân bằng Herz 4006',
-      image: '/cooling/van-canh/Van cân bằng 4006.png',
+      image: '//van-canh/Van cân bằng 4006.png',
       type: 'Van cân bằng thủ công',
       function: 'Cân bằng áp suất thủ công giữa các nhánh cấp nước lạnh',
       specs: 'DN50-200, PN16, Có đồng hồ đo tích hợp, Pre-setting: 0.1-3.0 m³/h',
@@ -114,7 +114,7 @@ const PumpingSystemDevices = () => {
     {
       id: 'V-2',
       name: 'Van PICV Herz 4206',
-      image: '/cooling/van-canh/PICV 4206.png',
+      image: '//van-canh/PICV 4206.png',
       type: 'Van cân bằng thông minh',
       function: 'Cân bằng áp suất độc lập tự động, điều chỉnh lưu lượng theo tải',
       specs: 'DN15-50, Pre-setting 0.1-3.0 m³/h, Δp max 100kPa, Actuator 24V',
@@ -123,9 +123,9 @@ const PumpingSystemDevices = () => {
   ];
 
   return (
-    <div style={{ padding: '20px 0' }}>
-      <div id="section-2.6" className="content-section">
-        <Title level={3} style={{ color: '#1890ff', marginBottom: '20px', borderBottom: '2px solid #1890ff', paddingBottom: '8px' }}>
+    <div>
+      <div id="section-2.6" className="subsection">
+        <Title level={3} >
           <ToolOutlined style={{ marginRight: '12px' }} />
           2.6. Hệ thống bơm nước & thiết bị phụ trợ
         </Title>
@@ -142,7 +142,7 @@ const PumpingSystemDevices = () => {
       <Row gutter={[16, 16]}>
         {pumpingDevices.map((device, index) => (
           <Col xs={24} sm={12} lg={8} xl={6} key={device.id}>
-            <div id={`section-2.6.${index + 1}`} style={{ scrollMarginTop: '20px' }}>
+            <div id={`section-2.6.${index + 1}`} >
               <Card
               style={{ 
                 height: '100%', 

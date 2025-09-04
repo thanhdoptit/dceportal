@@ -7,8 +7,8 @@ const { Title, Text } = Typography;
 
 const NetworkSystemSection = () => {
   return (
-    <div id="section-7" className="device-section">
-      <Title level={3} style={{ color: '#52c41a', marginBottom: '16px' }}>
+    <div id="section-7" className="content-section">
+      <Title level={2} >
         <EnvironmentOutlined style={{ marginRight: '8px' }} />
         7. HỆ THỐNG NETWORK TTDL VÂN CANH
       </Title>
@@ -46,7 +46,7 @@ const NetworkSystemSection = () => {
 
 
       <div id="section-7.1" className="subsection">
-        <Title level={4} style={{ color: '#1890ff', marginBottom: '12px' }}>
+        <Title level={3} >
           <EnvironmentOutlined style={{ marginRight: '8px' }} /> 7.1 Cáp quang và cáp đồng
         </Title>
 
@@ -81,7 +81,7 @@ const NetworkSystemSection = () => {
       </div>
 
       <div id="section-7.2" className="subsection">
-        <Title level={4} style={{ color: '#1890ff', marginBottom: '12px' }}>
+        <Title level={3} >
           <EnvironmentOutlined style={{ marginRight: '8px' }} /> 7.2 Tốc độ truyền dẫn
         </Title>
 
@@ -108,7 +108,7 @@ const NetworkSystemSection = () => {
       </div>
 
       <div id="section-7.3" className="subsection">
-        <Title level={4} style={{ color: '#1890ff', marginBottom: '12px' }}>
+        <Title level={3} >
           <EnvironmentOutlined style={{ marginRight: '8px' }} /> 7.3 Thiết kế Active-Active
         </Title>
 

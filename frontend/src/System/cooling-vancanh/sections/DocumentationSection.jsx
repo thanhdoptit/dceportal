@@ -1,8 +1,8 @@
 import {
-    DownloadOutlined,
-    FileTextOutlined
+  DownloadOutlined,
+  FileTextOutlined
 } from '@ant-design/icons';
-import { Alert, Button, Card, Col, Divider, Row, Space, Tabs, Typography } from 'antd';
+import { Alert, Button, Card, Col, Row, Space, Tabs, Typography } from 'antd';
 import React from 'react';
 import '../../shared/styles/SystemSection.css';
 
@@ -547,10 +547,7 @@ const DocumentationSection = () => {
           </Tabs>
         </Card>
       </div>
-
-      <Divider />
-
-      <Alert
+      {/* <Alert
         message="Tham khảo bản vẽ kỹ thuật - Thư viện HVAC hoàn chỉnh"
         description={
           <div>
@@ -572,7 +569,7 @@ const DocumentationSection = () => {
         type="success"
         showIcon
         style={{ marginTop: '10px' }}
-      />
+      /> */}
     </div>
   );
 };

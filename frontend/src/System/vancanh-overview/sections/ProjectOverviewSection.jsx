@@ -97,16 +97,13 @@ const ProjectOverviewSection = () => {
   ];
 
   return (
-    <div id="section-1" className="device-section">
-      <Title level={3} style={{ color: '#52c41a', marginBottom: '16px' }}>
+    <div id="section-1" className="content-section">
+      <Title level={2} >
         <InfoCircleOutlined style={{ marginRight: '8px' }} />
         1. TỔNG QUAN DỰ ÁN TTDL VÂN CANH
-      </Title>
-
-
-
+      </Title>    
       <div id="section-1.1" className="subsection">
-        <Title level={4} style={{ color: '#1890ff', marginBottom: '12px' }}>
+        <Title level={3} >
           <InfoCircleOutlined style={{ marginRight: '8px' }} /> 1.1 Khái quát dự án
         </Title>
         <Card
@@ -225,7 +222,7 @@ const ProjectOverviewSection = () => {
       </div>
 
       <div id="section-1.2" className="subsection">
-        <Title level={4} style={{ color: '#1890ff', marginBottom: '12px' }}>
+        <Title level={3} >
           <ThunderboltOutlined style={{ marginRight: '8px' }} /> 1.2 Các mốc quan trọng
         </Title>
 
@@ -263,7 +260,7 @@ const ProjectOverviewSection = () => {
       </div>
 
       <div id="section-1.3" className="subsection">
-        <Title level={4} style={{ color: '#1890ff', marginBottom: '12px' }}>
+        <Title level={3} >
           <ThunderboltOutlined style={{ marginRight: '8px' }} /> 1.3 So sánh với tiêu chuẩn Uptime
         </Title>
 

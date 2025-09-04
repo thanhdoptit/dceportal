@@ -7,8 +7,8 @@ const { Title, Text } = Typography;
 
 const RackSystemSection = () => {
   return (
-    <div id="section-8" className="device-section">
-      <Title level={3} style={{ color: '#52c41a', marginBottom: '16px' }}>
+    <div id="section-8" className="content-section">
+      <Title level={2} >
         <BookOutlined style={{ marginRight: '8px' }} />
         8. HỆ THỐNG RACK TTDL VÂN CANH
       </Title>
@@ -45,7 +45,7 @@ const RackSystemSection = () => {
       </Card>
 
       <div id="section-8.1" className="subsection">
-        <Title level={4} style={{ color: '#1890ff', marginBottom: '12px' }}>
+        <Title level={3} >
           <BookOutlined style={{ marginRight: '8px' }} /> 8.1 Quy mô rack server
         </Title>
 
@@ -64,7 +64,7 @@ const RackSystemSection = () => {
       </div>
 
       <div id="section-8.2" className="subsection">
-        <Title level={4} style={{ color: '#1890ff', marginBottom: '12px' }}>
+        <Title level={3} >
           <BookOutlined style={{ marginRight: '8px' }} /> 8.2 Công suất và mật độ
         </Title>
 
@@ -87,7 +87,7 @@ const RackSystemSection = () => {
       </div>
 
       <div id="section-8.3" className="subsection">
-        <Title level={4} style={{ color: '#1890ff', marginBottom: '12px' }}>
+        <Title level={3} >
           <BookOutlined style={{ marginRight: '8px' }} /> 8.3 Buồng nhốt khí nóng
         </Title>
 

@@ -5,7 +5,7 @@ import {
   SettingOutlined,
   ToolOutlined
 } from '@ant-design/icons';
-import { Alert, Card, Divider, Space, Table, Tag, Typography } from 'antd';
+import { Alert, Card, Space, Table, Tag, Typography } from 'antd';
 import React from 'react';
 import '../../shared/styles/SystemSection.css';
 import WaterSystemDevices from '../components/WaterSystemDevices';
@@ -174,7 +174,6 @@ const BMSChiller = () => {
           </Paragraph>
         </Card>
 
-        <Divider />
 
         {/* Hiển thị thiết bị hệ thống nước */}
         <WaterSystemDevices />

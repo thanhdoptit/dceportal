@@ -7,9 +7,7 @@ import {
   SettingOutlined
 } from '@ant-design/icons';
 import { Alert, Button, Card, Col, Divider, Row, Space, Table, Tag, Typography } from 'antd';
-import React from 'react';
 import '../../shared/styles/SystemSection.css';
-
 const { Title, Paragraph, Text } = Typography;
 
 
@@ -170,8 +168,8 @@ const LocationSection = () => {
   ];
 
   return (
-    <div className="location-section">
-      <Title level={2} className="section-title">
+    <div className="content-section">
+      <Title level={2} >
         <EnvironmentOutlined style={{ marginRight: '12px' }} />
         4. VỊ TRÍ HỆ THỐNG - TTDL Vân Canh
       </Title>
@@ -185,7 +183,7 @@ const LocationSection = () => {
       />
 
       <div id="section-4.1" className="subsection">
-        <Card className="subsection-card">
+        <Card >
           <Title level={3} className="subsection-title">
             <ApartmentOutlined style={{ marginRight: '8px' }} />
             4.1. Sơ đồ bố trí tổng thể
@@ -198,7 +196,8 @@ const LocationSection = () => {
             showIcon
             style={{ marginBottom: '20px' }}
           />
-
+ {/* <div style={{ marginBottom: '20px', alignItems: 'center' }}> 
+  <HVACSystemDiagram /></div> */}
 
           {/* <Tabs
             defaultActiveKey="1"
@@ -209,7 +208,7 @@ const LocationSection = () => {
                 label: 'Mặt bằng tầng',
                 children: (
                   <Table
-                    dataSource={floorPlansData}
+                    dataSource={floorPlansData}u
                     columns={[
                       {
                         title: 'Tầng',
@@ -372,8 +371,8 @@ const LocationSection = () => {
       <Divider />
 
       <div id="section-4.2" className="subsection">
-        <Card className="subsection-card">
-          <Title level={3} className="subsection-title">
+        <Card >
+          <Title level={3} >
             <SettingOutlined style={{ marginRight: '8px' }} />
             4.2. Vị trí các thiết bị chính
           </Title>
@@ -441,8 +440,8 @@ const LocationSection = () => {
       <Divider />
 
       <div id="section-4.3" className="subsection">
-        <Card className="subsection-card">
-          <Title level={3} className="subsection-title">
+        <Card >
+          <Title level={3} >
             <RadarChartOutlined style={{ marginRight: '8px' }} />
             4.3. Đường ống và hệ thống phân phối
           </Title>
@@ -533,8 +532,8 @@ const LocationSection = () => {
       <Divider />
 
       <div id="section-4.4" className="subsection">
-        <Card className="subsection-card">
-          <Title level={3} className="subsection-title">
+        <Card >
+          <Title level={3} >
             <CloudOutlined style={{ marginRight: '8px' }} />
             4.4. Hệ thống thông gió và hút khói
           </Title>

@@ -1,6 +1,6 @@
+import { DownloadOutlined, FileExcelOutlined, FileImageOutlined, FilePdfOutlined, FileTextOutlined, FileWordOutlined } from '@ant-design/icons';
+import { Button, Card, Col, Row, Space, Table, Tag, Typography } from 'antd';
 import React from 'react';
-import { Typography, Card, Divider, Table, Tag, Space, Button, Row, Col, Alert } from 'antd';
-import { FileTextOutlined, DownloadOutlined, FilePdfOutlined, FileWordOutlined, FileExcelOutlined, FileImageOutlined } from '@ant-design/icons';
 
 const { Title, Paragraph, Text } = Typography;
 
@@ -181,16 +181,16 @@ const DocumentationSection = () => {
               render: (text) => <Tag color="green">{text}</Tag>
             },
             {
-              title: 'Loại file',
+              title: 'File',
               dataIndex: 'type',
               key: 'type',
-              width: '8%',
+              width: '4%',
               render: (text) => <Tag color="blue">{text}</Tag>
             },
             {
-              title: 'Tải xuống',
+              title: 'Tải ',
               key: 'download',
-              width: '8%',
+              width: '4%',
               align: 'center',
               render: (_, record) => (
                 <Button

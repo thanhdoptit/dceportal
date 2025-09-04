@@ -14,7 +14,7 @@ const { Title, Paragraph, Text } = Typography;
 const LDCVSeries = () => {
   return (
     <div id="section-2.3" className="subsection">
-      <Title level={3} className="success-title">
+      <Title level={3} >
         <SettingOutlined style={{ marginRight: '8px' }} />
         2.3. PAC UNIFLAIR LDCV Series - TTDL Vân Canh
       </Title>
