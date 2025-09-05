@@ -1,6 +1,7 @@
 import { DownloadOutlined, FileExcelOutlined, FileImageOutlined, FilePdfOutlined, FileTextOutlined, FileWordOutlined } from '@ant-design/icons';
 import { Button, Card, Col, Row, Space, Table, Tag, Typography } from 'antd';
 import React from 'react';
+import '../../shared/styles/SystemSection.css';
 
 const { Title, Paragraph, Text } = Typography;
 

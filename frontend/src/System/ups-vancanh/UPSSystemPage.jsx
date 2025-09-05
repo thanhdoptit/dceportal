@@ -1,195 +1,445 @@
-import {
-  ExclamationCircleOutlined,
-  InfoCircleOutlined,
-  MonitorOutlined,
-  PoweroffOutlined,
-  ThunderboltOutlined,
-  ToolOutlined
-} from '@ant-design/icons';
-import React from 'react';
-import { SystemLayout, createLeafMenuItem, createMenuItem, createSubMenuItem } from '../shared';
-import UPSContent from './UPSContent';
-// Import CSS từ shared để đảm bảo menu styling đúng
-import '../shared/styles/SystemLayout.css';
-import '../shared/styles/SystemSection.css';
-import '../shared/styles/SystemTemplate.css';
+import React, { memo, useCallback, useEffect, useRef, useState } from "react";
+import ModernErrorScreen from "../../components/common/ModernErrorScreen";
+import ModernLoadingScreen from "../../components/common/ModernLoadingScreen";
+import SystemMenu from "../../components/common/SystemMenu";
+import { useSidebar } from "../../contexts/SidebarContext";
+import LazySection from "./components/LazySection";
+import { UPSDataProvider, useUPSData } from "./context";
+import BatteryBMSSection from "./sections/BatteryBMSSection";
+import GalaxyVLSection from "./sections/GalaxyVLSection";
+import IntroductionSection from "./sections/IntroductionSection";
+import MonitoringSection from "./sections/MonitoringSection";
+import OperationSection from "./sections/OperationSection";
+import TroubleshootingSection from "./sections/TroubleshootingSection";
 
-const UPSSystemPage = () => {
+/**
+ * Hệ thống UPS & Ắc quy BMS TTDL Vân Canh - Static Documentation
+ */
 
-  // Cấu trúc menu UPS dựa trên tài liệu đã xử lý - Sử dụng menu utils
-  const menuItems = [
-    createMenuItem(
-      '1',
-      <InfoCircleOutlined />,
-      '1. GIỚI THIỆU CHUNG',
-      [
-        createLeafMenuItem('1.1', '1.1. Thông số kỹ thuật hệ thống UPS'),
-        createLeafMenuItem('1.2', '1.2. Cấu trúc và nguyên lý hoạt động'),
-        createLeafMenuItem('1.3', '1.3. Các chế độ vận hành chính'),
-        createLeafMenuItem('1.4', '1.4. Hệ thống giám sát BMS'),
-      ]
-    ),
-    createMenuItem(
-      '2',
-      <ThunderboltOutlined />,
-      '2. HỆ THỐNG UPS GALAXY VL',
-      [
-        createSubMenuItem(
-          '2.1',
-          '2.1. Thông tin chung Galaxy VL',
-          [
-            createLeafMenuItem('2.1.1', '2.1.1. Đặc điểm kỹ thuật'),
-            createLeafMenuItem('2.1.2', '2.1.2. Thông số điện'),
-            createLeafMenuItem('2.1.3', '2.1.3. Cấu hình hệ thống'),
-          ]
-        ),
-        createSubMenuItem(
-          '2.2',
-          '2.2. Hướng dẫn lắp đặt',
-          [
-            createLeafMenuItem('2.2.1', '2.2.1. Yêu cầu môi trường'),
-            createLeafMenuItem('2.2.2', '2.2.2. Quy trình lắp đặt'),
-            createLeafMenuItem('2.2.3', '2.2.3. Kết nối điện và mạng'),
-          ]
-        ),
-        createSubMenuItem(
-          '2.3',
-          '2.3. Hướng dẫn vận hành',
-          [
-            createLeafMenuItem('2.3.1', '2.3.1. Khởi động hệ thống'),
-            createLeafMenuItem('2.3.2', '2.3.2. Chế độ vận hành'),
-            createLeafMenuItem('2.3.3', '2.3.3. Giám sát thông số'),
-          ]
-        ),
-        createSubMenuItem(
-          '2.4',
-          '2.4. Bảo trì và bảo dưỡng',
-          [
-            createLeafMenuItem('2.4.1', '2.4.1. Bảo trì định kỳ'),
-            createLeafMenuItem('2.4.2', '2.4.2. Thay thế ắc quy'),
-            createLeafMenuItem('2.4.3', '2.4.3. Xử lý sự cố'),
-          ]
-        ),
-      ]
-    ),
-    createMenuItem(
-      '3',
-      <PoweroffOutlined />,
-      '3. HỆ THỐNG ẮC QUY & BMS',
-      [
-        createSubMenuItem(
-          '3.1',
-          '3.1. Hệ thống ắc quy',
-          [
-            createLeafMenuItem('3.1.1', '3.1.1. Loại ắc quy sử dụng'),
-            createLeafMenuItem('3.1.2', '3.1.2. Tính toán dung lượng'),
-            createLeafMenuItem('3.1.3', '3.1.3. Tuổi thọ và thay thế'),
-          ]
-        ),
-        createSubMenuItem(
-          '3.2',
-          '3.2. Hệ thống giám sát BMS',
-          [
-            createLeafMenuItem('3.2.1', '3.2.1. Cấu trúc BMS'),
-            createLeafMenuItem('3.2.2', '3.2.2. Các thông số giám sát'),
-            createLeafMenuItem('3.2.3', '3.2.3. Cảnh báo và báo cáo'),
-          ]
-        ),
-      ]
-    ),
-    createMenuItem(
-      '4',
-      <MonitorOutlined />,
-      '4. GIÁM SÁT & ĐIỀU KHIỂN',
-      [
-        createSubMenuItem(
-          '4.1',
-          '4.1. Giao diện người dùng',
-          [
-            createLeafMenuItem('4.1.1', '4.1.1. Màn hình chính'),
-            createLeafMenuItem('4.1.2', '4.1.2. Cài đặt thông số'),
-            createLeafMenuItem('4.1.3', '4.1.3. Lịch sử sự kiện'),
-          ]
-        ),
-        createSubMenuItem(
-          '4.2',
-          '4.2. Kết nối mạng và SCADA',
-          [
-            createLeafMenuItem('4.2.1', '4.2.1. Giao thức Modbus'),
-            createLeafMenuItem('4.2.2', '4.2.2. Kết nối Ethernet'),
-            createLeafMenuItem('4.2.3', '4.2.3. Tích hợp SCADA'),
-          ]
-        ),
-      ]
-    ),
-    createMenuItem(
-      '5',
-      <ToolOutlined />,
-      '5. QUY TRÌNH VẬN HÀNH',
-      [
-        createSubMenuItem(
-          '5.1',
-          '5.1. Vận hành UPS Galaxy 500KVA Vân Canh',
-          [
-            createLeafMenuItem('5.1.1', '5.1.1. Hướng dẫn an toàn'),
-            createLeafMenuItem('5.1.2', '5.1.2. Tổng quan hệ thống'),
-            createLeafMenuItem('5.1.3', '5.1.3. Quy trình vận hành'),
-            createLeafMenuItem('5.1.4', '5.1.4. Xử lý sự cố'),
-          ]
-        ),
-        createSubMenuItem(
-          '5.2',
-          '5.2. Vận hành hệ thống UPS song song',
-          [
-            createLeafMenuItem('5.2.1', '5.2.1. Quy trình khởi động hệ thống song song'),
-            createLeafMenuItem('5.2.2', '5.2.2. Tắt UPS ở chế độ Maintenance Bypass'),
-            createLeafMenuItem('5.2.3', '5.2.3. Bật UPS từ chế độ Maintenance Bypass'),
-            createLeafMenuItem('5.2.4', '5.2.4. Cách li 01 UPS khỏi hệ thống'),
-            createLeafMenuItem('5.2.5', '5.2.5. Hòa 01 UPS vào hệ thống'),
-          ]
-        ),
-      ]
-    ),
-    createMenuItem(
-      '6',
-      <ExclamationCircleOutlined />,
-      '6. XỬ LÝ SỰ CỐ & KHẮC PHỤC',
-      [
-        createSubMenuItem(
-          '6.1',
-          '6.1. Các sự cố thường gặp',
-          [
-            createLeafMenuItem('6.1.1', '6.1.1. Sự cố ắc quy'),
-            createLeafMenuItem('6.1.2', '6.1.2. Sự cố điện'),
-            createLeafMenuItem('6.1.3', '6.1.3. Sự cố mạng'),
-          ]
-        ),
-        createSubMenuItem(
-          '6.2',
-          '6.2. Quy trình khắc phục',
-          [
-            createLeafMenuItem('6.2.1', '6.2.1. Phân tích sự cố'),
-            createLeafMenuItem('6.2.2', '6.2.2. Các bước khắc phục'),
-            createLeafMenuItem('6.2.3', '6.2.3. Kiểm tra sau khắc phục'),
-          ]
-        ),
-      ]
-    ),
-  ];
+const SECTIONS = [
+  {
+    key: "introduction",
+    label: "Giới thiệu chung",
+    Component: IntroductionSection,
+    sectionId: "section-1",
+    submenu: [
+      { key: "intro-1", label: "Thông số kỹ thuật hệ thống UPS", sectionId: "section-1-1" },
+      { key: "intro-2", label: "Cấu trúc và nguyên lý hoạt động", sectionId: "section-1-2" },
+      { key: "intro-3", label: "Các chế độ vận hành chính", sectionId: "section-1-3" },
+      { key: "intro-4", label: "Hệ thống giám sát BMS", sectionId: "section-1-4" }
+    ]
+  },
+  {
+    key: "galaxyVL",
+    label: "Hệ thống UPS Galaxy VL",
+    Component: GalaxyVLSection,
+    sectionId: "section-2",
+    submenu: [
+      { key: "galaxy-1", label: "Thông tin chung Galaxy VL", sectionId: "section-2-1" },
+      { key: "galaxy-2", label: "Hướng dẫn lắp đặt", sectionId: "section-2-2" },
+      { key: "galaxy-3", label: "Hướng dẫn vận hành", sectionId: "section-2-3" },
+      { key: "galaxy-4", label: "Bảo trì và bảo dưỡng", sectionId: "section-2-4" }
+    ]
+  },
+  {
+    key: "batteryBMS",
+    label: "Hệ thống ắc quy & BMS",
+    Component: BatteryBMSSection,
+    sectionId: "section-3",
+    submenu: [
+      { key: "battery-1", label: "Hệ thống ắc quy", sectionId: "section-3-1" },
+      { key: "battery-2", label: "Hệ thống giám sát BMS", sectionId: "section-3-2" }
+    ]
+  },
+  {
+    key: "monitoring",
+    label: "Giám sát & Điều khiển",
+    Component: MonitoringSection,
+    sectionId: "section-4",
+    submenu: [
+      { key: "monitor-1", label: "Giao diện người dùng", sectionId: "section-4-1" },
+      { key: "monitor-2", label: "Kết nối mạng và SCADA", sectionId: "section-4-2" }
+    ]
+  },
+  {
+    key: "operation",
+    label: "Quy trình vận hành",
+    Component: OperationSection,
+    sectionId: "section-5",
+    submenu: [
+      { key: "op-1", label: "Vận hành UPS Galaxy 500KVA Vân Canh", sectionId: "section-5-1" },
+      { key: "op-2", label: "Vận hành hệ thống UPS song song", sectionId: "section-5-2" }
+    ]
+  },
+  {
+    key: "troubleshooting",
+    label: "Xử lý sự cố & Khắc phục",
+    Component: TroubleshootingSection,
+    sectionId: "section-6",
+    submenu: [
+      { key: "trouble-1", label: "Các sự cố thường gặp", sectionId: "section-6-1" },
+      { key: "trouble-2", label: "Quy trình khắc phục", sectionId: "section-6-2" }
+    ]
+  }
+];
 
-  // Menu click được xử lý bởi SystemLayout với handleMenuClick từ menuUtils
+const Sidebar = memo(({ active, activeSubmenu, setActive, setActiveSubmenu, expandedSections, setExpandedSections, mobileMenuOpen, setMobileMenuOpen, setIgnoreSpy }) => {
+  return (
+    <SystemMenu
+      sections={SECTIONS}
+      active={active}
+      activeSubmenu={activeSubmenu}
+      setActive={setActive}
+      setActiveSubmenu={setActiveSubmenu}
+      expandedSections={expandedSections}
+      setExpandedSections={setExpandedSections}
+      mobileMenuOpen={mobileMenuOpen}
+      setMobileMenuOpen={setMobileMenuOpen}
+      setIgnoreSpy={setIgnoreSpy}
+    />
+  );
+});
+
+Sidebar.displayName = 'Sidebar';
+
+function UPSSystemContent() {
+  const { isLoading, isFullyLoaded, error } = useUPSData();
+  const { collapsed } = useSidebar();
+  const [active, setActive] = useState("introduction");
+  const [activeSubmenu, setActiveSubmenu] = useState(null);
+  const [expandedSections, setExpandedSections] = useState(new Set(["introduction"]));
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [ignoreSpy, setIgnoreSpy] = useState(false);
+
+  const observer = useRef(null);
+
+  // Function để setup observer - có thể gọi lại khi cần
+  const setupObserver = useCallback(() => {
+    // Disconnect observer cũ nếu có
+    if (observer.current) {
+      observer.current.disconnect();
+    }
+
+    const options = { root: null, rootMargin: "-80px 0px -50% 0px", threshold: [0, 0.1, 0.3, 0.5, 0.7, 1] };
+    const obs = new IntersectionObserver((entries) => {
+      const visibleEntries = entries.filter(e => e.isIntersecting);
+      if (visibleEntries.length === 0) {
+        return;
+      }
+
+      // Đơn giản hóa: chọn element có intersection ratio cao nhất
+      const bestEntry = visibleEntries.reduce((best, current) =>
+        current.intersectionRatio > best.intersectionRatio ? current : best
+      );
+
+      const id = bestEntry.target.getAttribute("id");
+      if (!id) {
+        return;
+      }
+
+      const sec = SECTIONS.find(s => s.sectionId === id);
+      if (sec) {
+        setActive(sec.key);
+        setActiveSubmenu(null);
+        setExpandedSections(new Set([sec.key]));
+        return;
+      }
+
+      for (const section of SECTIONS) {
+        if (section.submenu) {
+          const sub = section.submenu.find(s => s.sectionId === id);
+          if (sub) {
+            setActive(section.key);
+            setActiveSubmenu(sub.key);
+            setExpandedSections(new Set([section.key]));
+            return;
+          }
+        }
+      }
+
+    }, options);
+
+    const allIds = SECTIONS.flatMap(s => [s.sectionId, ...(s.submenu?.map(sub => sub.sectionId) || [])]);
+    
+    allIds.forEach(id => { 
+      const el = document.getElementById(id); 
+      if (el) {
+        obs.observe(el); 
+      }
+    });
+      
+    observer.current = obs;
+  }, []);
+
+  useEffect(() => {
+    if (ignoreSpy) {
+      return;
+    }
+
+    // Setup observer ngay lập tức
+    setupObserver();
+
+    return () => { 
+      if (observer.current) observer.current.disconnect(); 
+    };
+  }, [ignoreSpy, setupObserver]);
+
+  // Re-setup observer khi isFullyLoaded thay đổi (có section mới được render)
+  useEffect(() => {
+    if (isFullyLoaded && !ignoreSpy) {
+      // Delay nhỏ để đảm bảo DOM đã update
+      const timeoutId = setTimeout(() => {
+        setupObserver();
+      }, 200);
+      
+      return () => clearTimeout(timeoutId);
+    }
+  }, [isFullyLoaded, ignoreSpy, setupObserver]);
+
+  // MutationObserver để theo dõi khi có section mới được lazy load
+  useEffect(() => {
+    if (!isFullyLoaded || ignoreSpy) return;
+
+    const mutationObserver = new MutationObserver((mutations) => {
+      let shouldReSetup = false;
+      
+      mutations.forEach((mutation) => {
+        if (mutation.type === 'childList') {
+          mutation.addedNodes.forEach((node) => {
+            if (node.nodeType === Node.ELEMENT_NODE) {
+              const element = node;
+              // Kiểm tra nếu có element mới với ID section
+              if (element.id && element.id.startsWith('section-')) {
+                shouldReSetup = true;
+              }
+              // Kiểm tra trong children
+              const sectionElements = element.querySelectorAll && element.querySelectorAll('[id^="section-"]');
+              if (sectionElements && sectionElements.length > 0) {
+                shouldReSetup = true;
+              }
+            }
+          });
+        }
+      });
+
+      if (shouldReSetup) {
+        setTimeout(() => {
+          setupObserver();
+        }, 100);
+      }
+    });
+
+    // Theo dõi thay đổi trong content area
+    const contentArea = document.querySelector('main');
+    if (contentArea) {
+      mutationObserver.observe(contentArea, {
+        childList: true,
+        subtree: true
+      });
+    }
+
+    return () => {
+      mutationObserver.disconnect();
+    };
+  }, [isFullyLoaded, ignoreSpy, setupObserver]);
+
+  // Kích hoạt scrollspy ngay khi trang load xong
+  useEffect(() => {
+    const checkInitialSection = () => {
+      // Nếu đang ở đầu trang (scrollY = 0), luôn chọn section đầu tiên
+      if (window.scrollY === 0) {
+        setActive("introduction");
+        setExpandedSections(new Set(["introduction"]));
+        setActiveSubmenu(null);
+        return;
+      }
+
+      const fromTop = window.scrollY + 120; // offset ~header
+      let found = null;
+      
+      for (const section of SECTIONS) {
+        const el = document.getElementById(section.sectionId);
+        if (el && el.offsetTop <= fromTop) {
+          found = section.key;
+        }
+        // check submenu
+        if (section.submenu) {
+          for (const sub of section.submenu) {
+            const subEl = document.getElementById(sub.sectionId);
+            if (subEl && subEl.offsetTop <= fromTop) {
+              found = sub.key;
+            }
+          }
+        }
+      }
+      
+      if (found) {
+        if (found.includes("-")) {
+          // submenu key
+          const parent = SECTIONS.find(s => s.submenu?.some(sub => sub.key === found));
+          if (parent) {
+            setActive(parent.key);
+            setActiveSubmenu(found);
+            setExpandedSections(new Set([parent.key]));
+          }
+        } else {
+          setActive(found);
+          setExpandedSections(new Set([found]));
+          setActiveSubmenu(null);
+        }
+      } else {
+        // Fallback: nếu không tìm thấy gì, chọn section đầu tiên
+        setActive("introduction");
+        setExpandedSections(new Set(["introduction"]));
+        setActiveSubmenu(null);
+      }
+    };
+
+    // Chờ DOM render xong bằng kiểm tra thực tế thay vì timeout
+    let timeoutId = null;
+    let hasInitialized = false;
+
+    const initializeScrollspy = () => {
+      if (hasInitialized) return;
+      
+      // Kiểm tra xem có ít nhất 1 section đã render chưa
+      const firstSection = document.getElementById("section-1");
+      if (firstSection) {
+        hasInitialized = true;
+        checkInitialSection();
+        return;
+      }
+
+      // Nếu chưa có section nào, chờ thêm
+      timeoutId = setTimeout(initializeScrollspy, 100);
+    };
+
+    // Bắt đầu kiểm tra ngay lập tức
+    requestAnimationFrame(initializeScrollspy);
+
+    // Fallback timeout để đảm bảo không chờ vô hạn
+    const fallbackTimeout = setTimeout(() => {
+      if (!hasInitialized) {
+        hasInitialized = true;
+        checkInitialSection();
+      }
+    }, 2000);
+
+    window.addEventListener("resize", checkInitialSection);
+    return () => {
+      if (timeoutId) clearTimeout(timeoutId);
+      clearTimeout(fallbackTimeout);
+      window.removeEventListener("resize", checkInitialSection);
+    };
+  }, [isFullyLoaded]);
+
+  if (isLoading || !isFullyLoaded) {
+    return (
+      <ModernLoadingScreen 
+        title="Đang tải hệ thống UPS & Ắc quy BMS"
+        subtitle="Khởi tạo dữ liệu Galaxy VL, ắc quy và hệ thống giám sát..."
+        icon="🔋"
+        color="#fa8c16"
+      />
+    );
+  }
+
+  if (error) {
+    return (
+      <ModernErrorScreen 
+        title="Lỗi tải hệ thống UPS & Ắc quy BMS"
+        subtitle="Không thể khởi tạo dữ liệu hệ thống"
+        error={error}
+        icon="🔋"
+        color="#fa8c16"
+        onRetry={() => window.location.reload()}
+      />
+    );
+  }
+
+  // Tính toán vị trí dựa trên trạng thái sidebar
+  const sidebarLeft = collapsed ? 70 : 200;
+  const headerLeft = sidebarLeft;
+  const menuLeft = sidebarLeft;
+  const contentLeft = sidebarLeft + 320; // 320px là width của menu
 
   return (
-    <SystemLayout
-      title="HỆ THỐNG UPS & ẮC QUY BMS - TTDL VÂN CANH"
-      menuItems={menuItems}
-      headerBgColor="#1890ff"      
-      defaultOpenKeys={['1', '2', '3', '4', '5', '6']}
-      selectedKey="1"
-    >
-      <UPSContent />
-    </SystemLayout>
-  );
-};
+    <>
+      {/* 1. Header - Independent */}
+      <header 
+        className="fixed top-20 z-5 bg-white border-b border-slate-200 transition-all duration-200"
+        style={{ left: `${headerLeft}px`, right: 0 }}
+      >
+        <div className="max-w-8xl mx-auto px-6 py-4 flex items-center justify-between gap-4">
+          <div className="flex items-center gap-4">
+            <div className="h-9 w-9 rounded-xl bg-blue-600 text-white grid place-items-center font-bold">UPS</div>
+            <div>
+              <h1 className="text-lg font-bold text-slate-900">Hệ thống UPS & Ắc quy BMS TTDL Vân Canh</h1>
+              <p className="text-xs text-slate-500">Giới thiệu • Galaxy VL • Ắc quy • Giám sát • Vận hành • Xử lý sự cố</p>
+            </div>
+          </div>
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="lg:hidden p-2 rounded-lg hover:bg-slate-100 transition-colors"
+            aria-label="Toggle menu"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              {mobileMenuOpen ? (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              ) : (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              )}
+            </svg>
+          </button>
+        </div>
+      </header>
 
-export default UPSSystemPage;
+      {/* 2. Menu - Independent */}
+      <aside 
+        className="hidden lg:block fixed top-40 w-80 h-[calc(100vh-80px)] bg-white border-r border-slate-200 z-5 transition-all duration-200"
+        style={{ left: `${menuLeft}px` }}
+      >
+        <div className="h-full overflow-y-auto p-6">
+          <Sidebar
+            active={active}
+            activeSubmenu={activeSubmenu}
+            setActive={setActive}
+            setActiveSubmenu={setActiveSubmenu}
+            expandedSections={expandedSections}
+            setExpandedSections={setExpandedSections}
+            mobileMenuOpen={mobileMenuOpen}
+            setMobileMenuOpen={setMobileMenuOpen}
+            setIgnoreSpy={setIgnoreSpy}
+          />
+        </div>
+      </aside>
+
+      {/* 3. Content - Independent */}
+      <main 
+        className="fixed top-40 right-0 h-[calc(100vh-80px)] bg-white border-l border-slate-200 z-5 transition-all duration-200"
+        style={{ left: `${contentLeft}px` }}
+      >
+        <div className="h-full overflow-y-auto p-8">
+          <div className="max-w-7xl mx-auto space-y-8">
+            {SECTIONS.map(section => (
+              <LazySection
+                key={section.key}
+                sectionKey={section.key}
+                Component={section.Component}
+                sectionId={section.sectionId}
+              />
+            ))}
+          </div>
+        </div>
+      </main>
+    </>
+  );
+}
+
+export default function UPSSystemPage() {
+  return (
+    <UPSDataProvider>
+      <UPSSystemContent />
+    </UPSDataProvider>
+  );
+}

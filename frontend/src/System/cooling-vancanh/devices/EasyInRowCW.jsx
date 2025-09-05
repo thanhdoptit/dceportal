@@ -1,9 +1,9 @@
 import {
-  CheckCircleOutlined,
-  ExclamationCircleOutlined,
-  InfoCircleOutlined,
-  SettingOutlined,
-  ToolOutlined
+    CheckCircleOutlined,
+    ExclamationCircleOutlined,
+    InfoCircleOutlined,
+    SettingOutlined,
+    ToolOutlined
 } from '@ant-design/icons';
 import { Alert, Card, Space, Table, Tag, Typography } from 'antd';
 import React from 'react';
@@ -13,7 +13,8 @@ const { Title, Paragraph, Text } = Typography;
 
 const EasyInRowCW = () => {
   return (
-    <div id="section-2.4" className="subsection">
+    <div>
+      <div id="section-2-4" className="subsection">
       <Title level={3} >
         <SettingOutlined style={{ marginRight: '8px' }} />
         2.4. Easy InRow CW Series - TTDL Vân Canh
@@ -457,6 +458,7 @@ const EasyInRowCW = () => {
             bordered
           />
         </Card>
+      </div>
       </div>
     </div>
   );

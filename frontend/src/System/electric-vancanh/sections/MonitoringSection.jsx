@@ -120,7 +120,7 @@ const MonitoringSection = () => {
             
             <Row gutter={[16, 16]}>
               <Col xs={24} md={12}>
-                <Card size="small" title="Hệ thống SCADA" style={{ borderColor: '#1890ff' }}>
+                <Card size="small" title="Hệ thống SCADA" className="card-blue">
                   <ul>
                     <li><Text strong>Phần mềm:</Text> WinCC SCADA</li>
                     <li><Text strong>Giao diện:</Text> HMI Touch Screen</li>
@@ -130,7 +130,7 @@ const MonitoringSection = () => {
                 </Card>
               </Col>
               <Col xs={24} md={12}>
-                <Card size="small" title="Chức năng chính" style={{ borderColor: '#52c41a' }}>
+                <Card size="small" title="Chức năng chính" className="card-green">
                   <ul>
                     <li>Giám sát thời gian thực</li>
                     <li>Điều khiển từ xa</li>
@@ -167,7 +167,7 @@ const MonitoringSection = () => {
 
             <Row gutter={[16, 16]}>
               <Col xs={24} md={12}>
-                <Card size="small" title="Thông số điện" style={{ borderColor: '#1890ff' }}>
+                <Card size="small" title="Thông số điện" className="card-blue">
                   <ul>
                     <li><Text strong>Điện áp:</Text> 3 pha, 400V AC</li>
                     <li><Text strong>Dòng điện:</Text> 3 pha, 0-3200A</li>
@@ -177,7 +177,7 @@ const MonitoringSection = () => {
                 </Card>
               </Col>
               <Col xs={24} md={12}>
-                <Card size="small" title="Thông số môi trường" style={{ borderColor: '#52c41a' }}>
+                <Card size="small" title="Thông số môi trường" className="card-green">
                   <ul>
                     <li><Text strong>Nhiệt độ:</Text> -10°C đến +60°C</li>
                     <li><Text strong>Độ ẩm:</Text> 0-95% RH</li>
@@ -203,7 +203,7 @@ const MonitoringSection = () => {
           <Card style={{ marginBottom: '24px' }}>
             <Row gutter={[16, 16]}>
               <Col xs={24} md={12}>
-                <Card size="small" title="Bảo trì định kỳ" style={{ borderColor: '#1890ff' }}>
+                <Card size="small" title="Bảo trì định kỳ" className="card-blue">
                   <ul>
                     <li><Text strong>Hàng ngày:</Text> Kiểm tra tổng quan</li>
                     <li><Text strong>Hàng tuần:</Text> Kiểm tra chi tiết</li>
@@ -213,7 +213,7 @@ const MonitoringSection = () => {
                 </Card>
               </Col>
               <Col xs={24} md={12}>
-                <Card size="small" title="Bảo trì theo tình trạng" style={{ borderColor: '#52c41a' }}>
+                <Card size="small" title="Bảo trì theo tình trạng" className="card-green">
                   <ul>
                     <li><Text strong>Bảo trì phòng ngừa:</Text> Theo lịch</li>
                     <li><Text strong>Bảo trì dự đoán:</Text> Theo cảm biến</li>
@@ -250,7 +250,7 @@ const MonitoringSection = () => {
 
             <Row gutter={[16, 16]}>
               <Col xs={24} md={12}>
-                <Card size="small" title="Chuẩn bị bảo trì" style={{ borderColor: '#1890ff' }}>
+                <Card size="small" title="Chuẩn bị bảo trì" className="card-blue">
                   <ul>
                     <li>Lập kế hoạch chi tiết</li>
                     <li>Chuẩn bị thiết bị</li>
@@ -260,7 +260,7 @@ const MonitoringSection = () => {
                 </Card>
               </Col>
               <Col xs={24} md={12}>
-                <Card size="small" title="Thực hiện bảo trì" style={{ borderColor: '#52c41a' }}>
+                <Card size="small" title="Thực hiện bảo trì" className="card-green">
                   <ul>
                     <li>Tuân thủ quy trình</li>
                     <li>Kiểm tra từng bước</li>
@@ -307,7 +307,7 @@ const MonitoringSection = () => {
 
             <Row gutter={[16, 16]}>
               <Col xs={24} md={12}>
-                <Card size="small" title="Phân loại sự cố" style={{ borderColor: '#1890ff' }}>
+                <Card size="small" title="Phân loại sự cố" className="card-blue">
                   <ul>
                     <li><Text strong>Mức 1:</Text> Sự cố nhỏ</li>
                     <li><Text strong>Mức 2:</Text> Sự cố trung bình</li>
@@ -317,7 +317,7 @@ const MonitoringSection = () => {
                 </Card>
               </Col>
               <Col xs={24} md={12}>
-                <Card size="small" title="Thời gian xử lý" style={{ borderColor: '#52c41a' }}>
+                <Card size="small" title="Thời gian xử lý" className="card-green">
                   <ul>
                     <li><Text strong>Mức 1:</Text> ≤2 giờ</li>
                     <li><Text strong>Mức 2:</Text> ≤8 giờ</li>

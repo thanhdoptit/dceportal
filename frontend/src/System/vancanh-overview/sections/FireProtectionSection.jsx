@@ -1,10 +1,11 @@
 import {
-  PictureOutlined,
-  SafetyOutlined
+    PictureOutlined,
+    SafetyOutlined
 } from '@ant-design/icons';
 import { Alert, Card, Space, Tag, Typography } from 'antd';
 import React from 'react';
 import { ImageGallery } from '../../shared';
+import '../../shared/styles/SystemSection.css';
 
 const { Title, Paragraph, Text } = Typography;
 
@@ -23,7 +24,7 @@ const FireProtectionSection = () => {
         showIcon
         style={{ marginBottom: '20px' }}
       />
-      <div id="section-5.1" className="subsection">
+      <div id="section-5-1" className="subsection">
         <Title level={3} >
           <SafetyOutlined style={{ marginRight: '8px' }} /> 5.1 HỆ THỐNG PCCC TỰ ĐỘNG BẰNG KHÍ NOVEC 1230
         </Title>
@@ -168,7 +169,7 @@ const FireProtectionSection = () => {
         </Card>
       </div>
 
-      <div id="section-5.2" className="subsection">
+      <div id="section-5-2" className="subsection">
         <Title level={3} >
           <SafetyOutlined style={{ marginRight: '8px' }} /> 5.2 Hệ thống báo khói sớm
         </Title>
@@ -195,7 +196,7 @@ const FireProtectionSection = () => {
         </Card>
       </div>
 
-      <div id="section-5.3" className="subsection">
+      <div id="section-5-3" className="subsection">
         <Title level={3} >
           <SafetyOutlined style={{ marginRight: '8px' }} /> 5.3 Hệ thống giám sát đồ họa
         </Title>

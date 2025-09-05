@@ -40,25 +40,8 @@ const IntroductionSection = () => {
 
       <Divider />
 
-      {/* <Card title="Mô hình 3D minh họa hành lang lạnh (HL.glb)" style={{ marginBottom: '20px' }}>
-        <div style={{ width: '100%', border: '1px solid #d9d9d9', borderRadius: 6, overflow: 'hidden' }}>
-          <model-viewer
-            src={`${import.meta.env.VITE_API_URL}/uploads/media/HL.glb`}
-            camera-controls
-            autoplay
-            exposure="1"
-            style={{ width: '100%', height: 480, background: '#f0f2f5' }}
-            ar
-            ar-modes="webxr scene-viewer quick-look"
-            shadow-intensity="0.8"
-          ></model-viewer>
-        </div>
-        <Paragraph style={{ marginTop: 8 }}>
-          <Text type="secondary">Mô hình 3D minh họa Hot/Cold Aisle Containment tại TTDL Hòa Lạc.</Text>
-        </Paragraph>
-      </Card> */}
 
-      <div id="section-1.1" className="subsection">
+      <div id="section-1-1" className="subsection">
         <Title level={3}>
           1.1. Thông số kĩ thuật theo tài liệu hãng các thiết bị thuộc hệ thống làm mát của TTDL Hòa Lạc
         </Title>
@@ -70,7 +53,6 @@ const IntroductionSection = () => {
           title={
             <div
               style={{
-                background: 'linear-gradient(90deg, #005baa 0%, #0086d6 100%)',
                 color: '#fff',
                 padding: '6px 16px',
                 borderRadius: 6,
@@ -96,7 +78,6 @@ const IntroductionSection = () => {
         <Card title={
           <div
             style={{
-              background: 'linear-gradient(90deg, #005baa 0%, #0086d6 100%)',
               color: '#fff',
               padding: '6px 16px',
               borderRadius: 6,
@@ -120,7 +101,6 @@ const IntroductionSection = () => {
         <Card title={
           <div
             style={{
-              background: 'linear-gradient(90deg, #005baa 0%, #0086d6 100%)',
               color: '#fff',
               padding: '6px 16px',
               borderRadius: 6,
@@ -142,7 +122,7 @@ const IntroductionSection = () => {
         </Card>
       </div>
 
-      <div id="section-1.2" className="subsection">
+      <div id="section-1-2" className="subsection">
         <Title level={3} style={{ color: '#52c41a', marginBottom: '16px' }}>
           1.2. Cấu trúc đặt tên của các model thuộc TTDL Hòa Lạc
         </Title>
@@ -242,7 +222,7 @@ const IntroductionSection = () => {
         </Card>
       </div>
 
-      <div id="section-1.3" className="subsection">
+      <div id="section-1-3" className="subsection">
         <Title level={3} style={{ color: '#52c41a', marginBottom: '16px' }}>
           1.3. Nguyên lý hoạt động của hệ thống làm mát Trung tâm dữ liệu Hòa Lạc
         </Title>

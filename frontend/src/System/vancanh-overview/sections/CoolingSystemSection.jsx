@@ -1,12 +1,13 @@
 import {
-  CheckCircleOutlined,
-  CloudOutlined,
-  PictureOutlined,
-  SettingOutlined
+    CheckCircleOutlined,
+    CloudOutlined,
+    PictureOutlined,
+    SettingOutlined
 } from '@ant-design/icons';
 import { Alert, Card, Col, Divider, Row, Space, Tag, Typography } from 'antd';
 import React from 'react';
 import { ImagePreview } from '../../shared';
+import '../../shared/styles/SystemSection.css';
 
 const { Title, Paragraph, Text } = Typography;
 
@@ -68,7 +69,7 @@ const CoolingSystemSection = () => {
         </Col>
       </Row>
 
-      <div id="section-4.1" className="subsection">
+      <div id="section-4-1" className="subsection">
         <Title level={3} >
           <CloudOutlined style={{ marginRight: '8px' }} /> 4.1 Hệ thống Chiller
         </Title>
@@ -144,7 +145,7 @@ const CoolingSystemSection = () => {
         </Card>
       </div>
 
-      <div id="section-4.2" className="subsection">
+      <div id="section-4-2" className="subsection">
         <Title level={3} >
           <CloudOutlined style={{ marginRight: '8px' }} /> 4.2 Hệ thống điều hòa chính xác
         </Title>
@@ -230,7 +231,7 @@ const CoolingSystemSection = () => {
         </Card>
       </div>
 
-      <div id="section-4.3" className="subsection">
+      <div id="section-4-3" className="subsection">
         <Title level={3} >
           <CheckCircleOutlined style={{ marginRight: '8px' }} /> 4.3 Hệ thống trữ nhiệt TES
         </Title>

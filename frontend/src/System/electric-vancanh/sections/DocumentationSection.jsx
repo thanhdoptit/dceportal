@@ -1,6 +1,7 @@
 import { FileTextOutlined } from '@ant-design/icons';
 import { Alert, Card, Col, Divider, Row, Table, Tag, Typography } from 'antd';
 import React from 'react';
+import '../../shared/styles/SystemSection.css';
 
 const { Title, Paragraph, Text } = Typography;
 
@@ -193,7 +194,7 @@ const DocumentationSection = () => {
       <Divider />
 
       {/* Tiêu chuẩn Việt Nam */}
-      <div id="8.1" className="subsection">
+      <div id="section-8-1" className="subsection">
         <Title level={3} className="subsection-title">
           8.1. Tiêu chuẩn Việt Nam (TCVN)
         </Title>
@@ -253,7 +254,7 @@ const DocumentationSection = () => {
       <Divider />
 
       {/* Tiêu chuẩn quốc tế */}
-      <div id="8.2" className="subsection">
+      <div id="section-8-2" className="subsection">
         <Title level={3} className="subsection-title">
           8.2. Tiêu chuẩn quốc tế
         </Title>
@@ -327,7 +328,7 @@ const DocumentationSection = () => {
       <Divider />
 
       {/* Chứng nhận sản phẩm */}
-      <div id="8.3" className="subsection">
+      <div id="section-8-3" className="subsection">
         <Title level={3} className="subsection-title">
           8.3. Chứng nhận sản phẩm
         </Title>
@@ -387,7 +388,7 @@ const DocumentationSection = () => {
       <Divider />
 
       {/* Tài liệu kỹ thuật */}
-      <div id="8.4" className="subsection">
+      <div id="section-8-4" className="subsection">
         <Title level={3} className="subsection-title">
           8.4. Tài liệu kỹ thuật
         </Title>
@@ -446,7 +447,7 @@ const DocumentationSection = () => {
       <Divider />
 
       {/* Lưu ý quan trọng */}
-      <div id="8.5" className="subsection">
+      <div id="section-8-5" className="subsection">
         <Title level={3} className="subsection-title">
           8.5. Lưu ý quan trọng
         </Title>

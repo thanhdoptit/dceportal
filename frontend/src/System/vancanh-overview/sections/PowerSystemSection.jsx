@@ -1,11 +1,12 @@
 import {
-  BulbOutlined,
-  PictureOutlined,
-  ThunderboltOutlined
+    BulbOutlined,
+    PictureOutlined,
+    ThunderboltOutlined
 } from '@ant-design/icons';
 import { Alert, Card, Col, Divider, Row, Space, Tag, Typography } from 'antd';
 import React from 'react';
 import { ImagePreview } from '../../shared';
+import '../../shared/styles/SystemSection.css';
 
 const { Title, Paragraph, Text } = Typography;
 
@@ -17,7 +18,7 @@ const PowerSystemSection = () => {
         3. HỆ THỐNG CẤP NGUỒN TTDL VÂN CANH
       </Title>
 
-      <div id="section-3.1" className="subsection">
+      <div id="section-3-1" className="subsection">
         <Title level={3} >
           <BulbOutlined style={{ marginRight: '8px' }} /> 3.1 Nguồn điện và trạm biến áp
         </Title>
@@ -316,7 +317,7 @@ const PowerSystemSection = () => {
         </Card>
       </div>
 
-      <div id="section-3.2" className="subsection">
+      <div id="section-3-2" className="subsection">
         <Title level={4} style={{ color: '#1890ff', marginBottom: '12px' }}>
           <ThunderboltOutlined style={{ marginRight: '8px' }} /> 3.2 Hệ thống UPS
         </Title>

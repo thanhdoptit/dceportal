@@ -1,8 +1,8 @@
 import {
-  CheckCircleOutlined,
-  InfoCircleOutlined,
-  PhoneOutlined,
-  SettingOutlined
+    CheckCircleOutlined,
+    InfoCircleOutlined,
+    PhoneOutlined,
+    SettingOutlined
 } from '@ant-design/icons';
 import { Alert, Card, Col, Row, Typography } from 'antd';
 import React from 'react';
@@ -27,7 +27,7 @@ const ContactSection = () => {
         style={{ marginBottom: '24px' }}
       />
 
-        <div id="section-8.1" className="subsection">
+        <div id="section-8-1" className="subsection">
           <Title level={3}>
             <InfoCircleOutlined style={{ marginRight: '12px' }} />
             8.1. Thông tin liên hệ
@@ -56,7 +56,7 @@ const ContactSection = () => {
           </Card>
         </div>
 
-        <div id="section-8.2" className="subsection">
+        <div id="section-8-2" className="subsection">
           <Title level={3}>
             <SettingOutlined style={{ marginRight: '12px' }} />
             8.2. Hỗ trợ kỹ thuật
@@ -81,7 +81,7 @@ const ContactSection = () => {
           </Card>
         </div>
 
-        <div id="section-8.3" className="subsection">
+        <div id="section-8-3" className="subsection">
           <Title level={3}>
             <CheckCircleOutlined style={{ marginRight: '12px' }} />
             8.3. Báo cáo sự cố

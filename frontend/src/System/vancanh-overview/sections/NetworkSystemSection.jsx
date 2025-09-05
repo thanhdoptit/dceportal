@@ -2,6 +2,7 @@ import { EnvironmentOutlined, PictureOutlined } from '@ant-design/icons';
 import { Alert, Card, Space, Tag, Typography } from 'antd';
 import React from 'react';
 import { ImageGallery } from '../../shared';
+import '../../shared/styles/SystemSection.css';
 
 const { Title, Text } = Typography;
 
@@ -45,7 +46,7 @@ const NetworkSystemSection = () => {
       </Card>
 
 
-      <div id="section-7.1" className="subsection">
+      <div id="section-7-1" className="subsection">
         <Title level={3} >
           <EnvironmentOutlined style={{ marginRight: '8px' }} /> 7.1 Cáp quang và cáp đồng
         </Title>
@@ -80,7 +81,7 @@ const NetworkSystemSection = () => {
         </Card>
       </div>
 
-      <div id="section-7.2" className="subsection">
+      <div id="section-7-2" className="subsection">
         <Title level={3} >
           <EnvironmentOutlined style={{ marginRight: '8px' }} /> 7.2 Tốc độ truyền dẫn
         </Title>
@@ -107,7 +108,7 @@ const NetworkSystemSection = () => {
         </Card>
       </div>
 
-      <div id="section-7.3" className="subsection">
+      <div id="section-7-3" className="subsection">
         <Title level={3} >
           <EnvironmentOutlined style={{ marginRight: '8px' }} /> 7.3 Thiết kế Active-Active
         </Title>

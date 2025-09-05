@@ -1,7 +1,7 @@
 import {
-  CheckCircleOutlined,
-  CloudOutlined,
-  SettingOutlined
+    CheckCircleOutlined,
+    CloudOutlined,
+    SettingOutlined
 } from '@ant-design/icons';
 import { Alert, Card, Col, Collapse, Divider, Row, Tag, Typography } from 'antd';
 import React from 'react';
@@ -19,6 +19,8 @@ const { Title, Paragraph, Text } = Typography;
 const { Panel } = Collapse;
 
 const DeviceGuideSection = () => {
+  console.log('🚀 DeviceGuideSection component rendered');
+  
   // Danh sách thiết bị chính
   const devices = [
     {
@@ -107,6 +109,7 @@ const DeviceGuideSection = () => {
 
   // Hàm render thiết bị dựa trên ID
   const renderDevice = (deviceId) => {
+    console.log('🔧 Rendering device:', deviceId);
     switch (deviceId) {
       case '2.1':
         return <SMARDTChiller />;
@@ -121,12 +124,13 @@ const DeviceGuideSection = () => {
       case '2.6':
         return <PumpingSystemDevices />;
       default:
+        console.log('❌ Unknown device ID:', deviceId);
         return null;
     }
   };
 
   return (
-    <div className="content-section">
+    <div id="section-2" className="content-section">
       <Title level={2}>
         <SettingOutlined style={{ marginRight: '12px' }} />
         2. Hướng dẫn chi tiết từng thiết bị - TTDL Vân Canh

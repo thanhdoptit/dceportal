@@ -140,7 +140,7 @@ const GalaxyVLSection = () => {
       </Paragraph>
 
       {/* 2.1 - Thông tin chung Galaxy VL */}
-      <div id="2.1" className="subsection">
+      <div id="section-2-1" className="subsection">
         <Title level={3}>
           2.1. Thông tin chung Galaxy VL
         </Title>
@@ -287,7 +287,7 @@ const GalaxyVLSection = () => {
       </div>
 
       {/* 2.2 - Hướng dẫn lắp đặt */}
-      <div id="2.2" className="subsection">
+      <div id="section-2-2" className="subsection">
         <Title level={3}>
           2.2. Hướng dẫn lắp đặt
         </Title>
@@ -380,7 +380,7 @@ const GalaxyVLSection = () => {
       </div>
 
       {/* 2.3 - Hướng dẫn vận hành */}
-      <div id="2.3" className="subsection">
+      <div id="section-2-3" className="subsection">
         <Title level={3}>
           2.3. Hướng dẫn vận hành
         </Title>
@@ -477,7 +477,7 @@ const GalaxyVLSection = () => {
       </div>
 
       {/* 2.4 - Bảo trì và bảo dưỡng */}
-      <div id="2.4" className="subsection">
+      <div id="section-2-4" className="subsection">
         <Title level={3}>
           2.4. Bảo trì và bảo dưỡng
         </Title>

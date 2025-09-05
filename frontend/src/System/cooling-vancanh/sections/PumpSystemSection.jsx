@@ -1,9 +1,9 @@
 import {
-  EnvironmentOutlined,
-  InfoCircleOutlined,
-  SettingOutlined,
-  ThunderboltOutlined,
-  ToolOutlined
+    EnvironmentOutlined,
+    InfoCircleOutlined,
+    SettingOutlined,
+    ThunderboltOutlined,
+    ToolOutlined
 } from '@ant-design/icons';
 import { Alert, Card, Col, Row, Table, Tag, Typography } from 'antd';
 import React from 'react';
@@ -90,12 +90,12 @@ const PumpSystemSection = () => {
       />
 
       {/* Hệ thống bơm nước lạnh */}
-      <div id="section-3.1" className="subsection">
+      <div id="section-3-1" className="subsection">
         <Title level={3} >
           <ThunderboltOutlined style={{ marginRight: '12px' }} />
           3.1. Hệ thống bơm nước lạnh
         </Title>
-        <div id="section-3.1.1" className="subsection">
+        <div id="section-3-1-1" className="subsection">
           <Title level={4}>
             <ThunderboltOutlined style={{ marginRight: '12px' }} />
             3.1.1. Bơm PCH-01, PCH-02, PCH-03
@@ -128,7 +128,7 @@ const PumpSystemSection = () => {
           </Row>
         </div>
       
-      <div id="section-3.1.2" className="subsection">
+      <div id="section-3-1-2" className="subsection">
         <Title level={4}>
           <SettingOutlined style={{ marginRight: '12px' }} />
           3.1.2. Điều khiển VFD và chênh áp
@@ -178,7 +178,7 @@ const PumpSystemSection = () => {
         </div>
 
       {/* Bảng dữ liệu Testing & Commissioning */}
-      <div id="section-3.1.3" className="subsection">
+      <div id="section-3-1-3" className="subsection">
         <Title level={4}>
           <SettingOutlined style={{ marginRight: '12px' }} />
           3.1.3. Quy trình Testing & Commissioning
@@ -236,7 +236,7 @@ const PumpSystemSection = () => {
         />
       </Card>
       </div>      
-      <div id="section-3.1.4" className="subsection">
+      <div id="section-3-1-4" className="subsection">
         <Title level={4}>
           <InfoCircleOutlined style={{ marginRight: '12px' }} />
           3.1.4. Bảng dữ liệu vận hành
@@ -314,14 +314,14 @@ const PumpSystemSection = () => {
       </div>
       
       {/* 3.2 Thiết bị phụ trợ hệ nước */}
-      <div id="section-3.2" className="subsection">
+      <div id="section-3-2" className="subsection">
         <Title level={3} >
           <ToolOutlined style={{ marginRight: '12px' }} />
           3.2. Thiết bị phụ trợ hệ nước
         </Title>
       
       {/* 3.2.1 Van cổng, van xả, van PICV */}
-      <div id="section-3.2.1" className="subsection">
+      <div id="section-3-2-1" className="subsection">
         <Title level={4}>
           <ToolOutlined style={{ marginRight: '12px' }} />
           3.2.1. Van cổng, van xả, van PICV
@@ -352,7 +352,7 @@ const PumpSystemSection = () => {
       </div>
       
       {/* 3.2.2 Lọc Y, khớp nối mềm */}
-      <div id="section-3.2.2" className="subsection">
+      <div id="section-3-2-2" className="subsection">
         <Title level={4} >
           <ToolOutlined style={{ marginRight: '12px' }} />
           3.2.2. Lọc Y, khớp nối mềm
@@ -377,7 +377,7 @@ const PumpSystemSection = () => {
       </div>
       
       {/* 3.2.3 Đồng hồ áp suất, nhiệt độ */}
-      <div id="section-3.2.3" className="subsection">
+      <div id="section-3-2-3" className="subsection">
         <Title level={4} >
           <ToolOutlined style={{ marginRight: '12px' }} />
           3.2.3. Đồng hồ áp suất, nhiệt độ
@@ -400,7 +400,7 @@ const PumpSystemSection = () => {
       </div>
       
       {/* 3.2.4 Van tách khí, van cân bằng */}
-      <div id="section-3.2.4" className="subsection">
+      <div id="section-3-2-4" className="subsection">
         <Title level={4} >
           <ToolOutlined style={{ marginRight: '12px' }} />
           3.2.4. Van tách khí, van cân bằng
@@ -427,14 +427,14 @@ const PumpSystemSection = () => {
 
 
       {/* Hệ thống TES */}
-      <div id="section-3.3" className="subsection">
+      <div id="section-3-3" className="subsection">
         <Title level={3} >
           <EnvironmentOutlined style={{ marginRight: '12px' }} />
           3.3. Hệ thống TES (Thermal Energy Storage)
         </Title>
       
       {/* 3.3.1 Bình dự trữ nước lạnh */}
-              <div id="section-3.3.1" className="subsection">
+              <div id="section-3-3-1" className="subsection">
         <Title level={4} >
           <EnvironmentOutlined style={{ marginRight: '8px' }} />
           3.3.1. Bình dự trữ nước lạnh
@@ -458,7 +458,7 @@ const PumpSystemSection = () => {
       </div>
       
       {/* 3.3.2 Chế độ Charging & Discharge */}
-      <div id="section-3.3.2" className="subsection">
+      <div id="section-3-3-2" className="subsection">
         <Title level={4} >
           <EnvironmentOutlined style={{ marginRight: '12px' }} />
           3.3.2. Chế độ Charging & Discharge
@@ -482,7 +482,7 @@ const PumpSystemSection = () => {
       </div>
       
       {/* 3.3.3 Điều khiển van V1A, V1B, V2A, V2B, V3A, V3B */}
-      <div id="section-3.3.3" className="subsection">
+      <div id="section-3-3-3" className="subsection">
         <Title level={4} >
           <EnvironmentOutlined style={{ marginRight: '12px' }} />
           3.3.3. Điều khiển van V1A, V1B, V2A, V2B, V3A, V3B
@@ -513,7 +513,7 @@ const PumpSystemSection = () => {
       </div>
       
       {/* 3.3.4 Thời gian dự phòng khẩn cấp */}
-      <div id="section-3.3.4" className="subsection">
+      <div id="section-3-3-4" className="subsection">
         <Title level={4} >
           <EnvironmentOutlined style={{ marginRight: '12px' }} />
           3.3.4. Thời gian dự phòng khẩn cấp

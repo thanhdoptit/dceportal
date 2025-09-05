@@ -1,12 +1,13 @@
 import {
-  BuildOutlined,
-  CloudOutlined,
-  PictureOutlined,
-  SafetyOutlined
+    BuildOutlined,
+    CloudOutlined,
+    PictureOutlined,
+    SafetyOutlined
 } from '@ant-design/icons';
 import { Alert, Card, Col, Divider, Row, Space, Tag, Typography } from 'antd';
 import React from 'react';
 import { ImagePreview } from '../../shared';
+import '../../shared/styles/SystemSection.css';
 
 const { Title, Paragraph, Text } = Typography;
 
@@ -18,7 +19,7 @@ const ArchitectureSection = () => {
         2. KIẾN TRÚC VÀ THIẾT KẾ TTDL VÂN CANH
       </Title>
 
-      <div id="section-2.1" className="subsection">
+      <div id="section-2-1" className="subsection">
         <Title level={3} >
           <BuildOutlined style={{ marginRight: '8px' }} /> 2.1 Kiến trúc phân vùng
         </Title>
@@ -91,7 +92,7 @@ const ArchitectureSection = () => {
       </div>
 
 
-      <div id="section-2.2" className="subsection">
+      <div id="section-2-2" className="subsection">
         <Title level={3} >
           <SafetyOutlined style={{ marginRight: '8px' }} /> 2.3 Tiêu chuẩn thiết kế
         </Title>

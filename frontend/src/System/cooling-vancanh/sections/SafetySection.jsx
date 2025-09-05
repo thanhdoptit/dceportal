@@ -1,9 +1,9 @@
 import {
-  CheckCircleOutlined,
-  ExclamationCircleOutlined,
-  InfoCircleOutlined,
-  SafetyOutlined,
-  ToolOutlined
+    CheckCircleOutlined,
+    ExclamationCircleOutlined,
+    InfoCircleOutlined,
+    SafetyOutlined,
+    ToolOutlined
 } from '@ant-design/icons';
 import { Alert, Card, Col, Divider, Row, Steps, Typography } from 'antd';
 import React from 'react';
@@ -330,7 +330,7 @@ const SafetySection = () => {
   ];
 
   return (
-    <div className="content-section">
+    <div id="section-6" className="content-section">
       <Title level={2}>
         <SafetyOutlined style={{ marginRight: '12px' }} />
         6. An toàn & Bảo trì hệ thống làm mát
@@ -345,7 +345,7 @@ const SafetySection = () => {
       />
 
       {/* Biện pháp an toàn vận hành */}
-      <div id="section-6.1" className="subsection">
+      <div id="section-6-1" className="subsection">
         <Title level={3}>
           <SafetyOutlined style={{ marginRight: '12px' }} />
           6.1. Biện pháp an toàn vận hành
@@ -382,7 +382,7 @@ const SafetySection = () => {
       </div>
 
       {/* Quy trình bảo trì thiết bị */}
-      <div id="section-6.2" className="subsection">
+      <div id="section-6-2" className="subsection">
         <Title level={3} >
           <ToolOutlined style={{ marginRight: '12px' }} />
           6.2. Quy trình bảo trì thiết bị
@@ -427,7 +427,7 @@ const SafetySection = () => {
       </div>
 
       {/* Xử lý mã lỗi và sự cố */}
-      <div id="section-6.3" className="subsection">
+      <div id="section-6-3" className="subsection">
         <Title level={3} >
           <ExclamationCircleOutlined style={{ marginRight: '12px' }} />
           6.3. Xử lý mã lỗi và sự cố
@@ -474,7 +474,7 @@ const SafetySection = () => {
       </div>
 
       {/* Kiểm tra và kiểm định */}
-      <div id="section-6.4" className="subsection">
+      <div id="section-6-4" className="subsection">
         <Title level={3} >
           <CheckCircleOutlined style={{ marginRight: '12px' }} />
           6.4. Kiểm tra và kiểm định
@@ -510,7 +510,7 @@ const SafetySection = () => {
       </div>
 
       {/* Thông tin bổ sung */}
-      <div id="section-6.5" className="subsection">
+      <div id="section-6-5" className="subsection">
         <Title level={3} >
           <InfoCircleOutlined style={{ marginRight: '12px' }} />
           6.5. Thông tin bổ sung

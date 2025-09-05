@@ -2,6 +2,7 @@ import { AppstoreOutlined, PictureOutlined, SafetyOutlined } from '@ant-design/i
 import { Alert, Card, Col, Row, Space, Tag, Typography } from 'antd';
 import React from 'react';
 import { ImagePreview } from '../../shared';
+import '../../shared/styles/SystemSection.css';
 
 const { Title, Text } = Typography;
 
@@ -23,7 +24,7 @@ const SecuritySystemSection = () => {
 
       {/* Hình ảnh hệ thống an ninh */}
 
-      <div id="section-6.1" className="subsection">
+      <div id="section-6-1" className="subsection">
         <Title level={3} >
           <AppstoreOutlined style={{ marginRight: '8px' }} /> 6.1 Hệ thống CCTV
         </Title>
@@ -80,7 +81,7 @@ const SecuritySystemSection = () => {
         </Card>
       </div>
 
-      <div id="section-6.2" className="subsection">
+      <div id="section-6-2" className="subsection">
         <Title level={3} >
           <AppstoreOutlined style={{ marginRight: '8px' }} /> 6.2 Hệ thống kiểm soát vào ra ACS
         </Title>
@@ -178,7 +179,7 @@ const SecuritySystemSection = () => {
         </Card>
       </div>
 
-      <div id="section-6.3" className="subsection">
+      <div id="section-6-3" className="subsection">
         <Title level={3} >
           <AppstoreOutlined style={{ marginRight: '8px' }} /> 6.3 Hệ thống thông báo PA
         </Title>

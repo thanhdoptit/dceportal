@@ -1,6 +1,7 @@
+import { PhoneOutlined } from '@ant-design/icons';
+import { Alert, Card, Table, Tag, Typography } from 'antd';
 import React from 'react';
-import { Typography, Card, Divider, Table, Tag, Space, Alert, Row, Col } from 'antd';
-import { PhoneOutlined, MailOutlined, EnvironmentOutlined, UserOutlined, TeamOutlined, BuildOutlined } from '@ant-design/icons';
+import '../../shared/styles/SystemSection.css';
 
 const { Title, Paragraph, Text } = Typography;
 

@@ -1,6 +1,7 @@
 import { PlayCircleOutlined } from '@ant-design/icons';
 import { Alert, Card, Col, Divider, Row, Space, Steps, Tag, Typography } from 'antd';
 import React from 'react';
+import '../../shared/styles/SystemSection.css';
 
 const { Title, Paragraph, Text } = Typography;
 const { Step } = Steps;
@@ -105,7 +106,7 @@ const OperationSection = () => {
       <Divider />
 
       {/* Quy trình vận hành */}
-      <div id="7.1" className="subsection">
+      <div id="section-7-1" className="subsection">
         <Title level={3} className="subsection-title">
           7.1. Quy trình vận hành hệ thống điện
         </Title>
@@ -159,7 +160,7 @@ const OperationSection = () => {
       <Divider />
 
       {/* Kiểm tra hệ thống dự phòng */}
-      <div id="7.2" className="subsection">
+      <div id="section-7-2" className="subsection">
         <Title level={3} className="subsection-title">
           7.2. Kiểm tra hệ thống điện dự phòng
         </Title>
@@ -221,7 +222,7 @@ const OperationSection = () => {
       <Divider />
 
       {/* Bảo trì định kỳ */}
-      <div id="7.3" className="subsection">
+      <div id="section-7-3" className="subsection">
         <Title level={3} className="subsection-title">
           7.3. Bảo trì định kỳ hệ thống điện
         </Title>
@@ -270,7 +271,7 @@ const OperationSection = () => {
       <Divider />
 
       {/* Hướng dẫn vận hành từng thiết bị */}
-      <div id="7.4" className="subsection">
+      <div id="section-7-4" className="subsection">
         <Title level={3} className="subsection-title">
           7.4. Hướng dẫn vận hành từng thiết bị
         </Title>

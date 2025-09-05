@@ -1,6 +1,7 @@
 import { BulbOutlined, SafetyOutlined, ThunderboltOutlined } from '@ant-design/icons';
 import { Alert, Card, Col, Divider, Progress, Row, Steps, Tag, Typography } from 'antd';
 import React from 'react';
+import '../../shared/styles/SystemSection.css';
 
 const { Title, Paragraph, Text } = Typography;
 
@@ -39,7 +40,7 @@ const LightingSection = () => {
         5. HỆ THỐNG CHIẾU SÁNG & Ổ CẮM
       </Title>
 
-      <div id="5.1" className="subsection" style={{ scrollMarginTop: '20px' }}>
+      <div id="section-5-1" className="subsection" style={{ scrollMarginTop: '20px' }}>
         <Title level={3} style={{ color: '#333333', marginBottom: '16px' }}>
           5.1. Hệ thống chiếu sáng
         </Title>
@@ -59,7 +60,7 @@ const LightingSection = () => {
             
             <Row gutter={[16, 16]}>
               <Col xs={24} md={8}>
-                <Card size="small" title="Đèn LED Panel" style={{ borderColor: '#1890ff' }}>
+                <Card size="small" title="Đèn LED Panel" className="card-blue">
                   <ul>
                     <li><Text strong>Công suất:</Text> 18W, 24W, 36W</li>
                     <li><Text strong>Quang thông:</Text> 1800-3600lm</li>
@@ -69,7 +70,7 @@ const LightingSection = () => {
                 </Card>
               </Col>
               <Col xs={24} md={8}>
-                <Card size="small" title="Đèn LED Tube" style={{ borderColor: '#52c41a' }}>
+                <Card size="small" title="Đèn LED Tube" className="card-green">
                   <ul>
                     <li><Text strong>Công suất:</Text> 9W, 18W</li>
                     <li><Text strong>Quang thông:</Text> 900-1800lm</li>
@@ -79,7 +80,7 @@ const LightingSection = () => {
                 </Card>
               </Col>
               <Col xs={24} md={8}>
-                <Card size="small" title="Đèn LED Downlight" style={{ borderColor: '#faad14' }}>
+                <Card size="small" title="Đèn LED Downlight" className="card-orange">
                   <ul>
                     <li><Text strong>Công suất:</Text> 12W, 18W</li>
                     <li><Text strong>Quang thông:</Text> 1200-1800lm</li>
@@ -116,7 +117,7 @@ const LightingSection = () => {
 
             <Row gutter={[16, 16]}>
               <Col xs={24} md={12}>
-                <Card size="small" title="Hệ thống điều khiển" style={{ borderColor: '#1890ff' }}>
+                <Card size="small" title="Hệ thống điều khiển" className="card-blue">
                   <ul>
                     <li><Text strong>Điều khiển tự động:</Text> Theo thời gian</li>
                     <li><Text strong>Cảm biến chuyển động:</Text> PIR sensor</li>
@@ -126,7 +127,7 @@ const LightingSection = () => {
                 </Card>
               </Col>
               <Col xs={24} md={12}>
-                <Card size="small" title="Bố trí chiếu sáng" style={{ borderColor: '#52c41a' }}>
+                <Card size="small" title="Bố trí chiếu sáng" className="card-green">
                   <ul>
                     <li><Text strong>Khu vực làm việc:</Text> 500 lux</li>
                     <li><Text strong>Khu vực hành lang:</Text> 200 lux</li>
@@ -140,7 +141,7 @@ const LightingSection = () => {
         </div>
       </div>
 
-      <div id="5.2" className="subsection" style={{ scrollMarginTop: '20px' }}>
+      <div id="section-5-2" className="subsection" style={{ scrollMarginTop: '20px' }}>
         <Title level={3} style={{ color: '#333333', marginBottom: '16px' }}>
           5.2. Ổ cắm và công tắc
         </Title>
@@ -152,7 +153,7 @@ const LightingSection = () => {
           <Card style={{ marginBottom: '24px' }}>
             <Row gutter={[16, 16]}>
               <Col xs={24} md={12}>
-                <Card size="small" title="Ổ cắm 3 pha" style={{ borderColor: '#1890ff' }}>
+                <Card size="small" title="Ổ cắm 3 pha" className="card-blue">
                   <ul>
                     <li><Text strong>Điện áp:</Text> 400V AC</li>
                     <li><Text strong>Dòng điện:</Text> 32A, 63A</li>
@@ -162,7 +163,7 @@ const LightingSection = () => {
                 </Card>
               </Col>
               <Col xs={24} md={12}>
-                <Card size="small" title="Ổ cắm 1 pha" style={{ borderColor: '#52c41a' }}>
+                <Card size="small" title="Ổ cắm 1 pha" className="card-green">
                   <ul>
                     <li><Text strong>Điện áp:</Text> 230V AC</li>
                     <li><Text strong>Dòng điện:</Text> 16A, 32A</li>
@@ -199,7 +200,7 @@ const LightingSection = () => {
 
             <Row gutter={[16, 16]}>
               <Col xs={24} md={12}>
-                <Card size="small" title="Yêu cầu lắp đặt" style={{ borderColor: '#1890ff' }}>
+                <Card size="small" title="Yêu cầu lắp đặt" className="card-blue">
                   <ul>
                     <li>Chiều cao lắp đặt: 0.3m từ sàn</li>
                     <li>Khoảng cách giữa các ổ cắm: 3m</li>
@@ -209,7 +210,7 @@ const LightingSection = () => {
                 </Card>
               </Col>
               <Col xs={24} md={12}>
-                <Card size="small" title="Kiểm tra sau lắp đặt" style={{ borderColor: '#52c41a' }}>
+                <Card size="small" title="Kiểm tra sau lắp đặt" className="card-green">
                   <ul>
                     <li>Kiểm tra kết nối dây</li>
                     <li>Kiểm tra bảo vệ RCD</li>
@@ -223,7 +224,7 @@ const LightingSection = () => {
         </div>
       </div>
 
-      <div id="5.3" className="subsection" style={{ scrollMarginTop: '20px' }}>
+      <div id="section-5-3" className="subsection" style={{ scrollMarginTop: '20px' }}>
         <Title level={3} style={{ color: '#333333', marginBottom: '16px' }}>
           5.3. Hệ thống Exit & Emergency
         </Title>
@@ -235,7 +236,7 @@ const LightingSection = () => {
           <Card style={{ marginBottom: '24px' }}>
             <Row gutter={[16, 16]}>
               <Col xs={24} md={12}>
-                <Card size="small" title="Đèn Exit" style={{ borderColor: '#1890ff' }}>
+                <Card size="small" title="Đèn Exit" className="card-blue">
                   <ul>
                     <li><Text strong>Loại đèn:</Text> LED Exit sign</li>
                     <li><Text strong>Công suất:</Text> 3W</li>
@@ -245,7 +246,7 @@ const LightingSection = () => {
                 </Card>
               </Col>
               <Col xs={24} md={12}>
-                <Card size="small" title="Đèn Emergency" style={{ borderColor: '#52c41a' }}>
+                <Card size="small" title="Đèn Emergency" className="card-green">
                   <ul>
                     <li><Text strong>Loại đèn:</Text> LED Emergency</li>
                     <li><Text strong>Công suất:</Text> 5W, 10W</li>
@@ -282,7 +283,7 @@ const LightingSection = () => {
 
             <Row gutter={[16, 16]}>
               <Col xs={24} md={12}>
-                <Card size="small" title="Điều khiển tự động" style={{ borderColor: '#1890ff' }}>
+                <Card size="small" title="Điều khiển tự động" className="card-blue">
                   <ul>
                     <li><Text strong>Chế độ vận hành:</Text> Tự động</li>
                     <li><Text strong>Thời gian sáng:</Text> 3 giờ</li>
@@ -292,7 +293,7 @@ const LightingSection = () => {
                 </Card>
               </Col>
               <Col xs={24} md={12}>
-                <Card size="small" title="Bảo trì và kiểm tra" style={{ borderColor: '#52c41a' }}>
+                <Card size="small" title="Bảo trì và kiểm tra" className="card-green">
                   <ul>
                     <li>Kiểm tra nguồn dự phòng</li>
                     <li>Kiểm tra thời gian sáng</li>

@@ -450,7 +450,7 @@ const OperationSection = () => {
   return (
     <div className="content-section">
       {/* 5.1 Vận hành UPS Galaxy 500KVA Vân Canh */}
-      <div id="5.1" className="subsection">
+      <div id="section-5-1" className="subsection">
         <Title level={3}>
           5.1. Vận hành UPS Galaxy 500KVA Vân Canh
         </Title>
@@ -1013,7 +1013,7 @@ const OperationSection = () => {
         </div>
         
         {/* 5.2 Vận hành hệ thống UPS song song */}
-        <div id="5.2" className="subsection">
+        <div id="section-5-2" className="subsection">
           <Title level={4}>
             5.2. Vận hành hệ thống UPS song song
           </Title>

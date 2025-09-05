@@ -1,9 +1,9 @@
 import {
-  CheckCircleOutlined,
-  ExclamationCircleOutlined,
-  InfoCircleOutlined,
-  SettingOutlined,
-  ToolOutlined
+    CheckCircleOutlined,
+    ExclamationCircleOutlined,
+    InfoCircleOutlined,
+    SettingOutlined,
+    ToolOutlined
 } from '@ant-design/icons';
 import { Alert, Card, Space, Table, Tag, Typography } from 'antd';
 import React from 'react';
@@ -13,7 +13,8 @@ const { Title, Paragraph, Text } = Typography;
 
 const LDCVSeries = () => {
   return (
-    <div id="section-2.3" className="subsection">
+    <div>
+      <div id="section-2-3" className="subsection">
       <Title level={3} >
         <SettingOutlined style={{ marginRight: '8px' }} />
         2.3. PAC UNIFLAIR LDCV Series - TTDL Vân Canh
@@ -391,6 +392,7 @@ const LDCVSeries = () => {
             </ul>
           </Paragraph>
         </Card>
+      </div>
       </div>
     </div>
   );

@@ -1,6 +1,6 @@
 import {
-  DownloadOutlined,
-  FileTextOutlined
+    DownloadOutlined,
+    FileTextOutlined
 } from '@ant-design/icons';
 import { Alert, Button, Card, Col, Row, Space, Tabs, Typography } from 'antd';
 import React from 'react';
@@ -32,7 +32,7 @@ const DocumentationSection = () => {
   );
 
   return (
-    <div className="content-section">
+    <div id="section-7" className="content-section">
       <Title level={2}>
         <FileTextOutlined style={{ marginRight: '12px' }} />
         7. TÀI LIỆU & THAM KHẢO - TTDL Vân Canh

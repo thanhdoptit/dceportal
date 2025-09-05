@@ -2,6 +2,7 @@ import { AppstoreOutlined } from '@ant-design/icons';
 import { Alert, Card, Collapse, Steps, Table, Tag, Typography } from 'antd';
 import React from 'react';
 import { PasswordField } from '../../shared';
+import '../../shared/styles/SystemSection.css';
 
 const { Title, Paragraph, Text } = Typography;
 
@@ -17,7 +18,7 @@ const ApplicationSection = () => {
         4. ỨNG DỤNG - TTDL Hòa Lạc
       </Title>
 
-      <div id="section-4.1" className="subsection">
+      <div id="section-4-1" className="subsection">
       <Title level={3}>
       4.1. Quy trình vận hành hàng ngày chung của hệ thống làm mát
         </Title>
@@ -220,7 +221,7 @@ const ApplicationSection = () => {
         </Card>
       </div>
 
-      <div id="section-4.2" className="subsection">
+      <div id="section-4-2" className="subsection">
         <Title level={3}>
           4.2. Tổng hợp mã lỗi, nguyên nhân và cách giải quyết
         </Title>
@@ -430,7 +431,7 @@ const ApplicationSection = () => {
         </Card>
       </div>
 
-      <div id="section-4.3" className="subsection">
+      <div id="section-4-3" className="subsection">
         <Title level={3}>
           4.3. Vị trí, Seri, IP, hợp đồng bảo trì liên quan cụ thể
         </Title>
@@ -737,7 +738,7 @@ const ApplicationSection = () => {
         </Card>
       </div>
 
-      <div id="section-4.4" className="subsection">
+      <div id="section-4-4" className="subsection">
         <Title level={3}>
           4.4. Xem và thiết lập thông số của các điều hòa qua Website
         </Title>

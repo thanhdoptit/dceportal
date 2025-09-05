@@ -1,2 +1,1 @@
-export { default as CoolingSystemPage } from './CoolingSystemPage';
-export { default as CoolingContent } from './CoolingContent'; 
+export { default } from './CoolingSystemPage';

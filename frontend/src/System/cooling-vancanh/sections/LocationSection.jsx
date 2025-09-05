@@ -1,10 +1,10 @@
 import {
-  ApartmentOutlined,
-  CloudOutlined,
-  DownloadOutlined,
-  EnvironmentOutlined,
-  RadarChartOutlined,
-  SettingOutlined
+    ApartmentOutlined,
+    CloudOutlined,
+    DownloadOutlined,
+    EnvironmentOutlined,
+    RadarChartOutlined,
+    SettingOutlined
 } from '@ant-design/icons';
 import { Alert, Button, Card, Col, Divider, Row, Space, Table, Tag, Typography } from 'antd';
 import '../../shared/styles/SystemSection.css';
@@ -168,7 +168,7 @@ const LocationSection = () => {
   ];
 
   return (
-    <div className="content-section">
+    <div id="section-4" className="content-section">
       <Title level={2} >
         <EnvironmentOutlined style={{ marginRight: '12px' }} />
         4. VỊ TRÍ HỆ THỐNG - TTDL Vân Canh
@@ -182,7 +182,7 @@ const LocationSection = () => {
         style={{ marginBottom: '24px' }}
       />
 
-      <div id="section-4.1" className="subsection">
+      <div id="section-4-1" className="subsection">
         <Card >
           <Title level={3} className="subsection-title">
             <ApartmentOutlined style={{ marginRight: '8px' }} />
@@ -370,7 +370,7 @@ const LocationSection = () => {
 
       <Divider />
 
-      <div id="section-4.2" className="subsection">
+      <div id="section-4-2" className="subsection">
         <Card >
           <Title level={3} >
             <SettingOutlined style={{ marginRight: '8px' }} />
@@ -439,7 +439,7 @@ const LocationSection = () => {
 
       <Divider />
 
-      <div id="section-4.3" className="subsection">
+      <div id="section-4-3" className="subsection">
         <Card >
           <Title level={3} >
             <RadarChartOutlined style={{ marginRight: '8px' }} />
@@ -531,7 +531,7 @@ const LocationSection = () => {
 
       <Divider />
 
-      <div id="section-4.4" className="subsection">
+      <div id="section-4-4" className="subsection">
         <Card >
           <Title level={3} >
             <CloudOutlined style={{ marginRight: '8px' }} />

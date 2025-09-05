@@ -1,313 +1,476 @@
-import {
-  BulbOutlined,
-  FileTextOutlined,
-  InfoCircleOutlined,
-  SafetyOutlined,
-  SettingOutlined,
-  ThunderboltOutlined,
-  ToolOutlined
-} from '@ant-design/icons';
-import React from 'react';
-import { SystemLayout, createLeafMenuItem, createMenuItem, createSubMenuItem } from '../shared';
-import ElectricContent from './ElectricContent';
-// Import CSS từ shared
-import '../shared/styles/SystemLayout.css';
-import '../shared/styles/SystemSection.css';
-import '../shared/styles/SystemTemplate.css';
+import React, { memo, useCallback, useEffect, useRef, useState } from "react";
+import ModernErrorScreen from "../../components/common/ModernErrorScreen";
+import ModernLoadingScreen from "../../components/common/ModernLoadingScreen";
+import SystemMenu from "../../components/common/SystemMenu";
+import { useSidebar } from "../../contexts/SidebarContext";
+import LazySection from "./components/LazySection";
+import { ElectricDataProvider, useElectricData } from "./context";
+import CableSection from "./sections/CableSection";
+import ControlSection from "./sections/ControlSection";
+import DocumentationSection from "./sections/DocumentationSection";
+import IntroductionSection from "./sections/IntroductionSection";
+import LightingSection from "./sections/LightingSection";
+import LowVoltageSection from "./sections/LowVoltageSection";
+import OperationSection from "./sections/OperationSection";
+import ProtectionSection from "./sections/ProtectionSection";
 
-const ElectricSystemPage = () => {
+/**
+ * Hệ thống phân phối điện Vân Canh - Static Documentation
+ */
 
-  // Cấu trúc menu hệ thống điện dựa trên tài liệu đã xử lý
-  const menuItems = [
-    createMenuItem(
-      '1',
-      <InfoCircleOutlined />,
-      '1. GIỚI THIỆU CHUNG',
-      [
-        createLeafMenuItem('1.1', '1.1. Sơ đồ đơn tuyến hệ thống điện'),
-        createLeafMenuItem('1.2', '1.2. Cấu trúc tổng quan hệ thống'),
-        createLeafMenuItem('1.3', '1.3. Thông số kỹ thuật chung'),
-        createLeafMenuItem('1.4', '1.4. Tiêu chuẩn và quy định'),
-      ]
-    ),
-    createMenuItem(
-      '2',
-      <ThunderboltOutlined />,
-      '2. TỦ ĐIỆN HẠ THẾ',
-      [
-        createSubMenuItem(
-          '2.1',
-          '2.1. Tủ điện ACIT',
-          [
-            createLeafMenuItem('2.1.1', '2.1.1. Đặc điểm kỹ thuật'),
-            createLeafMenuItem('2.1.2', '2.1.2. Cấu trúc và bố trí'),
-            createLeafMenuItem('2.1.3', '2.1.3. Thiết bị bảo vệ'),
-          ]
-        ),
-        createSubMenuItem(
-          '2.2',
-          '2.2. Tủ Blokset',
-          [
-            createLeafMenuItem('2.2.1', '2.2.1. Thông số kỹ thuật'),
-            createLeafMenuItem('2.2.2', '2.2.2. Cấu hình và lắp đặt'),
-            createLeafMenuItem('2.2.3', '2.2.3. Vận hành và bảo trì'),
-          ]
-        ),
-        createSubMenuItem(
-          '2.3',
-          '2.3. Máy cắt ACB MTZ2 Schneider',
-          [
-            createLeafMenuItem('2.3.1', '2.3.1. Đặc điểm kỹ thuật'),
-            createLeafMenuItem('2.3.2', '2.3.2. Cài đặt bảo vệ'),
-            createLeafMenuItem('2.3.3', '2.3.3. Vận hành và kiểm tra'),
-          ]
-        ),
-        createSubMenuItem(
-          '2.4',
-          '2.4. MCCB Schneider',
-          [
-            createLeafMenuItem('2.4.1', '2.4.1. Thông số kỹ thuật'),
-            createLeafMenuItem('2.4.2', '2.4.2. Cài đặt và bảo vệ'),
-            createLeafMenuItem('2.4.3', '2.4.3. Kiểm tra định kỳ'),
-          ]
-        ),
-        createSubMenuItem(
-          '2.5',
-          '2.5. MCB Schneider',
-          [
-            createLeafMenuItem('2.5.1', '2.5.1. Đặc điểm kỹ thuật'),
-            createLeafMenuItem('2.5.2', '2.5.2. Lắp đặt và kết nối'),
-            createLeafMenuItem('2.5.3', '2.5.3. Bảo trì và thay thế'),
-          ]
-        ),
-        createSubMenuItem(
-          '2.6',
-          '2.6. RCBO & RCCB ABB',
-          [
-            createLeafMenuItem('2.6.1', '2.6.1. Thông số kỹ thuật'),
-            createLeafMenuItem('2.6.2', '2.6.2. Cài đặt bảo vệ'),
-            createLeafMenuItem('2.6.3', '2.6.3. Kiểm tra và thử nghiệm'),
-          ]
-        ),
-      ]
-    ),
-    createMenuItem(
-      '3',
-      <SafetyOutlined />,
-      '3. HỆ THỐNG BẢO VỆ',
-      [
-        createSubMenuItem(
-          '3.1',
-          '3.1. Bảo vệ quá dòng',
-          [
-            createLeafMenuItem('3.1.1', '3.1.1. Cài đặt bảo vệ'),
-            createLeafMenuItem('3.1.2', '3.1.2. Kiểm tra và thử nghiệm'),
-            createLeafMenuItem('3.1.3', '3.1.3. Xử lý sự cố'),
-          ]
-        ),
-        createSubMenuItem(
-          '3.2',
-          '3.2. Bảo vệ chạm đất',
-          [
-            createLeafMenuItem('3.2.1', '3.2.1. Cài đặt RCD'),
-            createLeafMenuItem('3.2.2', '3.2.2. Kiểm tra độ nhạy'),
-            createLeafMenuItem('3.2.3', '3.2.3. Bảo trì định kỳ'),
-          ]
-        ),
-        createSubMenuItem(
-          '3.3',
-          '3.3. Bảo vệ ngắn mạch',
-          [
-            createLeafMenuItem('3.3.1', '3.3.1. Tính toán dòng ngắn mạch'),
-            createLeafMenuItem('3.3.2', '3.3.2. Cài đặt bảo vệ'),
-            createLeafMenuItem('3.3.3', '3.3.3. Kiểm tra và thử nghiệm'),
-          ]
-        ),
-      ]
-    ),
-    createMenuItem(
-      '4',
-      <SettingOutlined />,
-      '4. HỆ THỐNG ĐIỀU KHIỂN',
-      [
-        createSubMenuItem(
-          '4.1',
-          '4.1. PLC điều khiển',
-          [
-            createLeafMenuItem('4.1.1', '4.1.1. Cấu hình PLC'),
-            createLeafMenuItem('4.1.2', '4.1.2. Lập trình logic'),
-            createLeafMenuItem('4.1.3', '4.1.3. Giám sát và điều khiển'),
-          ]
-        ),
-        createSubMenuItem(
-          '4.2',
-          '4.2. Hệ thống ATS',
-          [
-            createLeafMenuItem('4.2.1', '4.2.1. Cấu hình ATS'),
-            createLeafMenuItem('4.2.2', '4.2.2. Vận hành tự động'),
-            createLeafMenuItem('4.2.3', '4.2.3. Bảo trì và kiểm tra'),
-          ]
-        ),
-        createSubMenuItem(
-          '4.3',
-          '4.3. Điều khiển máy phát',
-          [
-            createLeafMenuItem('4.3.1', '4.3.1. Cài đặt điều khiển'),
-            createLeafMenuItem('4.3.2', '4.3.2. Khởi động tự động'),
-            createLeafMenuItem('4.3.3', '4.3.3. Giám sát trạng thái'),
-          ]
-        ),
-      ]
-    ),
-    createMenuItem(
-      '5',
-      <BulbOutlined />,
-      '5. HỆ THỐNG CHIẾU SÁNG',
-      [
-        createSubMenuItem(
-          '5.1',
-          '5.1. Chiếu sáng chung',
-          [
-            createLeafMenuItem('5.1.1', '5.1.1. Bố trí đèn chiếu sáng'),
-            createLeafMenuItem('5.1.2', '5.1.2. Điều khiển và điều chỉnh'),
-            createLeafMenuItem('5.1.3', '5.1.3. Bảo trì và thay thế'),
-          ]
-        ),
-        createSubMenuItem(
-          '5.2',
-          '5.2. Chiếu sáng khẩn cấp',
-          [
-            createLeafMenuItem('5.2.1', '5.2.1. Đèn Exit và Emergency'),
-            createLeafMenuItem('5.2.2', '5.2.2. Nguồn dự phòng'),
-            createLeafMenuItem('5.2.3', '5.2.3. Kiểm tra định kỳ'),
-          ]
-        ),
-        createSubMenuItem(
-          '5.3',
-          '5.3. Hệ thống ổ cắm',
-          [
-            createLeafMenuItem('5.3.1', '5.3.1. Bố trí ổ cắm'),
-            createLeafMenuItem('5.3.2', '5.3.2. Bảo vệ và an toàn'),
-            createLeafMenuItem('5.3.3', '5.3.3. Kiểm tra và bảo trì'),
-          ]
-        ),
-      ]
-    ),
-    createMenuItem(
-      '6',
-      <ToolOutlined />,
-      '6. HỆ THỐNG CÁP VÀ MÁNG',
-      [
-        createSubMenuItem(
-          '6.1',
-          '6.1. Thang máng cáp',
-          [
-            createLeafMenuItem('6.1.1', '6.1.1. Bố trí thang máng'),
-            createLeafMenuItem('6.1.2', '6.1.2. Kích thước và tải trọng'),
-            createLeafMenuItem('6.1.3', '6.1.3. Lắp đặt và kết nối'),
-          ]
-        ),
-        createSubMenuItem(
-          '6.2',
-          '6.2. Cáp điện lực',
-          [
-            createLeafMenuItem('6.2.1', '6.2.1. Chọn cáp theo tải'),
-            createLeafMenuItem('6.2.2', '6.2.2. Lắp đặt và bảo vệ'),
-            createLeafMenuItem('6.2.3', '6.2.3. Kiểm tra và bảo trì'),
-          ]
-        ),
-        createSubMenuItem(
-          '6.3',
-          '6.3. Cáp điều khiển',
-          [
-            createLeafMenuItem('6.3.1', '6.3.1. Chọn cáp điều khiển'),
-            createLeafMenuItem('6.3.2', '6.3.2. Lắp đặt và bảo vệ'),
-            createLeafMenuItem('6.3.3', '6.3.3. Kiểm tra và thử nghiệm'),
-          ]
-        ),
-      ]
-    ),
-    createMenuItem(
-      '7',
-      <FileTextOutlined />,
-      '7. VẬN HÀNH VÀ BẢO TRÌ',
-      [
-        createSubMenuItem(
-          '7.1',
-          '7.1. Quy trình vận hành',
-          [
-            createLeafMenuItem('7.1.1', '7.1.1. Khởi động hệ thống'),
-            createLeafMenuItem('7.1.2', '7.1.2. Vận hành bình thường'),
-            createLeafMenuItem('7.1.3', '7.1.3. Xử lý sự cố'),
-          ]
-        ),
-        createSubMenuItem(
-          '7.2',
-          '7.2. Kiểm tra hệ thống dự phòng',
-          [
-            createLeafMenuItem('7.2.1', '7.2.1. Quy trình kiểm tra'),
-            createLeafMenuItem('7.2.2', '7.2.2. Test máy phát'),
-            createLeafMenuItem('7.2.3', '7.2.3. Ghi nhận kết quả'),
-          ]
-        ),
-        createSubMenuItem(
-          '7.3',
-          '7.3. Bảo trì định kỳ',
-          [
-            createLeafMenuItem('7.3.1', '7.3.1. Lịch bảo trì'),
-            createLeafMenuItem('7.3.2', '7.3.2. Nội dung bảo trì'),
-            createLeafMenuItem('7.3.3', '7.3.3. Báo cáo và ghi nhận'),
-          ]
-        ),
-      ]
-    ),
-    createMenuItem(
-      '8',
-      <InfoCircleOutlined />,
-      '8. TÀI LIỆU VÀ TIÊU CHUẨN',
-      [
-        createSubMenuItem(
-          '8.1',
-          '8.1. Tiêu chuẩn Việt Nam',
-          [
-            createLeafMenuItem('8.1.1', '8.1.1. TCVN 5935-1:2013'),
-            createLeafMenuItem('8.1.2', '8.1.2. TCVN 6483:1999'),
-            createLeafMenuItem('8.1.3', '8.1.3. QCVN 4:2009'),
-          ]
-        ),
-        createSubMenuItem(
-          '8.2',
-          '8.2. Tiêu chuẩn quốc tế',
-          [
-            createLeafMenuItem('8.2.1', '8.2.1. IEC 60502-1'),
-            createLeafMenuItem('8.2.2', '8.2.2. BS 6387'),
-            createLeafMenuItem('8.2.3', '8.2.3. AS/NZS 5000.1'),
-          ]
-        ),
-        createSubMenuItem(
-          '8.3',
-          '8.3. Chứng nhận sản phẩm',
-          [
-            createLeafMenuItem('8.3.1', '8.3.1. ISO 9001'),
-            createLeafMenuItem('8.3.2', '8.3.2. Chứng nhận ACIT'),
-            createLeafMenuItem('8.3.3', '8.3.3. Test certificate'),
-          ]
-        ),
-      ]
-    ),
-  ];
+const SECTIONS = [
+  {
+    key: "introduction",
+    label: "Giới thiệu chung",
+    Component: IntroductionSection,
+    sectionId: "section-1",
+    submenu: [
+      { key: "intro-1", label: "Sơ đồ đơn tuyến hệ thống điện", sectionId: "section-1-1" },
+      { key: "intro-2", label: "Cấu trúc tổng quan hệ thống", sectionId: "section-1-2" },
+      { key: "intro-3", label: "Thông số kỹ thuật chung", sectionId: "section-1-3" },
+      { key: "intro-4", label: "Tiêu chuẩn và quy định", sectionId: "section-1-4" }
+    ]
+  },
+  {
+    key: "lowVoltage",
+    label: "Tủ điện hạ thế",
+    Component: LowVoltageSection,
+    sectionId: "section-2",
+    submenu: [
+      { key: "low-1", label: "Tủ điện ACIT", sectionId: "section-2-1" },
+      { key: "low-2", label: "Tủ Blokset", sectionId: "section-2-2" },
+      { key: "low-3", label: "Máy cắt ACB MTZ2 Schneider", sectionId: "section-2-3" },
+      { key: "low-4", label: "MCCB Schneider", sectionId: "section-2-4" },
+      { key: "low-5", label: "MCB Schneider", sectionId: "section-2-5" },
+      { key: "low-6", label: "RCBO & RCCB ABB", sectionId: "section-2-6" }
+    ]
+  },
+  {
+    key: "protection",
+    label: "Hệ thống bảo vệ",
+    Component: ProtectionSection,
+    sectionId: "section-3",
+    submenu: [
+      { key: "prot-1", label: "Bảo vệ quá dòng", sectionId: "section-3-1" },
+      { key: "prot-2", label: "Bảo vệ chạm đất", sectionId: "section-3-2" },
+      { key: "prot-3", label: "Bảo vệ ngắn mạch", sectionId: "section-3-3" }
+    ]
+  },
+  {
+    key: "control",
+    label: "Hệ thống điều khiển",
+    Component: ControlSection,
+    sectionId: "section-4",
+    submenu: [
+      { key: "ctrl-1", label: "PLC điều khiển", sectionId: "section-4-1" },
+      { key: "ctrl-2", label: "Hệ thống ATS", sectionId: "section-4-2" },
+      { key: "ctrl-3", label: "Điều khiển máy phát", sectionId: "section-4-3" }
+    ]
+  },
+  {
+    key: "lighting",
+    label: "Hệ thống chiếu sáng",
+    Component: LightingSection,
+    sectionId: "section-5",
+    submenu: [
+      { key: "light-1", label: "Chiếu sáng chung", sectionId: "section-5-1" },
+      { key: "light-2", label: "Chiếu sáng khẩn cấp", sectionId: "section-5-2" },
+      { key: "light-3", label: "Hệ thống ổ cắm", sectionId: "section-5-3" }
+    ]
+  },
+  {
+    key: "cable",
+    label: "Hệ thống cáp và máng",
+    Component: CableSection,
+    sectionId: "section-6",
+    submenu: [
+      { key: "cable-1", label: "Thang máng cáp", sectionId: "section-6-1" },
+      { key: "cable-2", label: "Cáp điện lực", sectionId: "section-6-2" },
+      { key: "cable-3", label: "Cáp điều khiển", sectionId: "section-6-3" }
+    ]
+  },
+  {
+    key: "operation",
+    label: "Vận hành và bảo trì",
+    Component: OperationSection,
+    sectionId: "section-7",
+    submenu: [
+      { key: "op-1", label: "Quy trình vận hành", sectionId: "section-7-1" },
+      { key: "op-2", label: "Kiểm tra hệ thống dự phòng", sectionId: "section-7-2" },
+      { key: "op-3", label: "Bảo trì định kỳ", sectionId: "section-7-3" }
+    ]
+  },
+  {
+    key: "documentation",
+    label: "Tài liệu và tiêu chuẩn",
+    Component: DocumentationSection,
+    sectionId: "section-8",
+    submenu: [
+      { key: "doc-1", label: "Tiêu chuẩn Việt Nam", sectionId: "section-8-1" },
+      { key: "doc-2", label: "Tiêu chuẩn quốc tế", sectionId: "section-8-2" },
+      { key: "doc-3", label: "Chứng nhận sản phẩm", sectionId: "section-8-3" }
+    ]
+  }
+];
+
+const Sidebar = memo(({ active, activeSubmenu, setActive, setActiveSubmenu, expandedSections, setExpandedSections, mobileMenuOpen, setMobileMenuOpen, setIgnoreSpy }) => {
 
   return (
-    <SystemLayout
-      title="HỆ THỐNG PHÂN PHỐI ĐIỆN VÂN CANH"
-      menuItems={menuItems}
-      headerBgColor="#1890ff"
-      defaultOpenKeys={['1', '2', '3', '4', '5', '6', '7', '8']}
-      selectedKey="1"
-    >
-      <ElectricContent />
-    </SystemLayout>
+    <SystemMenu
+      sections={SECTIONS}
+      active={active}
+      activeSubmenu={activeSubmenu}
+      setActive={setActive}
+      setActiveSubmenu={setActiveSubmenu}
+      expandedSections={expandedSections}
+      setExpandedSections={setExpandedSections}
+      mobileMenuOpen={mobileMenuOpen}
+      setMobileMenuOpen={setMobileMenuOpen}
+      setIgnoreSpy={setIgnoreSpy}
+    />
   );
-};
+});
 
-export default ElectricSystemPage;
+Sidebar.displayName = 'Sidebar';
+
+function ElectricSystemContent() {
+  const { isLoading, isFullyLoaded, error } = useElectricData();
+  const { collapsed } = useSidebar();
+  const [active, setActive] = useState("introduction");
+  const [activeSubmenu, setActiveSubmenu] = useState(null);
+  const [expandedSections, setExpandedSections] = useState(new Set(["introduction"]));
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [ignoreSpy, setIgnoreSpy] = useState(false);
+
+  const observer = useRef(null);
+
+  // Function để setup observer - có thể gọi lại khi cần
+  const setupObserver = useCallback(() => {
+    // Disconnect observer cũ nếu có
+    if (observer.current) {
+      observer.current.disconnect();
+    }
+
+    const options = { root: null, rootMargin: "-80px 0px -50% 0px", threshold: [0, 0.1, 0.3, 0.5, 0.7, 1] };
+    const obs = new IntersectionObserver((entries) => {
+      const visibleEntries = entries.filter(e => e.isIntersecting);
+      if (visibleEntries.length === 0) {
+        return;
+      }
+
+      // Đơn giản hóa: chọn element có intersection ratio cao nhất
+      const bestEntry = visibleEntries.reduce((best, current) =>
+        current.intersectionRatio > best.intersectionRatio ? current : best
+      );
+
+      const id = bestEntry.target.getAttribute("id");
+      if (!id) {
+        return;
+      }
+
+      const sec = SECTIONS.find(s => s.sectionId === id);
+      if (sec) {
+        setActive(sec.key);
+        setActiveSubmenu(null);
+        setExpandedSections(new Set([sec.key]));
+        return;
+      }
+
+      for (const section of SECTIONS) {
+        if (section.submenu) {
+          const sub = section.submenu.find(s => s.sectionId === id);
+          if (sub) {
+            setActive(section.key);
+            setActiveSubmenu(sub.key);
+            setExpandedSections(new Set([section.key]));
+            return;
+          }
+        }
+      }
+
+    }, options);
+
+    const allIds = SECTIONS.flatMap(s => [s.sectionId, ...(s.submenu?.map(sub => sub.sectionId) || [])]);
+    
+    allIds.forEach(id => { 
+      const el = document.getElementById(id); 
+      if (el) {
+        obs.observe(el); 
+      }
+    });
+      
+    observer.current = obs;
+  }, []);
+
+  useEffect(() => {
+    if (ignoreSpy) {
+      return;
+    }
+
+    // Setup observer ngay lập tức
+    setupObserver();
+
+    return () => { 
+      if (observer.current) observer.current.disconnect(); 
+    };
+  }, [ignoreSpy, setupObserver]);
+
+  // Re-setup observer khi isFullyLoaded thay đổi (có section mới được render)
+  useEffect(() => {
+    if (isFullyLoaded && !ignoreSpy) {
+      // Delay nhỏ để đảm bảo DOM đã update
+      const timeoutId = setTimeout(() => {
+        setupObserver();
+      }, 200);
+      
+      return () => clearTimeout(timeoutId);
+    }
+  }, [isFullyLoaded, ignoreSpy, setupObserver]);
+
+  // MutationObserver để theo dõi khi có section mới được lazy load
+  useEffect(() => {
+    if (!isFullyLoaded || ignoreSpy) return;
+
+    const mutationObserver = new MutationObserver((mutations) => {
+      let shouldReSetup = false;
+      
+      mutations.forEach((mutation) => {
+        if (mutation.type === 'childList') {
+          mutation.addedNodes.forEach((node) => {
+            if (node.nodeType === Node.ELEMENT_NODE) {
+              const element = node;
+              // Kiểm tra nếu có element mới với ID section
+              if (element.id && element.id.startsWith('section-')) {
+                shouldReSetup = true;
+              }
+              // Kiểm tra trong children
+              const sectionElements = element.querySelectorAll && element.querySelectorAll('[id^="section-"]');
+              if (sectionElements && sectionElements.length > 0) {
+                shouldReSetup = true;
+              }
+            }
+          });
+        }
+      });
+
+      if (shouldReSetup) {
+        setTimeout(() => {
+          setupObserver();
+        }, 100);
+      }
+    });
+
+    // Theo dõi thay đổi trong content area
+    const contentArea = document.querySelector('main');
+    if (contentArea) {
+      mutationObserver.observe(contentArea, {
+        childList: true,
+        subtree: true
+      });
+    }
+
+    return () => {
+      mutationObserver.disconnect();
+    };
+  }, [isFullyLoaded, ignoreSpy, setupObserver]);
+
+  // Kích hoạt scrollspy ngay khi trang load xong
+  useEffect(() => {
+    const checkInitialSection = () => {
+      // Nếu đang ở đầu trang (scrollY = 0), luôn chọn section đầu tiên
+      if (window.scrollY === 0) {
+        setActive("introduction");
+        setExpandedSections(new Set(["introduction"]));
+        setActiveSubmenu(null);
+        return;
+      }
+
+      const fromTop = window.scrollY + 120; // offset ~header
+      let found = null;
+      
+      for (const section of SECTIONS) {
+        const el = document.getElementById(section.sectionId);
+        if (el && el.offsetTop <= fromTop) {
+          found = section.key;
+        }
+        // check submenu
+        if (section.submenu) {
+          for (const sub of section.submenu) {
+            const subEl = document.getElementById(sub.sectionId);
+            if (subEl && subEl.offsetTop <= fromTop) {
+              found = sub.key;
+            }
+          }
+        }
+      }
+      
+      if (found) {
+        if (found.includes("-")) {
+          // submenu key
+          const parent = SECTIONS.find(s => s.submenu?.some(sub => sub.key === found));
+          if (parent) {
+            setActive(parent.key);
+            setActiveSubmenu(found);
+            setExpandedSections(new Set([parent.key]));
+          }
+        } else {
+          setActive(found);
+          setExpandedSections(new Set([found]));
+          setActiveSubmenu(null);
+        }
+      } else {
+        // Fallback: nếu không tìm thấy gì, chọn section đầu tiên
+        setActive("introduction");
+        setExpandedSections(new Set(["introduction"]));
+        setActiveSubmenu(null);
+      }
+    };
+
+    // Chờ DOM render xong bằng kiểm tra thực tế thay vì timeout
+    let timeoutId = null;
+    let hasInitialized = false;
+
+    const initializeScrollspy = () => {
+      if (hasInitialized) return;
+      
+      // Kiểm tra xem có ít nhất 1 section đã render chưa
+      const firstSection = document.getElementById("section-1");
+      if (firstSection) {
+        hasInitialized = true;
+        checkInitialSection();
+        return;
+      }
+
+      // Nếu chưa có section nào, chờ thêm
+      timeoutId = setTimeout(initializeScrollspy, 100);
+    };
+
+    // Bắt đầu kiểm tra ngay lập tức
+    requestAnimationFrame(initializeScrollspy);
+
+    // Fallback timeout để đảm bảo không chờ vô hạn
+    const fallbackTimeout = setTimeout(() => {
+      if (!hasInitialized) {
+        hasInitialized = true;
+        checkInitialSection();
+      }
+    }, 2000);
+
+    window.addEventListener("resize", checkInitialSection);
+    return () => {
+      if (timeoutId) clearTimeout(timeoutId);
+      clearTimeout(fallbackTimeout);
+      window.removeEventListener("resize", checkInitialSection);
+    };
+  }, [isFullyLoaded]);
+
+  if (isLoading || !isFullyLoaded) {
+    return (
+      <ModernLoadingScreen 
+        title="Đang tải hệ thống phân phối điện"
+        subtitle="Khởi tạo dữ liệu tủ điện, bảo vệ, điều khiển và chiếu sáng..."
+        icon="⚡"
+        color="#f5222d"
+      />
+    );
+  }
+
+  if (error) {
+    return (
+      <ModernErrorScreen 
+        title="Lỗi tải hệ thống phân phối điện"
+        subtitle="Không thể khởi tạo dữ liệu hệ thống"
+        error={error}
+        icon="⚡"
+        color="#f5222d"
+        onRetry={() => window.location.reload()}
+      />
+    );
+  }
+
+  // Tính toán vị trí dựa trên trạng thái sidebar
+  const sidebarLeft = collapsed ? 70 : 200;
+  const headerLeft = sidebarLeft;
+  const menuLeft = sidebarLeft;
+  const contentLeft = sidebarLeft + 320; // 320px là width của menu
+
+  return (
+    <>
+      {/* 1. Header - Independent */}
+      <header 
+        className="fixed top-20 z-5 bg-white border-b border-slate-200 transition-all duration-200"
+        style={{ left: `${headerLeft}px`, right: 0 }}
+      >
+        <div className="max-w-8xl mx-auto px-6 py-4 flex items-center justify-between gap-4">
+          <div className="flex items-center gap-4">
+            <div className="h-9 w-9 rounded-xl bg-blue-600 text-white grid place-items-center font-bold">⚡</div>
+            <div>
+              <h1 className="text-lg font-bold text-slate-900">Hệ thống phân phối điện Vân Canh</h1>
+              <p className="text-xs text-slate-500">Giới thiệu • Tủ điện • Bảo vệ • Điều khiển • Chiếu sáng • Cáp • Vận hành • Tài liệu</p>
+            </div>
+          </div>
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="lg:hidden p-2 rounded-lg hover:bg-slate-100 transition-colors"
+            aria-label="Toggle menu"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              {mobileMenuOpen ? (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              ) : (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              )}
+            </svg>
+          </button>
+        </div>
+      </header>
+
+      {/* 2. Menu - Independent */}
+      <aside 
+        className="hidden lg:block fixed top-40 w-80 h-[calc(100vh-80px)] bg-white border-r border-slate-200 z-5 transition-all duration-200"
+        style={{ left: `${menuLeft}px` }}
+      >
+        <div className="h-full overflow-y-auto p-6">
+          <Sidebar
+            active={active}
+            activeSubmenu={activeSubmenu}
+            setActive={setActive}
+            setActiveSubmenu={setActiveSubmenu}
+            expandedSections={expandedSections}
+            setExpandedSections={setExpandedSections}
+            mobileMenuOpen={mobileMenuOpen}
+            setMobileMenuOpen={setMobileMenuOpen}
+            setIgnoreSpy={setIgnoreSpy}
+          />
+        </div>
+      </aside>
+
+      {/* 3. Content - Independent */}
+      <main 
+        className="fixed top-40 right-0 h-[calc(100vh-80px)] bg-white border-l border-slate-200 z-5 transition-all duration-200"
+        style={{ left: `${contentLeft}px` }}
+      >
+        <div className="h-full overflow-y-auto p-8">
+          <div className="max-w-7xl mx-auto space-y-8">
+            {SECTIONS.map(section => (
+              <LazySection
+                key={section.key}
+                sectionKey={section.key}
+                Component={section.Component}
+                sectionId={section.sectionId}
+              />
+            ))}
+          </div>
+        </div>
+      </main>
+    </>
+  );
+}
+
+export default function ElectricSystemPage() {
+  return (
+    <ElectricDataProvider>
+      <ElectricSystemContent />
+    </ElectricDataProvider>
+  );
+}

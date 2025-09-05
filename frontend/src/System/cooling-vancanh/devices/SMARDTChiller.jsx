@@ -1,9 +1,9 @@
 import {
-  CheckCircleOutlined,
-  ExclamationCircleOutlined,
-  InfoCircleOutlined,
-  SettingOutlined,
-  ToolOutlined
+    CheckCircleOutlined,
+    ExclamationCircleOutlined,
+    InfoCircleOutlined,
+    SettingOutlined,
+    ToolOutlined
 } from '@ant-design/icons';
 import { Alert, Card, Space, Table, Tag, Typography } from 'antd';
 import React from 'react';
@@ -13,13 +13,14 @@ const { Title, Paragraph, Text } = Typography;
 
 const SMARDTChiller = () => {
   return (
-    <div id="section-2.1" className="subsection">
+    <div>
+      <div id="section-2-1" className="subsection">
       <Title level={3} >
         <SettingOutlined style={{ marginRight: '8px' }} />
         2.1. Chiller SMARDT AE Series - TTDL Vân Canh
       </Title>
 
-      <div id="section-2.1.1" className="subsection">
+      <div id="section-2-1-1" className="subsection">
         <Title level={4}>
           <InfoCircleOutlined style={{ marginRight: '8px' }} /> 2.1.1. Thông tin chung
         </Title>
@@ -171,7 +172,7 @@ const SMARDTChiller = () => {
         </Card>
       </div>
 
-      <div id="section-2.1.2" className="subsection">
+      <div id="section-2-1-2" className="subsection">
         <Title level={4}>
           <CheckCircleOutlined style={{ marginRight: '8px' }} /> 2.1.2. Chế độ Commissioning (Khởi tạo)
         </Title>
@@ -209,7 +210,7 @@ const SMARDTChiller = () => {
         </Card>
       </div>
 
-      <div id="section-2.1.3" className="subsection">
+      <div id="section-2-1-3" className="subsection">
         <Title level={4}>
           <ToolOutlined style={{ marginRight: '8px' }} /> 2.1.3. Chế độ Bình thường (Normal Mode)
         </Title>
@@ -438,7 +439,7 @@ const SMARDTChiller = () => {
         </Card>
       </div>
 
-      <div id="section-2.1.4" className="subsection">
+      <div id="section-2-1-4" className="subsection">
         <Title level={4}>
           <ExclamationCircleOutlined style={{ marginRight: '8px' }} /> 2.1.4. Chế độ Xả (Discharge Mode)
         </Title>
@@ -465,7 +466,7 @@ const SMARDTChiller = () => {
                 </Card>
       </div>
 
-      <div id="section-2.1.5" className="subsection">
+      <div id="section-2-1-5" className="subsection">
         <Title level={4}>
           <ToolOutlined style={{ marginRight: '8px' }} /> 2.1.5. Quy trình và chu kỳ bảo trì
         </Title>
@@ -521,6 +522,7 @@ const SMARDTChiller = () => {
             </ul>
           </Paragraph>
         </Card>
+      </div>
       </div>
     </div>
   );

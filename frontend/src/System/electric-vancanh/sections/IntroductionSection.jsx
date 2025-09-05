@@ -1,6 +1,7 @@
-import React from 'react';
-import { Alert, Card, Col, Divider, Row, Space, Tag, Typography } from 'antd';
 import { InfoCircleOutlined } from '@ant-design/icons';
+import { Alert, Card, Col, Divider, Row, Space, Tag, Typography } from 'antd';
+import React from 'react';
+import '../../shared/styles/SystemSection.css';
 
 const { Title, Paragraph, Text } = Typography;
 
@@ -20,7 +21,7 @@ const IntroductionSection = () => {
       <Divider />
 
       {/* Sơ đồ đơn tuyến hệ thống điện */}
-      <div id="1.1" className="subsection">
+      <div id="section-1-1" className="subsection">
         <Title level={3} className="subsection-title">
           1.1. Sơ đồ đơn tuyến hệ thống điện
         </Title>
@@ -76,14 +77,14 @@ const IntroductionSection = () => {
       <Divider />
 
       {/* Cấu trúc tổng quan hệ thống */}
-      <div id="1.2" className="subsection">
+      <div id="section-1-2" className="subsection">
         <Title level={3} className="subsection-title">
           1.2. Cấu trúc tổng quan hệ thống
         </Title>
-        <Card title="Cấu trúc tổng quan hệ thống" className="subsection">
+        <Card title="Cấu trúc tổng quan hệ thống" className="subsection ">
           <Row gutter={[16, 16]}>
             <Col xs={24} lg={8}>
-              <Card size="small" title="Phòng điện A" className="subsection">
+              <Card size="small" title="Phòng điện A" className="subsection card-blue">
                 <ul>
                   <li>Tủ MainLT A</li>
                   <li>Hệ thống chiếu sáng</li>
@@ -95,7 +96,7 @@ const IntroductionSection = () => {
             </Col>
             
             <Col xs={24} lg={8}>
-              <Card size="small" title="Phòng điện B" className="subsection">
+              <Card size="small" title="Phòng điện B" className="subsection card-blue">
                 <ul>
                   <li>Tủ MainLT B</li>
                   <li>Hệ thống chiếu sáng</li>
@@ -107,7 +108,7 @@ const IntroductionSection = () => {
             </Col>
             
             <Col xs={24} lg={8}>
-              <Card size="small" title="Hệ thống chung" className="subsection">
+              <Card size="small" title="Hệ thống chung" className="subsection card-blue">
                 <ul>
                   <li>Máy phát điện</li>
                   <li>Hệ thống ATS</li>
@@ -124,7 +125,7 @@ const IntroductionSection = () => {
       <Divider />
 
       {/* Thông số kỹ thuật chung */}
-      <div id="1.3" className="subsection">
+      <div id="section-1-3" className="subsection">
         <Title level={3} className="subsection-title">
           1.3. Thông số kỹ thuật chung
         </Title>
@@ -179,7 +180,7 @@ const IntroductionSection = () => {
       <Divider />
 
       {/* Tiêu chuẩn và quy định */}
-      <div id="1.4" className="subsection">
+      <div id="section-1-4" className="subsection">
         <Title level={3} className="subsection-title">
           1.4. Tiêu chuẩn và quy định
         </Title>
@@ -233,7 +234,7 @@ const IntroductionSection = () => {
       <Divider />
 
       {/* Thông tin dự án */}
-      <div id="1.5" className="subsection">
+      <div id="section-1-5" className="subsection">
         <Title level={3} className="subsection-title">
           1.5. Thông tin dự án
         </Title>

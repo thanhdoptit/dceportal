@@ -28,7 +28,7 @@
 
 /* Subsection container for nested content */
 .subsection {
-  scroll-margin-top: 20px; /* For smooth navigation */
+  scroll-margin-top: 10px; /* Much smaller offset for subsections */
   margin-bottom: 8px;
   width: 100%;
   box-sizing: border-box;
@@ -418,3 +418,142 @@
   transform: scale(1.05);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
+
+/* ========================================
+ * 10. CARD STYLING - UNIFIED CARD DESIGN
+ * ======================================== */
+
+/* ========================================
+ * 10.1 CARD BORDER COLOR CLASSES
+ * ======================================== */
+
+/* Blue border - for electrical/technical specifications */
+.card-blue {
+  border-color: #1890ff !important;
+  border-width: 1px !important;
+}
+
+.card-blue .ant-card-head {
+  background-color: #f0f9ff !important;
+  border-bottom-color: #1890ff !important;
+}
+
+.card-blue .ant-card-head-title {
+  color: #1890ff !important;
+  font-weight: 600 !important;
+}
+
+.card-black {
+  border-color: #000000 !important;
+  border-width: 1px !important;
+}
+
+.card-black .ant-card-head {
+  background-color: #f0f9ff !important;
+  border-bottom-color: #000000 !important;
+}
+
+.card-black .ant-card-head-title {
+  color: #000000 !important;
+  font-weight: 600 !important;
+}
+
+/* Green border - for structure and features */
+.card-green {
+  border-color: #52c41a !important;
+  border-width: 1px !important;
+}
+
+.card-green .ant-card-head {
+  background-color: #f6ffed !important;
+  border-bottom-color: #52c41a !important;
+}
+
+.card-green .ant-card-head-title {
+  color: #52c41a !important;
+  font-weight: 600 !important;
+}
+
+/* Orange border - for control and operation */
+.card-orange {
+  border-color: #faad14 !important;
+  border-width: 1px !important;
+}
+
+.card-orange .ant-card-head {
+  background-color: #fff7e6 !important;
+  border-bottom-color: #faad14 !important;
+}
+
+.card-orange .ant-card-head-title {
+  color: #faad14 !important;
+  font-weight: 600 !important;
+}
+
+/* Purple border - for monitoring and data */
+.card-purple {
+  border-color: #722ed1 !important;
+  border-width: 1px !important;
+}
+
+.card-purple .ant-card-head {
+  background-color: #f9f0ff !important;
+  border-bottom-color: #722ed1 !important;
+}
+
+.card-purple .ant-card-head-title {
+  color: #722ed1 !important;
+  font-weight: 600 !important;
+}
+
+/* Red border - for warnings and alerts */
+.card-red {
+  border-color: #ff4d4f !important;
+  border-width: 1px !important;
+}
+
+.card-red .ant-card-head {
+  background-color: #fff2f0 !important;
+  border-bottom-color: #ff4d4f !important;
+}
+
+.card-red .ant-card-head-title {
+  color: #ff4d4f !important;
+  font-weight: 600 !important;
+}
+
+/* ========================================
+ * 10.2 CARD CONTENT STYLING
+ * ======================================== */
+
+/* Small card styling */
+.content-section .ant-card.ant-card-small {
+  border-radius: 8px !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+  margin-bottom: 16px !important;
+}
+
+.content-section .ant-card.ant-card-small .ant-card-body {
+  padding: 16px !important;
+}
+
+/* Card list styling */
+.content-section .ant-card ul {
+  margin: 0 !important;
+  padding-left: 20px !important;
+}
+
+.content-section .ant-card li {
+  margin-bottom: 8px !important;
+  line-height: 1.6 !important;
+}
+
+.content-section .ant-card li:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* ========================================
+ * 10.3 CARD HOVER EFFECTS - DISABLED
+ * ======================================== */
+
+/* Hover effects disabled for consistent appearance */

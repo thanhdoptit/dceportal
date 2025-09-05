@@ -1,10 +1,9 @@
-import React, { lazy, Suspense, useState } from 'react';
-import { Spin, Skeleton } from 'antd';
+import { Spin } from 'antd';
+import React, { Suspense, useState } from 'react';
 import useIntersectionObserver from '../hooks/useIntersectionObserver';
 
 const LazySection = ({ 
   importFunc, 
-  fallback = null,
   placeholder = null,
   threshold = 0.1,
   rootMargin = '100px',
@@ -45,7 +44,7 @@ const LazySection = ({
           });
       }, forceLoad ? 0 : 100); // Giảm delay từ 200ms xuống 100ms
     }
-  }, [isIntersecting, shouldLoad, importFunc, forceLoad]);
+  }, [isIntersecting, shouldLoad, importFunc, forceLoad, onLoad]);
 
   // Default placeholder với animation
   const defaultPlaceholder = (

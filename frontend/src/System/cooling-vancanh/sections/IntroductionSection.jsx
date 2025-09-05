@@ -1,11 +1,11 @@
 
 import {
-  CloudOutlined,
-  EnvironmentOutlined,
-  InfoCircleOutlined,
-  SafetyOutlined,
-  SettingOutlined,
-  ThunderboltOutlined
+    CloudOutlined,
+    EnvironmentOutlined,
+    InfoCircleOutlined,
+    SafetyOutlined,
+    SettingOutlined,
+    ThunderboltOutlined
 } from '@ant-design/icons';
 import { Alert, Card, Col, Row, Tag, Typography } from 'antd';
 import '../../shared/styles/SystemSection.css';
@@ -121,7 +121,7 @@ const IntroductionSection = () => {
   ];
 
   return (
-    <div className="content-section">
+    <div id="section-1" className="content-section">
       <Title level={2}>
         <InfoCircleOutlined style={{ marginRight: '12px' }} />
         1. Giới thiệu chung hệ thống làm mát TTDL Vân Canh
@@ -136,7 +136,7 @@ const IntroductionSection = () => {
       />
 
       {/* Thông số kỹ thuật chính */}
-      <div id="section-1.1" className="subsection">
+      <div id="section-1-1" className="subsection">
         <Title level={3} >
           <SettingOutlined style={{ marginRight: '12px' }} />
           1.1. Thông số kỹ thuật hệ thống
@@ -171,7 +171,7 @@ const IntroductionSection = () => {
       </div>
 
       {/* Cấu trúc và nguyên lý hoạt động */}
-      <div id="section-1.2" className="subsection">
+      <div id="section-1-2" className="subsection">
         <Title level={3}>
           <CloudOutlined style={{ marginRight: '12px' }} />
           1.2. Cấu trúc và nguyên lý hoạt động
@@ -199,7 +199,7 @@ const IntroductionSection = () => {
       </div>
 
       {/* Các chế độ vận hành chính */}
-      <div id="section-1.3" className="subsection">
+      <div id="section-1-3" className="subsection">
         <Title level={3}>
           <ThunderboltOutlined style={{ marginRight: '12px' }} />
           1.3. Các chế độ vận hành chính
@@ -237,7 +237,7 @@ const IntroductionSection = () => {
       </div>
 
       {/* Hệ thống điều khiển BMS */}
-      <div id="section-1.4" className="subsection">
+      <div id="section-1-4" className="subsection">
         <Title level={3}>
           <SafetyOutlined style={{ marginRight: '12px' }} />
           1.4. Hệ thống điều khiển BMS (Building Management System)
@@ -265,7 +265,7 @@ const IntroductionSection = () => {
       </div>
 
       {/* Thông tin bổ sung */}
-      <div id="section-1.5" className="subsection">
+      <div id="section-1-5" className="subsection">
         <Title level={3}>
           <EnvironmentOutlined style={{ marginRight: '12px' }} />
           1.5. Thông tin bổ sung

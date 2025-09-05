@@ -2,6 +2,7 @@ import { BookOutlined, PictureOutlined } from '@ant-design/icons';
 import { Alert, Card, Space, Tag, Typography } from 'antd';
 import React from 'react';
 import { ImageGallery } from '../../shared';
+import '../../shared/styles/SystemSection.css';
 
 const { Title, Text } = Typography;
 
@@ -44,7 +45,7 @@ const RackSystemSection = () => {
         />
       </Card>
 
-      <div id="section-8.1" className="subsection">
+      <div id="section-8-1" className="subsection">
         <Title level={3} >
           <BookOutlined style={{ marginRight: '8px' }} /> 8.1 Quy mô rack server
         </Title>
@@ -63,7 +64,7 @@ const RackSystemSection = () => {
         </Card>
       </div>
 
-      <div id="section-8.2" className="subsection">
+      <div id="section-8-2" className="subsection">
         <Title level={3} >
           <BookOutlined style={{ marginRight: '8px' }} /> 8.2 Công suất và mật độ
         </Title>
@@ -86,7 +87,7 @@ const RackSystemSection = () => {
         </Card>
       </div>
 
-      <div id="section-8.3" className="subsection">
+      <div id="section-8-3" className="subsection">
         <Title level={3} >
           <BookOutlined style={{ marginRight: '8px' }} /> 8.3 Buồng nhốt khí nóng
         </Title>

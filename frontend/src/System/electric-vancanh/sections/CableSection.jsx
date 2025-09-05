@@ -1,6 +1,7 @@
 import { FileTextOutlined, ThunderboltOutlined, ToolOutlined } from '@ant-design/icons';
 import { Alert, Card, Col, Divider, Progress, Row, Steps, Tag, Typography } from 'antd';
 import React from 'react';
+import '../../shared/styles/SystemSection.css';
 
 const { Title, Paragraph, Text } = Typography;
 
@@ -39,7 +40,7 @@ const CableSection = () => {
         6. HỆ THỐNG CÁP ĐIỆN
       </Title>
 
-      <div id="6.1" className="subsection" style={{ scrollMarginTop: '20px' }}>
+      <div id="section-6-1" className="subsection" style={{ scrollMarginTop: '20px' }}>
         <Title level={3} style={{ color: '#333333', marginBottom: '16px' }}>
           6.1. Cáp điện chính
         </Title>
@@ -59,7 +60,7 @@ const CableSection = () => {
             
             <Row gutter={[16, 16]}>
               <Col xs={24} md={12}>
-                <Card size="small" title="Cáp điện 3 pha" style={{ borderColor: '#1890ff' }}>
+                <Card size="small" title="Cáp điện 3 pha" className="card-blue">
                   <ul>
                     <li><Text strong>Loại cáp:</Text> Cu/PVC/PVC</li>
                     <li><Text strong>Tiết diện:</Text> 240mm², 400mm²</li>
@@ -69,7 +70,7 @@ const CableSection = () => {
                 </Card>
               </Col>
               <Col xs={24} md={12}>
-                <Card size="small" title="Cáp điện 1 pha" style={{ borderColor: '#52c41a' }}>
+                <Card size="small" title="Cáp điện 1 pha" className="card-green">
                   <ul>
                     <li><Text strong>Loại cáp:</Text> Cu/PVC/PVC</li>
                     <li><Text strong>Tiết diện:</Text> 16mm², 25mm²</li>
@@ -106,7 +107,7 @@ const CableSection = () => {
 
             <Row gutter={[16, 16]}>
               <Col xs={24} md={12}>
-                <Card size="small" title="Yêu cầu lắp đặt" style={{ borderColor: '#1890ff' }}>
+                <Card size="small" title="Yêu cầu lắp đặt" className="card-blue">
                   <ul>
                     <li>Khoảng cách giữa các cáp: ≥1D</li>
                     <li>Bán kính uốn cong: ≥12D</li>
@@ -116,7 +117,7 @@ const CableSection = () => {
                 </Card>
               </Col>
               <Col xs={24} md={12}>
-                <Card size="small" title="Kiểm tra sau lắp đặt" style={{ borderColor: '#52c41a' }}>
+                <Card size="small" title="Kiểm tra sau lắp đặt" className="card-green">
                   <ul>
                     <li>Kiểm tra cách điện</li>
                     <li>Kiểm tra kết nối</li>
@@ -130,7 +131,7 @@ const CableSection = () => {
         </div>
       </div>
 
-      <div id="6.2" className="subsection" style={{ scrollMarginTop: '20px' }}>
+      <div id="section-6-2" className="subsection" style={{ scrollMarginTop: '20px' }}>
         <Title level={3} style={{ color: '#333333', marginBottom: '16px' }}>
           6.2. Thang máng cáp
         </Title>
@@ -142,7 +143,7 @@ const CableSection = () => {
           <Card style={{ marginBottom: '24px' }}>
             <Row gutter={[16, 16]}>
               <Col xs={24} md={8}>
-                <Card size="small" title="Thang máng chính" style={{ borderColor: '#1890ff' }}>
+                <Card size="small" title="Thang máng chính" className="card-blue">
                   <ul>
                     <li><Text strong>Kích thước:</Text> 600x150mm</li>
                     <li><Text strong>Chất liệu:</Text> Thép mạ kẽm</li>
@@ -152,7 +153,7 @@ const CableSection = () => {
                 </Card>
               </Col>
               <Col xs={24} md={8}>
-                <Card size="small" title="Thang máng nhánh" style={{ borderColor: '#52c41a' }}>
+                <Card size="small" title="Thang máng nhánh" className="card-green">
                   <ul>
                     <li><Text strong>Kích thước:</Text> 400x100mm</li>
                     <li><Text strong>Chất liệu:</Text> Thép mạ kẽm</li>
@@ -162,7 +163,7 @@ const CableSection = () => {
                 </Card>
               </Col>
               <Col xs={24} md={8}>
-                <Card size="small" title="Phụ kiện" style={{ borderColor: '#faad14' }}>
+                <Card size="small" title="Phụ kiện" className="card-orange">
                   <ul>
                     <li><Text strong>Khớp nối:</Text> 2m/khớp</li>
                     <li><Text strong>Giá đỡ:</Text> 1.5m/giá</li>
@@ -199,7 +200,7 @@ const CableSection = () => {
 
             <Row gutter={[16, 16]}>
               <Col xs={24} md={12}>
-                <Card size="small" title="Yêu cầu lắp đặt" style={{ borderColor: '#1890ff' }}>
+                <Card size="small" title="Yêu cầu lắp đặt" className="card-blue">
                   <ul>
                     <li>Chiều cao từ sàn: ≥2.5m</li>
                     <li>Khoảng cách giá đỡ: ≤1.5m</li>
@@ -209,7 +210,7 @@ const CableSection = () => {
                 </Card>
               </Col>
               <Col xs={24} md={12}>
-                <Card size="small" title="Kết nối và bảo vệ" style={{ borderColor: '#52c41a' }}>
+                <Card size="small" title="Kết nối và bảo vệ" className="card-green">
                   <ul>
                     <li>Kết nối bằng bulong M8</li>
                     <li>Tiếp địa mỗi đoạn</li>
@@ -223,7 +224,7 @@ const CableSection = () => {
         </div>
       </div>
 
-      <div id="6.3" className="subsection" style={{ scrollMarginTop: '20px' }}>
+      <div id="section-6-3" className="subsection" style={{ scrollMarginTop: '20px' }}>
         <Title level={3} style={{ color: '#333333', marginBottom: '16px' }}>
           6.3. Kéo cáp đến thiết bị
         </Title>
@@ -252,7 +253,7 @@ const CableSection = () => {
 
             <Row gutter={[16, 16]}>
               <Col xs={24} md={12}>
-                <Card size="small" title="Chuẩn bị" style={{ borderColor: '#1890ff' }}>
+                <Card size="small" title="Chuẩn bị" className="card-blue">
                   <ul>
                     <li>Kiểm tra tuyến cáp</li>
                     <li>Chuẩn bị thiết bị</li>
@@ -262,7 +263,7 @@ const CableSection = () => {
                 </Card>
               </Col>
               <Col xs={24} md={12}>
-                <Card size="small" title="Thực hiện" style={{ borderColor: '#52c41a' }}>
+                <Card size="small" title="Thực hiện" className="card-green">
                   <ul>
                     <li>Kéo cáp theo tuyến</li>
                     <li>Tránh căng và gập</li>
@@ -282,7 +283,7 @@ const CableSection = () => {
           <Card style={{ marginBottom: '24px' }}>
             <Row gutter={[16, 16]}>
               <Col xs={24} md={12}>
-                <Card size="small" title="Kết nối cáp" style={{ borderColor: '#1890ff' }}>
+                <Card size="small" title="Kết nối cáp" className="card-blue">
                   <ul>
                     <li><Text strong>Đầu cáp:</Text> Đầu cosse</li>
                     <li><Text strong>Kết nối:</Text> Bulong M8</li>
@@ -292,7 +293,7 @@ const CableSection = () => {
                 </Card>
               </Col>
               <Col xs={24} md={12}>
-                <Card size="small" title="Đánh nhãn cáp" style={{ borderColor: '#52c41a' }}>
+                <Card size="small" title="Đánh nhãn cáp" className="card-green">
                   <ul>
                     <li><Text strong>Loại nhãn:</Text> Nhãn dán</li>
                     <li><Text strong>Nội dung:</Text> Ký hiệu cáp</li>

@@ -1,10 +1,10 @@
 import {
-  ExclamationCircleOutlined,
-  InfoCircleOutlined,
-  PlayCircleOutlined,
-  SafetyOutlined,
-  SettingOutlined,
-  ThunderboltOutlined
+    ExclamationCircleOutlined,
+    InfoCircleOutlined,
+    PlayCircleOutlined,
+    SafetyOutlined,
+    SettingOutlined,
+    ThunderboltOutlined
 } from '@ant-design/icons';
 import { Alert, Card, Col, Row, Steps, Typography } from 'antd';
 import React from 'react';
@@ -180,7 +180,7 @@ const OperationSection = () => {
   ];
 
   return (
-    <div className="content-section">
+    <div id="section-5" className="content-section">
       <Title level={2}>
         <PlayCircleOutlined style={{ marginRight: '12px' }} />
         5. Quy trình vận hành hệ thống làm mát
@@ -195,7 +195,7 @@ const OperationSection = () => {
       />
 
       {/* 5.1 Quy trình khởi động hệ thống */}
-      <div id="section-5.1" className="subsection">
+      <div id="section-5-1" className="subsection">
         <Title level={3}>
           <PlayCircleOutlined style={{ marginRight: '12px' }} />
           5.1. Quy trình khởi động hệ thống
@@ -235,7 +235,7 @@ const OperationSection = () => {
       </div>
 
       {/* 5.2 Vận hành chế độ Normal */}
-      <div id="section-5.2" className="subsection">
+      <div id="section-5-2" className="subsection">
         <Title level={3} >
           <SettingOutlined style={{ marginRight: '12px' }} />
           5.2. Vận hành chế độ Normal
@@ -276,7 +276,7 @@ const OperationSection = () => {
       </div>
 
       {/* 5.3 Quy trình gọi thêm, cắt bớt cụm Chiller */}
-      <div id="section-5.3" className="subsection">
+      <div id="section-5-3" className="subsection">
         <Title level={3} >
           <ThunderboltOutlined style={{ marginRight: '12px' }} />
           5.3. Quy trình gọi thêm, cắt bớt cụm Chiller
@@ -326,7 +326,7 @@ const OperationSection = () => {
       </div>
 
       {/* 5.4 Quy trình vận hành luân phiên hệ thống */}
-      <div id="section-5.4" className="subsection">
+      <div id="section-5-4" className="subsection">
         <Title level={3} >
           <SettingOutlined style={{ marginRight: '12px' }} />
           5.4. Quy trình vận hành luân phiên hệ thống
@@ -340,7 +340,7 @@ const OperationSection = () => {
       </div>
 
       {/* 5.5 Xử lý sự cố và chế độ khẩn cấp */}
-      <div id="section-5.5" className="subsection">
+      <div id="section-5-5" className="subsection">
         <Title level={3} >
           <ExclamationCircleOutlined style={{ marginRight: '12px' }} />
           5.5. Xử lý sự cố và chế độ khẩn cấp
@@ -398,7 +398,7 @@ const OperationSection = () => {
       </div>
 
       {/* 5.6 Các chế độ vận hành */}
-      <div id="section-5.6" className="subsection">
+      <div id="section-5-6" className="subsection">
         <Title level={3} >
           <SafetyOutlined style={{ marginRight: '12px' }} />
           5.6. Các chế độ vận hành
@@ -431,7 +431,7 @@ const OperationSection = () => {
       </div>
 
       {/* 5.7 Thông tin bổ sung */}
-      <div id="section-5.7" className="subsection">
+      <div id="section-5-7" className="subsection">
         <Title level={3} >
           <InfoCircleOutlined style={{ marginRight: '12px' }} />
           5.7. Thông tin bổ sung

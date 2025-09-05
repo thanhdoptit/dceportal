@@ -1,5 +1,6 @@
 import { Alert, Card, Col, Divider, Row, Steps, Typography } from 'antd';
 import React from 'react';
+import '../../shared/styles/SystemSection.css';
 
 const { Title, Paragraph, Text } = Typography;
 
@@ -57,7 +58,7 @@ const LowVoltageSection = () => {
       </Title>
 
       {/* Tủ điện ACIT */}
-      <div id="2.1" className="subsection">
+      <div id="section-2-1" className="subsection">
         <Title level={3} className="subsection-title">
           2.1. Tủ điện ACIT
         </Title>
@@ -69,7 +70,7 @@ const LowVoltageSection = () => {
           <Card title="Đặc điểm kỹ thuật tủ ACIT" className="subsection">
             <Row gutter={[16, 16]}>
               <Col xs={24} md={12}>
-                <Card size="small" title="Thông số chính" style={{ borderColor: '#1890ff' }}>
+                <Card size="small" title="Thông số chính" className="card-blue">
                   <ul>
                     <li><Text strong>Điện áp định mức:</Text> 400V AC</li>
                     <li><Text strong>Dòng điện định mức:</Text> 3200A</li>
@@ -79,7 +80,7 @@ const LowVoltageSection = () => {
                 </Card>
               </Col>
               <Col xs={24} md={12}>
-                <Card size="small" title="Cấu trúc tủ" style={{ borderColor: '#52c41a' }}>
+                <Card size="small" title="Cấu trúc tủ" className="card-blue">
                   <ul>
                     <li><Text strong>Vỏ tủ:</Text> Thép mạ kẽm</li>
                     <li><Text strong>Kích thước:</Text> 800x600x2200mm</li>
@@ -96,13 +97,13 @@ const LowVoltageSection = () => {
           <Title level={4} className="subsection-title">
             2.1.2. Cấu trúc và bố trí
           </Title>
-          <Card title="Cấu trúc và bố trí tủ ACIT" className="subsection">
+          <Card title="Cấu trúc và bố trí tủ ACIT" className="subsection ">
             <Paragraph>
               Tủ điện ACIT được thiết kế theo tiêu chuẩn IEC 61439 với cấu trúc modular:
             </Paragraph>
             <Row gutter={[16, 16]}>
               <Col xs={24} md={8}>
-                <Card size="small" title="Ngăn đầu vào" style={{ borderColor: '#1890ff' }}>
+                <Card size="small" title="Ngăn đầu vào" className="card-blue">
                   <ul>
                     <li>Máy cắt ACB chính</li>
                     <li>Đồng hồ đa năng</li>
@@ -111,7 +112,7 @@ const LowVoltageSection = () => {
                 </Card>
               </Col>
               <Col xs={24} md={8}>
-                <Card size="small" title="Ngăn phân phối" style={{ borderColor: '#52c41a' }}>
+                <Card size="small" title="Ngăn phân phối" className="card-blue">
                   <ul>
                     <li>MCCB phân phối</li>
                     <li>MCB chi tiết</li>
@@ -120,7 +121,7 @@ const LowVoltageSection = () => {
                 </Card>
               </Col>
               <Col xs={24} md={8}>
-                <Card size="small" title="Ngăn điều khiển" style={{ borderColor: '#faad14' }}>
+                <Card size="small" title="Ngăn điều khiển" className="card-blue">
                   <ul>
                     <li>PLC điều khiển</li>
                     <li>HMI giao diện</li>
@@ -173,8 +174,8 @@ const LowVoltageSection = () => {
       <Divider />
 
       {/* Tủ Blokset */}
-      <div id="2.2" className="subsection">
-        <Title level={3} className="subsection-title">
+      <div id="section-2-2" className="subsection">
+        <Title level={3}>
           2.2. Tủ Blokset
         </Title>
         
@@ -185,7 +186,7 @@ const LowVoltageSection = () => {
           <Card title="Thông số kỹ thuật tủ Blokset" className="subsection">
             <Row gutter={[16, 16]}>
               <Col xs={24} md={12}>
-                <Card size="small" title="Thông số điện" style={{ borderColor: '#1890ff' }}>
+                <Card size="small" title="Thông số điện" className="card-blue">
                   <ul>
                     <li><Text strong>Điện áp:</Text> 400V AC</li>
                     <li><Text strong>Dòng điện:</Text> 1600A</li>
@@ -195,7 +196,7 @@ const LowVoltageSection = () => {
                 </Card>
               </Col>
               <Col xs={24} md={12}>
-                <Card size="small" title="Thông số cơ" style={{ borderColor: '#52c41a' }}>
+                <Card size="small" title="Thông số cơ" className="card-green">
                   <ul>
                     <li><Text strong>Kích thước:</Text> 600x400x2000mm</li>
                     <li><Text strong>Trọng lượng:</Text> 280kg</li>
@@ -217,7 +218,7 @@ const LowVoltageSection = () => {
               Quy trình cấu hình và lắp đặt tủ Blokset:
             </Paragraph>
             
-            <Card title="Quy trình cấu hình" style={{ marginBottom: '16px' }}>
+            <Card title="Quy trình cấu hình" style={{ marginBottom: '16px' }} className="card-blue">
               <Steps
                 current={currentBloksetStep}
                 onChange={setCurrentBloksetStep}
@@ -273,7 +274,7 @@ const LowVoltageSection = () => {
       <Divider />
 
       {/* Máy cắt ACB MTZ2 Schneider */}
-      <div id="2.3" className="subsection">
+      <div id="section-2-3" className="subsection">
         <Title level={3} className="subsection-title">
           2.3. Máy cắt ACB MTZ2 Schneider
         </Title>
@@ -285,7 +286,7 @@ const LowVoltageSection = () => {
           <Card title="Đặc điểm kỹ thuật ACB MTZ2" className="subsection">
             <Row gutter={[16, 16]}>
               <Col xs={24} md={12}>
-                <Card size="small" title="Thông số điện" style={{ borderColor: '#1890ff' }}>
+                <Card size="small" title="Thông số điện" className="card-blue">
                   <ul>
                     <li><Text strong>Điện áp:</Text> 400V AC</li>
                     <li><Text strong>Dòng điện:</Text> 4000A</li>
@@ -295,7 +296,7 @@ const LowVoltageSection = () => {
                 </Card>
               </Col>
               <Col xs={24} md={12}>
-                <Card size="small" title="Tính năng bảo vệ" style={{ borderColor: '#52c41a' }}>
+                <Card size="small" title="Tính năng bảo vệ" className="card-green">
                   <ul>
                     <li>Bảo vệ quá dòng</li>
                     <li>Bảo vệ ngắn mạch</li>
@@ -373,7 +374,7 @@ const LowVoltageSection = () => {
       <Divider />
 
       {/* MCCB Schneider */}
-      <div id="2.4" className="subsection">
+      <div id="section-2-4" className="subsection">
         <Title level={3} className="subsection-title">
           2.4. MCCB Schneider
         </Title>
@@ -385,7 +386,7 @@ const LowVoltageSection = () => {
           <Card title="Thông số kỹ thuật MCCB Schneider" className="subsection">
             <Row gutter={[16, 16]}>
               <Col xs={24} md={12}>
-                <Card size="small" title="Thông số điện" style={{ borderColor: '#1890ff' }}>
+                <Card size="small" title="Thông số điện" className="card-blue">
                   <ul>
                     <li><Text strong>Điện áp:</Text> 400V AC</li>
                     <li><Text strong>Dòng điện:</Text> 63A - 800A</li>
@@ -395,7 +396,7 @@ const LowVoltageSection = () => {
                 </Card>
               </Col>
               <Col xs={24} md={12}>
-                <Card size="small" title="Tính năng bảo vệ" style={{ borderColor: '#52c41a' }}>
+                <Card size="small" title="Tính năng bảo vệ" className="card-green">
                   <ul>
                     <li>Bảo vệ quá dòng</li>
                     <li>Bảo vệ ngắn mạch</li>
@@ -473,7 +474,7 @@ const LowVoltageSection = () => {
       <Divider />
 
       {/* MCB Schneider */}
-      <div id="2.5" className="subsection">
+      <div id="section-2-5" className="subsection">
         <Title level={3} className="subsection-title">
           2.5. MCB Schneider
         </Title>
@@ -485,7 +486,7 @@ const LowVoltageSection = () => {
           <Card title="Đặc điểm kỹ thuật MCB Schneider" className="subsection">
             <Row gutter={[16, 16]}>
               <Col xs={24} md={12}>
-                <Card size="small" title="Thông số điện" style={{ borderColor: '#1890ff' }}>
+                <Card size="small" title="Thông số điện" className="card-blue">
                   <ul>
                     <li><Text strong>Điện áp:</Text> 230V/400V AC</li>
                     <li><Text strong>Dòng điện:</Text> 1A - 63A</li>
@@ -495,7 +496,7 @@ const LowVoltageSection = () => {
                 </Card>
               </Col>
               <Col xs={24} md={12}>
-                <Card size="small" title="Tính năng bảo vệ" style={{ borderColor: '#52c41a' }}>
+                <Card size="small" title="Tính năng bảo vệ" className="card-green">
                   <ul>
                     <li>Bảo vệ quá dòng</li>
                     <li>Bảo vệ ngắn mạch</li>
@@ -573,7 +574,7 @@ const LowVoltageSection = () => {
       <Divider />
 
       {/* RCBO & RCCB ABB */}
-      <div id="2.6" className="subsection">
+      <div id="section-2-6" className="subsection">
         <Title level={3} className="subsection-title">
           2.6. RCBO & RCCB ABB
         </Title>
@@ -585,7 +586,7 @@ const LowVoltageSection = () => {
           <Card title="Thông số kỹ thuật RCBO & RCCB ABB" className="subsection">
             <Row gutter={[16, 16]}>
               <Col xs={24} md={12}>
-                <Card size="small" title="RCBO (Residual Current Breaker with Overcurrent)" style={{ borderColor: '#1890ff' }}>
+                <Card size="small" title="RCBO (Residual Current Breaker with Overcurrent)" className="card-black">
                   <ul>
                     <li><Text strong>Điện áp:</Text> 230V AC</li>
                     <li><Text strong>Dòng điện:</Text> 6A - 63A</li>
@@ -595,7 +596,7 @@ const LowVoltageSection = () => {
                 </Card>
               </Col>
               <Col xs={24} md={12}>
-                <Card size="small" title="RCCB (Residual Current Circuit Breaker)" style={{ borderColor: '#52c41a' }}>
+                <Card size="small" title="RCCB (Residual Current Circuit Breaker)" className="card-blue">
                   <ul>
                     <li><Text strong>Điện áp:</Text> 230V/400V AC</li>
                     <li><Text strong>Dòng điện:</Text> 16A - 125A</li>

@@ -1,10 +1,11 @@
 import {
-  CheckCircleOutlined,
-  FileTextOutlined,
-  WarningOutlined
+    CheckCircleOutlined,
+    FileTextOutlined,
+    WarningOutlined
 } from '@ant-design/icons';
 import { Alert, Card, Divider, Space, Tag, Typography } from 'antd';
 import React from 'react';
+import '../../shared/styles/SystemSection.css';
 
 const { Title, Paragraph, Text } = Typography;
 
@@ -16,7 +17,7 @@ const EffectivenessRiskSection = () => {
         9. HIỆU QUẢ VÀ RỦI RO TTDL VÂN CANH
       </Title>
 
-      <div id="section-9.1" className="subsection">
+      <div id="section-9-1" className="subsection">
         <Title level={3} >
           <CheckCircleOutlined style={{ marginRight: '8px' }} /> 9.1 Hiệu quả dự án
         </Title>
@@ -47,7 +48,7 @@ const EffectivenessRiskSection = () => {
         </Card>
       </div>
 
-      <div id="section-9.2" className="subsection">
+      <div id="section-9-2" className="subsection">
         <Title level={3} >
           <WarningOutlined style={{ marginRight: '8px' }} /> 9.2 Các rủi ro tiềm ẩn
         </Title>
@@ -117,7 +118,7 @@ const EffectivenessRiskSection = () => {
         </Card>
       </div>
 
-      <div id="section-9.3" className="subsection">
+      <div id="section-9-3" className="subsection">
         <Title level={3} >
           <CheckCircleOutlined style={{ marginRight: '8px' }} /> 9.3 Giải pháp khắc phục
         </Title>

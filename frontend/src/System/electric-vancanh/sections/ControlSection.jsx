@@ -1,6 +1,7 @@
 import { SettingOutlined, SyncOutlined, ThunderboltOutlined } from '@ant-design/icons';
 import { Alert, Card, Col, Divider, Progress, Row, Steps, Tag, Typography } from 'antd';
 import React from 'react';
+import '../../shared/styles/SystemSection.css';
 
 const { Title, Paragraph, Text } = Typography;
 
@@ -39,7 +40,7 @@ const ControlSection = () => {
         4. HỆ THỐNG ĐIỀU KHIỂN
       </Title>
 
-      <div id="4.1" className="subsection">
+      <div id="section-4-1" className="subsection">
         <Title level={3} className="ant-typography">
           4.1. Tụ bù khô & bộ điều khiển
         </Title>
@@ -59,7 +60,7 @@ const ControlSection = () => {
             
             <Row gutter={[16, 16]}>
               <Col xs={24} md={12}>
-                <Card size="small" title="Thông số tụ bù" style={{ borderColor: '#1890ff' }}>
+                <Card size="small" title="Thông số tụ bù" className="card-blue">
                   <ul>
                     <li><Text strong>Điện áp:</Text> 400V AC</li>
                     <li><Text strong>Công suất:</Text> 25kVar</li>
@@ -69,7 +70,7 @@ const ControlSection = () => {
                 </Card>
               </Col>
               <Col xs={24} md={12}>
-                <Card size="small" title="Bộ điều khiển" style={{ borderColor: '#52c41a' }}>
+                <Card size="small" title="Bộ điều khiển" className="card-green">
                   <ul>
                     <li><Text strong>Loại:</Text> Microprocessor</li>
                     <li><Text strong>Hiển thị:</Text> LCD 2x16</li>
@@ -106,7 +107,7 @@ const ControlSection = () => {
 
             <Row gutter={[16, 16]}>
               <Col xs={24} md={12}>
-                <Card size="small" title="Cài đặt thông số" style={{ borderColor: '#1890ff' }}>
+                <Card size="small" title="Cài đặt thông số" className="card-blue">
                   <ul>
                     <li><Text strong>Hệ số công suất mục tiêu:</Text> 0.95</li>
                     <li><Text strong>Thời gian delay:</Text> 30s</li>
@@ -116,7 +117,7 @@ const ControlSection = () => {
                 </Card>
               </Col>
               <Col xs={24} md={12}>
-                <Card size="small" title="Điều chỉnh tự động" style={{ borderColor: '#52c41a' }}>
+                <Card size="small" title="Điều chỉnh tự động" className="card-green">
                   <ul>
                     <li><Text strong>Chế độ vận hành:</Text> Tự động</li>
                     <li><Text strong>Bước tăng:</Text> 25kVar</li>
@@ -130,7 +131,7 @@ const ControlSection = () => {
         </div>
       </div>
 
-      <div id="4.2" className="subsection">
+      <div id="section-4-2" className="subsection">
         <Title level={3} className="ant-typography">
           4.2. Biến tần
         </Title>
@@ -142,7 +143,7 @@ const ControlSection = () => {
           <Card>
             <Row gutter={[16, 16]}>
               <Col xs={24} md={12}>
-                <Card size="small" title="Thông số điện" style={{ borderColor: '#1890ff' }}>
+                <Card size="small" title="Thông số điện" className="card-blue">
                   <ul>
                     <li><Text strong>Điện áp đầu vào:</Text> 400V AC</li>
                     <li><Text strong>Điện áp đầu ra:</Text> 0-400V AC</li>
@@ -152,7 +153,7 @@ const ControlSection = () => {
                 </Card>
               </Col>
               <Col xs={24} md={12}>
-                <Card size="small" title="Đặc tính điều khiển" style={{ borderColor: '#52c41a' }}>
+                <Card size="small" title="Đặc tính điều khiển" className="card-green">
                   <ul>
                     <li><Text strong>Phương pháp:</Text> V/F control</li>
                     <li><Text strong>Độ chính xác:</Text> ±0.1%</li>
@@ -189,7 +190,7 @@ const ControlSection = () => {
 
             <Row gutter={[16, 16]}>
               <Col xs={24} md={12}>
-                <Card size="small" title="Thông số cơ bản" style={{ borderColor: '#1890ff' }}>
+                <Card size="small" title="Thông số cơ bản" className="card-blue">
                   <ul>
                     <li><Text strong>Tần số định mức:</Text> 50Hz</li>
                     <li><Text strong>Điện áp định mức:</Text> 400V</li>
@@ -199,7 +200,7 @@ const ControlSection = () => {
                 </Card>
               </Col>
               <Col xs={24} md={12}>
-                <Card size="small" title="Thông số điều khiển" style={{ borderColor: '#52c41a' }}>
+                <Card size="small" title="Thông số điều khiển" className="card-green">
                   <ul>
                     <li><Text strong>Chế độ điều khiển:</Text> V/F</li>
                     <li><Text strong>Thời gian tăng tốc:</Text> 10s</li>
@@ -213,7 +214,7 @@ const ControlSection = () => {
         </div>
       </div>
 
-      <div id="4.3" className="subsection">
+      <div id="section-4-3" className="subsection">
         <Title level={3} className="ant-typography">
           4.3. Contactor cho tụ bù
         </Title>
@@ -225,7 +226,7 @@ const ControlSection = () => {
           <Card>
             <Row gutter={[16, 16]}>
               <Col xs={24} md={12}>
-                <Card size="small" title="Thông số điện" style={{ borderColor: '#1890ff' }}>
+                <Card size="small" title="Thông số điện" className="card-blue">
                   <ul>
                     <li><Text strong>Điện áp định mức:</Text> 400V AC</li>
                     <li><Text strong>Dòng điện định mức:</Text> 63A</li>
@@ -235,7 +236,7 @@ const ControlSection = () => {
                 </Card>
               </Col>
               <Col xs={24} md={12}>
-                <Card size="small" title="Đặc tính cơ khí" style={{ borderColor: '#52c41a' }}>
+                <Card size="small" title="Đặc tính cơ khí" className="card-green">
                   <ul>
                     <li><Text strong>Số cực:</Text> 3 cực</li>
                     <li><Text strong>Tiếp điểm phụ:</Text> 2NO + 2NC</li>
@@ -272,7 +273,7 @@ const ControlSection = () => {
 
             <Row gutter={[16, 16]}>
               <Col xs={24} md={12}>
-                <Card size="small" title="Kết nối điện" style={{ borderColor: '#1890ff' }}>
+                <Card size="small" title="Kết nối điện" className="card-blue">
                   <ul>
                     <li>Kết nối nguồn 3 pha</li>
                     <li>Kết nối tải tụ bù</li>
@@ -282,7 +283,7 @@ const ControlSection = () => {
                 </Card>
               </Col>
               <Col xs={24} md={12}>
-                <Card size="small" title="Kiểm tra sau lắp đặt" style={{ borderColor: '#52c41a' }}>
+                <Card size="small" title="Kiểm tra sau lắp đặt" className="card-green">
                   <ul>
                     <li>Kiểm tra kết nối điện</li>
                     <li>Kiểm tra mạch điều khiển</li>

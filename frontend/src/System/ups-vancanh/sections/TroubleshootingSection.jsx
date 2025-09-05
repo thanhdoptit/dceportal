@@ -367,7 +367,7 @@ const TroubleshootingSection = () => {
       />
 
       {/* 6.1 - Các sự cố thường gặp */}
-      <div id="6.1" className="subsection">
+      <div id="section-6-1" className="subsection">
         <Title level={3}>
           6.1. Các sự cố thường gặp
         </Title>
@@ -429,7 +429,7 @@ const TroubleshootingSection = () => {
       </div>
 
       {/* 6.2 - Quy trình khắc phục */}
-      <div id="6.2" className="subsection">
+      <div id="section-6-2" className="subsection">
         <Title level={3}>
           6.2. Quy trình khắc phục
         </Title>

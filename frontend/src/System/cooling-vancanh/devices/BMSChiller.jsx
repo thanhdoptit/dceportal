@@ -1,9 +1,9 @@
 import {
-  CheckCircleOutlined,
-  ExclamationCircleOutlined,
-  InfoCircleOutlined,
-  SettingOutlined,
-  ToolOutlined
+    CheckCircleOutlined,
+    ExclamationCircleOutlined,
+    InfoCircleOutlined,
+    SettingOutlined,
+    ToolOutlined
 } from '@ant-design/icons';
 import { Alert, Card, Space, Table, Tag, Typography } from 'antd';
 import React from 'react';
@@ -14,7 +14,8 @@ const { Title, Paragraph, Text } = Typography;
 
 const BMSChiller = () => {
   return (
-    <div id="section-2.5" className="subsection">
+    <div>
+      <div id="section-2-5" className="subsection">
       <Title level={3} >
         <SettingOutlined style={{ marginRight: '8px' }} />
         2.5. Hệ thống BMS Chiller - TTDL Vân Canh
@@ -520,6 +521,7 @@ const BMSChiller = () => {
             bordered
           />
         </Card>
+      </div>
       </div>
     </div>
   );

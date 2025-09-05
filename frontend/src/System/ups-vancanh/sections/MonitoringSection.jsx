@@ -272,8 +272,10 @@ const MonitoringSection = () => {
         cho phép người vận hành theo dõi và điều khiển hệ thống một cách hiệu quả và an toàn.
       </Paragraph>
 
-      {/* Giao diện người dùng */}
-      <Card title={userInterfaceInfo.title} style={{ marginBottom: '20px' }}>
+      {/* 4.1 - Giao diện người dùng */}
+      <div id="section-4-1" className="subsection">
+        <Title level={3}>4.1. Giao diện người dùng</Title>
+        <Card title={userInterfaceInfo.title} style={{ marginBottom: '20px' }}>
         <Paragraph>{userInterfaceInfo.description}</Paragraph>
         <Row gutter={[16, 16]}>
           {userInterfaceInfo.mainFeatures.map((feature, index) => (
@@ -392,8 +394,12 @@ const MonitoringSection = () => {
         </Row>
       </Card>
 
-      {/* Kết nối mạng */}
-      <Card title="Kết nối mạng và truyền thông" style={{ marginBottom: '20px' }}>
+      </div>
+
+      {/* 4.2 - Kết nối mạng và SCADA */}
+      <div id="section-4-2" className="subsection">
+        <Title level={3}>4.2. Kết nối mạng và SCADA</Title>
+        <Card title="Kết nối mạng và truyền thông" style={{ marginBottom: '20px' }}>
         <Row gutter={[16, 16]}>
           {networkConnections.map((connection, index) => (
             <Col xs={24} lg={8} key={index}>
@@ -484,6 +490,7 @@ const MonitoringSection = () => {
           showIcon
         />
       </Card>
+      </div>
     </div>
   );
 };

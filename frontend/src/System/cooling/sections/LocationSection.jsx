@@ -1,6 +1,7 @@
-import React from 'react';
-import { Typography, Card, Divider, Table, Tag, Space, Image, Row, Col, Carousel } from 'antd';
 import { EnvironmentOutlined, ThunderboltOutlined } from '@ant-design/icons';
+import { Card, Image, Table, Tag, Typography } from 'antd';
+import React from 'react';
+import '../../shared/styles/SystemSection.css';
 
 const { PreviewGroup } = Image;
 
@@ -14,7 +15,7 @@ const LocationSection = () => {
         3. DÀN NÓNG VÀ ÁT ĐIỆN ĐIỀU HÒA - TTDL Hòa Lạc
       </Title>
 
-      <div id="section-3.1" className="subsection">
+      <div id="section-3-1" className="subsection">
         <Title level={3} style={{ color: '#52c41a', marginBottom: '16px' }}>
           <EnvironmentOutlined style={{ marginRight: '8px' }} /> 3.1. Dàn nóng điều hòa
         </Title>
@@ -128,7 +129,7 @@ const LocationSection = () => {
         </Card>
       </div>
 
-      <div id="section-3.2" className="subsection">
+      <div id="section-3-2" className="subsection">
         <Title level={3}>
           <ThunderboltOutlined /> 3.2. Vị trí át điện điều hòa
         </Title>
@@ -230,10 +231,6 @@ const LocationSection = () => {
                 key: 'images',
                 width: '6%',
                 render: (images, record) => {
-                  // Debug: log ra để kiểm tra
-                  console.log('Record:', record);
-                  console.log('Images:', images);
-
                   // Nếu có mảng images thì hiển thị carousel với preview group
                   if (images && images.length > 0) {
                     return (

@@ -1,165 +1,460 @@
-import React, { useState } from 'react';
-import { 
-  BookOutlined, 
-  SettingOutlined, 
-  InfoCircleOutlined,
-  EnvironmentOutlined,
-  AppstoreOutlined,
-  PhoneOutlined,
-  FileTextOutlined
-} from '@ant-design/icons';
-import { SystemLayout } from '../shared';
-import CoolingContent from './CoolingContent';
+import React, { memo, useCallback, useEffect, useRef, useState } from "react";
+import ModernErrorScreen from "../../components/common/ModernErrorScreen";
+import ModernLoadingScreen from "../../components/common/ModernLoadingScreen";
+import SystemMenu from "../../components/common/SystemMenu";
+import { useSidebar } from "../../contexts/SidebarContext";
+import LazySection from "./components/LazySection";
+import { CoolingDataProvider, useCoolingData } from "./context";
+import ApplicationSection from "./sections/ApplicationSection";
+import ContactSection from "./sections/ContactSection";
+import DeviceGuideSection from "./sections/DeviceGuideSection";
+import DocumentationSection from "./sections/DocumentationSection";
+import IntroductionSection from "./sections/IntroductionSection";
+import LocationSection from "./sections/LocationSection";
 
-const CoolingSystemPage = () => {
-  const [selectedKey, setSelectedKey] = useState('1');
+/**
+ * Hệ thống làm mát TTDL Hòa Lạc - Static Documentation
+ */
 
-  // Cấu trúc menu với các đầu mục lớn và sub menu
-  const menuItems = [
-    {
-      key: '1',
-      icon: <InfoCircleOutlined />,
-      label: '1. GIỚI THIỆU CHUNG',
-      children: [
-        {
-          key: '1a',
-          label: '1.1 Thông số kỹ thuật',
-        },
-        {
-          key: '1b',
-          label: '1.2 Cấu trúc đặt tên của các model thuộc TTDL Hòa Lạc',
-        },
-        {
-          key: '1c',
-          label: '1.3 Nguyên lý hoạt động của hệ thống làm mát Trung tâm dữ liệu Hòa Lạc',
-        },
-      ],
-    },
-    {
-      key: '2',
-      icon: <SettingOutlined />,
-      label: '2. HƯỚNG DẪN CHI TIẾT TỪNG THIẾT BỊ',
-      children: [
-        {
-          key: '2.1',
-          label: '2.1. TDAV1321A - UNIFLAIR',
-          children: [
-            { key: '2.1.1', label: '2.1.1. Thông tin chung' },
-            { key: '2.1.2', label: '2.1.2. Hướng dẫn lắp đặt' },
-            { key: '2.1.3', label: '2.1.3. Hướng dẫn vận hành và kiểm tra hàng ngày' },
-            { key: '2.1.4', label: '2.1.4. Hướng dẫn xác định nguyên nhân lỗi' },
-            { key: '2.1.5', label: '2.1.5. Quy trình và chu kỳ bảo trì' },
-          ],
-        },
-        {
-          key: '2.2',
-          label: '2.2. TDAV2242A - UNIFLAIR',
-          children: [
-            { key: '2.2.1', label: '2.2.1. Thông tin chung' },
-            { key: '2.2.2', label: '2.2.2. Hướng dẫn lắp đặt' },
-            { key: '2.2.3', label: '2.2.3. Hướng dẫn vận hành và kiểm tra hàng ngày' },
-            { key: '2.2.4', label: '2.2.4. Hướng dẫn xác định nguyên nhân lỗi' },
-            { key: '2.2.5', label: '2.2.5. Quy trình và chu kỳ bảo trì' },
-          ],
-        },
-        {
-          key: '2.3',
-          label: '2.3. TDAV2842A - UNIFLAIR',
-          children: [
-            { key: '2.3.1', label: '2.3.1. Thông tin chung' },
-            { key: '2.3.2', label: '2.3.2. Hướng dẫn lắp đặt' },
-            { key: '2.3.3', label: '2.3.3. Hướng dẫn vận hành và kiểm tra hàng ngày' },
-            { key: '2.3.4', label: '2.3.4. Hướng dẫn xác định nguyên nhân lỗi' },
-            { key: '2.3.5', label: '2.3.5. Quy trình và chu kỳ bảo trì' },
-          ],
-        },
-        {
-          key: '2.4',
-          label: '2.4. FM40H-AGB-ESD-APC',
-          children: [
-            { key: '2.4.1', label: '2.4.1. Thông tin chung' },
-            { key: '2.4.2', label: '2.4.2. Hướng dẫn cài đặt và cấu hình ban đầu' },
-            { key: '2.4.3', label: '2.4.3. Hướng dẫn vận hành và kiểm tra hàng ngày' },
-            { key: '2.4.4', label: '2.4.4. Hướng dẫn xác định nguyên nhân lỗi' },
-            { key: '2.4.5', label: '2.4.5. Quy định và chu kỳ bảo trì' },
-            { key: '2.4.6', label: '2.4.6. Hướng dẫn bảo trì từng thành phần' },
-          ],
-        },
-        {
-          key: '2.5',
-          label: '2.5. ACRP102 - APC',
-          children: [
-            { key: '2.5.1', label: '2.5.1. Thông tin chung' },
-            { key: '2.5.2', label: '2.5.2. Hướng dẫn cài đặt và cấu hình ban đầu' },
-            { key: '2.5.3', label: '2.5.3. Hướng dẫn vận hành và kiểm tra hàng ngày' },
-            { key: '2.5.4', label: '2.5.4. Hướng dẫn xác định nguyên nhân lỗi' },
-            { key: '2.5.5', label: '2.5.5. Quy định và chu kỳ bảo trì' },
-            { key: '2.5.6', label: '2.5.6. Hướng dẫn bảo trì từng thành phần' },
-          ],
-        },
-        {
-          key: '2.6',
-          label: '2.6. Quạt sàn AFM4500B',
-          children: [
-            { key: '2.6.1', label: '2.6.1. Thông tin chung' },
-            { key: '2.6.2', label: '2.6.2. Hướng dẫn lắp đặt' },
-            { key: '2.6.3', label: '2.6.3. Hướng dẫn vận hành' },
-            { key: '2.6.4', label: '2.6.4. Cách xác nhận lỗi' },
-          ],
-        },
-      ],
-    },
-    {
-      key: '3',
-      icon: <EnvironmentOutlined />,
-      label: '3. DÀN NÓNG VÀ ÁT ĐIỆN ĐIỀU HÒA',
-      children: [
-        { key: '3.1', label: '3.1 Vị trí dàn nóng' },
-        { key: '3.2', label: '3.2 Vị trí át điện điều hòa' },
-      ],
-    },
-    {
-      key: '4',
-      icon: <AppstoreOutlined />,
-      label: '4. ỨNG DỤNG',
-      style: {
-        fontWeight: 'bold',
-      },
-      children: [
-        { key: '4.1', label: '4.1. Quy trình vận hành hàng ngày chung của hệ thống làm mát' },
-        { key: '4.2', label: '4.2. Tổng hợp mã lỗi, nguyên nhân và cách giải quyết' },
-        { key: '4.3', label: '4.3. Vị trí, Seri, IP, hợp đồng bảo trì liên quan cụ thể' },
-        { key: '4.4', label: '4.4. Xem và thiết lập thông số của các điều hòa qua Website' },
-      ],
-    },
-    {
-      key: '5',
-      icon: <PhoneOutlined />,
-      label: '5. LIÊN HỆ',
-      style: {
-        fontWeight: 'bold',
+const SECTIONS = [
+  {
+    key: "introduction",
+    label: "Giới thiệu chung",
+    Component: IntroductionSection,
+    sectionId: "section-1",
+    submenu: [
+      { key: "intro-1", label: "Thông số kỹ thuật", sectionId: "section-1-1" },
+      { key: "intro-2", label: "Cấu trúc đặt tên của các model thuộc TTDL Hòa Lạc", sectionId: "section-1-2" },
+      { key: "intro-3", label: "Nguyên lý hoạt động của hệ thống làm mát Trung tâm dữ liệu Hòa Lạc", sectionId: "section-1-3" }
+    ]
+  },
+  {
+    key: "device-guide",
+    label: "Hướng dẫn thiết bị",
+    Component: DeviceGuideSection,
+    sectionId: "section-2",
+    submenu: [
+      { key: "device-1", label: "TDAV1321A - UNIFLAIR", sectionId: "section-2-1" },
+      { key: "device-2", label: "TDAV2242A - UNIFLAIR", sectionId: "section-2-2" },
+      { key: "device-3", label: "TDAV2842A - UNIFLAIR", sectionId: "section-2-3" },
+      { key: "device-4", label: "FM40H-AGB-ESD-APC", sectionId: "section-2-4" },
+      { key: "device-5", label: "ACRP102 - APC", sectionId: "section-2-5" },
+      { key: "device-6", label: "Quạt sàn AFM4500B", sectionId: "section-2-6" }
+    ]
+  },
+  {
+    key: "location",
+    label: "Vị trí hệ thống",
+    Component: LocationSection,
+    sectionId: "section-3",
+    submenu: [
+      { key: "location-1", label: "Vị trí dàn nóng", sectionId: "section-3-1" },
+      { key: "location-2", label: "Vị trí át điện điều hòa", sectionId: "section-3-2" }
+    ]
+  },
+  {
+    key: "application",
+    label: "Ứng dụng",
+    Component: ApplicationSection,
+    sectionId: "section-4",
+    submenu: [
+      { key: "app-1", label: "Quy trình vận hành hàng ngày chung của hệ thống làm mát", sectionId: "section-4-1" },
+      { key: "app-2", label: "Tổng hợp mã lỗi, nguyên nhân và cách giải quyết", sectionId: "section-4-2" },
+      { key: "app-3", label: "Vị trí, Seri, IP, hợp đồng bảo trì liên quan cụ thể", sectionId: "section-4-3" },
+      { key: "app-4", label: "Xem và thiết lập thông số của các điều hòa qua Website", sectionId: "section-4-4" }
+    ]
+  },
+  {
+    key: "contact",
+    label: "Liên hệ",
+    Component: ContactSection,
+    sectionId: "section-5"
+  },
+  {
+    key: "documentation",
+    label: "Tài liệu",
+    Component: DocumentationSection,
+    sectionId: "section-6"
+  }
+];
+
+const Sidebar = memo(({ active, activeSubmenu, setActive, setActiveSubmenu, expandedSections, setExpandedSections, mobileMenuOpen, setMobileMenuOpen, setIgnoreSpy }) => {
+  return (
+    <SystemMenu
+      sections={SECTIONS}
+      active={active}
+      activeSubmenu={activeSubmenu}
+      setActive={setActive}
+      setActiveSubmenu={setActiveSubmenu}
+      expandedSections={expandedSections}
+      setExpandedSections={setExpandedSections}
+      mobileMenuOpen={mobileMenuOpen}
+      setMobileMenuOpen={setMobileMenuOpen}
+      setIgnoreSpy={setIgnoreSpy}
+    />
+  );
+});
+
+Sidebar.displayName = 'Sidebar';
+
+function CoolingSystemContent() {
+  const { isLoading, isFullyLoaded, error } = useCoolingData();
+  const { collapsed } = useSidebar();
+  const [active, setActive] = useState("introduction");
+  const [activeSubmenu, setActiveSubmenu] = useState(null);
+  const [expandedSections, setExpandedSections] = useState(new Set(["introduction"]));
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [ignoreSpy, setIgnoreSpy] = useState(false);
+
+  const observer = useRef(null);
+
+  // Function để setup observer - có thể gọi lại khi cần
+  const setupObserver = useCallback(() => {
+    // Disconnect observer cũ nếu có
+    if (observer.current) {
+      observer.current.disconnect();
+    }
+
+    const options = { root: null, rootMargin: "-80px 0px -50% 0px", threshold: [0, 0.1, 0.3, 0.5, 0.7, 1] };
+    const obs = new IntersectionObserver((entries) => {
+      const visibleEntries = entries.filter(e => e.isIntersecting);
+      if (visibleEntries.length === 0) {
+        return;
       }
-    },
-    {
-      key: '6',
-      icon: <FileTextOutlined />,
-      label: '6. TÀI LIỆU',
-      style: {
-        fontWeight: 'bold',
+
+      // Đơn giản hóa: chọn element có intersection ratio cao nhất
+      const bestEntry = visibleEntries.reduce((best, current) =>
+        current.intersectionRatio > best.intersectionRatio ? current : best
+      );
+
+      const id = bestEntry.target.getAttribute("id");
+      if (!id) {
+        return;
       }
-    },
-  ];
+
+      const sec = SECTIONS.find(s => s.sectionId === id);
+      if (sec) {
+        setActive(sec.key);
+        setActiveSubmenu(null);
+        setExpandedSections(new Set([sec.key]));
+        return;
+      }
+
+      // Special handling for section-2 (DeviceGuideSection) - Simplified
+      if (id.startsWith('section-2')) {
+        setActive('device-guide');
+        setExpandedSections(new Set(['device-guide']));
+        
+        // If it's a subsection, set active submenu
+        if (id.includes('-')) {
+          const subIndex = id.split('-')[2]; // ví dụ "section-2-3" => "3"
+          if (subIndex) {
+            const submenuKey = `device-${subIndex}`;
+            setActiveSubmenu(submenuKey);
+          } else {
+            setActiveSubmenu(null);
+          }
+        } else {
+          setActiveSubmenu(null);
+        }
+        return;
+      }
+
+      for (const section of SECTIONS) {
+        if (section.submenu) {
+          const sub = section.submenu.find(s => s.sectionId === id);
+          if (sub) {
+            setActive(section.key);
+            setActiveSubmenu(sub.key);
+            setExpandedSections(new Set([section.key]));
+            return;
+          }
+        }
+      }
+
+    }, options);
+
+    const allIds = SECTIONS.flatMap(s => [s.sectionId, ...(s.submenu?.map(sub => sub.sectionId) || [])]);
+    
+    allIds.forEach(id => { 
+      const el = document.getElementById(id); 
+      if (el) {
+        obs.observe(el); 
+      }
+    });
+      
+    observer.current = obs;
+  }, []);
+
+  useEffect(() => {
+    if (ignoreSpy) {
+      return;
+    }
+
+    // Setup observer ngay lập tức
+    setupObserver();
+
+    return () => { 
+      if (observer.current) observer.current.disconnect(); 
+    };
+  }, [ignoreSpy, setupObserver]);
+
+  // Re-setup observer khi isFullyLoaded thay đổi (có section mới được render)
+  useEffect(() => {
+    if (isFullyLoaded && !ignoreSpy) {
+      // Delay nhỏ để đảm bảo DOM đã update
+      const timeoutId = setTimeout(() => {
+        setupObserver();
+      }, 200);
+      
+      return () => clearTimeout(timeoutId);
+    }
+  }, [isFullyLoaded, ignoreSpy, setupObserver]);
+
+  // MutationObserver để theo dõi khi có section mới được lazy load
+  useEffect(() => {
+    if (!isFullyLoaded || ignoreSpy) return;
+
+    const mutationObserver = new MutationObserver((mutations) => {
+      let shouldReSetup = false;
+      
+      mutations.forEach((mutation) => {
+        if (mutation.type === 'childList') {
+          mutation.addedNodes.forEach((node) => {
+            if (node.nodeType === Node.ELEMENT_NODE) {
+              const element = node;
+              // Kiểm tra nếu có element mới với ID section
+              if (element.id && element.id.startsWith('section-')) {
+                shouldReSetup = true;
+              }
+              // Kiểm tra trong children
+              const sectionElements = element.querySelectorAll && element.querySelectorAll('[id^="section-"]');
+              if (sectionElements && sectionElements.length > 0) {
+                shouldReSetup = true;
+              }
+            }
+          });
+        }
+      });
+
+      if (shouldReSetup) {
+        setTimeout(() => {
+          setupObserver();
+        }, 100);
+      }
+    });
+
+    // Theo dõi thay đổi trong content area
+    const contentArea = document.querySelector('main');
+    if (contentArea) {
+      mutationObserver.observe(contentArea, {
+        childList: true,
+        subtree: true
+      });
+    }
+
+    return () => {
+      mutationObserver.disconnect();
+    };
+  }, [isFullyLoaded, ignoreSpy, setupObserver]);
+
+  // Kích hoạt scrollspy ngay khi trang load xong
+  useEffect(() => {
+    const checkInitialSection = () => {
+      // Nếu đang ở đầu trang (scrollY = 0), luôn chọn section đầu tiên
+      if (window.scrollY === 0) {
+        setActive("introduction");
+        setExpandedSections(new Set(["introduction"]));
+        setActiveSubmenu(null);
+        return;
+      }
+
+      const fromTop = window.scrollY + 120; // offset ~header
+      let found = null;
+      
+      for (const section of SECTIONS) {
+        const el = document.getElementById(section.sectionId);
+        if (el && el.offsetTop <= fromTop) {
+          found = section.key;
+        }
+        // check submenu
+        if (section.submenu) {
+          for (const sub of section.submenu) {
+            const subEl = document.getElementById(sub.sectionId);
+            if (subEl && subEl.offsetTop <= fromTop) {
+              found = sub.key;
+            }
+          }
+        }
+      }
+      
+      if (found) {
+        if (found.includes("-")) {
+          // submenu key
+          const parent = SECTIONS.find(s => s.submenu?.some(sub => sub.key === found));
+          if (parent) {
+            setActive(parent.key);
+            setActiveSubmenu(found);
+            setExpandedSections(new Set([parent.key]));
+          }
+        } else {
+          setActive(found);
+          setExpandedSections(new Set([found]));
+          setActiveSubmenu(null);
+        }
+      } else {
+        // Fallback: nếu không tìm thấy gì, chọn section đầu tiên
+        setActive("introduction");
+        setExpandedSections(new Set(["introduction"]));
+        setActiveSubmenu(null);
+      }
+    };
+
+    // Chờ DOM render xong bằng kiểm tra thực tế thay vì timeout
+    let timeoutId = null;
+    let hasInitialized = false;
+
+    const initializeScrollspy = () => {
+      if (hasInitialized) return;
+      
+      // Kiểm tra xem có ít nhất 1 section đã render chưa
+      const firstSection = document.getElementById("section-1");
+      if (firstSection) {
+        hasInitialized = true;
+        checkInitialSection();
+        return;
+      }
+
+      // Nếu chưa có section nào, chờ thêm
+      timeoutId = setTimeout(initializeScrollspy, 100);
+    };
+
+    // Bắt đầu kiểm tra ngay lập tức
+    requestAnimationFrame(initializeScrollspy);
+
+    // Fallback timeout để đảm bảo không chờ vô hạn
+    const fallbackTimeout = setTimeout(() => {
+      if (!hasInitialized) {
+        hasInitialized = true;
+        checkInitialSection();
+      }
+    }, 2000);
+
+    window.addEventListener("resize", checkInitialSection);
+    return () => {
+      if (timeoutId) clearTimeout(timeoutId);
+      clearTimeout(fallbackTimeout);
+      window.removeEventListener("resize", checkInitialSection);
+    };
+  }, [isFullyLoaded]);
+
+  if (isLoading || !isFullyLoaded) {
+    return (
+      <ModernLoadingScreen 
+        title="Đang tải hệ thống làm mát Hòa Lạc"
+        subtitle="Khởi tạo dữ liệu hệ thống Chiller, PAC và TES..."
+        icon="❄️"
+        color="#52c41a"
+      />
+    );
+  }
+
+  if (error) {
+    return (
+      <ModernErrorScreen 
+        title="Lỗi tải hệ thống làm mát Hòa Lạc"
+        subtitle="Không thể khởi tạo dữ liệu hệ thống"
+        error={error}
+        icon="❄️"
+        color="#52c41a"
+        onRetry={() => window.location.reload()}
+      />
+    );
+  }
+
+  // Tính toán vị trí dựa trên trạng thái sidebar
+  const sidebarLeft = collapsed ? 70 : 200;
+  const headerLeft = sidebarLeft;
+  const menuLeft = sidebarLeft;
+  const contentLeft = sidebarLeft + 320; // 320px là width của menu
 
   return (
-    <SystemLayout
-      menuItems={menuItems}
-      title="Hệ thống làm mát TTDL Hòa Lạc"
-      headerBgColor="#0072BC"
-      selectedKey={selectedKey}
-    >
-      <CoolingContent />
-    </SystemLayout>
-  );
-};
+    <>
+      {/* 1. Header - Independent */}
+      <header 
+        className="fixed top-20 z-5 bg-white border-b border-slate-200 transition-all duration-200"
+        style={{ left: `${headerLeft}px`, right: 0 }}
+      >
+        <div className="max-w-8xl mx-auto px-6 py-4 flex items-center justify-between gap-4">
+          <div className="flex items-center gap-4">
+            <div className="h-9 w-9 rounded-xl bg-blue-500 text-white grid place-items-center font-bold">CL</div>
+            <div>
+              <h1 className="text-lg font-bold text-slate-900">Hệ thống làm mát TTDL Hòa Lạc</h1>
+              <p className="text-xs text-slate-500">Giới thiệu • Thiết bị • Vị trí • Ứng dụng • Liên hệ • Tài liệu</p>
+            </div>
+          </div>
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="lg:hidden p-2 rounded-lg hover:bg-slate-100 transition-colors"
+            aria-label="Toggle menu"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              {mobileMenuOpen ? (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              ) : (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              )}
+            </svg>
+          </button>
+        </div>
+      </header>
 
-export default CoolingSystemPage; 
+      {/* 2. Menu - Independent */}
+      <aside 
+        className="hidden lg:block fixed top-40 w-80 h-[calc(100vh-80px)] bg-white border-r border-slate-200 z-5 transition-all duration-200"
+        style={{ left: `${menuLeft}px` }}
+      >
+        <div className="h-full overflow-y-auto p-6">
+          <Sidebar
+            active={active}
+            activeSubmenu={activeSubmenu}
+            setActive={setActive}
+            setActiveSubmenu={setActiveSubmenu}
+            expandedSections={expandedSections}
+            setExpandedSections={setExpandedSections}
+            mobileMenuOpen={mobileMenuOpen}
+            setMobileMenuOpen={setMobileMenuOpen}
+            setIgnoreSpy={setIgnoreSpy}
+          />
+        </div>
+      </aside>
+
+      {/* 3. Content - Independent */}
+      <main 
+        className="fixed top-40 right-0 h-[calc(100vh-80px)] bg-white border-l border-slate-200 z-5 transition-all duration-200"
+        style={{ left: `${contentLeft}px` }}
+      >
+        <div className="h-full overflow-y-auto p-8">
+          <div className="max-w-7xl mx-auto space-y-8">
+            {SECTIONS.map(section => (
+              <LazySection
+                key={section.key}
+                sectionKey={section.key}
+                Component={section.Component}
+                sectionId={section.sectionId}
+              />
+            ))}
+          </div>
+        </div>
+      </main>
+    </>
+  );
+}
+
+export default function CoolingSystemPage() {
+  return (
+    <CoolingDataProvider>
+      <CoolingSystemContent />
+    </CoolingDataProvider>
+  );
+}

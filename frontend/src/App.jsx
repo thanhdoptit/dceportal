@@ -2,9 +2,10 @@ import { ConfigProvider } from 'antd';
 import React from 'react';
 import { Navigate, Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import DataCenterMenuPage from './System/DataCenterMenuPage';
-import { CoolingSystemPage } from './System/cooling';
+import CoolingSystemPage from './System/cooling';
 import CoolingSystemVancanhPage from './System/cooling-vancanh';
 import ElectricSystemVancanhPage from './System/electric-vancanh';
+import UPSHoalacPage from './System/ups-hoalac';
 import { UPSSystemPage } from './System/ups-vancanh';
 import VanCanhOverviewPage from './System/vancanh-overview';
 import ShiftSelector from './components/ShiftSelector';
@@ -128,6 +129,7 @@ function App() {
                 <Route path="cooling-system" element={<CoolingSystemPage />} />
                 <Route path="cooling-system-vancanh" element={<CoolingSystemVancanhPage />} />
                 <Route path="ups-vancanh" element={<UPSSystemPage />} />
+                <Route path="ups-hoalac" element={<UPSHoalacPage />} />
                 <Route path="electric-vancanh" element={<ElectricSystemVancanhPage />} />
                 <Route path="vancanh-overview" element={<VanCanhOverviewPage />} />
                 <Route path="datacenter-menu" element={<DataCenterMenuPage />} />
@@ -153,6 +155,7 @@ function App() {
                 <Route path="cooling-system" element={<CoolingSystemPage />} />
                 <Route path="cooling-system-vancanh" element={<CoolingSystemVancanhPage />} />
                 <Route path="ups-vancanh" element={<UPSSystemPage />} />
+                <Route path="ups-hoalac" element={<UPSHoalacPage />} />
                 <Route path="electric-vancanh" element={<ElectricSystemVancanhPage />} />
                 <Route path="vancanh-overview" element={<VanCanhOverviewPage />} />
                 <Route path="datacenter-menu" element={<DataCenterMenuPage />} />
@@ -172,6 +175,7 @@ function App() {
                 <Route path="cooling-system" element={<CoolingSystemPage />} />
                 <Route path="cooling-system-vancanh" element={<CoolingSystemVancanhPage />} />
                 <Route path="ups-vancanh" element={<UPSSystemPage />} />
+                <Route path="ups-hoalac" element={<UPSHoalacPage />} />
                 <Route path="electric-vancanh" element={<ElectricSystemVancanhPage />} />
                 <Route path="vancanh-overview" element={<VanCanhOverviewPage />} />
                 <Route path="datacenter-menu" element={<DataCenterMenuPage />} />

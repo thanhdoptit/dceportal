@@ -1,6 +1,7 @@
 import { SafetyOutlined, ThunderboltOutlined, ToolOutlined } from '@ant-design/icons';
 import { Alert, Card, Col, Divider, Row, Steps, Tag, Typography } from 'antd';
 import React from 'react';
+import '../../shared/styles/SystemSection.css';
 
 const { Title, Paragraph, Text } = Typography;
 
@@ -39,7 +40,7 @@ const ProtectionSection = () => {
         3. HỆ THỐNG BẢO VỆ
       </Title>
 
-      <div id="3.1" className="subsection">
+      <div id="section-3-1" className="subsection">
         <Title level={3} className="ant-typography">
           3.1. Rơ le bảo vệ hồ quang ARC Schneider
         </Title>
@@ -59,7 +60,7 @@ const ProtectionSection = () => {
             
             <Row gutter={[16, 16]}>
               <Col xs={24} md={12}>
-                <Card size="small" title="Nguyên lý phát hiện" style={{ borderColor: '#1890ff' }}>
+                <Card size="small" title="Nguyên lý phát hiện" className="card-blue">
                   <ul>
                     <li><Text strong>Cảm biến ánh sáng:</Text> Phát hiện tia lửa điện</li>
                     <li><Text strong>Cảm biến áp suất:</Text> Phát hiện sóng nổ</li>
@@ -69,7 +70,7 @@ const ProtectionSection = () => {
                 </Card>
               </Col>
               <Col xs={24} md={12}>
-                <Card size="small" title="Cơ chế bảo vệ" style={{ borderColor: '#52c41a' }}>
+                <Card size="small" title="Cơ chế bảo vệ" className="card-green">
                   <ul>
                     <li><Text strong>Phát hiện hồ quang:</Text> Tự động</li>
                     <li><Text strong>Truyền tín hiệu:</Text> Fiber optic</li>
@@ -106,7 +107,7 @@ const ProtectionSection = () => {
 
             <Row gutter={[16, 16]}>
               <Col xs={24} md={12}>
-                <Card size="small" title="Thông số cài đặt" style={{ borderColor: '#1890ff' }}>
+                <Card size="small" title="Thông số cài đặt" className="card-blue">
                   <ul>
                     <li><Text strong>Độ nhạy ánh sáng:</Text> 0.1 lux</li>
                     <li><Text strong>Độ nhạy áp suất:</Text> 0.1 bar</li>
@@ -116,7 +117,7 @@ const ProtectionSection = () => {
                 </Card>
               </Col>
               <Col xs={24} md={12}>
-                <Card size="small" title="Cài đặt cảnh báo" style={{ borderColor: '#52c41a' }}>
+                <Card size="small" title="Cài đặt cảnh báo" className="card-green">
                   <ul>
                     <li><Text strong>Đèn báo:</Text> Xanh, vàng, đỏ</li>
                     <li><Text strong>Relay output:</Text> 2 cặp tiếp điểm</li>
@@ -130,7 +131,7 @@ const ProtectionSection = () => {
         </div>
       </div>
 
-      <div id="3.2" className="subsection">
+      <div id="section-3-2" className="subsection">
         <Title level={3} className="ant-typography">
           3.2. Chống sét lan truyền
         </Title>
@@ -142,7 +143,7 @@ const ProtectionSection = () => {
           <Card>
             <Row gutter={[16, 16]}>
               <Col xs={24} md={8}>
-                <Card size="small" title="SPD Type 1" style={{ borderColor: '#1890ff' }}>
+                <Card size="small" title="SPD Type 1" className="card-blue">
                   <ul>
                     <li><Text strong>Vị trí:</Text> Đầu vào tủ điện</li>
                     <li><Text strong>Bảo vệ:</Text> Sét đánh trực tiếp</li>
@@ -152,7 +153,7 @@ const ProtectionSection = () => {
                 </Card>
               </Col>
               <Col xs={24} md={8}>
-                <Card size="small" title="SPD Type 2" style={{ borderColor: '#52c41a' }}>
+                <Card size="small" title="SPD Type 2" className="card-green">
                   <ul>
                     <li><Text strong>Vị trí:</Text> Phân phối điện</li>
                     <li><Text strong>Bảo vệ:</Text> Sét lan truyền</li>
@@ -162,7 +163,7 @@ const ProtectionSection = () => {
                 </Card>
               </Col>
               <Col xs={24} md={8}>
-                <Card size="small" title="SPD Type 3" style={{ borderColor: '#faad14' }}>
+                <Card size="small" title="SPD Type 3" className="card-orange">
                   <ul>
                     <li><Text strong>Vị trí:</Text> Thiết bị cuối</li>
                     <li><Text strong>Bảo vệ:</Text> Nhiễu điện</li>
@@ -199,7 +200,7 @@ const ProtectionSection = () => {
 
             <Row gutter={[16, 16]}>
               <Col xs={24} md={12}>
-                <Card size="small" title="Yêu cầu lắp đặt" style={{ borderColor: '#1890ff' }}>
+                <Card size="small" title="Yêu cầu lắp đặt" className="card-blue">
                   <ul>
                     <li>Khoảng cách dây đất ≤0.5m</li>
                     <li>Tiết diện dây đất ≥16mm²</li>
@@ -209,7 +210,7 @@ const ProtectionSection = () => {
                 </Card>
               </Col>
               <Col xs={24} md={12}>
-                <Card size="small" title="Kiểm tra sau lắp đặt" style={{ borderColor: '#52c41a' }}>
+                <Card size="small" title="Kiểm tra sau lắp đặt" className="card-green">
                   <ul>
                     <li>Kiểm tra kết nối điện</li>
                     <li>Kiểm tra kết nối đất</li>
@@ -223,7 +224,7 @@ const ProtectionSection = () => {
         </div>
       </div>
 
-      <div id="3.3" className="subsection">
+      <div id="section-3-3" className="subsection">
         <Title level={3} className="ant-typography">
           3.3. Tiếp địa và nối đất
         </Title>
@@ -235,7 +236,7 @@ const ProtectionSection = () => {
           <Card>
             <Row gutter={[16, 16]}>
               <Col xs={24} md={12}>
-                <Card size="small" title="Cấu trúc hệ thống" style={{ borderColor: '#1890ff' }}>
+                <Card size="small" title="Cấu trúc hệ thống" className="card-blue">
                   <ul>
                     <li><Text strong>Loại cọc đất:</Text> Đồng mạ kẽm</li>
                     <li><Text strong>Chiều dài cọc:</Text> 3m</li>
@@ -245,7 +246,7 @@ const ProtectionSection = () => {
                 </Card>
               </Col>
               <Col xs={24} md={12}>
-                <Card size="small" title="Thông số kỹ thuật" style={{ borderColor: '#52c41a' }}>
+                <Card size="small" title="Thông số kỹ thuật" className="card-green">
                   <ul>
                     <li><Text strong>Điện trở đất:</Text> ≤2Ω</li>
                     <li><Text strong>Tiết diện cáp:</Text> 70mm²</li>
@@ -282,7 +283,7 @@ const ProtectionSection = () => {
 
             <Row gutter={[16, 16]}>
               <Col xs={24} md={12}>
-                <Card size="small" title="Tiêu chuẩn đo" style={{ borderColor: '#1890ff' }}>
+                <Card size="small" title="Tiêu chuẩn đo" className="card-blue">
                   <ul>
                     <li><Text strong>Phương pháp:</Text> 3 điểm</li>
                     <li><Text strong>Thiết bị đo:</Text> Earth tester</li>
@@ -292,7 +293,7 @@ const ProtectionSection = () => {
                 </Card>
               </Col>
               <Col xs={24} md={12}>
-                <Card size="small" title="Chu kỳ kiểm tra" style={{ borderColor: '#52c41a' }}>
+                <Card size="small" title="Chu kỳ kiểm tra" className="card-green">
                   <ul>
                     <li><Text strong>Kiểm tra định kỳ:</Text> 6 tháng</li>
                     <li><Text strong>Kiểm tra sau sét:</Text> Ngay lập tức</li>

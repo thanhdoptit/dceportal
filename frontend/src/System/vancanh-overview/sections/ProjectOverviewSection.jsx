@@ -1,11 +1,12 @@
 import {
-  InfoCircleOutlined,
-  PictureOutlined,
-  ThunderboltOutlined
+    InfoCircleOutlined,
+    PictureOutlined,
+    ThunderboltOutlined
 } from '@ant-design/icons';
 import { Alert, Card, Divider, Space, Table, Tag, Typography } from 'antd';
 import React from 'react';
 import { ImagePreview } from '../../shared';
+import '../../shared/styles/SystemSection.css';
 
 const { Title, Paragraph, Text } = Typography;
 
@@ -102,7 +103,7 @@ const ProjectOverviewSection = () => {
         <InfoCircleOutlined style={{ marginRight: '8px' }} />
         1. TỔNG QUAN DỰ ÁN TTDL VÂN CANH
       </Title>    
-      <div id="section-1.1" className="subsection">
+      <div id="section-1-1" className="subsection">
         <Title level={3} >
           <InfoCircleOutlined style={{ marginRight: '8px' }} /> 1.1 Khái quát dự án
         </Title>
@@ -221,7 +222,7 @@ const ProjectOverviewSection = () => {
         </Card>
       </div>
 
-      <div id="section-1.2" className="subsection">
+      <div id="section-1-2" className="subsection">
         <Title level={3} >
           <ThunderboltOutlined style={{ marginRight: '8px' }} /> 1.2 Các mốc quan trọng
         </Title>
@@ -259,7 +260,7 @@ const ProjectOverviewSection = () => {
         </Card>
       </div>
 
-      <div id="section-1.3" className="subsection">
+      <div id="section-1-3" className="subsection">
         <Title level={3} >
           <ThunderboltOutlined style={{ marginRight: '8px' }} /> 1.3 So sánh với tiêu chuẩn Uptime
         </Title>

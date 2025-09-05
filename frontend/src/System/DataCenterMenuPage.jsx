@@ -155,7 +155,7 @@ const DataCenterMenuPage = () => {
         navigate(`/${prefix}/ups-vancanh`);
       } else {
         console.log('Navigating to ups-system');
-        navigate(`/${prefix}/ups-system`);
+        navigate(`/${prefix}/ups-hoalac`);
       }
     } else if (route === '/dc/system-info/ELECTRIC') {
       // Chuyển đến Electric system với prefix hiện tại và datacenter

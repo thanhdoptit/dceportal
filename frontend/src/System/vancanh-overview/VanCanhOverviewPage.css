@@ -1,0 +1,100 @@
+/* Vân Canh Overview Page - Tailwind CSS Styles */
+/* File này đảm bảo Tailwind CSS classes hoạt động đúng */
+
+/* Custom scrollbar cho sidebar */
+.vancanh-overview-sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.vancanh-overview-sidebar::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+.vancanh-overview-sidebar::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 3px;
+}
+
+.vancanh-overview-sidebar::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Smooth transitions */
+.vancanh-overview-transition {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Custom animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.vancanh-overview-fade-in-up {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+/* Hover effects */
+.vancanh-overview-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Status indicators */
+.vancanh-overview-status-online {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+}
+
+.vancanh-overview-status-standby {
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+}
+
+.vancanh-overview-status-warning {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+}
+
+.vancanh-overview-status-error {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+}
+
+/* Progress bars */
+.vancanh-overview-progress {
+  background: linear-gradient(90deg, #3b82f6 0%, #1d4ed8 100%);
+  transition: width 0.5s ease-in-out;
+}
+
+/* Custom shadows */
+.vancanh-overview-shadow-soft {
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+.vancanh-overview-shadow-medium {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.vancanh-overview-shadow-large {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* Responsive utilities */
+@media (max-width: 768px) {
+  .vancanh-overview-mobile-hidden {
+    display: none;
+  }
+  
+  .vancanh-overview-mobile-full {
+    width: 100%;
+  }
+}
+
+@media (min-width: 1024px) {
+  .vancanh-overview-desktop-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}

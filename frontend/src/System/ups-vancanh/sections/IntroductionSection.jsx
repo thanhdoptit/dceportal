@@ -253,7 +253,7 @@ const IntroductionSection = () => {
       </Paragraph>
 
       {/* 1.1 - Thông số kỹ thuật hệ thống UPS */}
-      <div id="1.1" className="subsection">
+      <div id="section-1-1" className="subsection">
         <Title level={3}>
           1.1. Thông số kỹ thuật hệ thống UPS
         </Title>
@@ -278,7 +278,7 @@ const IntroductionSection = () => {
                   size="small" 
                   title={spec.category}
                   style={{ height: '100%' }}
-                  headStyle={{ backgroundColor: '#f0f9ff', borderBottom: '1px solid #d1ecf1' }}
+                  styles={{ header: { backgroundColor: '#f0f9ff', borderBottom: '1px solid #d1ecf1' } }}
                 >
                   <Descriptions column={1} size="small" bordered={false}>
                     <Descriptions.Item label="Giá trị">
@@ -308,7 +308,7 @@ const IntroductionSection = () => {
       </div>
 
       {/* 1.2 - Cấu trúc và nguyên lý hoạt động */}
-      <div id="1.2" className="subsection">
+      <div id="section-1-2" className="subsection">
         <Title level={3}>
           1.2. Cấu trúc và nguyên lý hoạt động
         </Title>
@@ -360,7 +360,7 @@ const IntroductionSection = () => {
       </div>
 
       {/* 1.3 - Các chế độ vận hành chính */}
-      <div id="1.3" className="subsection">
+      <div id="section-1-3" className="subsection">
         <Title level={3}>
           1.3. Các chế độ vận hành chính
         </Title>
@@ -393,7 +393,7 @@ const IntroductionSection = () => {
       </div>
 
       {/* 1.4 - Hệ thống giám sát BMS */}
-      <div id="1.4" className="subsection">
+      <div id="section-1-4" className="subsection">
         <Title level={3}>
           1.4. Hệ thống giám sát BMS
         </Title>

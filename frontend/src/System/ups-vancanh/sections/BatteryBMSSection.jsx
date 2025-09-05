@@ -173,7 +173,7 @@ const BatteryBMSSection = () => {
       </Paragraph>
 
       {/* 3.1 - Hệ thống ắc quy */}
-      <div id="3.1" className="subsection">
+      <div id="section-3-1" className="subsection">
         <Title level={3}>
           3.1. Hệ thống ắc quy
         </Title>
@@ -286,7 +286,7 @@ const BatteryBMSSection = () => {
       </div>
 
       {/* 3.2 - Hệ thống giám sát BMS */}
-      <div id="3.2" className="subsection">
+      <div id="section-3-2" className="subsection">
         <Title level={3}>
           3.2. Hệ thống giám sát BMS
         </Title>
