@@ -1,7 +1,7 @@
 import { AppstoreOutlined, PictureOutlined, SafetyOutlined } from '@ant-design/icons';
-import { Alert, Card, Col, Row, Space, Tag, Typography } from 'antd';
+import { Alert, Card, Space, Tag, Typography } from 'antd';
 import React from 'react';
-import { ImagePreview } from '../../shared';
+import { ImageGallery, ImagePreview } from '../../shared';
 import '../../shared/styles/SystemSection.css';
 
 const { Title, Text } = Typography;
@@ -93,63 +93,26 @@ const SecuritySystemSection = () => {
             </Space>
             }
             style={{ marginBottom: '20px' }}
-          >
-          
-        <Row gutter={[16, 16]} style={{ marginBottom: '20px' }}>
-          <Col span={8}  >
-            <div style={{ textAlign: 'center' }}>
-              <ImagePreview
-                src="/vancanh-overview/cctv2.jpg"
-                alt="Hệ thống kiểm soát vào ra"
-                width='100%'
-                height= 'auto'  
-                style={{                  
-                  border: '1px solid #d9d9d9',
-                  borderRadius: '6px',
-                  boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
-                  display: 'block',
-                  margin: '0 auto'
-                }}
-              />
-
-            </div>
-          </Col>
-          <Col span={8} >
-            <div style={{ textAlign: 'center' }}>
-              <ImagePreview
-                src="/vancanh-overview/cctv3.jpg"
-                alt="Hệ thống cấp nguồn gồm 2 trạm biến áp 2500KVA"
-                width='100%'
-                height= 'auto'  
-                style={{                  
-                  border: '1px solid #d9d9d9',
-                  borderRadius: '6px',
-                  boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
-                  display: 'block',
-                  margin: '0 auto'
-                }}
-              />
-            </div>
-          </Col>
-          
-          <Col span={8} >
-          <div style={{ textAlign: 'center' }}>
-            <ImagePreview
-              src="/vancanh-overview/cctv4.jpg"
-              alt="Hệ thống kiểm soát vào ra"
-              width='100%'
-                height= 'auto'  
-                style={{                
-                border: '1px solid #d9d9d9',
-                borderRadius: '6px',
-                boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
-                display: 'block',
-                margin: '0 auto'
-              }}
-            />
-          </div>
-          </Col>
-        </Row>
+          ><ImageGallery
+          images={[
+            '/vancanh-overview/cctv2.jpg',
+            '/vancanh-overview/cctv3.jpg',
+            '/vancanh-overview/cctv4.jpg'
+          ]}
+          columns={3}
+          imageWidth='100%'
+          imageHeight='350px'
+          maskText="Click để xem chi tiết"
+        />
+        <p style={{
+        color: '#666',
+        margin: '8px 0 0 0',
+        fontSize: '12px',
+        fontStyle: 'italic',
+        textAlign: 'center'
+      }}>
+        HỆ THỐNG KIỂM SOÁT VÀO RA ACS.
+      </p>
 
         </Card>
 

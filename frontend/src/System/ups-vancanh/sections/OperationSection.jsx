@@ -483,7 +483,7 @@ const OperationSection = () => {
               style={{ marginBottom: '16px' }}
             />
             
-            <Title level={5}>
+            <Title level={4}>
               Biểu tượng cảnh báo an toàn
             </Title>
             <Paragraph>
@@ -574,7 +574,7 @@ const OperationSection = () => {
                   </div>
 
           {/* Các chế độ hoạt động của hệ thống */}
-          <Title level={5}>
+          <Title level={4}>
             Các chế độ hoạt động của hệ thống
           </Title>
           <Card title="Các chế độ hoạt động của hệ thống" style={{ marginBottom: '16px' }}>
@@ -612,7 +612,7 @@ const OperationSection = () => {
           </Title>
           
           {/* Quy trình khởi động hệ thống đơn lẻ */}
-          <Title level={5}>
+          <Title level={4}>
             Quy trình khởi động hệ thống đơn lẻ
           </Title>
           <Card title="Quy trình khởi động hệ thống đơn lẻ" style={{ marginBottom: '16px' }}>
@@ -645,7 +645,7 @@ const OperationSection = () => {
           </Card>
           
           {/* Quy trình tắt máy an toàn */}
-          <Title level={5}>
+          <Title level={4}>
             Quy trình tắt máy an toàn
           </Title>
           <Card title="Quy trình khởi động hệ thống song song" style={{ marginBottom: '16px' }}>
@@ -706,7 +706,7 @@ const OperationSection = () => {
           </Card>
           
           {/* Các thao tác chuyển đổi chế độ */}
-          <Title level={5}>
+          <Title level={4}>
             Các thao tác chuyển đổi chế độ
           </Title>
           <Card title="Chuyển UPS từ chế độ bình thường sang chế độ static bypass" style={{ marginBottom: '16px' }}>
@@ -730,7 +730,7 @@ const OperationSection = () => {
           </Card>
 
           {/* Điều khiển Inverter */}
-          <Title level={5}>
+          <Title level={4}>
             Điều khiển Inverter
           </Title>
           <Card title="Tắt INVERTER" style={{ marginBottom: '16px' }}>
@@ -761,7 +761,7 @@ const OperationSection = () => {
           </Card>
 
           {/* Quy trình Maintenance Bypass cho hệ thống đơn lẻ */}
-          <Title level={5}>
+          <Title level={4}>
             Chuyển UPS từ chế độ bình thường sang Maintenance Bypass
           </Title>
           <Card title="Chuyển sang chế độ Maintenance Bypass" style={{ marginBottom: '16px' }}>
@@ -809,7 +809,7 @@ const OperationSection = () => {
           </Title>
           
           {/* Trạng thái LED */}
-          <Title level={5}>
+          <Title level={4}>
             Trạng thái LED và ý nghĩa
           </Title>
           <Card title="Trạng thái LED và ý nghĩa" style={{ marginBottom: '16px' }}>
@@ -836,7 +836,7 @@ const OperationSection = () => {
           ))}
         </Row>
           
-          <Title level={5}>
+          <Title level={4}>
             Trạng thái LED theo từng chế độ hoạt động
           </Title>
           <Card size="small" style={{ marginBottom: '16px' }}>
@@ -851,7 +851,7 @@ const OperationSection = () => {
           </Card>
           
           {/* Biểu tượng trạng thái báo động */}
-          <Title level={5}>
+          <Title level={4}>
             Biểu tượng trạng thái báo động
           </Title>
           <Card title="Biểu tượng trạng thái báo động" style={{ marginBottom: '16px' }}>
@@ -883,7 +883,7 @@ const OperationSection = () => {
           </Card>
           
           {/* Quy trình xử lý sự cố */}
-          <Title level={5}>
+          <Title level={4}>
             Quy trình xử lý sự cố
           </Title>
           <Card title="Quy trình xử lý sự cố" style={{ marginBottom: '16px' }}>
@@ -908,7 +908,7 @@ const OperationSection = () => {
           </Card>
           
           {/* Hướng dẫn bảo trì */}
-          <Title level={5}>
+          <Title level={4}>
             Hướng dẫn bảo trì
           </Title>
           <Card title="Hướng dẫn bảo trì" style={{ marginBottom: '16px' }}>
@@ -1014,13 +1014,13 @@ const OperationSection = () => {
         
         {/* 5.2 Vận hành hệ thống UPS song song */}
         <div id="section-5-2" className="subsection">
-          <Title level={4}>
+          <Title level={3}>
             5.2. Vận hành hệ thống UPS song song
           </Title>
           
           {/* 5.2.1 Quy trình khởi động hệ thống song song */}
           <div id="5.2.1" className="subsection">
-            <Title level={5}>
+            <Title level={4}>
               5.2.1. Quy trình khởi động hệ thống song song
             </Title>
           <Card title="Quy trình khởi động hệ thống song song" style={{ marginBottom: '16px' }}>
@@ -1055,7 +1055,7 @@ const OperationSection = () => {
 
           {/* 5.2.2 Tắt UPS ở chế độ Maintenance Bypass */}
           <div id="5.2.2" className="subsection">
-            <Title level={5}>
+            <Title level={4}>
               5.2.2. Tắt UPS ở chế độ Maintenance Bypass
             </Title>
           <Card title="Tắt UPS ở chế độ Maintenance Bypass" style={{ marginBottom: '16px' }}>
@@ -1081,7 +1081,7 @@ const OperationSection = () => {
 
           {/* 5.2.3 Bật UPS từ chế độ Maintenance Bypass */}
           <div id="5.2.3" className="subsection">
-            <Title level={5}>
+            <Title level={4}>
               5.2.3. Bật UPS từ chế độ Maintenance Bypass
             </Title>
           <Card title="Bật UPS từ chế độ Maintenance Bypass" style={{ marginBottom: '16px' }}>
@@ -1100,7 +1100,7 @@ const OperationSection = () => {
 
           {/* 5.2.4 Cách li 01 UPS khỏi hệ thống */}
           <div id="5.2.4" className="subsection">
-            <Title level={5}>
+            <Title level={4}>
               5.2.4. Cách li 01 UPS khỏi hệ thống
             </Title>
           <Card title="Cách li 01 UPS khỏi hệ thống" style={{ marginBottom: '16px' }}>
@@ -1125,7 +1125,7 @@ const OperationSection = () => {
 
           {/* 5.2.5 Hòa 01 UPS vào hệ thống */}
           <div id="5.2.5" className="subsection">
-            <Title level={5}>
+            <Title level={4}>
               5.2.5. Hòa 01 UPS vào hệ thống
             </Title>
           <Card title="Hòa 01 UPS vào hệ thống" style={{ marginBottom: '16px' }}>

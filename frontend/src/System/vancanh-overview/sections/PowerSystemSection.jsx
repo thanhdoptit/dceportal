@@ -1,7 +1,7 @@
 import {
-    BulbOutlined,
-    PictureOutlined,
-    ThunderboltOutlined
+  BulbOutlined,
+  PictureOutlined,
+  ThunderboltOutlined
 } from '@ant-design/icons';
 import { Alert, Card, Col, Divider, Row, Space, Tag, Typography } from 'antd';
 import React from 'react';
@@ -259,7 +259,7 @@ const PowerSystemSection = () => {
                   src="/vancanh-overview/bondau1.jpg"
                   alt="Hệ thống cấp nguồn gồm 2 trạm biến áp 2500KVA"
                   width='100%'
-                  height='auto'
+                  height='450px'
                   style={{
                     border: '1px solid #d9d9d9',
                     borderRadius: '6px',
@@ -286,7 +286,7 @@ const PowerSystemSection = () => {
                   src="/vancanh-overview/bondau2.jpg"
                   alt="Hệ thống cấp nguồn gồm 2 trạm biến áp 2500KVA"
                   width='100%'
-                  height='auto'
+                  height='450px'
                   style={{
                     border: '1px solid #d9d9d9',
                     borderRadius: '6px',
@@ -339,12 +339,12 @@ const PowerSystemSection = () => {
                 </Space>
               }
             >
-              <div style={{ textAlign: 'center', width: '70%', height: 'auto', margin: '0 auto' }}>
+              <div style={{ textAlign: 'center'}}>
                 <ImagePreview
                   src="/vancanh-overview/ups2.jpg"
                   alt="Hệ thống cấp nguồn gồm 2 trạm biến áp 2500KVA"
                   width='100%'
-                  height='auto'
+                  height='450px'
                   style={{
                     border: '1px solid #d9d9d9',
                     borderRadius: '6px',
@@ -370,7 +370,7 @@ const PowerSystemSection = () => {
                   src="/vancanh-overview/ups1.jpg"
                   alt="Hệ thống cấp nguồn gồm 2 trạm biến áp 2500KVA"
                   width='100%'
-                  height='auto'
+                  height='450px'
                   style={{
                     border: '1px solid #d9d9d9',
                     borderRadius: '6px',

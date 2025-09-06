@@ -1,6 +1,6 @@
 import {
-    PictureOutlined,
-    SafetyOutlined
+  PictureOutlined,
+  SafetyOutlined
 } from '@ant-design/icons';
 import { Alert, Card, Space, Tag, Typography } from 'antd';
 import React from 'react';
@@ -36,7 +36,7 @@ const FireProtectionSection = () => {
               Hình ảnh hệ thống PCCC
             </Space>
           }
-          style={{ marginBottom: '20px' }}
+          style={{ marginBottom: '20px'}}
         >
           <ImageGallery
             images={[
@@ -46,7 +46,7 @@ const FireProtectionSection = () => {
             ]}
             columns={3}
             imageWidth='100%'
-            imageHeight='auto'
+            imageHeight='400px'
             maskText="Click để xem chi tiết"
           />
           <p style={{

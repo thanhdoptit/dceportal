@@ -33,14 +33,14 @@ const RackSystemSection = () => {
         style={{ marginBottom: '20px' }}
       >
         <ImageGallery
-        style={{ width: '80%', margin: '0 auto' }}
+        style={{ width: '100%'}}
           images={[
             '/vancanh-overview/rack1.jpg',
             '/vancanh-overview/rack2.jpg'
           ]}
           columns={2}
           imageWidth= '100%'
-          imageHeight= 'auto'  
+          imageHeight= '450px'  
           maskText="Click để xem chi tiết"
         />
       </Card>

@@ -1,8 +1,8 @@
 import {
-    CheckCircleOutlined,
-    CloudOutlined,
-    PictureOutlined,
-    SettingOutlined
+  CheckCircleOutlined,
+  CloudOutlined,
+  PictureOutlined,
+  SettingOutlined
 } from '@ant-design/icons';
 import { Alert, Card, Col, Divider, Row, Space, Tag, Typography } from 'antd';
 import React from 'react';
@@ -254,27 +254,25 @@ const CoolingSystemSection = () => {
           }
           style={{ marginBottom: '20px' }}
         >
-          <div style={{ textAlign: 'center' }}>
+          <div style={{ textAlign: 'center', width: '100%', height: '530px', margin: '0 auto' }}>
             <ImagePreview
               src="/vancanh-overview/tes.jpg"
               alt="Hệ thống trữ nhiệt TES"
-              width={400}
-              height={300}
+              width='800px'
+              height='500px'
               style={{
                 border: '1px solid #d9d9d9',
                 borderRadius: '6px',
                 boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
                 display: 'block',
                 margin: '0 auto',
-                transform: "scaleX(1.4)",
-                transformOrigin: "center"
               }}
             />
             <p style={{
               color: '#666',
               margin: '8px 0 0 0',
               fontSize: '12px',
-              fontStyle: 'italic'
+              fontStyle: 'italic',
             }}>
               Hệ thống trữ nhiệt TES đặt ở bên hông trái TTDL
             </p>

@@ -3,6 +3,7 @@ import ModernErrorScreen from "../../components/common/ModernErrorScreen";
 import ModernLoadingScreen from "../../components/common/ModernLoadingScreen";
 import SystemMenu from "../../components/common/SystemMenu";
 import { useSidebar } from "../../contexts/SidebarContext";
+import { useLayoutPositions } from "../shared/utils";
 import LazySection from "./components/LazySection";
 import { ElectricDataProvider, useElectricData } from "./context";
 import CableSection from "./sections/CableSection";
@@ -141,6 +142,9 @@ function ElectricSystemContent() {
   const [expandedSections, setExpandedSections] = useState(new Set(["introduction"]));
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [ignoreSpy, setIgnoreSpy] = useState(false);
+
+  // Sử dụng layout positions utility
+  const { headerStyle, menuStyle, contentStyle } = useLayoutPositions(collapsed);
 
   const observer = useRef(null);
 
@@ -388,18 +392,14 @@ function ElectricSystemContent() {
     );
   }
 
-  // Tính toán vị trí dựa trên trạng thái sidebar
-  const sidebarLeft = collapsed ? 70 : 200;
-  const headerLeft = sidebarLeft;
-  const menuLeft = sidebarLeft;
-  const contentLeft = sidebarLeft + 320; // 320px là width của menu
+  // Layout positions đã được tính toán trong useLayoutPositions hook
 
   return (
     <>
       {/* 1. Header - Independent */}
       <header 
         className="fixed top-20 z-5 bg-white border-b border-slate-200 transition-all duration-200"
-        style={{ left: `${headerLeft}px`, right: 0 }}
+        style={{ ...headerStyle, right: 0 }}
       >
         <div className="max-w-8xl mx-auto px-6 py-4 flex items-center justify-between gap-4">
           <div className="flex items-center gap-4">
@@ -428,7 +428,7 @@ function ElectricSystemContent() {
       {/* 2. Menu - Independent */}
       <aside 
         className="hidden lg:block fixed top-40 w-80 h-[calc(100vh-80px)] bg-white border-r border-slate-200 z-5 transition-all duration-200"
-        style={{ left: `${menuLeft}px` }}
+        style={menuStyle}
       >
         <div className="h-full overflow-y-auto p-6">
           <Sidebar
@@ -448,10 +448,10 @@ function ElectricSystemContent() {
       {/* 3. Content - Independent */}
       <main 
         className="fixed top-40 right-0 h-[calc(100vh-80px)] bg-white border-l border-slate-200 z-5 transition-all duration-200"
-        style={{ left: `${contentLeft}px` }}
+        style={contentStyle}
       >
         <div className="h-full overflow-y-auto p-8">
-          <div className="max-w-7xl mx-auto space-y-8">
+          <div className="max-w-8xl mx-auto space-y-8">
             {SECTIONS.map(section => (
               <LazySection
                 key={section.key}

@@ -40,7 +40,7 @@ const NetworkSystemSection = () => {
           ]}
           columns={3}
           imageWidth= '100%'
-          imageHeight= 'auto'  
+          imageHeight= '350px'  
           maskText="Click để xem chi tiết"
         />
       </Card>
