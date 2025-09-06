@@ -7,13 +7,13 @@ export default function TableError({ message = 'Có lỗi xảy ra', className }
   return (
     <div className={twMerge('py-8', className)}>
       <Result
-        status="error"
-        title="Lỗi"
+        status='error'
+        title='Lỗi'
         subTitle={message}
         extra={[
-          <Button type="primary" key="reload" onClick={() => window.location.reload()}>
+          <Button type='primary' key='reload' onClick={() => window.location.reload()}>
             Thử lại
-          </Button>
+          </Button>,
         ]}
       />
     </div>
@@ -22,5 +22,5 @@ export default function TableError({ message = 'Có lỗi xảy ra', className }
 
 TableError.propTypes = {
   message: PropTypes.string,
-  className: PropTypes.string
-}; 
+  className: PropTypes.string,
+};

@@ -13,25 +13,11 @@ const FormActions = ({
   ...props
 }) => {
   return (
-    <div
-      className={twMerge(
-        'flex justify-end space-x-3',
-        className
-      )}
-      {...props}
-    >
-      <Button
-        type="button"
-        variant="secondary"
-        onClick={onCancel}
-      >
+    <div className={twMerge('flex justify-end space-x-3', className)} {...props}>
+      <Button type='button' variant='secondary' onClick={onCancel}>
         {cancelLabel}
       </Button>
-      <Button
-        type="submit"
-        onClick={onSubmit}
-        loading={loading}
-      >
+      <Button type='submit' onClick={onSubmit} loading={loading}>
         {submitLabel}
       </Button>
     </div>
@@ -44,7 +30,7 @@ FormActions.propTypes = {
   submitLabel: PropTypes.string,
   cancelLabel: PropTypes.string,
   loading: PropTypes.bool,
-  className: PropTypes.string
+  className: PropTypes.string,
 };
 
-export default FormActions; 
+export default FormActions;

@@ -13,7 +13,7 @@ const TestEmail = () => {
       const result = await emailService.sendEmail({
         to: 'recipient@example.com',
         subject: 'Test Email Cơ Bản',
-        body: 'Nội dung test email cơ bản'
+        body: 'Nội dung test email cơ bản',
       });
 
       if (result.success) {
@@ -41,9 +41,9 @@ const TestEmail = () => {
             status: 'Có lỗi',
             errorCode: 'E001',
             errorCause: 'Mất điện',
-            solution: 'Kiểm tra nguồn điện'
-          }
-        ]
+            solution: 'Kiểm tra nguồn điện',
+          },
+        ],
       };
 
       const result = await emailService.sendHandoverEmail(testData);
@@ -61,20 +61,12 @@ const TestEmail = () => {
   };
 
   return (
-    <Card title="Test Gửi Email" style={{ maxWidth: 600, margin: '20px auto' }}>
+    <Card title='Test Gửi Email' style={{ maxWidth: 600, margin: '20px auto' }}>
       <div style={{ display: 'flex', gap: '10px', marginBottom: '20px' }}>
-        <Button 
-          type="primary" 
-          onClick={handleTestBasicEmail}
-          loading={loading}
-        >
+        <Button type='primary' onClick={handleTestBasicEmail} loading={loading}>
           Test Email Cơ Bản
         </Button>
-        <Button 
-          type="primary" 
-          onClick={handleTestHandoverEmail}
-          loading={loading}
-        >
+        <Button type='primary' onClick={handleTestHandoverEmail} loading={loading}>
           Test Biên Bản Bàn Giao
         </Button>
       </div>
@@ -92,4 +84,4 @@ const TestEmail = () => {
   );
 };
 
-export default TestEmail; 
+export default TestEmail;

@@ -1,4 +1,3 @@
-import React from 'react';
 import { Image } from 'antd';
 
 const { PreviewGroup } = Image;
@@ -6,7 +5,7 @@ const { PreviewGroup } = Image;
 /**
  * Component ImagePreview - Hiển thị ảnh với tính năng preview
  * Hỗ trợ cả ảnh đơn và nhiều ảnh
- * 
+ *
  * @param {Object} props - Props của component
  * @param {string|Array} props.src - Đường dẫn ảnh (string) hoặc mảng ảnh (Array)
  * @param {string} props.alt - Alt text cho ảnh
@@ -38,14 +37,16 @@ const ImagePreview = ({
   // Nếu src là mảng (nhiều ảnh)
   if (Array.isArray(src) && src.length > 0) {
     return (
-      <div style={{ 
-        width, 
-        height, 
-        position: 'relative', 
-        display: 'flex', 
-        alignItems: 'center',
-        justifyContent: 'center'
-      }}>
+      <div
+        style={{
+          width,
+          height,
+          position: 'relative',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
         <PreviewGroup
           preview={{
             mask: maskText,
@@ -63,30 +64,32 @@ const ImagePreview = ({
                 objectFit: 'cover',
                 borderRadius: '4px',
                 display: index === 0 ? 'block' : 'none', // Chỉ hiển thị ảnh đầu tiên
-                ...style
+                ...style,
               }}
               preview={{
                 mask: maskText,
-                maskClassName: maskClassName
+                maskClassName: maskClassName,
               }}
               {...restProps}
             />
           ))}
         </PreviewGroup>
-        
+
         {/* Hiển thị số lượng ảnh nếu có nhiều hơn 1 ảnh */}
         {showImageCount && src.length > 1 && (
-          <div style={{
-            position: 'absolute',
-            top: 2,
-            right: 2,
-            background: 'rgba(0,0,0,0.7)',
-            color: 'white',
-            padding: '2px 6px',
-            borderRadius: '10px',
-            fontSize: '10px',
-            fontWeight: 'bold'
-          }}>
+          <div
+            style={{
+              position: 'absolute',
+              top: 2,
+              right: 2,
+              background: 'rgba(0,0,0,0.7)',
+              color: 'white',
+              padding: '2px 6px',
+              borderRadius: '10px',
+              fontSize: '10px',
+              fontWeight: 'bold',
+            }}
+          >
             {src.length} ảnh
           </div>
         )}
@@ -105,11 +108,11 @@ const ImagePreview = ({
         style={{
           objectFit: 'cover',
           borderRadius: '4px',
-          ...style
+          ...style,
         }}
         preview={{
           mask: maskText,
-          maskClassName: maskClassName
+          maskClassName: maskClassName,
         }}
         {...restProps}
       />

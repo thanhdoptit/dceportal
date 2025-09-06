@@ -52,4 +52,4 @@ export { default as Avatar } from 'antd/es/avatar';
 
 // Locale
 export { default as viVN } from 'antd/es/locale/vi_VN';
-export { default as datePickerLocale } from 'antd/es/date-picker/locale/vi_VN'; 
+export { default as datePickerLocale } from 'antd/es/date-picker/locale/vi_VN';

@@ -11,12 +11,6 @@
 }
  */
 
-
-
-
-
-
-
 /* ===== ANIMATION VÀ STYLING CHO MODAL ===== */
 
 /* Hiệu ứng slide in cho modal */
@@ -44,7 +38,7 @@
 /* ===== STYLING CHO TABLE HEADER ===== */
 
 /* Styling cho các ô header */
-.shift-schedule-modal .ant-table-thead>tr>th {
+.shift-schedule-modal .ant-table-thead > tr > th {
   padding: 4px 4px;
   /* Padding cho ô header */
   font-size: 14px;
@@ -60,7 +54,7 @@
 }
 
 /* Styling cho các ô dữ liệu */
-.shift-schedule-modal .ant-table-tbody>tr>td {
+.shift-schedule-modal .ant-table-tbody > tr > td {
   padding: 6px 4px;
   /* Padding cho ô dữ liệu */
   border-bottom: 1px solid #e9dcdc;
@@ -68,7 +62,7 @@
 }
 
 /* Bo góc cho ô header đầu tiên */
-.shift-schedule-modal .ant-table-thead>tr:first-child>th:first-child {
+.shift-schedule-modal .ant-table-thead > tr:first-child > th:first-child {
   border-top-left-radius: 8px;
   /* Bo góc trái trên */
   border-left: 1px solid #1890ff !important;
@@ -76,7 +70,7 @@
 }
 
 /* Bo góc cho ô header cuối cùng */
-.shift-schedule-modal .ant-table-thead>tr:first-child>th:last-child {
+.shift-schedule-modal .ant-table-thead > tr:first-child > th:last-child {
   border-top-right-radius: 8px;
   /* Bo góc phải trên */
   border-right: 1px solid #1890ff !important;
@@ -86,13 +80,13 @@
 /* ===== XỬ LÝ DÒNG THỪA ===== */
 
 /* Ẩn các dòng header thừa (Ant Design tự tạo) */
-.shift-schedule-modal .ant-table-thead>tr:not(:first-child) {
+.shift-schedule-modal .ant-table-thead > tr:not(:first-child) {
   display: none;
   /* Ẩn tất cả dòng header trừ dòng đầu */
 }
 
 /* Bỏ border trên cho dòng header đầu */
-.shift-schedule-modal .ant-table-thead>tr:first-child {
+.shift-schedule-modal .ant-table-thead > tr:first-child {
   border-top: none;
   /* Không có border trên */
 }
@@ -110,7 +104,7 @@
 }
 
 /* Border ngăn cách header và content với hiệu ứng shadow */
-.shift-schedule-modal .ant-table-thead>tr:first-child {
+.shift-schedule-modal .ant-table-thead > tr:first-child {
   border-bottom: 3px solid #1890ff !important;
   /* Border dưới đậm màu xanh */
   /* Shadow nhẹ */
@@ -124,10 +118,8 @@
   /* Border dưới đậm */
 }
 
-
-
 /* Bỏ border trên cho dòng dữ liệu đầu tiên */
-.shift-schedule-modal .ant-table-tbody>tr:first-child>td {
+.shift-schedule-modal .ant-table-tbody > tr:first-child > td {
   border-top: none;
   /* Không có border trên */
 }
@@ -157,63 +149,63 @@
 }
 
 /* ===== XỬ LÝ DÒNG MEASURE ROW ===== */
-.shift-schedule-modal .ant-table-thead>tr>th:nth-child(1) {
+.shift-schedule-modal .ant-table-thead > tr > th:nth-child(1) {
   border-right: 1px solid #1890ff !important;
 }
 
-.shift-schedule-modal .ant-table-thead>tr>th:nth-child(3) {
+.shift-schedule-modal .ant-table-thead > tr > th:nth-child(3) {
   border-right: 1px solid #1890ff !important;
 }
 
-.shift-schedule-modal .ant-table-thead>tr>th:nth-child(10) {
+.shift-schedule-modal .ant-table-thead > tr > th:nth-child(10) {
   border-right: 1px solid #1890ff !important;
 }
 
-.shift-schedule-modal .ant-table-thead>tr>th:nth-child(17) {
+.shift-schedule-modal .ant-table-thead > tr > th:nth-child(17) {
   border-right: 1px solid #1890ff !important;
 }
 
-.shift-schedule-modal .ant-table-thead>tr>th:nth-child(24) {
+.shift-schedule-modal .ant-table-thead > tr > th:nth-child(24) {
   border-right: 1px solid #1890ff !important;
 }
 
-.shift-schedule-modal .ant-table-thead>tr>th:nth-child(32) {
+.shift-schedule-modal .ant-table-thead > tr > th:nth-child(32) {
   border-left: 1px solid #1890ff !important;
 }
 
-.shift-schedule-modal .ant-table-tbody>tr>td:nth-child(1) {
+.shift-schedule-modal .ant-table-tbody > tr > td:nth-child(1) {
   border-right: 1px solid #e7b3b3 !important;
 }
 
-.shift-schedule-modal .ant-table-tbody>tr>td:nth-child(3) {
+.shift-schedule-modal .ant-table-tbody > tr > td:nth-child(3) {
   border-right: 1px solid #e7b3b3 !important;
 }
 
-.shift-schedule-modal .ant-table-tbody>tr>td:nth-child(10) {
+.shift-schedule-modal .ant-table-tbody > tr > td:nth-child(10) {
   border-right: 1px solid #e7b3b3 !important;
 }
 
-.shift-schedule-modal .ant-table-tbody>tr>td:nth-child(17) {
+.shift-schedule-modal .ant-table-tbody > tr > td:nth-child(17) {
   border-right: 1px solid #e7b3b3 !important;
 }
 
-.shift-schedule-modal .ant-table-tbody>tr>td:nth-child(24) {
+.shift-schedule-modal .ant-table-tbody > tr > td:nth-child(24) {
   border-right: 1px solid #e7b3b3 !important;
 }
 
-.shift-schedule-modal .ant-table-tbody>tr>td:nth-child(31) {
+.shift-schedule-modal .ant-table-tbody > tr > td:nth-child(31) {
   border-right: 1px solid #e7b3b3 !important;
 }
 
-.shift-schedule-modal .ant-table-tbody>tr>td:nth-child(1) {
+.shift-schedule-modal .ant-table-tbody > tr > td:nth-child(1) {
   border-left: 1px solid #e7b3b3 !important;
 }
 
-.shift-schedule-modal .ant-table-tbody>tr>td:nth-child(-n+3) {
+.shift-schedule-modal .ant-table-tbody > tr > td:nth-child(-n + 3) {
   background-color: #e6f7ff !important;
 }
 
-.shift-schedule-modal .ant-table-thead>tr>th:nth-child(-n+3) {
+.shift-schedule-modal .ant-table-thead > tr > th:nth-child(-n + 3) {
   background-color: #e6f7ff !important;
 }
 
@@ -260,7 +252,7 @@
 /* ===== HIGHLIGHT DÒNG NGƯỜI DÙNG HIỆN TẠI ===== */
 
 /* Highlight dòng của người dùng hiện tại */
-.shift-schedule-table .ant-table-tbody>tr.current-user-row {
+.shift-schedule-table .ant-table-tbody > tr.current-user-row {
   background-color: #ffe7ba !important;
   /* Màu cam nhạt */
   border-left: 4px solid #ffe7ba !important;
@@ -268,14 +260,14 @@
 }
 
 /* Hover effect cho dòng người dùng hiện tại */
-.shift-schedule-table .ant-table-tbody>tr.current-user-row:hover>td:nth-child(n+4) {
+.shift-schedule-table .ant-table-tbody > tr.current-user-row:hover > td:nth-child(n + 4) {
   background-color: #ffe7ba !important;
   /* Màu cam đậm hơn khi hover */
 }
 
 /* Đảm bảo text vẫn đọc được trên background cam */
-.shift-schedule-table .ant-table-tbody>tr.current-user-row td {
-  color: #2D3958 !important;
+.shift-schedule-table .ant-table-tbody > tr.current-user-row td {
+  color: #2d3958 !important;
   /* Màu text tối để dễ đọc */
   font-weight: 500 !important;
   /* Font weight đậm hơn */

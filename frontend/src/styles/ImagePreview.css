@@ -219,21 +219,21 @@
     left: 8px;
     right: 8px;
   }
-  
+
   .preview-nav-button.left {
     left: 8px;
   }
-  
+
   .preview-nav-button.right {
     right: 8px;
   }
-  
+
   .preview-help-panel {
     right: 8px;
     max-width: 150px;
     font-size: 11px;
   }
-  
+
   .preview-bottom-controls {
     flex-direction: column;
     gap: 8px;
@@ -258,23 +258,43 @@
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes fadeOut {
-  from { opacity: 1; }
-  to { opacity: 0; }
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }
 
 @keyframes slideIn {
-  from { transform: translateY(20px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 @keyframes zoomIn {
-  from { transform: scale(0.9); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 /* Custom Scrollbar for Zoom Slider */
@@ -332,14 +352,14 @@
     background: rgba(0, 0, 0, 0.95);
     border: 2px solid #fff;
   }
-  
+
   .preview-nav-button {
     background: rgba(0, 0, 0, 0.95);
     border: 2px solid #fff;
   }
-  
+
   .preview-help-panel {
     background: rgba(0, 0, 0, 0.95);
     border: 2px solid #fff;
   }
-} 
+}

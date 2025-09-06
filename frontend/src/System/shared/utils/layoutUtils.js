@@ -17,18 +17,18 @@ export const calculateLayoutPositions = (collapsed, options = {}) => {
     sidebarCollapsedWidth = 70,
     sidebarExpandedWidth = 200,
     menuWidth = 320,
-    spacing = 10
+    spacing = 10,
   } = options;
 
   // Tính toán vị trí sidebar
   const sidebarLeft = collapsed ? sidebarCollapsedWidth : sidebarExpandedWidth;
-  
+
   // Tính toán vị trí header (ngay sau sidebar)
   const headerLeft = sidebarLeft + spacing;
-  
+
   // Tính toán vị trí menu (ngay sau sidebar)
   const menuLeft = sidebarLeft + spacing;
-  
+
   // Tính toán vị trí content (sau sidebar + menu)
   const contentLeft = sidebarLeft + menuWidth + spacing;
 
@@ -36,7 +36,7 @@ export const calculateLayoutPositions = (collapsed, options = {}) => {
     sidebarLeft,
     headerLeft,
     menuLeft,
-    contentLeft
+    contentLeft,
   };
 };
 
@@ -48,10 +48,10 @@ export const calculateLayoutPositions = (collapsed, options = {}) => {
  */
 export const getHeaderStyle = (collapsed, options = {}) => {
   const { headerLeft } = calculateLayoutPositions(collapsed, options);
-  
+
   return {
     left: `${headerLeft}px`,
-    right: 0
+    right: 0,
   };
 };
 
@@ -63,9 +63,9 @@ export const getHeaderStyle = (collapsed, options = {}) => {
  */
 export const getMenuStyle = (collapsed, options = {}) => {
   const { menuLeft } = calculateLayoutPositions(collapsed, options);
-  
+
   return {
-    left: `${menuLeft}px`
+    left: `${menuLeft}px`,
   };
 };
 
@@ -77,9 +77,9 @@ export const getMenuStyle = (collapsed, options = {}) => {
  */
 export const getContentStyle = (collapsed, options = {}) => {
   const { contentLeft } = calculateLayoutPositions(collapsed, options);
-  
+
   return {
-    left: `${contentLeft}px`
+    left: `${contentLeft}px`,
   };
 };
 
@@ -91,11 +91,11 @@ export const getContentStyle = (collapsed, options = {}) => {
  */
 export const useLayoutPositions = (collapsed, options = {}) => {
   const positions = calculateLayoutPositions(collapsed, options);
-  
+
   return {
     ...positions,
     headerStyle: getHeaderStyle(collapsed, options),
     menuStyle: getMenuStyle(collapsed, options),
-    contentStyle: getContentStyle(collapsed, options)
+    contentStyle: getContentStyle(collapsed, options),
   };
 };

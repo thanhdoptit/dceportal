@@ -1,36 +1,36 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Card, Descriptions, Tag, Typography, message, Button, Space, Form } from 'antd';
-import { SwapOutlined, FileSearchOutlined } from '@ant-design/icons';
-import axios from '../utils/axios';
-import { formatDate } from '../utils/dateUtils';
+import { FileSearchOutlined, SwapOutlined } from '@ant-design/icons';
+import { Button, Card, Descriptions, Form, Space, Tag, Typography, message } from 'antd';
+import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DeviceCheckForm from '../components/DeviceCheckForm';
-import TaskTable from '../components/tasks/TaskTable';
+import { renderChangeContent } from '../components/tasks/taskChangeUtils';
 import TaskModal from '../components/tasks/TaskModal';
 import TaskReasonModal from '../components/tasks/TaskReasonModal';
-import {
-  getCurrentUserId,
-  getCurrentUserRole,
-  getAuthHeader,
-  showModal,
-  handleModalSubmit,
-  handleAttachmentRemove,
-  downloadFile,
-  showReasonModal,
-  handleReasonSubmit,
-  handleReopen,
-} from '../utils/taskModalUtils';
-import { processFileName } from '../utils/VietnameseFile';
-import { renderChangeContent } from '../components/tasks/taskChangeUtils';
+import TaskTable from '../components/tasks/TaskTable';
 import { STATUS_LABELS } from '../constants/taskStatus';
 import {
-  fetchTaskDetail as fetchTaskDetailApi,
   createTask,
-  updateTask,
+  fetchTaskDetail as fetchTaskDetailApi,
   lockTask,
   unlockTask,
-  updateTaskStatus
+  updateTask,
+  updateTaskStatus,
 } from '../services/taskService';
+import axios from '../utils/axios';
+import { formatDate } from '../utils/dateUtils';
+import {
+  downloadFile,
+  getAuthHeader,
+  getCurrentUserId,
+  getCurrentUserRole,
+  handleAttachmentRemove,
+  handleModalSubmit,
+  handleReasonSubmit,
+  handleReopen,
+  showModal,
+  showReasonModal,
+} from '../utils/taskModalUtils';
+import { processFileName } from '../utils/VietnameseFile';
 const { Title, Text } = Typography;
 const API_URL = import.meta.env.VITE_API_URL || window.location.origin;
 
@@ -92,13 +92,15 @@ const MyShiftsPage = () => {
 
       const response = await axios.get(`${API_URL}/api/shifts/my-shifts`, {
         headers: { Authorization: `Bearer ${token}` },
-        signal: abortControllerRef.current.signal
+        signal: abortControllerRef.current.signal,
       });
 
       if (response.data?.data?.[0]) {
         const shift = response.data.data[0];
         if (!shift.WorkShift.confirmedAt) {
-          message.warning('Ca trực chưa được xác nhận. Vui lòng xác nhận nhận ca trước khi bắt đầu làm việc.');
+          message.warning(
+            'Ca trực chưa được xác nhận. Vui lòng xác nhận nhận ca trước khi bắt đầu làm việc.'
+          );
         }
         setCurrentShift(shift);
       }
@@ -141,7 +143,7 @@ const MyShiftsPage = () => {
       const params = {
         status: ['pending', 'in_progress', 'completed'],
         location: currentShift.WorkShift.name,
-        toDate: new Date().toISOString()
+        toDate: new Date().toISOString(),
       };
 
       if (currentShift.WorkShift.confirmedAt) {
@@ -151,13 +153,15 @@ const MyShiftsPage = () => {
       const response = await axios.get(`${API_URL}/api/tasks`, {
         headers: { Authorization: `Bearer ${token}` },
         params,
-        signal: abortControllerRef.current.signal
+        signal: abortControllerRef.current.signal,
       });
 
       if (response.data?.tasks) {
         setRelatedTasks(response.data.tasks || []);
         // Log số lượng tasks để debug
-        console.log(`Loaded ${response.data.tasks.length} related tasks for shift ${currentShift.WorkShift.name}`);
+        console.log(
+          `Loaded ${response.data.tasks.length} related tasks for shift ${currentShift.WorkShift.name}`
+        );
       } else {
         setRelatedTasks([]);
         console.log('No related tasks found');
@@ -179,25 +183,33 @@ const MyShiftsPage = () => {
     }
   };
 
-  const getStatusColor = (status) => {
+  const getStatusColor = status => {
     switch (status) {
-      case 'doing': return 'success';
-      case 'handover': return 'warning';
-      case 'done': return 'error';
-      default: return 'default';
+      case 'doing':
+        return 'success';
+      case 'handover':
+        return 'warning';
+      case 'done':
+        return 'error';
+      default:
+        return 'default';
     }
   };
 
-  const getStatusText = (status) => {
+  const getStatusText = status => {
     switch (status) {
-      case 'doing': return 'Đang làm việc';
-      case 'handover': return 'Đang bàn giao';
-      case 'done': return 'Đã kết thúc';
-      default: return 'Chưa bắt đầu';
+      case 'doing':
+        return 'Đang làm việc';
+      case 'handover':
+        return 'Đang bàn giao';
+      case 'done':
+        return 'Đã kết thúc';
+      default:
+        return 'Chưa bắt đầu';
     }
   };
 
-  const handleViewTask = async (task) => {
+  const handleViewTask = async task => {
     setModalType('view');
     const detail = await fetchTaskDetail(task.id);
     setSelectedTask(detail);
@@ -205,7 +217,7 @@ const MyShiftsPage = () => {
     fetchTaskHistory(task.id);
   };
 
-  const handleEditTask = async (task) => {
+  const handleEditTask = async task => {
     setModalType('edit');
     setModalVisible(true);
     const updatedTask = await fetchTaskDetail(task.id);
@@ -226,14 +238,14 @@ const MyShiftsPage = () => {
     fetchTaskHistory(task.id);
   };
 
-  const fetchTaskHistory = async (taskId) => {
+  const fetchTaskHistory = async taskId => {
     try {
       const token = localStorage.getItem('token');
       const response = await axios.get(`${API_URL}/api/tasks/${taskId}/history`, {
-        headers: { Authorization: `Bearer ${token}` }
+        headers: { Authorization: `Bearer ${token}` },
       });
       if (response.data?.history) {
-        setSelectedTask(prev => prev ? { ...prev, history: response.data.history } : prev);
+        setSelectedTask(prev => (prev ? { ...prev, history: response.data.history } : prev));
       }
     } catch (error) {
       console.error('Error fetching task history:', error);
@@ -241,7 +253,7 @@ const MyShiftsPage = () => {
     }
   };
 
-  const fetchTaskDetail = async (taskId) => {
+  const fetchTaskDetail = async taskId => {
     try {
       const taskData = await fetchTaskDetailApi(taskId);
       setSelectedTask(taskData);
@@ -258,7 +270,12 @@ const MyShiftsPage = () => {
     }
   };
 
-  const handleStatusChange = async (taskId, newStatus, isSystemChange = false, customReason = null) => {
+  const handleStatusChange = async (
+    taskId,
+    newStatus,
+    isSystemChange = false,
+    customReason = null
+  ) => {
     try {
       const task = relatedTasks.find(t => t.id === taskId);
       if (!task) {
@@ -271,7 +288,7 @@ const MyShiftsPage = () => {
         console.log('Status unchanged, skipping update:', {
           taskId,
           currentStatus: task.status,
-          newStatus
+          newStatus,
         });
         return;
       }
@@ -279,11 +296,11 @@ const MyShiftsPage = () => {
       let changeReason = customReason;
       if (!changeReason && !isSystemChange) {
         const statusLabels = {
-          'waiting': 'Chờ xử lý',
-          'pending': 'Tạm dừng',
-          'in_progress': 'Đang thực hiện',
-          'completed': 'Đã kết thúc',
-          'cancelled': 'Đã hủy'
+          waiting: 'Chờ xử lý',
+          pending: 'Tạm dừng',
+          in_progress: 'Đang thực hiện',
+          completed: 'Đã kết thúc',
+          cancelled: 'Đã hủy',
         };
 
         const oldStatus = statusLabels[task.status] || task.status;
@@ -296,7 +313,7 @@ const MyShiftsPage = () => {
         newStatus,
         reason: changeReason,
         userId: currentUser.id,
-        system: isSystemChange
+        system: isSystemChange,
       });
 
       if (!isSystemChange) {
@@ -304,7 +321,7 @@ const MyShiftsPage = () => {
         fetchRelatedTasks();
       }
 
-      setRelatedTasks(prev => prev.map(t => t.id === taskId ? updatedTask : t));
+      setRelatedTasks(prev => prev.map(t => (t.id === taskId ? updatedTask : t)));
 
       if (modalVisible && selectedTask && selectedTask.id === taskId) {
         const updatedTaskWithHistory = await fetchTaskDetail(taskId);
@@ -326,7 +343,9 @@ const MyShiftsPage = () => {
   };
 
   const sortedHistory = selectedTask?.history
-    ?.filter(h => h?.changes?.some(c => c?.type === 'content' && (c?.field === 'taskDescription' || !c?.field)))
+    ?.filter(h =>
+      h?.changes?.some(c => c?.type === 'content' && (c?.field === 'taskDescription' || !c?.field))
+    )
     ?.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
 
   let firstContent = '';
@@ -358,23 +377,26 @@ const MyShiftsPage = () => {
 
       if (currentShift?.WorkShift?.id) {
         try {
-          const response = await axios.get(`${API_URL}/api/shifts/handover/by-shift/${currentShift.WorkShift.id}`, {
-            headers: {
-              Authorization: `Bearer ${token}`
+          const response = await axios.get(
+            `${API_URL}/api/shifts/handover/by-shift/${currentShift.WorkShift.id}`,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
             }
-          });
+          );
 
-          const shiftHandovers = response.data.filter(handover =>
-            handover.fromShiftId === currentShift.WorkShift.id
+          const shiftHandovers = response.data.filter(
+            handover => handover.fromShiftId === currentShift.WorkShift.id
           );
 
           if (shiftHandovers.length > 0) {
             const sortedHandovers = shiftHandovers.sort((a, b) => {
               const statusPriority = {
-                'draft': 0,
-                'pending': 1,
-                'completed': 2,
-                'rejected': 3
+                draft: 0,
+                pending: 1,
+                completed: 2,
+                rejected: 3,
               };
               if (statusPriority[a.status] !== statusPriority[b.status]) {
                 return statusPriority[a.status] - statusPriority[b.status];
@@ -387,7 +409,7 @@ const MyShiftsPage = () => {
             message.info('Đã tìm thấy biên bản bàn giao cho ca này');
           } else {
             navigate('/dc/handover/create', {
-              state: { shiftId: currentShift.WorkShift.id }
+              state: { shiftId: currentShift.WorkShift.id },
             });
           }
         } catch (error) {
@@ -411,39 +433,44 @@ const MyShiftsPage = () => {
 
   if (!currentShift) {
     return (
-      <div className="text-center py-8">
+      <div className='text-center py-8'>
         <Title level={3}>Bạn chưa chọn ca làm việc</Title>
-        <Text type="secondary">Vui lòng chọn ca làm việc để xem thông tin chi tiết</Text>
+        <Text type='secondary'>Vui lòng chọn ca làm việc để xem thông tin chi tiết</Text>
       </div>
     );
   }
   if (!currentShift.WorkShift.confirmedAt) {
     return (
-      <div className="text-center py-8">
+      <div className='text-center py-8'>
         <Title level={3}>Ca trực chưa được xác nhận</Title>
-        <Text type="secondary">Vui lòng xác nhận nhận ca trước khi bắt đầu làm việc</Text>
+        <Text type='secondary'>Vui lòng xác nhận nhận ca trước khi bắt đầu làm việc</Text>
       </div>
     );
   }
 
   return (
     <>
-      <div className="w-full p-0">
-        <Card variant="outlined" className="w-full">
-          <div className="flex justify-between items-center mb-6">
-            <Title level={4} style={{ color: '#003c71', margin: 0 }}>Nội dung ca làm việc</Title>
+      <div className='w-full p-0'>
+        <Card variant='outlined' className='w-full'>
+          <div className='flex justify-between items-center mb-6'>
+            <Title level={4} style={{ color: '#003c71', margin: 0 }}>
+              Nội dung ca làm việc
+            </Title>
             <Space>
               {currentShift?.WorkShift?.status === 'doing' && (
                 <Button
-                  type="primary"
+                  type='primary'
                   icon={<SwapOutlined />}
                   onClick={handleHandoverClick}
-                  className="bg-[#003c71] hover:bg-[#002c51]"
+                  className='bg-[#003c71] hover:bg-[#002c51]'
                 >
                   Biên bản bàn giao
                 </Button>
               )}
-              <Tag color={getStatusColor(currentShift.WorkShift.status)} style={{ fontSize: '16px', padding: '5px 16px' }}>
+              <Tag
+                color={getStatusColor(currentShift.WorkShift.status)}
+                style={{ fontSize: '16px', padding: '5px 16px' }}
+              >
                 {getStatusText(currentShift.WorkShift.status)}
               </Tag>
             </Space>
@@ -452,42 +479,44 @@ const MyShiftsPage = () => {
           <Descriptions
             bordered
             column={{ xxl: 4, xl: 3, lg: 2, md: 2, sm: 1, xs: 1 }}
-            className="w-full"
+            className='w-full'
           >
-            <Descriptions.Item label="Ca làm việc">
-              {currentShift.WorkShift.code}
-            </Descriptions.Item>
-            <Descriptions.Item label="Địa điểm">
-              {currentShift.WorkShift.name}
-            </Descriptions.Item>
-            <Descriptions.Item label="Ngày">
+            <Descriptions.Item label='Ca làm việc'>{currentShift.WorkShift.code}</Descriptions.Item>
+            <Descriptions.Item label='Địa điểm'>{currentShift.WorkShift.name}</Descriptions.Item>
+            <Descriptions.Item label='Ngày'>
               {formatDate(currentShift.WorkShift.date)}
             </Descriptions.Item>
-            <Descriptions.Item label="Thời điểm bắt đầu">
-              {currentShift.WorkShift.confirmedAt ? formatDate(currentShift.WorkShift.confirmedAt, 'HH:mm') : 'Chưa xác nhận'}
+            <Descriptions.Item label='Thời điểm bắt đầu'>
+              {currentShift.WorkShift.confirmedAt
+                ? formatDate(currentShift.WorkShift.confirmedAt, 'HH:mm')
+                : 'Chưa xác nhận'}
             </Descriptions.Item>
           </Descriptions>
 
-          <div className="mt-6 w-full">
-            <Title level={4} style={{ color: '#003c71', margin: 0 }}>Thành viên</Title>
-            <div className="grid  lg:grid-cols-4 gap-4">
+          <div className='mt-6 w-full'>
+            <Title level={4} style={{ color: '#003c71', margin: 0 }}>
+              Thành viên
+            </Title>
+            <div className='grid  lg:grid-cols-4 gap-4'>
               {currentShift.WorkShift.Users?.map(user => (
-                <div key={user.id} className="p-3 bg-gray-50 rounded">
+                <div key={user.id} className='p-3 bg-gray-50 rounded'>
                   <Text>{user.fullname}</Text>
                 </div>
               ))}
             </div>
           </div>
 
-          <div className="mt-6">
-            <div className="flex justify-between items-center mb-4">
-              <Title level={4} style={{ color: '#003c71', margin: 0 }}>Công việc liên quan</Title>
+          <div className='mt-6'>
+            <div className='flex justify-between items-center mb-4'>
+              <Title level={4} style={{ color: '#003c71', margin: 0 }}>
+                Công việc liên quan
+              </Title>
               <Button
-                type="primary"
+                type='primary'
                 icon={<FileSearchOutlined />}
                 onClick={fetchRelatedTasks}
                 loading={tasksLoading}
-                className="flex items-center bg-blue-600 hover:bg-blue-600"
+                className='flex items-center bg-blue-600 hover:bg-blue-600'
               >
                 Làm mới
               </Button>
@@ -513,48 +542,54 @@ const MyShiftsPage = () => {
         form={form}
         selectedTask={selectedTask}
         STATUS_LABELS={STATUS_LABELS}
-        handleModalSubmit={() => handleModalSubmit({
-          form,
-          modalType,
-          selectedTask,
-          removedAttachments,
-          createTask,
-          updateTask,
-          message,
-          navigate,
-          setModalVisible,
-          fetchTaskDetail,
-          fetchAllTasksData: fetchRelatedTasks,
-          unlockTask,
-          setModalType,
-          locations: []
-        })}
-        handleAttachmentRemove={(file) => handleAttachmentRemove(file, form, setRemovedAttachments)}
+        handleModalSubmit={() =>
+          handleModalSubmit({
+            form,
+            modalType,
+            selectedTask,
+            removedAttachments,
+            createTask,
+            updateTask,
+            message,
+            navigate,
+            setModalVisible,
+            fetchTaskDetail,
+            fetchAllTasksData: fetchRelatedTasks,
+            unlockTask,
+            setModalType,
+            locations: [],
+          })
+        }
+        handleAttachmentRemove={file => handleAttachmentRemove(file, form, setRemovedAttachments)}
         processFileName={processFileName}
-        downloadFile={(file) => downloadFile(file, selectedTask, message)}
+        downloadFile={file => downloadFile(file, selectedTask, message)}
         setModalVisible={setModalVisible}
         unlockTask={unlockTask}
         fetchTaskDetail={fetchTaskDetail}
         getCurrentUserRole={() => getCurrentUserRole(currentUser)}
-        showReasonModal={(action) => showReasonModal(action, setPendingAction, setReasonModalVisible, reasonForm)}
+        showReasonModal={action =>
+          showReasonModal(action, setPendingAction, setReasonModalVisible, reasonForm)
+        }
         setReopenModalVisible={setReopenModalVisible}
         sortedHistory={sortedHistory}
         firstContent={firstContent}
         renderChangeContent={renderChangeContent}
         setModalType={setModalType}
-        showModal={(type, task) => showModal({
-          type,
-          task,
-          setModalType,
-          setSelectedTask,
-          setModalVisible,
-          setRemovedAttachments,
-          fetchTaskDetail,
-          getCurrentUserId: () => getCurrentUserId(currentUser),
-          lockTask,
-          message,
-          form
-        })}
+        showModal={(type, task) =>
+          showModal({
+            type,
+            task,
+            setModalType,
+            setSelectedTask,
+            setModalVisible,
+            setRemovedAttachments,
+            fetchTaskDetail,
+            getCurrentUserId: () => getCurrentUserId(currentUser),
+            lockTask,
+            message,
+            form,
+          })
+        }
         handleStatusChange={handleStatusChange}
       />
 
@@ -562,25 +597,29 @@ const MyShiftsPage = () => {
         pendingAction={pendingAction}
         reasonModalVisible={reasonModalVisible}
         setReasonModalVisible={setReasonModalVisible}
-        handleReasonSubmit={() => handleReasonSubmit({
-          reasonForm,
-          pendingAction,
-          selectedTask,
-          handleStatusChange,
-          setReasonModalVisible
-        })}
+        handleReasonSubmit={() =>
+          handleReasonSubmit({
+            reasonForm,
+            pendingAction,
+            selectedTask,
+            handleStatusChange,
+            setReasonModalVisible,
+          })
+        }
         reopenModalVisible={reopenModalVisible}
         setReopenModalVisible={setReopenModalVisible}
-        handleReopen={() => handleReopen({
-          reopenForm,
-          selectedTask,
-          getAuthHeader: () => getAuthHeader(navigate),
-          message,
-          navigate,
-          setReopenModalVisible,
-          fetchTaskDetail,
-          fetchAllTasksData: fetchRelatedTasks
-        })}
+        handleReopen={() =>
+          handleReopen({
+            reopenForm,
+            selectedTask,
+            getAuthHeader: () => getAuthHeader(navigate),
+            message,
+            navigate,
+            setReopenModalVisible,
+            fetchTaskDetail,
+            fetchAllTasksData: fetchRelatedTasks,
+          })
+        }
         reasonForm={reasonForm}
         reopenForm={reopenForm}
       />

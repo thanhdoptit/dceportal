@@ -117,11 +117,11 @@
   .backup-management-page {
     padding: 16px;
   }
-  
+
   .backup-management-page .page-header h1 {
     font-size: 20px;
   }
-  
+
   .backup-stats .ant-statistic-content {
     font-size: 20px;
   }
@@ -131,8 +131,8 @@
   .backup-management-page {
     padding: 12px;
   }
-  
+
   .backup-stats .ant-col {
     margin-bottom: 16px;
   }
-} 
+}

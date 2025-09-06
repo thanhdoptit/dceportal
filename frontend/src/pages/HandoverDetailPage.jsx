@@ -1,47 +1,43 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import {
-  Button,
-  message,
-  Modal,
-  Form,
-  Input,
-  Typography,
-  Card,
-  Tag,
-  Spin,
-  Space,
-  Tabs,
-  Descriptions,
-  Table,
-  Popconfirm,
-  List,
-  Checkbox,
-  Row,
-  Col,
-  Select,
-  Progress,
-  Alert
-} from 'antd';
 import {
   ArrowLeftOutlined,
   CheckCircleOutlined,
   CloseCircleOutlined,
   DownloadOutlined,
   FileOutlined,
-  UserOutlined,
-  MailOutlined,
   LoadingOutlined,
-  FileWordOutlined
+  MailOutlined,
+  UserOutlined,
 } from '@ant-design/icons';
-import { useAuth } from '../contexts/AuthContext';
+import {
+  Alert,
+  Button,
+  Card,
+  Col,
+  Form,
+  Input,
+  List,
+  message,
+  Modal,
+  Progress,
+  Row,
+  Select,
+  Space,
+  Spin,
+  Table,
+  Tabs,
+  Tag,
+  Typography,
+} from 'antd';
+import axios from 'axios';
 import { format } from 'date-fns';
 import { vi } from 'date-fns/locale';
-import axios from 'axios';
+import React, { useEffect, useRef, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import DeviceCheckForm from '../components/DeviceCheckForm';
+import { DEVICE_ERROR_STATUS, DEVICE_ERROR_STATUS_COLORS } from '../constants/deviceErrorStatus';
+import { useAuth } from '../contexts/AuthContext';
 import { sendEmail } from '../services/emailService';
 import { exportHandoverToWord } from '../utils/wordExport';
-import { DEVICE_ERROR_STATUS, DEVICE_ERROR_STATUS_COLORS } from '../constants/deviceErrorStatus';
 
 const { TextArea } = Input;
 const { Title, Text } = Typography;
@@ -50,8 +46,6 @@ const HandoverDetailPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { currentUser, authLoading } = useAuth();
-
-
 
   const [loading, setLoading] = useState(false);
   const [templateLoading, setTemplateLoading] = useState(false);
@@ -74,7 +68,7 @@ const HandoverDetailPage = () => {
     isSending: false,
     step: '',
     progress: 0,
-    error: null
+    error: null,
   });
 
   // State cho xuất Word
@@ -99,8 +93,8 @@ const HandoverDetailPage = () => {
         await axios.get(`${import.meta.env.VITE_API_URL}/api/form-templates/handover`, {
           headers: {
             Authorization: `Bearer ${token}`,
-            'Content-Type': 'application/json'
-          }
+            'Content-Type': 'application/json',
+          },
         });
       } catch (error) {
         console.error('Error fetching template:', error);
@@ -130,11 +124,14 @@ const HandoverDetailPage = () => {
       setAttachmentsLoading(true);
       setAttachmentsError(null);
 
-      const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/shifts/handover/${id}`, {
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem('token')}`
+      const response = await axios.get(
+        `${import.meta.env.VITE_API_URL}/api/shifts/handover/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
         }
-      });
+      );
 
       setHandover(response.data);
 
@@ -146,7 +143,7 @@ const HandoverDetailPage = () => {
         currentShiftId: currentUser?.currentShiftId,
         toShiftId: response.data.toShiftId,
         toShiftCode: response.data.ToShift?.code,
-        currentShiftCode: currentUser?.currentShiftCode
+        currentShiftCode: currentUser?.currentShiftCode,
       });
 
       // Kiểm tra shift hiện tại của user có phải là toShift của handover không
@@ -157,17 +154,13 @@ const HandoverDetailPage = () => {
 
       // Fallback: kiểm tra theo ToUsers nếu không có currentShiftId
       if (!isUserInShift && response.data.ToUsers && Array.isArray(response.data.ToUsers)) {
-        isUserInShift = response.data.ToUsers.some(
-          user => user.id === currentUser?.id
-        );
+        isUserInShift = response.data.ToUsers.some(user => user.id === currentUser?.id);
         console.log('Check by ToUsers:', isUserInShift);
       }
 
       // Fallback: kiểm tra theo ToShift.Users nếu không có currentShiftId
       if (!isUserInShift && response.data.ToShift?.Users) {
-        isUserInShift = response.data.ToShift.Users.some(
-          user => user.id === currentUser?.id
-        );
+        isUserInShift = response.data.ToShift.Users.some(user => user.id === currentUser?.id);
         console.log('Check by ToShift.Users:', isUserInShift);
       }
 
@@ -184,7 +177,6 @@ const HandoverDetailPage = () => {
         user => user.id === currentUser?.id
       );
       setIsInCurrentShift(isUserInCurrentShift);
-
     } catch (error) {
       console.error('Error fetching handover details:', error);
       setAttachmentsError('Có lỗi khi tải thông tin file đính kèm');
@@ -208,7 +200,7 @@ const HandoverDetailPage = () => {
           deviceName: device.deviceNameSnapshot,
           status: device.status,
           resolveStatus: device.resolveStatus,
-          errorCode: device.errorCode
+          errorCode: device.errorCode,
         });
       });
       console.log('=== End Debug ===');
@@ -253,28 +245,30 @@ const HandoverDetailPage = () => {
       }
 
       // Fetch file contents for attachments
-      const attachmentPromises = (handover.attachments || []).map(async (file) => {
+      const attachmentPromises = (handover.attachments || []).map(async file => {
         try {
           const response = await axios.get(
             `${import.meta.env.VITE_API_URL}/api/shifts/handover/${handover.id}/attachments/${file.filename}`,
             {
               headers: {
-                'Authorization': `Bearer ${token}`
+                Authorization: `Bearer ${token}`,
               },
-              responseType: 'arraybuffer'
+              responseType: 'arraybuffer',
             }
           );
 
           // Convert ArrayBuffer to base64 string
           const base64String = btoa(
-            new Uint8Array(response.data)
-              .reduce((data, byte) => data + String.fromCharCode(byte), '')
+            new Uint8Array(response.data).reduce(
+              (data, byte) => data + String.fromCharCode(byte),
+              ''
+            )
           );
 
           return {
             filename: file.originalname || file.filename,
             content: base64String,
-            contentType: response.headers['content-type']
+            contentType: response.headers['content-type'],
           };
         } catch (error) {
           console.error('Error fetching attachment:', error);
@@ -289,11 +283,15 @@ const HandoverDetailPage = () => {
         subject: `Báo cáo ca ${handover.FromShift?.code} ngày ${format(new Date(handover.FromShift?.date), 'dd/MM/yyyy', { locale: vi })}`,
         html: `
           <div style="font-family: Arial, sans-serif; width: 100%;">
-          ${customContent ? `
+          ${
+            customContent
+              ? `
           <div >
             ${customContent.replace(/\n/g, '<br>')}
           </div>
-          ` : ''}
+          `
+              : ''
+          }
             <h2 style="color: #003c71; margin-bottom: 20px;">Biên bản bàn giao ca</h2>
             <table style="width: 100%; border-collapse: collapse; border: 1px solid #e5e7eb;">
               <tbody>
@@ -317,28 +315,38 @@ const HandoverDetailPage = () => {
                   <td style="padding: 12px; background-color: #f3f4f6; font-weight: bold; width: 30%; border: 1px solid #e5e7eb;">Công cụ, tài liệu</td>
                   <td style="padding: 12px; border: 1px solid #e5e7eb;">
                     ${handover.handoverForm?.tools?.status === 'complete' ? '✓ Đủ' : '⚠️ Thiếu'}
-                    ${handover.handoverForm?.tools?.missing?.items?.length > 0 ?
-            `<br>Thiếu: ${handover.handoverForm.tools.missing.items.join(', ')}` : ''}
-                        ${handover.handoverForm?.tools.missing.description
-            ? `<br>Mô tả: ${handover.handoverForm?.tools.missing.description}`
-            : ''
-          }
+                    ${
+                      handover.handoverForm?.tools?.missing?.items?.length > 0
+                        ? `<br>Thiếu: ${handover.handoverForm.tools.missing.items.join(', ')}`
+                        : ''
+                    }
+                        ${
+                          handover.handoverForm?.tools.missing.description
+                            ? `<br>Mô tả: ${handover.handoverForm?.tools.missing.description}`
+                            : ''
+                        }
                   </td>
                 </tr>
                 <tr>
                   <td style="padding: 12px; background-color: #f3f4f6; font-weight: bold; border: 1px solid #e5e7eb;">Vệ sinh môi trường</td>
                   <td style="padding: 12px; border: 1px solid #e5e7eb;">
                     ${handover.handoverForm?.environment?.status ? '✓ Tốt' : '⚠️ Chưa tốt'}
-                    ${handover.handoverForm?.environment?.description ?
-            `<br>Mô tả: ${handover.handoverForm?.environment?.description}` : ''}
+                    ${
+                      handover.handoverForm?.environment?.description
+                        ? `<br>Mô tả: ${handover.handoverForm?.environment?.description}`
+                        : ''
+                    }
                   </td>
                 </tr>
                 <tr>
                   <td style="padding: 12px; background-color: #f3f4f6; font-weight: bold; border: 1px solid #e5e7eb;">Thiết bị có lỗi</td>
                   <td style="padding: 12px; border: 1px solid #e5e7eb;">
-                    ${handover.devices?.filter(d => d.status === 'Có lỗi').length > 0 ?
-            handover.devices.filter(d => d.status === 'Có lỗi').map(d => {
-              return `
+                    ${
+                      handover.devices?.filter(d => d.status === 'Có lỗi').length > 0
+                        ? handover.devices
+                            .filter(d => d.status === 'Có lỗi')
+                            .map(d => {
+                              return `
                           <div style="margin-bottom: 12px; padding: 8px; background-color: #fff1f0; border-left: 4px solid #ff4d4f;">
                             <div style="font-weight: bold; color: #ff4d4f; margin-bottom: 4px;">
                               ${d.deviceNameSnapshot || 'Hệ thống không xác định'}
@@ -353,33 +361,47 @@ const HandoverDetailPage = () => {
                             </div>
                           </div>
                         `;
-            }).join('') : '✓ Không có lỗi'}
+                            })
+                            .join('')
+                        : '✓ Không có lỗi'
+                    }
                   </td>
                 </tr>
                 <tr>
                   <td style="padding: 12px; background-color: #f3f4f6; font-weight: bold; border: 1px solid #e5e7eb;">Công việc tồn đọng</td>
                   <td style="padding: 12px; border: 1px solid #e5e7eb;">
-                    ${handover.Tasks?.length > 0 ?
-            handover.Tasks.map(task => {
-              const getStatusColor = (status) => {
-                switch (status) {
-                  case 'in_progress': return '#1890ff'; // blue
-                  case 'waiting': return '#faad14';     // orange
-                  case 'completed': return '#52c41a';   // green
-                  case 'cancelled': return '#ff4d4f';   // red
-                  case 'pending': return '#faad14';
-                }
-              };
-              const getStatusText = (status) => {
-                switch (status) {
-                  case 'in_progress': return 'Đang thực hiện';
-                  case 'waiting': return 'Chờ xử lý';
-                  case 'completed': return 'Đã hoàn thành';
-                  case 'cancelled': return 'Đã hủy';
-                  case 'pending': return 'Tạm dừng';
-                }
-              };
-              return `
+                    ${
+                      handover.Tasks?.length > 0
+                        ? handover.Tasks.map(task => {
+                            const getStatusColor = status => {
+                              switch (status) {
+                                case 'in_progress':
+                                  return '#1890ff'; // blue
+                                case 'waiting':
+                                  return '#faad14'; // orange
+                                case 'completed':
+                                  return '#52c41a'; // green
+                                case 'cancelled':
+                                  return '#ff4d4f'; // red
+                                case 'pending':
+                                  return '#faad14';
+                              }
+                            };
+                            const getStatusText = status => {
+                              switch (status) {
+                                case 'in_progress':
+                                  return 'Đang thực hiện';
+                                case 'waiting':
+                                  return 'Chờ xử lý';
+                                case 'completed':
+                                  return 'Đã hoàn thành';
+                                case 'cancelled':
+                                  return 'Đã hủy';
+                                case 'pending':
+                                  return 'Tạm dừng';
+                              }
+                            };
+                            return `
                           <div style="margin-bottom: 16px; padding: 12px; background-color: #fafafa; border-left: 4px solid ${getStatusColor(task.status)};">
                             <div style="font-weight: bold; font-size: 16px; margin-bottom: 8px;">
                               CV${task.taskId} - ${task.taskTitle}
@@ -398,7 +420,9 @@ const HandoverDetailPage = () => {
                             </div>
                           </div>
                         `;
-            }).join('') : '✓ Không có công việc tồn đọng'}
+                          }).join('')
+                        : '✓ Không có công việc tồn đọng'
+                    }
                   </td>
                 </tr>
                 <tr>
@@ -409,7 +433,7 @@ const HandoverDetailPage = () => {
             </table>
           </div>
         `,
-        attachments
+        attachments,
       };
 
       // Gửi email và kiểm tra kết quả
@@ -418,7 +442,7 @@ const HandoverDetailPage = () => {
           isSending: true,
           step: 'Đang chuẩn bị gửi email...',
           progress: 10,
-          error: null
+          error: null,
         });
 
         // Xử lý attachments
@@ -426,14 +450,14 @@ const HandoverDetailPage = () => {
           setEmailSendingStatus(prev => ({
             ...prev,
             step: 'Đang xử lý file đính kèm...',
-            progress: 30
+            progress: 30,
           }));
         }
 
         setEmailSendingStatus(prev => ({
           ...prev,
           step: 'Đang gửi email...',
-          progress: 50
+          progress: 50,
         }));
 
         const emailResult = await sendEmail(emailData);
@@ -445,7 +469,7 @@ const HandoverDetailPage = () => {
         setEmailSendingStatus(prev => ({
           ...prev,
           step: 'Gửi email thành công!',
-          progress: 100
+          progress: 100,
         }));
 
         message.success('Gửi email thành công');
@@ -456,7 +480,7 @@ const HandoverDetailPage = () => {
           isSending: false,
           step: 'Gửi email thất bại',
           progress: 0,
-          error: error.message || 'Gửi email thất bại. Vui lòng thử lại sau.'
+          error: error.message || 'Gửi email thất bại. Vui lòng thử lại sau.',
         }));
         message.error(error.message || 'Gửi email thất bại. Vui lòng thử lại sau.');
         return; // Dừng quá trình nếu gửi email thất bại
@@ -467,13 +491,13 @@ const HandoverDetailPage = () => {
         const response = await axios.post(
           `${import.meta.env.VITE_API_URL}/api/shifts/handover/draft/${id}/submit`,
           {
-            handoverForm: handover.handoverForm
+            handoverForm: handover.handoverForm,
           },
           {
             headers: {
-              'Authorization': `Bearer ${token}`,
-              'Content-Type': 'application/json'
-            }
+              Authorization: `Bearer ${token}`,
+              'Content-Type': 'application/json',
+            },
           }
         );
 
@@ -484,7 +508,7 @@ const HandoverDetailPage = () => {
             isSending: false,
             step: '',
             progress: 0,
-            error: null
+            error: null,
           });
           fetchHandoverDetails();
           navigate('/dc/handover');
@@ -504,13 +528,17 @@ const HandoverDetailPage = () => {
   const handleConfirm = async () => {
     try {
       setLoading(true);
-      await axios.post(`${import.meta.env.VITE_API_URL}/api/shifts/handover/confirm/${id}`, {
-        notes: confirmNote
-      }, {
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem('token')}`
+      await axios.post(
+        `${import.meta.env.VITE_API_URL}/api/shifts/handover/confirm/${id}`,
+        {
+          notes: confirmNote,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
         }
-      });
+      );
 
       message.success('Xác nhận bàn giao thành công');
       setConfirmModalVisible(false);
@@ -526,13 +554,17 @@ const HandoverDetailPage = () => {
   const handleReject = async () => {
     try {
       setLoading(true);
-      await axios.post(`${import.meta.env.VITE_API_URL}/api/shifts/handover/reject/${id}`, {
-        notes: rejectNote
-      }, {
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem('token')}`
+      await axios.post(
+        `${import.meta.env.VITE_API_URL}/api/shifts/handover/reject/${id}`,
+        {
+          notes: rejectNote,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
         }
-      });
+      );
       message.success('Từ chối bàn giao thành công');
       setRejectModalVisible(false);
       setRejectNote('');
@@ -566,7 +598,7 @@ const HandoverDetailPage = () => {
   };
 
   // Hàm download file với tên gốc
-  const downloadFile = async (file) => {
+  const downloadFile = async file => {
     try {
       setLoading(true);
       const token = localStorage.getItem('token');
@@ -580,8 +612,8 @@ const HandoverDetailPage = () => {
         method: 'GET',
         responseType: 'blob',
         headers: {
-          'Authorization': `Bearer ${token}`
-        }
+          Authorization: `Bearer ${token}`,
+        },
       });
 
       // Tạo URL cho blob
@@ -609,16 +641,17 @@ const HandoverDetailPage = () => {
   };
 
   const statusMap = {
-    draft: <Tag color="blue">Đang làm việc</Tag>,
-    pending: <Tag color="orange">Chờ xác nhận</Tag>,
-    completed: <Tag color="green">Đã bàn giao</Tag>,
-    rejected: <Tag color="red">Đã từ chối</Tag>
+    draft: <Tag color='blue'>Đang làm việc</Tag>,
+    pending: <Tag color='orange'>Chờ xác nhận</Tag>,
+    completed: <Tag color='green'>Đã bàn giao</Tag>,
+    rejected: <Tag color='red'>Đã từ chối</Tag>,
   };
 
-  const getSafeValue = (primary, fallback, defaultVal = 'Không rõ') => primary || fallback || defaultVal;
+  const getSafeValue = (primary, fallback, defaultVal = 'Không rõ') =>
+    primary || fallback || defaultVal;
 
   // Helper function để lấy màu sắc cho trạng thái xử lý
-  const getResolveStatusColor = (status) => {
+  const getResolveStatusColor = status => {
     if (!status || !status.trim()) return '#8c8c8c'; // Màu xám cho thiết bị bình thường
 
     switch (status) {
@@ -633,7 +666,7 @@ const HandoverDetailPage = () => {
   };
 
   // Helper function để lấy Tag color cho trạng thái xử lý
-  const getResolveStatusTagColor = (status) => {
+  const getResolveStatusTagColor = status => {
     if (!status || !status.trim()) return 'default'; // Cho thiết bị bình thường
 
     switch (status) {
@@ -663,18 +696,16 @@ const HandoverDetailPage = () => {
 
   if (loading || templateLoading) {
     return (
-      <Spin spinning={loading} tip="Đang tải..." fullscreen>
-        <div className="p-6">
-          {/* Nội dung trang */}
-        </div>
+      <Spin spinning={loading} tip='Đang tải...' fullscreen>
+        <div className='p-6'>{/* Nội dung trang */}</div>
       </Spin>
     );
   }
 
   if (templateError) {
     return (
-      <div className="min-h-screen bg-gray-100 p-6">
-        <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">
+      <div className='min-h-screen bg-gray-100 p-6'>
+        <div className='bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded'>
           <p>Lỗi khi tải template: {templateError}</p>
         </div>
       </div>
@@ -684,143 +715,185 @@ const HandoverDetailPage = () => {
   if (!handover) return <div>Loading...</div>;
 
   return (
-    <div className="min-h-screen bg-gray-100 p-6">
-      <div className="bg-gradient-to-r from-[#003c71] to-[#0079c2] text-white p-4 rounded shadow mb-6">
-        <div className="flex justify-between items-center">
-          <div className="flex items-center">
-            <Button type="link" icon={<ArrowLeftOutlined />} onClick={handleBack} className="text-white">Quay lại</Button>
+    <div className='min-h-screen bg-gray-100 p-6'>
+      <div className='bg-gradient-to-r from-[#003c71] to-[#0079c2] text-white p-4 rounded shadow mb-6'>
+        <div className='flex justify-between items-center'>
+          <div className='flex items-center'>
+            <Button
+              type='link'
+              icon={<ArrowLeftOutlined />}
+              onClick={handleBack}
+              className='text-white'
+            >
+              Quay lại
+            </Button>
           </div>
           <div>
-            <Title level={3} style={{ color: 'white', margin: 0 }}>Chi tiết bàn giao</Title>
+            <Title level={3} style={{ color: 'white', margin: 0 }}>
+              Chi tiết bàn giao
+            </Title>
           </div>
         </div>
-        <p className="mt-1 text-sm text-white">Thông tin chi tiết về biên bản bàn giao giữa các ca trực</p>
+        <p className='mt-1 text-sm text-white'>
+          Thông tin chi tiết về biên bản bàn giao giữa các ca trực
+        </p>
       </div>
 
       <div>
         <Tabs
-          defaultActiveKey="1"
+          defaultActiveKey='1'
           items={[
             {
               key: '1',
-              label: <span className="font-medium text-base">Thông tin bàn giao</span>,
-              className: "custom-tab",
+              label: <span className='font-medium text-base'>Thông tin bàn giao</span>,
+              className: 'custom-tab',
               children: (
-                <div className="space-y-6">
+                <div className='space-y-6'>
                   {/* Thông tin bàn giao ca */}
                   <Card
-                    title={<div className="text-2xl font-bold text-center font-['Roboto']">BIÊN BẢN BÀN GIAO CA</div>}
-                    variant="outlined"
-                    className="shadow-sm w-full"
+                    title={
+                      <div className="text-2xl font-bold text-center font-['Roboto']">
+                        BIÊN BẢN BÀN GIAO CA
+                      </div>
+                    }
+                    variant='outlined'
+                    className='shadow-sm w-full'
                   >
-                    <div className="space-y-3">
-                      <div className="flex items-center">
-                        <span className="font-medium mr-2 min-w-[120px]">Trạng thái:</span>
+                    <div className='space-y-3'>
+                      <div className='flex items-center'>
+                        <span className='font-medium mr-2 min-w-[120px]'>Trạng thái:</span>
                         {statusMap[handover.status]}
                       </div>
-                      <div className="flex items-center">
-                        <span className="font-medium mr-2 min-w-[120px]">Địa điểm làm việc:</span>
+                      <div className='flex items-center'>
+                        <span className='font-medium mr-2 min-w-[120px]'>Địa điểm làm việc:</span>
                         <span>{getSafeValue(handover.FromShift?.name)}</span>
                       </div>
-                      <div className="flex items-center">
-                        <span className="font-medium mr-2 min-w-[120px]">Ca làm việc:</span>
+                      <div className='flex items-center'>
+                        <span className='font-medium mr-2 min-w-[120px]'>Ca làm việc:</span>
                         <span>{`${getSafeValue(handover.FromShift?.code)} - ${format(new Date(handover.FromShift?.date), 'dd/MM/yyyy', { locale: vi })}`}</span>
                       </div>
                       {handover.confirmedAt && (
-                        <div className="flex items-center">
-                          <span className="font-medium mr-2 min-w-[120px]">Thời gian bàn giao ca:</span>
-                          <span>{format(new Date(handover.confirmedAt), 'HH:mm dd/MM/yyyy ', { locale: vi })}</span>
+                        <div className='flex items-center'>
+                          <span className='font-medium mr-2 min-w-[120px]'>
+                            Thời gian bàn giao ca:
+                          </span>
+                          <span>
+                            {format(new Date(handover.confirmedAt), 'HH:mm dd/MM/yyyy ', {
+                              locale: vi,
+                            })}
+                          </span>
                         </div>
                       )}
                       {handover.confirmNote && (
-                        <div className="flex items-start">
-                          <span className="font-medium mr-2 min-w-[120px]">Ghi chú xác nhận:</span>
+                        <div className='flex items-start'>
+                          <span className='font-medium mr-2 min-w-[120px]'>Ghi chú xác nhận:</span>
                           <span>{handover.confirmNote}</span>
                         </div>
                       )}
                       {handover.rejectNote && (
-                        <div className="flex items-start">
-                          <span className="font-medium mr-2 min-w-[120px]">Lý do từ chối:</span>
-                          <span className="text-red-600">{handover.rejectNote}</span>
+                        <div className='flex items-start'>
+                          <span className='font-medium mr-2 min-w-[120px]'>Lý do từ chối:</span>
+                          <span className='text-red-600'>{handover.rejectNote}</span>
                         </div>
                       )}
                     </div>
                   </Card>
 
                   {/* Ca giao/Ca nhận - 2 columns */}
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <Card title="Bên giao ca" variant="outlined" className="shadow-sm">
-                      <p><strong>Người giao:</strong></p>
-                      <ul className="ml-4 list-disc">
+                  <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+                    <Card title='Bên giao ca' variant='outlined' className='shadow-sm'>
+                      <p>
+                        <strong>Người giao:</strong>
+                      </p>
+                      <ul className='ml-4 list-disc'>
                         {(handover.FromUsers || []).map(user => (
-                          <li key={user.id}>
-                            {user.fullname || user.fullName}
-                          </li>
+                          <li key={user.id}>{user.fullname || user.fullName}</li>
                         ))}
                       </ul>
                     </Card>
 
-                    <Card title="Bên nhận ca" variant="outlined" className="shadow-sm">
-                      <p><strong>Người nhận:</strong></p>
+                    <Card title='Bên nhận ca' variant='outlined' className='shadow-sm'>
+                      <p>
+                        <strong>Người nhận:</strong>
+                      </p>
                       {handover.ToUsers && handover.ToUsers.length > 0 ? (
-                        <ul className="ml-4 list-disc">
+                        <ul className='ml-4 list-disc'>
                           {handover.ToUsers.map(user => (
-                            <li key={user.id}>
-                              {user.fullname || user.fullName}
-                            </li>
+                            <li key={user.id}>{user.fullname || user.fullName}</li>
                           ))}
                         </ul>
                       ) : (
-                        <div className="text-gray-500 italic ml-4">
-                          Chưa có người nhận ca
-                        </div>
+                        <div className='text-gray-500 italic ml-4'>Chưa có người nhận ca</div>
                       )}
                     </Card>
                   </div>
 
                   {/* Form Data - Full width */}
                   {handover.handoverForm && (
-                    <div className="space-y-6 w-full">
+                    <div className='space-y-6 w-full'>
                       {/* 1. Công cụ, tài liệu làm việc */}
-                      <Card title="1. Công cụ, tài liệu làm việc" variant="outlined" className="shadow-sm">
-                        <div className="space-y-4">
+                      <Card
+                        title='1. Công cụ, tài liệu làm việc'
+                        variant='outlined'
+                        className='shadow-sm'
+                      >
+                        <div className='space-y-4'>
                           <div>
-                            <p className="mb-2">Tình trạng công cụ tài liệu</p>
+                            <p className='mb-2'>Tình trạng công cụ tài liệu</p>
                             <div>
-                              <Tag color={handover.handoverForm?.tools?.status === 'complete' ? 'blue' : 'red'}>
-                                {handover.handoverForm?.tools?.status === 'complete' ? 'Đủ' : 'Thiếu'}
+                              <Tag
+                                color={
+                                  handover.handoverForm?.tools?.status === 'complete'
+                                    ? 'blue'
+                                    : 'red'
+                                }
+                              >
+                                {handover.handoverForm?.tools?.status === 'complete'
+                                  ? 'Đủ'
+                                  : 'Thiếu'}
                               </Tag>
                             </div>
                           </div>
 
-                          {handover.handoverForm?.tools?.missing?.items && handover.handoverForm.tools.missing.items.length > 0 && (
-                            <div>
-                              <p className="font-medium mb-2">Các mục thiếu:</p>
-                              <ul className="list-disc pl-5 space-y-1">
-                                {handover.handoverForm.tools.missing.items.map((item, index) => (
-                                  <li key={index}>{item}</li>
-                                ))}
-                              </ul>
-                              {handover.handoverForm.tools.missing.description && (
-                                <div className="mt-4">
-                                  <p className="font-medium mb-2">Mô tả nguyên nhân thiếu thiết bị:</p>
-                                  <div className="bg-gray-50 p-4 rounded">
-                                    {handover.handoverForm.tools.missing.description}
+                          {handover.handoverForm?.tools?.missing?.items &&
+                            handover.handoverForm.tools.missing.items.length > 0 && (
+                              <div>
+                                <p className='font-medium mb-2'>Các mục thiếu:</p>
+                                <ul className='list-disc pl-5 space-y-1'>
+                                  {handover.handoverForm.tools.missing.items.map((item, index) => (
+                                    <li key={index}>{item}</li>
+                                  ))}
+                                </ul>
+                                {handover.handoverForm.tools.missing.description && (
+                                  <div className='mt-4'>
+                                    <p className='font-medium mb-2'>
+                                      Mô tả nguyên nhân thiếu thiết bị:
+                                    </p>
+                                    <div className='bg-gray-50 p-4 rounded'>
+                                      {handover.handoverForm.tools.missing.description}
+                                    </div>
                                   </div>
-                                </div>
-                              )}
-                            </div>
-                          )}
+                                )}
+                              </div>
+                            )}
                         </div>
                       </Card>
 
                       {/* 2. Vệ sinh môi trường trong các phòng chức năng */}
-                      <Card title="2. Vệ sinh môi trường trong các phòng chức năng" variant="outlined" className="shadow-sm">
-                        <div className="space-y-4">
+                      <Card
+                        title='2. Vệ sinh môi trường trong các phòng chức năng'
+                        variant='outlined'
+                        className='shadow-sm'
+                      >
+                        <div className='space-y-4'>
                           <div>
-                            <p className="mb-2">Hiện trạng vệ sinh môi trường</p>
+                            <p className='mb-2'>Hiện trạng vệ sinh môi trường</p>
                             <div>
-                              <Tag color={handover.handoverForm?.environment?.status ? 'success' : 'error'}>
+                              <Tag
+                                color={
+                                  handover.handoverForm?.environment?.status ? 'success' : 'error'
+                                }
+                              >
                                 {handover.handoverForm?.environment?.status ? 'Tốt' : 'Chưa tốt'}
                               </Tag>
                             </div>
@@ -828,9 +901,10 @@ const HandoverDetailPage = () => {
 
                           {!handover.handoverForm?.environment?.status && (
                             <div>
-                              <p className="mb-2">Mô tả chi tiết tình trạng môi trường</p>
-                              <div className="bg-gray-50 p-4 rounded">
-                                {handover.handoverForm?.environment?.description || 'Không có mô tả'}
+                              <p className='mb-2'>Mô tả chi tiết tình trạng môi trường</p>
+                              <div className='bg-gray-50 p-4 rounded'>
+                                {handover.handoverForm?.environment?.description ||
+                                  'Không có mô tả'}
                               </div>
                             </div>
                           )}
@@ -838,12 +912,16 @@ const HandoverDetailPage = () => {
                       </Card>
 
                       {/* 3. Tình trạng các hệ thống hạ tầng TTDL */}
-                      <Card title="3. Tình trạng các hệ thống hạ tầng TTDL" variant="outlined" className="shadow-sm">
-                        <div className="space-y-4">
+                      <Card
+                        title='3. Tình trạng các hệ thống hạ tầng TTDL'
+                        variant='outlined'
+                        className='shadow-sm'
+                      >
+                        <div className='space-y-4'>
                           <Table
                             bordered
-                            size="small"
-                            rowKey="id"
+                            size='small'
+                            rowKey='id'
                             pagination={false}
                             columns={[
                               {
@@ -853,10 +931,8 @@ const HandoverDetailPage = () => {
                                 width: 60,
                                 className: 'custom-header border-gray-200',
                                 render: (_, __, index) => (
-                                  <div className="text-center">
-                                    {index + 1}
-                                  </div>
-                                )
+                                  <div className='text-center'>{index + 1}</div>
+                                ),
                               },
                               {
                                 title: 'Thiết bị',
@@ -867,7 +943,7 @@ const HandoverDetailPage = () => {
                                 render: (deviceId, record) => {
                                   // Sử dụng deviceNameSnapshot từ API response
                                   return record.deviceNameSnapshot || `Thiết bị ${deviceId}`;
-                                }
+                                },
                               },
                               {
                                 title: 'Trạng thái',
@@ -877,34 +953,55 @@ const HandoverDetailPage = () => {
                                 render: (_, record) => {
                                   // Sử dụng trực tiếp dữ liệu từ record (đã là device từ API)
                                   if (record.status === 'Bình thường') {
-                                    return <Tag color="success">✓ Bình thường</Tag>;
+                                    return <Tag color='success'>✓ Bình thường</Tag>;
                                   } else if (record.status === 'Có lỗi') {
                                     return (
-                                      <Space direction="vertical" className="w-full">
-                                        <Tag color="error">✓ Có lỗi</Tag>
+                                      <Space direction='vertical' className='w-full'>
+                                        <Tag color='error'>✓ Có lỗi</Tag>
                                         <Card
                                           style={{ background: '#fff1f0', borderColor: '#ff4d4f' }}
-                                          title={<span style={{ color: '#ff4d4f' }}>Tên thiết bị: {record.subDeviceName || 'Không rõ'}</span>}
+                                          title={
+                                            <span style={{ color: '#ff4d4f' }}>
+                                              Tên thiết bị: {record.subDeviceName || 'Không rõ'}
+                                            </span>
+                                          }
                                         >
-                                          <div className="ant-descriptions-item"><b>Serial:</b> {record.serialNumber}</div>
-                                          <div className="ant-descriptions-item"><b>Tình trạng lỗi:</b> {record.errorCode}</div>
-                                          <div className="ant-descriptions-item"><b>Nguyên nhân:</b> {record.errorCause}</div>
-                                          <div className="ant-descriptions-item"><b>Giải pháp:</b> {record.solution}</div>
-                                          <div className="ant-descriptions-item"><b>Trạng thái:</b>{record.resolveStatus && record.resolveStatus.trim() ? (
-                                            <Tag color={getResolveStatusTagColor(record.resolveStatus)} style={{ marginLeft: 8 }}>
-                                              {record.resolveStatus}
-                                            </Tag>
-                                          ) : (
-                                            <span style={{ marginLeft: 8, color: '#8c8c8c' }}>Không áp dụng</span>
-                                          )}
+                                          <div className='ant-descriptions-item'>
+                                            <b>Serial:</b> {record.serialNumber}
+                                          </div>
+                                          <div className='ant-descriptions-item'>
+                                            <b>Tình trạng lỗi:</b> {record.errorCode}
+                                          </div>
+                                          <div className='ant-descriptions-item'>
+                                            <b>Nguyên nhân:</b> {record.errorCause}
+                                          </div>
+                                          <div className='ant-descriptions-item'>
+                                            <b>Giải pháp:</b> {record.solution}
+                                          </div>
+                                          <div className='ant-descriptions-item'>
+                                            <b>Trạng thái:</b>
+                                            {record.resolveStatus && record.resolveStatus.trim() ? (
+                                              <Tag
+                                                color={getResolveStatusTagColor(
+                                                  record.resolveStatus
+                                                )}
+                                                style={{ marginLeft: 8 }}
+                                              >
+                                                {record.resolveStatus}
+                                              </Tag>
+                                            ) : (
+                                              <span style={{ marginLeft: 8, color: '#8c8c8c' }}>
+                                                Không áp dụng
+                                              </span>
+                                            )}
                                           </div>
                                         </Card>
                                       </Space>
                                     );
                                   }
-                                  return <Tag color="default">Không xác định</Tag>;
-                                }
-                              }
+                                  return <Tag color='default'>Không xác định</Tag>;
+                                },
+                              },
                             ]}
                             dataSource={handover.devices || []}
                           />
@@ -912,10 +1009,14 @@ const HandoverDetailPage = () => {
                       </Card>
 
                       {/* 4. Các công việc đang thực hiện */}
-                      <Card title="4. Các công việc đang thực hiện" variant="outlined" className="shadow-sm">
-                        <div className="space-y-4">
+                      <Card
+                        title='4. Các công việc đang thực hiện'
+                        variant='outlined'
+                        className='shadow-sm'
+                      >
+                        <div className='space-y-4'>
                           <div>
-                            <p className="mb-2">Công việc đang tồn đọng</p>
+                            <p className='mb-2'>Công việc đang tồn đọng</p>
                             <div>
                               <Tag color={handover.Tasks?.length > 0 ? 'blue' : 'default'}>
                                 {handover.Tasks?.length > 0 ? 'Có' : 'Không Có'}
@@ -926,8 +1027,8 @@ const HandoverDetailPage = () => {
                           {handover.Tasks?.length > 0 && (
                             <Table
                               bordered
-                              size="small"
-                              rowKey="id"
+                              size='small'
+                              rowKey='id'
                               pagination={false}
                               columns={[
                                 {
@@ -936,11 +1037,7 @@ const HandoverDetailPage = () => {
                                   key: 'taskId',
                                   width: 60,
                                   className: 'custom-header border-gray-200',
-                                  render: (text) => (
-                                    <div className="text-center">
-                                      CV {text}
-                                    </div>
-                                  )
+                                  render: text => <div className='text-center'>CV {text}</div>,
                                 },
                                 {
                                   title: 'Địa điểm',
@@ -969,16 +1066,19 @@ const HandoverDetailPage = () => {
                                   key: 'fullName',
                                   width: 300,
                                   className: 'custom-header border-gray-200',
-                                  render: (name) => (
-                                    <div className="whitespace-pre-line break-words">
+                                  render: name => (
+                                    <div className='whitespace-pre-line break-words'>
                                       {name.split(',').map((person, index) => (
-                                        <div key={`person-${index}-${person.trim()}`} className="flex items-center mb-1">
-                                          <UserOutlined className="mr-1 flex-shrink-0" />
-                                          <span className="break-words">{person.trim()}</span>
+                                        <div
+                                          key={`person-${index}-${person.trim()}`}
+                                          className='flex items-center mb-1'
+                                        >
+                                          <UserOutlined className='mr-1 flex-shrink-0' />
+                                          <span className='break-words'>{person.trim()}</span>
                                         </div>
                                       ))}
                                     </div>
-                                  )
+                                  ),
                                 },
                                 {
                                   title: 'Thời gian bắt đầu',
@@ -986,7 +1086,10 @@ const HandoverDetailPage = () => {
                                   key: 'checkInTime',
                                   width: 150,
                                   className: 'custom-header border-gray-200',
-                                  render: (time) => time ? format(new Date(time), 'HH:mm dd/MM/yyyy', { locale: vi }) : 'Chưa bắt đầu'
+                                  render: time =>
+                                    time
+                                      ? format(new Date(time), 'HH:mm dd/MM/yyyy', { locale: vi })
+                                      : 'Chưa bắt đầu',
                                 },
                                 {
                                   title: 'Thời gian kết thúc',
@@ -994,7 +1097,10 @@ const HandoverDetailPage = () => {
                                   key: 'checkOutTime',
                                   width: 150,
                                   className: 'custom-header border-r border-gray-200',
-                                  render: (time) => time ? format(new Date(time), 'HH:mm dd/MM/yyyy', { locale: vi }) : 'Chưa kết thúc'
+                                  render: time =>
+                                    time
+                                      ? format(new Date(time), 'HH:mm dd/MM/yyyy', { locale: vi })
+                                      : 'Chưa kết thúc',
                                 },
                                 {
                                   title: 'Trạng thái',
@@ -1002,23 +1108,35 @@ const HandoverDetailPage = () => {
                                   key: 'status',
                                   width: 120,
                                   className: 'custom-header border-r border-gray-200',
-                                  render: (status) => (
-                                    <Tag color={
-                                      status === 'completed' ? 'success' :
-                                        status === 'cancelled' ? 'error' :
-                                          status === 'in_progress' ? 'processing' :
-                                            status === 'pending' ? 'warning' :
-                                              status === 'waiting' ? 'warning' :
-                                                'default'
-                                    }>
-                                      {status === 'in_progress' ? 'Đang thực hiện' :
-                                        status === 'waiting' ? 'Chờ xử lý' :
-                                          status === 'completed' ? 'Đã hoàn thành' :
-                                            status === 'cancelled' ? 'Đã hủy' :
-                                              status === 'pending' ? 'Tạm dừng' :
-                                                'Không xác định'}
+                                  render: status => (
+                                    <Tag
+                                      color={
+                                        status === 'completed'
+                                          ? 'success'
+                                          : status === 'cancelled'
+                                            ? 'error'
+                                            : status === 'in_progress'
+                                              ? 'processing'
+                                              : status === 'pending'
+                                                ? 'warning'
+                                                : status === 'waiting'
+                                                  ? 'warning'
+                                                  : 'default'
+                                      }
+                                    >
+                                      {status === 'in_progress'
+                                        ? 'Đang thực hiện'
+                                        : status === 'waiting'
+                                          ? 'Chờ xử lý'
+                                          : status === 'completed'
+                                            ? 'Đã hoàn thành'
+                                            : status === 'cancelled'
+                                              ? 'Đã hủy'
+                                              : status === 'pending'
+                                                ? 'Tạm dừng'
+                                                : 'Không xác định'}
                                     </Tag>
-                                  )
+                                  ),
                                 },
                               ]}
                               dataSource={handover.Tasks}
@@ -1027,40 +1145,40 @@ const HandoverDetailPage = () => {
                         </div>
                       </Card>
                       {/* 5. Nội dung bàn giao */}
-                      <Card title="5. Nội dung bàn giao" variant="outlined" className="shadow-sm">
-                        <div className="space-y-4">
-                          <div className="bg-gray-50 p-4 rounded">
+                      <Card title='5. Nội dung bàn giao' variant='outlined' className='shadow-sm'>
+                        <div className='space-y-4'>
+                          <div className='bg-gray-50 p-4 rounded'>
                             {handover.content || 'Không có nội dung bàn giao'}
                           </div>
                         </div>
                       </Card>
 
                       {/* 6. File đính kèm */}
-                      <Card title="6. File đính kèm" variant="outlined" className="shadow-sm">
-                        <div className="space-y-4">
+                      <Card title='6. File đính kèm' variant='outlined' className='shadow-sm'>
+                        <div className='space-y-4'>
                           {attachmentsLoading ? (
-                            <div className="text-center py-4">
-                              <Spin tip="Đang tải danh sách file..." />
+                            <div className='text-center py-4'>
+                              <Spin tip='Đang tải danh sách file...' />
                             </div>
                           ) : attachmentsError ? (
-                            <div className="text-center py-4">
-                              <Text type="danger">{attachmentsError}</Text>
+                            <div className='text-center py-4'>
+                              <Text type='danger'>{attachmentsError}</Text>
                             </div>
                           ) : handover.attachments && handover.attachments.length > 0 ? (
                             <List
-                              className="mt-4"
-                              size="small"
+                              className='mt-4'
+                              size='small'
                               dataSource={handover.attachments}
                               renderItem={file => (
                                 <List.Item
                                   actions={[
                                     <Button
-                                      type="link"
+                                      type='link'
                                       icon={<DownloadOutlined />}
                                       onClick={() => downloadFile(file)}
                                     >
                                       Tải xuống
-                                    </Button>
+                                    </Button>,
                                   ]}
                                 >
                                   <List.Item.Meta
@@ -1072,8 +1190,8 @@ const HandoverDetailPage = () => {
                               )}
                             />
                           ) : (
-                            <div className="text-center py-4">
-                              <Text type="secondary">Không có file đính kèm</Text>
+                            <div className='text-center py-4'>
+                              <Text type='secondary'>Không có file đính kèm</Text>
                             </div>
                           )}
                         </div>
@@ -1083,20 +1201,15 @@ const HandoverDetailPage = () => {
 
                   {/* Action Buttons for Edit - At the end of tab content */}
                   {handover.status === 'draft' && isInCurrentShift && (
-                    <div className="flex justify-end mt-6 gap-1">
+                    <div className='flex justify-end mt-6 gap-1'>
                       <Button
-                        type="primary"
+                        type='primary'
                         onClick={handleEdit}
                         style={{ backgroundColor: '#1890ff', borderColor: '#1890ff' }}
                       >
                         Chỉnh sửa
                       </Button>
-                      <Button
-                        type="primary"
-                        onClick={showConfirmDialog}
-                        loading={loading}
-                        danger
-                      >
+                      <Button type='primary' onClick={showConfirmDialog} loading={loading} danger>
                         Bàn giao ca
                       </Button>
                     </div>
@@ -1115,12 +1228,15 @@ const HandoverDetailPage = () => {
                     </Button>
                   </div>*/}
                   {/* Action Buttons */}
-                  <div className="flex gap-4 justify-end" style={{ position: 'sticky', bottom: 0, padding: '10px' }}>
+                  <div
+                    className='flex gap-4 justify-end'
+                    style={{ position: 'sticky', bottom: 0, padding: '10px' }}
+                  >
                     {handover.status === 'pending' && isInReceivingShift && (
                       <>
                         <Button
-                          type="primary"
-                          className="bg-[#003c71]"
+                          type='primary'
+                          className='bg-[#003c71]'
                           icon={<CheckCircleOutlined />}
                           onClick={() => setConfirmModalVisible(true)}
                           disabled={!isInReceivingShift}
@@ -1139,14 +1255,14 @@ const HandoverDetailPage = () => {
                     )}
                   </div>
                 </div>
-              )
+              ),
             },
             {
               key: '2',
-              label: <span className="font-medium text-base">Kiểm tra thiết bị</span>,
-              className: "custom-tab",
+              label: <span className='font-medium text-base'>Kiểm tra thiết bị</span>,
+              className: 'custom-tab',
               children: (
-                <div className="bg-white p-1 rounded-lg px-6">
+                <div className='bg-white p-1 rounded-lg px-6'>
                   <DeviceCheckForm
                     currentShift={{
                       WorkShift: {
@@ -1154,34 +1270,34 @@ const HandoverDetailPage = () => {
                         code: handover?.FromShift?.code,
                         name: handover?.FromShift?.name,
                         date: handover?.FromShift?.date,
-                        status: handover?.FromShift?.status
-                      }
+                        status: handover?.FromShift?.status,
+                      },
                     }}
                     currentUser={currentUser}
                     hideCreateButton={true}
                     hideDeleteButton={true}
                   />
                 </div>
-              )
-            }
+              ),
+            },
           ]}
         />
       </div>
 
       {/* Bottom Back Button */}
-      <div className="mt-6 flex justify-center">
+      <div className='mt-6 flex justify-center'>
         <Button
-          type="primary"
+          type='primary'
           icon={<ArrowLeftOutlined />}
           onClick={handleBack}
-          className="bg-[#003c71]"
+          className='bg-[#003c71]'
         >
           Quay lại danh sách
         </Button>
       </div>
 
       <Modal
-        title="Xác nhận nhận ca"
+        title='Xác nhận nhận ca'
         open={confirmModalVisible}
         onOk={handleConfirm}
         onCancel={() => setConfirmModalVisible(false)}
@@ -1189,16 +1305,16 @@ const HandoverDetailPage = () => {
         okButtonProps={{ className: 'bg-[#003c71]' }}
         destroyOnHidden
       >
-        <Form ref={confirmFormRef} layout="vertical">
-          <Form.Item label="Ghi chú">
-            <TextArea rows={4} value={confirmNote} onChange={(e) => setConfirmNote(e.target.value)} />
+        <Form ref={confirmFormRef} layout='vertical'>
+          <Form.Item label='Ghi chú'>
+            <TextArea rows={4} value={confirmNote} onChange={e => setConfirmNote(e.target.value)} />
           </Form.Item>
         </Form>
       </Modal>
 
       <Modal
         title={
-          <div className="flex items-center gap-2">
+          <div className='flex items-center gap-2'>
             <MailOutlined />
             <span>Gửi email bàn giao</span>
           </div>
@@ -1211,55 +1327,58 @@ const HandoverDetailPage = () => {
             isSending: false,
             step: '',
             progress: 0,
-            error: null
+            error: null,
           });
         }}
         footer={[
-          <Button key="back" onClick={() => {
-            setEmailModalVisible(false);
-            setEmailSendingStatus({
-              isSending: false,
-              step: '',
-              progress: 0,
-              error: null
-            });
-          }}>
+          <Button
+            key='back'
+            onClick={() => {
+              setEmailModalVisible(false);
+              setEmailSendingStatus({
+                isSending: false,
+                step: '',
+                progress: 0,
+                error: null,
+              });
+            }}
+          >
             Hủy
           </Button>,
           <Button
-            key="submit"
-            type="primary"
+            key='submit'
+            type='primary'
             loading={loading}
             onClick={handleSendHandover}
-            className="bg-[#003c71]"
+            className='bg-[#003c71]'
             disabled={emailSendingStatus.isSending}
           >
             Gửi email và bàn giao
-          </Button>
+          </Button>,
         ]}
         width={800}
       >
         <Form
           form={emailForm}
-          layout="vertical"
+          layout='vertical'
           initialValues={{
             to: ['datacenter@vietinbank.vn'],
-            cc: ['anhtt@vietinbank.vn', 'nhandv@vietinbank.vn', 'huu.nguyen@vietinbank.vn']
+            cc: ['anhtt@vietinbank.vn', 'nhandv@vietinbank.vn', 'huu.nguyen@vietinbank.vn'],
           }}
         >
           <Row gutter={16}>
             <Col span={12}>
               <Form.Item
-                name="to"
-                label="Người nhận"
+                name='to'
+                label='Người nhận'
                 rules={[{ required: true, message: 'Vui lòng nhập email người nhận' }]}
               >
                 <Select
-                  mode="tags"
-                  placeholder="Nhập email người nhận"
+                  mode='tags'
+                  placeholder='Nhập email người nhận'
                   style={{ width: '100%' }}
                   tokenSeparators={[',', ';']}
-                  onInputKeyDown={(e) => {
+                  onInputKeyDown={e => {
                     if (e.key === 'Tab') {
                       e.stopPropagation();
                     }
@@ -1267,16 +1386,13 @@ const HandoverDetailPage = () => {
                 />
               </Form.Item>
 
-              <Form.Item
-                name="cc"
-                label="CC"
-              >
+              <Form.Item name='cc' label='CC'>
                 <Select
-                  mode="tags"
-                  placeholder="Nhập email CC"
+                  mode='tags'
+                  placeholder='Nhập email CC'
                   style={{ width: '100%' }}
                   tokenSeparators={[',', ';']}
-                  onInputKeyDown={(e) => {
+                  onInputKeyDown={e => {
                     if (e.key === 'Tab') {
                       e.stopPropagation();
                     }
@@ -1284,39 +1400,44 @@ const HandoverDetailPage = () => {
                 />
               </Form.Item>
               <Form.Item
-                name="customContent"
-                label="Nội dung "
-                tooltip="Nội dung này sẽ được hiển thị ở đầu email"
+                name='customContent'
+                label='Nội dung '
+                tooltip='Nội dung này sẽ được hiển thị ở đầu email'
               >
                 <TextArea
                   autoSize={{ minRows: 3, maxRows: 6 }}
-                  placeholder="Nhập nội dung  (tùy chọn)"
+                  placeholder='Nhập nội dung  (tùy chọn)'
                   style={{ resize: 'none' }}
                 />
               </Form.Item>
             </Col>
             <Col span={12}>
-              <div className="bg-gray-50 p-4 rounded border border-gray-200" style={{ maxHeight: '400px', overflowY: 'auto' }}>
-                <h3 className="text-lg font-semibold mb-4">Nội dung email sẽ gửi:</h3>
-                <table className="w-full border-collapse">
+              <div
+                className='bg-gray-50 p-4 rounded border border-gray-200'
+                style={{ maxHeight: '400px', overflowY: 'auto' }}
+              >
+                <h3 className='text-lg font-semibold mb-4'>Nội dung email sẽ gửi:</h3>
+                <table className='w-full border-collapse'>
                   <tbody>
-                    <tr className="border-b border-gray-200">
-                      <td className="py-2 px-3 font-medium bg-gray-100 w-1/3">Tiêu đề:</td>
-                      <td className="py-2 px-3">{`Bàn giao ca  ${handover.FromShift?.code} ngày ${format(new Date(handover.FromShift?.date), 'dd/MM/yyyy', { locale: vi })}`}</td>
+                    <tr className='border-b border-gray-200'>
+                      <td className='py-2 px-3 font-medium bg-gray-100 w-1/3'>Tiêu đề:</td>
+                      <td className='py-2 px-3'>{`Bàn giao ca  ${handover.FromShift?.code} ngày ${format(new Date(handover.FromShift?.date), 'dd/MM/yyyy', { locale: vi })}`}</td>
                     </tr>
-                    <tr className="border-b border-gray-200">
-                      <td className="py-2 px-3 font-medium bg-gray-100">Ca làm việc:</td>
-                      <td className="py-2 px-3">{`${handover.FromShift?.code} - ${format(new Date(handover.FromShift?.date), 'dd/MM/yyyy', { locale: vi })}`}</td>
+                    <tr className='border-b border-gray-200'>
+                      <td className='py-2 px-3 font-medium bg-gray-100'>Ca làm việc:</td>
+                      <td className='py-2 px-3'>{`${handover.FromShift?.code} - ${format(new Date(handover.FromShift?.date), 'dd/MM/yyyy', { locale: vi })}`}</td>
                     </tr>
-                    <tr className="border-b border-gray-200">
-                      <td className="py-2 px-3 font-medium bg-gray-100">Người giao ca:</td>
-                      <td className="py-2 px-3">{handover.FromUsers?.map(user => user.fullname || user.fullName).join(', ')}</td>
+                    <tr className='border-b border-gray-200'>
+                      <td className='py-2 px-3 font-medium bg-gray-100'>Người giao ca:</td>
+                      <td className='py-2 px-3'>
+                        {handover.FromUsers?.map(user => user.fullname || user.fullName).join(', ')}
+                      </td>
                     </tr>
                     {handover.attachments && handover.attachments.length > 0 && (
-                      <tr className="border-b border-gray-200">
-                        <td className="py-2 px-3 font-medium bg-gray-100">File đính kèm:</td>
-                        <td className="py-2 px-3">
-                          <ul className="list-disc pl-4">
+                      <tr className='border-b border-gray-200'>
+                        <td className='py-2 px-3 font-medium bg-gray-100'>File đính kèm:</td>
+                        <td className='py-2 px-3'>
+                          <ul className='list-disc pl-4'>
                             {handover.attachments.map(file => (
                               <li key={file.filename}>{file.originalname}</li>
                             ))}
@@ -1332,20 +1453,20 @@ const HandoverDetailPage = () => {
 
           {/* Email Sending Status */}
           {emailSendingStatus.isSending && (
-            <div className="mt-4">
+            <div className='mt-4'>
               <Alert
                 message={
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center">
-                      <LoadingOutlined className="mr-2" />
+                  <div className='flex items-center justify-between'>
+                    <div className='flex items-center'>
+                      <LoadingOutlined className='mr-2' />
                       <span>{emailSendingStatus.step}</span>
                     </div>
                     <span>{emailSendingStatus.progress}%</span>
                   </div>
                 }
-                type="info"
+                type='info'
                 showIcon={false}
-                className="mb-2"
+                className='mb-2'
               />
               <Progress
                 percent={emailSendingStatus.progress}
@@ -1354,25 +1475,20 @@ const HandoverDetailPage = () => {
                   '0%': '#108ee9',
                   '100%': '#87d068',
                 }}
-                size="small"
+                size='small'
               />
             </div>
           )}
 
           {/* Error Message */}
           {emailSendingStatus.error && (
-            <Alert
-              message={emailSendingStatus.error}
-              type="error"
-              showIcon
-              className="mt-4"
-            />
+            <Alert message={emailSendingStatus.error} type='error' showIcon className='mt-4' />
           )}
         </Form>
       </Modal>
 
       <Modal
-        title="Từ chối nhận ca"
+        title='Từ chối nhận ca'
         open={rejectModalVisible}
         onOk={handleReject}
         onCancel={() => setRejectModalVisible(false)}
@@ -1380,9 +1496,9 @@ const HandoverDetailPage = () => {
         okButtonProps={{ danger: true }}
         destroyOnHidden
       >
-        <Form ref={rejectFormRef} layout="vertical">
-          <Form.Item label="Lý do từ chối">
-            <TextArea rows={4} value={rejectNote} onChange={(e) => setRejectNote(e.target.value)} />
+        <Form ref={rejectFormRef} layout='vertical'>
+          <Form.Item label='Lý do từ chối'>
+            <TextArea rows={4} value={rejectNote} onChange={e => setRejectNote(e.target.value)} />
           </Form.Item>
         </Form>
       </Modal>

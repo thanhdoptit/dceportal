@@ -1,30 +1,27 @@
-import React, { useState, useEffect } from 'react';
-import { Card, Button, Space, message } from 'antd';
-import { 
-  PlusOutlined,
-  UploadOutlined
-} from '@ant-design/icons';
+import { PlusOutlined, UploadOutlined } from '@ant-design/icons';
+import { Button, Card, Space, message } from 'antd';
+import React, { useEffect, useState } from 'react';
 import BackupJobTable from '../components/backup/BackupJobTable.jsx';
 import BackupStats from '../components/backup/BackupStats.jsx';
-import ImportBackupModal from '../components/backup/ImportBackupModal.jsx';
 import CreateBackupJobModal from '../components/backup/CreateBackupJobModal.jsx';
+import ImportBackupModal from '../components/backup/ImportBackupModal.jsx';
 import { useAuth } from '../contexts/AuthContext.jsx';
 import { backupService } from '../services/backupService.js';
 import '../styles/BackupManagement.css';
 
 const BackupManagementPage = () => {
   console.log('BackupManagementPage: Component loaded');
-  
+
   const { currentUser } = useAuth();
   console.log('BackupManagementPage: currentUser', currentUser);
-  
+
   const [loading, setLoading] = useState(false);
   const [backupJobs, setBackupJobs] = useState([]);
   const [stats, setStats] = useState({});
   const [pagination, setPagination] = useState({
     current: 1,
     pageSize: 20,
-    total: 0
+    total: 0,
   });
   const [filters, setFilters] = useState({});
   const [importModalVisible, setImportModalVisible] = useState(false);
@@ -37,17 +34,17 @@ const BackupManagementPage = () => {
       const params = {
         page,
         limit: pageSize,
-        ...filters
+        ...filters,
       };
-      
+
       const response = await backupService.getBackupJobs(params);
-      
+
       if (response.success) {
         setBackupJobs(response.data);
         setPagination({
           current: response.pagination.current_page,
           pageSize: response.pagination.items_per_page,
-          total: response.pagination.total_items
+          total: response.pagination.total_items,
         });
       }
     } catch (error) {
@@ -83,7 +80,7 @@ const BackupManagementPage = () => {
         newFilters[key] = filters[key][0];
       }
     });
-    
+
     setFilters(newFilters);
     loadBackupJobs(pagination.current, pagination.pageSize, newFilters);
   };
@@ -103,7 +100,7 @@ const BackupManagementPage = () => {
   };
 
   // Xử lý import dữ liệu
-  const handleImport = async (data) => {
+  const handleImport = async data => {
     try {
       const response = await backupService.importBackupData(data);
       if (response.success) {
@@ -119,7 +116,7 @@ const BackupManagementPage = () => {
   };
 
   // Xử lý tạo job mới
-  const handleCreateJob = async (jobData) => {
+  const handleCreateJob = async jobData => {
     try {
       const response = await backupService.createBackupJob(jobData);
       if (response.success) {
@@ -135,7 +132,7 @@ const BackupManagementPage = () => {
   };
 
   // Xử lý xóa job
-  const handleDeleteJob = async (jobId) => {
+  const handleDeleteJob = async jobId => {
     try {
       const response = await backupService.deleteBackupJob(jobId);
       if (response.success) {
@@ -152,8 +149,8 @@ const BackupManagementPage = () => {
   console.log('BackupManagementPage: Rendering component');
 
   return (
-    <div className="backup-management-page">
-      <div className="page-header">
+    <div className='backup-management-page'>
+      <div className='page-header'>
         <h1>Quản lý Backup Jobs</h1>
         <p>Quản lý và theo dõi các job backup từ CommVault và các hệ thống khác</p>
       </div>
@@ -162,31 +159,29 @@ const BackupManagementPage = () => {
       <BackupStats stats={stats} />
 
       {/* Actions */}
-      <Card className="actions-section">
+      <Card className='actions-section'>
         <Space>
-          <Button 
-            type="primary" 
+          <Button
+            type='primary'
             icon={<PlusOutlined />}
             onClick={() => setCreateModalVisible(true)}
             disabled={!['admin', 'datacenter'].includes(currentUser?.role)}
           >
             Tạo Job Mới
           </Button>
-          <Button 
+          <Button
             icon={<UploadOutlined />}
             onClick={() => setImportModalVisible(true)}
             disabled={!['admin', 'datacenter'].includes(currentUser?.role)}
           >
             Import từ Excel
           </Button>
-          <Button onClick={() => loadBackupJobs()}>
-            Làm mới
-          </Button>
+          <Button onClick={() => loadBackupJobs()}>Làm mới</Button>
         </Space>
       </Card>
 
       {/* Bảng dữ liệu */}
-      <Card title="Danh sách Backup Jobs" className="table-section">
+      <Card title='Danh sách Backup Jobs' className='table-section'>
         <BackupJobTable
           dataSource={backupJobs}
           loading={loading}
@@ -214,4 +209,4 @@ const BackupManagementPage = () => {
   );
 };
 
-export default BackupManagementPage; 
+export default BackupManagementPage;

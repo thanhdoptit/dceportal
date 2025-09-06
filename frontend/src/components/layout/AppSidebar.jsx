@@ -11,7 +11,7 @@ const AppSidebar = ({ menuItemsWithFAQ, currentPath, currentConfig }) => {
   const [userOverridden, setUserOverridden] = useState(false);
 
   // Xử lý khi user click vào trigger để thay đổi trạng thái
-  const handleCollapseChange = (newCollapsed) => {
+  const handleCollapseChange = newCollapsed => {
     setCollapsed(newCollapsed);
     setUserOverridden(true); // Đánh dấu user đã override cấu hình tự động
   };
@@ -42,24 +42,22 @@ const AppSidebar = ({ menuItemsWithFAQ, currentPath, currentConfig }) => {
         minHeight: 'calc(100vh - 83px)',
         backdropFilter: 'blur(6px)',
         WebkitBackdropFilter: 'blur(6px)',
-        transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)' // Thêm transition mượt mà
+        transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)', // Thêm transition mượt mà
       }}
       trigger={
-        <Tooltip
-          title={collapsed ? "Mở rộng menu" : "Thu gọn menu"}
-          placement="right"
-        >
-          <div className="flex justify-center items-center h-12 cursor-pointer hover:bg-[#005fa3]/80 transition-all duration-300">
-            {collapsed ?
-              <MenuUnfoldOutlined className="text-white text-lg" /> :
-              <MenuFoldOutlined className="text-white text-lg" />
-            }
+        <Tooltip title={collapsed ? 'Mở rộng menu' : 'Thu gọn menu'} placement='right'>
+          <div className='flex justify-center items-center h-12 cursor-pointer hover:bg-[#005fa3]/80 transition-all duration-300'>
+            {collapsed ? (
+              <MenuUnfoldOutlined className='text-white text-lg' />
+            ) : (
+              <MenuFoldOutlined className='text-white text-lg' />
+            )}
           </div>
         </Tooltip>
       }
     >
       <Menu
-        mode="inline"
+        mode='inline'
         selectedKeys={[currentPath]}
         defaultOpenKeys={['shift-manager', 'shift-management']}
         style={{
@@ -67,9 +65,9 @@ const AppSidebar = ({ menuItemsWithFAQ, currentPath, currentConfig }) => {
           marginTop: 2, // Giảm margin top
           padding: '0 6px 0 2px', // Điều chỉnh padding: 6px phải, 2px trái để cân bằng
         }}
-        className="custom-menu"
+        className='custom-menu'
         items={menuItemsWithFAQ}
-        theme="dark"
+        theme='dark'
       />
       <style>{`
         /* ========================================

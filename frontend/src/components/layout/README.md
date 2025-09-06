@@ -10,24 +10,24 @@ Hệ thống sidebar mới cho phép cấu hình linh hoạt trạng thái thu g
 
 ```javascript
 export const SIDEBAR_CONFIG = {
-  '/dc/cooling-system': { 
-    autoCollapse: true,      // Tự động thu gọn khi vào page
-    defaultCollapsed: true   // Trạng thái mặc định là thu gọn
+  '/dc/cooling-system': {
+    autoCollapse: true, // Tự động thu gọn khi vào page
+    defaultCollapsed: true, // Trạng thái mặc định là thu gọn
   },
-  '/dc/shifts': { 
-    autoCollapse: false,     // Không tự động thu gọn
-    defaultCollapsed: false  // Trạng thái mặc định là mở rộng
-  }
+  '/dc/shifts': {
+    autoCollapse: false, // Không tự động thu gọn
+    defaultCollapsed: false, // Trạng thái mặc định là mở rộng
+  },
 };
 ```
 
 ### 2. Các thuộc tính cấu hình
 
-- **`autoCollapse`**: 
+- **`autoCollapse`**:
   - `true`: Tự động thu gọn sidebar khi vào page
   - `false`: Không tự động thu gọn, giữ nguyên trạng thái hiện tại
 
-- **`defaultCollapsed`**: 
+- **`defaultCollapsed`**:
   - `true`: Trạng thái mặc định là thu gọn
   - `false`: Trạng thái mặc định là mở rộng
 
@@ -45,7 +45,7 @@ export const SIDEBAR_CONFIG = {
 ```javascript
 export const SIDEBAR_CONFIG = {
   // ... existing configs
-  '/your/new/page': { autoCollapse: true, defaultCollapsed: true }
+  '/your/new/page': { autoCollapse: true, defaultCollapsed: true },
 };
 ```
 
@@ -55,34 +55,37 @@ export const SIDEBAR_CONFIG = {
 import { addSidebarConfig, updateSidebarConfig } from './sidebarConfig';
 
 // Thêm cấu hình mới
-addSidebarConfig('/your/new/page', { 
-  autoCollapse: true, 
-  defaultCollapsed: true 
+addSidebarConfig('/your/new/page', {
+  autoCollapse: true,
+  defaultCollapsed: true,
 });
 
 // Cập nhật cấu hình hiện có
-updateSidebarConfig('/dc/cooling-system', { 
-  autoCollapse: false 
+updateSidebarConfig('/dc/cooling-system', {
+  autoCollapse: false,
 });
 ```
 
 ## Các page đã được cấu hình
 
 ### Datacenter Pages:
+
 - `/dc/cooling-system`: Tự động thu gọn (để có nhiều không gian cho content)
 - `/dc/ups-system`: Tự động thu gọn
-- `/dc/fire-system`: Tự động thu gọn  
+- `/dc/fire-system`: Tự động thu gọn
 - `/dc/security-system`: Tự động thu gọn
 - `/dc/shifts`, `/dc/tasks`, `/dc/handovers`, `/dc/faq`: Mở rộng mặc định
 
 ### Manager Pages:
+
 - Tất cả pages: Mở rộng mặc định
 
 ### BE Pages:
+
 - Tất cả pages: Mở rộng mặc định
 
 ## Lưu ý
 
 - User vẫn có thể thay đổi trạng thái sidebar thủ công bằng cách click vào trigger
 - Khi user thay đổi thủ công, trạng thái sẽ được giữ nguyên cho đến khi chuyển page
-- Cấu hình `autoCollapse: true` sẽ override trạng thái thủ công khi chuyển page 
+- Cấu hình `autoCollapse: true` sẽ override trạng thái thủ công khi chuyển page

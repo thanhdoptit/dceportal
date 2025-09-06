@@ -9,7 +9,7 @@ const ConfirmDialog = ({
   onCancel,
   okText = 'Xác nhận',
   cancelText = 'Hủy',
-  okType = 'danger'
+  okType = 'danger',
 }) => (
   <Modal
     title={title}

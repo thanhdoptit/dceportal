@@ -9,12 +9,13 @@ const ImportBackupModal = ({ visible, onCancel, onImport }) => {
   const [loading, setLoading] = useState(false);
 
   // Xử lý upload file
-  const handleUpload = (file) => {
-    const isExcel = file.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' ||
-                   file.type === 'application/vnd.ms-excel' ||
-                   file.name.endsWith('.xlsx') ||
-                   file.name.endsWith('.xls');
-    
+  const handleUpload = file => {
+    const isExcel =
+      file.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' ||
+      file.type === 'application/vnd.ms-excel' ||
+      file.name.endsWith('.xlsx') ||
+      file.name.endsWith('.xls');
+
     if (!isExcel) {
       message.error('Chỉ chấp nhận file Excel (.xlsx, .xls)');
       return false;
@@ -28,40 +29,40 @@ const ImportBackupModal = ({ visible, onCancel, onImport }) => {
 
     // Đọc file Excel
     const reader = new FileReader();
-    reader.onload = (e) => {
+    reader.onload = e => {
       try {
         const data = new Uint8Array(e.target.result);
         const workbook = XLSX.read(data, { type: 'array' });
-        
+
         // Lấy sheet đầu tiên
         const sheetName = workbook.SheetNames[0];
         const worksheet = workbook.Sheets[sheetName];
-        
+
         // Chuyển đổi thành JSON
         const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
-        
+
         // Parse dữ liệu theo format
         const parsed = parseExcelData(jsonData);
         setParsedData(parsed);
-        
+
         message.success('Đọc file Excel thành công');
       } catch (error) {
         console.error('Parse Excel error:', error);
         message.error('Lỗi khi đọc file Excel');
       }
     };
-    
+
     reader.readAsArrayBuffer(file);
-    
+
     setFileList([file]);
     return false; // Ngăn upload tự động
   };
 
   // Parse dữ liệu Excel
-  const parseExcelData = (jsonData) => {
+  const parseExcelData = jsonData => {
     const result = {
       goodsync: [],
-      export_check: []
+      export_check: [],
     };
 
     // Tìm header row
@@ -96,9 +97,13 @@ const ImportBackupModal = ({ visible, onCancel, onImport }) => {
           export_path: rowData['Đường dẫn export (DBA)'] || '',
           local_check_path: rowData['Đường dẫn kiểm tra local'] || '',
           export_files: rowData['Dữ liệu Export'] || '',
-          schedule_info: rowData['Lịch Chạy Job'] || ''
+          schedule_info: rowData['Lịch Chạy Job'] || '',
         });
-      } else if (rowData['Clients (IP)'] && rowData['Đường dẫn export (DBA)'] && rowData['END Time']) {
+      } else if (
+        rowData['Clients (IP)'] &&
+        rowData['Đường dẫn export (DBA)'] &&
+        rowData['END Time']
+      ) {
         // Export check data
         result.export_check.push({
           job_name: rowData['Clients (IP)'] || '',
@@ -108,7 +113,7 @@ const ImportBackupModal = ({ visible, onCancel, onImport }) => {
           end_time: rowData['END Time'] || '',
           backup_result: rowData['Kết quả'] || '',
           checked_by: rowData['Người kiểm tra'] || '',
-          schedule_info: rowData['Lịch Chạy Job'] || ''
+          schedule_info: rowData['Lịch Chạy Job'] || '',
         });
       }
     });
@@ -144,32 +149,32 @@ const ImportBackupModal = ({ visible, onCancel, onImport }) => {
       title: 'Client IP',
       dataIndex: 'client_ip',
       key: 'client_ip',
-      width: 200
+      width: 200,
     },
     {
       title: 'Export Path',
       dataIndex: 'export_path',
       key: 'export_path',
-      width: 300
+      width: 300,
     },
     {
       title: 'Local Check Path',
       dataIndex: 'local_check_path',
       key: 'local_check_path',
-      width: 300
+      width: 300,
     },
     {
       title: 'Export Files',
       dataIndex: 'export_files',
       key: 'export_files',
-      width: 150
+      width: 150,
     },
     {
       title: 'Schedule Info',
       dataIndex: 'schedule_info',
       key: 'schedule_info',
-      width: 300
-    }
+      width: 300,
+    },
   ];
 
   const exportCheckColumns = [
@@ -177,70 +182,70 @@ const ImportBackupModal = ({ visible, onCancel, onImport }) => {
       title: 'Job Name',
       dataIndex: 'job_name',
       key: 'job_name',
-      width: 200
+      width: 200,
     },
     {
       title: 'Export Path',
       dataIndex: 'export_path',
       key: 'export_path',
-      width: 300
+      width: 300,
     },
     {
       title: 'Tape Label',
       dataIndex: 'tape_label',
       key: 'tape_label',
-      width: 120
+      width: 120,
     },
     {
       title: 'End Time',
       dataIndex: 'end_time',
       key: 'end_time',
-      width: 100
+      width: 100,
     },
     {
       title: 'Result',
       dataIndex: 'backup_result',
       key: 'backup_result',
-      width: 100
+      width: 100,
     },
     {
       title: 'Checked By',
       dataIndex: 'checked_by',
       key: 'checked_by',
-      width: 120
-    }
+      width: 120,
+    },
   ];
 
   return (
     <Modal
-      title="Import dữ liệu Backup từ Excel"
+      title='Import dữ liệu Backup từ Excel'
       open={visible}
       onCancel={handleCancel}
       width={1200}
       footer={[
-        <Button key="cancel" onClick={handleCancel}>
+        <Button key='cancel' onClick={handleCancel}>
           Hủy
         </Button>,
-        <Button 
-          key="import" 
-          type="primary" 
+        <Button
+          key='import'
+          type='primary'
           loading={loading}
           disabled={!parsedData}
           onClick={handleImport}
         >
           Import
-        </Button>
+        </Button>,
       ]}
     >
       <div style={{ marginBottom: 16 }}>
         <Alert
-          message="Hướng dẫn"
-          description="Upload file Excel chứa dữ liệu backup jobs. File phải có cấu trúc với các cột: Clients (IP), Đường dẫn export (DBA), Đường dẫn kiểm tra local, v.v."
-          type="info"
+          message='Hướng dẫn'
+          description='Upload file Excel chứa dữ liệu backup jobs. File phải có cấu trúc với các cột: Clients (IP), Đường dẫn export (DBA), Đường dẫn kiểm tra local, v.v.'
+          type='info'
           showIcon
           style={{ marginBottom: 16 }}
         />
-        
+
         <Upload
           beforeUpload={handleUpload}
           fileList={fileList}
@@ -248,39 +253,37 @@ const ImportBackupModal = ({ visible, onCancel, onImport }) => {
             setFileList([]);
             setParsedData(null);
           }}
-          accept=".xlsx,.xls"
+          accept='.xlsx,.xls'
           maxCount={1}
         >
-          <Button icon={<UploadOutlined />}>
-            Chọn file Excel
-          </Button>
+          <Button icon={<UploadOutlined />}>Chọn file Excel</Button>
         </Upload>
       </div>
 
       {parsedData && (
         <div>
           <h3>Preview dữ liệu</h3>
-          
+
           {parsedData.goodsync.length > 0 && (
             <div style={{ marginBottom: 24 }}>
               <h4>GoodSync Jobs ({parsedData.goodsync.length})</h4>
               <Table
                 columns={goodsyncColumns}
                 dataSource={parsedData.goodsync}
-                size="small"
+                size='small'
                 scroll={{ x: 1200 }}
                 pagination={false}
               />
             </div>
           )}
-          
+
           {parsedData.export_check.length > 0 && (
             <div>
               <h4>Export Check Jobs ({parsedData.export_check.length})</h4>
               <Table
                 columns={exportCheckColumns}
                 dataSource={parsedData.export_check}
-                size="small"
+                size='small'
                 scroll={{ x: 1200 }}
                 pagination={false}
               />
@@ -292,4 +295,4 @@ const ImportBackupModal = ({ visible, onCancel, onImport }) => {
   );
 };
 
-export default ImportBackupModal; 
+export default ImportBackupModal;

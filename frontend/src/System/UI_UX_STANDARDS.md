@@ -7,6 +7,7 @@ Sử dụng các file function, CSS trong /srv/dce-portal/frontend/src/System/sh
 ## 🏗️ Cấu Trúc Layout
 
 ### 1. Layout Chính
+
 ```css
 .cooling-system-layout {
   height: calc(100vh - 83px);
@@ -22,6 +23,7 @@ Sử dụng các file function, CSS trong /srv/dce-portal/frontend/src/System/sh
 ```
 
 ### 2. Menu Container
+
 - **Width**: 320px (cố định)
 - **Background**: #ffffff
 - **Border**: 1px solid #e8e8e8
@@ -29,6 +31,7 @@ Sử dụng các file function, CSS trong /srv/dce-portal/frontend/src/System/sh
 - **Transition**: all 0.3s cubic-bezier(0.4, 0, 0.2, 1)
 
 ### 3. Content Area
+
 - **Background**: Linear gradient (135deg, #f5f7fa 0%, #c3cfe2 100%)
 - **Padding**: 24px 32px
 - **Scroll**: Vertical only
@@ -39,6 +42,7 @@ Sử dụng các file function, CSS trong /srv/dce-portal/frontend/src/System/sh
 ## 🚀 Performance & Lazy Loading Standards
 
 ### 1. Lazy Loading Implementation
+
 ```javascript
 // Section configuration với priority levels
 const sections = [
@@ -47,33 +51,35 @@ const sections = [
     name: 'Giới thiệu chung',
     importFunc: () => import('./sections/IntroductionSection'),
     priority: 'high',
-    preload: true // Preload section đầu tiên
+    preload: true, // Preload section đầu tiên
   },
   {
     id: '2',
     name: 'Hướng dẫn thiết bị',
     importFunc: () => import('./sections/DeviceGuideSection'),
     priority: 'high',
-    preload: false
-  }
+    preload: false,
+  },
 ];
 ```
 
 ### 2. LazySection Component
+
 ```javascript
-const LazySection = ({ 
-  importFunc, 
+const LazySection = ({
+  importFunc,
   placeholder = null,
   threshold = 0.1,
   rootMargin = '100px',
   onLoad = null,
-  forceLoad = false
+  forceLoad = false,
 }) => {
   // Implementation với Intersection Observer
 };
 ```
 
 ### 3. Progress Indicator
+
 ```css
 .progress-indicator {
   position: sticky;
@@ -95,6 +101,7 @@ const LazySection = ({
 ```
 
 ### 4. Loading States
+
 ```css
 .lazy-section-placeholder {
   padding: 30px;
@@ -128,6 +135,7 @@ const LazySection = ({
 ## 🔄 Auto Collapse Menu Standards
 
 ### 1. Sidebar Configuration
+
 ```javascript
 // Cấu hình sidebar cho từng page
 export const SIDEBAR_CONFIG = {
@@ -140,6 +148,7 @@ export const SIDEBAR_CONFIG = {
 ```
 
 ### 2. SidebarContext Implementation
+
 ```javascript
 export const SidebarProvider = ({ children }) => {
   const [collapsed, setCollapsed] = useState(false);
@@ -150,11 +159,11 @@ export const SidebarProvider = ({ children }) => {
   // Tự động cập nhật trạng thái sidebar khi chuyển page
   useEffect(() => {
     const newConfig = getCurrentConfig();
-    
+
     // Đánh dấu sidebar chưa sẵn sàng
     setSidebarReady(false);
     setIsAnimating(true);
-    
+
     // Delay để đảm bảo page transition mượt mà và sidebar thu gọn xong
     const timer = setTimeout(() => {
       if (newConfig.autoCollapse) {
@@ -163,13 +172,14 @@ export const SidebarProvider = ({ children }) => {
         handleSidebarChange(newConfig.defaultCollapsed);
       }
     }, 150); // Delay 150ms để mượt mà
-    
+
     return () => clearTimeout(timer);
   }, [location.pathname]);
 };
 ```
 
 ### 3. Content Loading Logic
+
 ```javascript
 const CoolingContent = () => {
   const { sidebarReady, isAnimating } = useSidebar();
@@ -194,7 +204,7 @@ const CoolingContent = () => {
       const timer = setTimeout(() => {
         setForceLoadAll(true);
       }, 200);
-      
+
       return () => clearTimeout(timer);
     }
   }, [sidebarReady, isAnimating]);
@@ -202,13 +212,11 @@ const CoolingContent = () => {
   // Hiển thị loading khi sidebar đang animating
   if (isAnimating || !sidebarReady) {
     return (
-      <div className="cooling-content">
-        <div className="loading-container">
+      <div className='cooling-content'>
+        <div className='loading-container'>
           <div style={{ textAlign: 'center' }}>
-            <Spin size="large" />
-            <p className="loading-text">
-              Đang tải tài liệu hệ thống...
-            </p>
+            <Spin size='large' />
+            <p className='loading-text'>Đang tải tài liệu hệ thống...</p>
           </div>
         </div>
       </div>
@@ -218,6 +226,7 @@ const CoolingContent = () => {
 ```
 
 ### 4. Timing Standards
+
 - **Page Transition Delay**: 150ms
 - **Sidebar Animation Duration**: 300ms
 - **Content Preload Delay**: 200ms
@@ -226,9 +235,10 @@ const CoolingContent = () => {
 ## 🎯 Menu Design Standards
 
 ### 1. Menu Header
+
 ```css
 .menu-header {
-  background: #0072BC;
+  background: #0072bc;
   color: white;
   padding: 8px;
   border-radius: 8px;
@@ -247,6 +257,7 @@ const CoolingContent = () => {
 ```
 
 ### 2. Menu Items - Level 1 (Main Categories)
+
 ```css
 .ant-menu-submenu-title {
   border-radius: 6px;
@@ -265,6 +276,7 @@ const CoolingContent = () => {
 ```
 
 ### 3. Menu Items - Level 2 (Sub Categories)
+
 ```css
 .ant-menu-submenu .ant-menu-submenu-title {
   font-weight: 500;
@@ -277,6 +289,7 @@ const CoolingContent = () => {
 ```
 
 ### 4. Menu Items - Level 3 (Detail Items)
+
 ```css
 .ant-menu-item {
   border-radius: 6px;
@@ -295,23 +308,25 @@ const CoolingContent = () => {
 ```
 
 ### 5. Hover Effects
+
 ```css
 .ant-menu-item:hover,
 .ant-menu-submenu-title:hover {
   background: #e6f7ff !important;
-  color: #0072BC !important;
+  color: #0072bc !important;
   transform: translateX(4px);
   box-shadow: 0 2px 8px rgba(0, 114, 188, 0.15) !important;
 }
 ```
 
 ### 6. Selected States
+
 ```css
 .ant-menu-item-selected,
 .ant-menu-submenu-selected > .ant-menu-submenu-title {
-  background: #0072BC !important;
+  background: #0072bc !important;
   color: #fff !important;
-  border: 1px solid #0072BC !important;
+  border: 1px solid #0072bc !important;
   transform: translateX(4px);
   box-shadow: 0 4px 12px rgba(0, 114, 188, 0.3) !important;
 }
@@ -320,27 +335,32 @@ const CoolingContent = () => {
 ## 🎨 Color Palette
 
 ### Primary Colors
+
 - **Primary Blue**: #0072BC
 - **Light Blue**: #e6f7ff
 - **Dark Blue**: #1890ff
 
 ### Background Colors
+
 - **Main Background**: #f5f5f5
 - **Content Background**: Linear gradient (#f5f7fa → #c3cfe2)
 - **Card Background**: #ffffff
 - **Section Background**: #f8f9fa
 
 ### Text Colors
+
 - **Primary Text**: #333333
 - **Secondary Text**: #595959
 - **Light Text**: #8c8c8c
 
 ### Border Colors
+
 - **Primary Border**: #e0e0e0
 - **Card Border**: #e8e8e8
 - **Table Border**: #d9d9d9
 
 ### Status Colors
+
 - **Success**: #52c41a
 - **Warning**: #faad14
 - **Error**: #ff4d4f
@@ -349,6 +369,7 @@ const CoolingContent = () => {
 ## 📱 Typography Standards
 
 ### Font Sizes
+
 - **Menu Header**: 20px (bold)
 - **Level 1 Menu**: 14px (600 weight)
 - **Level 2 Menu**: 13px (500 weight)
@@ -358,6 +379,7 @@ const CoolingContent = () => {
 - **Content Text**: 14px (400 weight)
 
 ### Line Heights
+
 - **Menu Items**: 1.3
 - **Content**: 1.6
 - **Titles**: 1.4
@@ -365,17 +387,20 @@ const CoolingContent = () => {
 ## 🎭 Animation Standards
 
 ### Transitions
+
 ```css
 transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 ```
 
 ### Hover Transformations
+
 - **Menu Items**: translateX(4px)
 - **Buttons**: translateY(-1px)
 - **Tags**: scale(1.05)
 - **Progress Indicators**: translateY(-1px)
 
 ### Scroll Behavior
+
 ```css
 scroll-behavior: smooth;
 scroll-margin-top: 20px;
@@ -383,10 +408,16 @@ scroll-padding-top: 20px;
 ```
 
 ### Loading Animations
+
 ```css
 @keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
 }
 
 .pulse-animation {
@@ -395,6 +426,7 @@ scroll-padding-top: 20px;
 ```
 
 ### Sidebar Animations
+
 ```css
 @keyframes sidebarCollapse {
   from {
@@ -430,6 +462,7 @@ scroll-padding-top: 20px;
 ## 📐 Spacing Standards
 
 ### Margins & Padding
+
 - **Menu Container**: 8px margin
 - **Menu Items**: 1px 2px margin
 - **Content Wrapper**: 24px 32px padding
@@ -438,6 +471,7 @@ scroll-padding-top: 20px;
 - **Subsection Padding**: 16px
 
 ### Border Radius
+
 - **Menu Items**: 6px
 - **Cards**: 8px
 - **Buttons**: 6px
@@ -447,39 +481,37 @@ scroll-padding-top: 20px;
 ## 🔧 Component Standards
 
 ### 1. Shared Components Usage
+
 Tất cả hệ thống phải sử dụng các shared components để đảm bảo tính nhất quán:
 
 #### SystemLayout Component
+
 ```javascript
 import { SystemLayout, createMenuItem, createSubMenuItem, createLeafMenuItem } from '../shared';
 
 // Sử dụng menu utility functions
 const menuItems = [
-  createMenuItem(
-    '1',
-    <InfoCircleOutlined />,
-    '1. GIỚI THIỆU CHUNG',
-    [
-      createLeafMenuItem('1.1', '1.1. Thông số kỹ thuật hệ thống UPS'),
-      createSubMenuItem('1.2', '1.2. Cấu trúc hệ thống', [
-        createLeafMenuItem('1.2.1', '1.2.1. Chi tiết cấu trúc'),
-      ])
-    ]
-  )
+  createMenuItem('1', <InfoCircleOutlined />, '1. GIỚI THIỆU CHUNG', [
+    createLeafMenuItem('1.1', '1.1. Thông số kỹ thuật hệ thống UPS'),
+    createSubMenuItem('1.2', '1.2. Cấu trúc hệ thống', [
+      createLeafMenuItem('1.2.1', '1.2.1. Chi tiết cấu trúc'),
+    ]),
+  ]),
 ];
 
 <SystemLayout
-  title="HỆ THỐNG UPS & ẮC QUY BMS - TTDL VÂN CANH"
+  title='HỆ THỐNG UPS & ẮC QUY BMS - TTDL VÂN CANH'
   menuItems={menuItems}
   selectedKey={selectedKey}
   onMenuClick={handleMenuClick}
-  headerBgColor="#0072BC"
+  headerBgColor='#0072BC'
 >
   <UPSContent selectedKey={selectedKey} />
-</SystemLayout>
+</SystemLayout>;
 ```
 
 #### LazySection Component
+
 ```javascript
 import { LazySection } from '../shared';
 
@@ -487,21 +519,22 @@ import { LazySection } from '../shared';
   <LazySection
     importFunc={() => import('./sections/IntroductionSection')}
     placeholder={
-      <div className="lazy-section-loading">
+      <div className='lazy-section-loading'>
         <div style={{ fontSize: '48px', color: '#1890ff', marginBottom: '16px' }}>⏳</div>
         <h3>Tên Section</h3>
         <p>Click để tải nội dung hoặc cuộn xuống...</p>
       </div>
     }
     threshold={0.1}
-    rootMargin="100px"
+    rootMargin='100px'
     onLoad={() => setLoadedSections(prev => prev + 1)}
     forceLoad={forceLoadAll}
   />
-</div>
+</div>;
 ```
 
 #### ImageGallery & ImagePreview Components
+
 ```javascript
 import { ImageGallery, ImagePreview } from '../shared';
 
@@ -528,28 +561,31 @@ import { ImageGallery, ImagePreview } from '../shared';
 ```
 
 #### PasswordField Component
+
 ```javascript
 import { PasswordField } from '../shared';
 
 <PasswordField
-  placeholder="Nhập mật khẩu"
+  placeholder='Nhập mật khẩu'
   value={password}
-  onChange={(value) => setPassword(value)}
-/>
+  onChange={value => setPassword(value)}
+/>;
 ```
 
 #### useIntersectionObserver Hook
+
 ```javascript
 import { useIntersectionObserver } from '../shared';
 
 const [ref, isIntersecting] = useIntersectionObserver({
   threshold: 0.1,
   rootMargin: '100px',
-  triggerOnce: true
+  triggerOnce: true,
 });
 ```
 
 ### 2. Cards
+
 ```css
 .ant-card {
   border-radius: 8px;
@@ -560,6 +596,7 @@ const [ref, isIntersecting] = useIntersectionObserver({
 ```
 
 ### 2. Steps Implementation Pattern
+
 ```javascript
 // State management cho Steps
 const [currentStep, setCurrentStep] = React.useState(0);
@@ -575,48 +612,49 @@ const [phase2Step, setPhase2Step] = React.useState(0);
 <Steps
   current={currentStep}
   onChange={setCurrentStep}
-  direction="vertical"
-  size="small"
+  direction='vertical'
+  size='small'
   items={items.map((item, index) => ({
     title: item.title,
-    description: item.description
+    description: item.description,
   }))}
-/>
+/>;
 
 // Steps với state riêng cho từng phase
-{phases.map((phase, index) => (
-  <div key={index}>
-    <Title level={4}>{phase.title}</Title>
-    <Steps
-      current={index === 0 ? phase1Step : phase2Step}
-      onChange={index === 0 ? setPhase1Step : setPhase2Step}
-      direction="vertical"
-      size="small"
-      items={phase.actions.map((action, idx) => ({
-        title: action,
-        description: null
-      }))}
-    />
-  </div>
-))}
+{
+  phases.map((phase, index) => (
+    <div key={index}>
+      <Title level={4}>{phase.title}</Title>
+      <Steps
+        current={index === 0 ? phase1Step : phase2Step}
+        onChange={index === 0 ? setPhase1Step : setPhase2Step}
+        direction='vertical'
+        size='small'
+        items={phase.actions.map((action, idx) => ({
+          title: action,
+          description: null,
+        }))}
+      />
+    </div>
+  ));
+}
 
 // Steps trong Card wrapper
-<Card title="Quy trình thực hiện" style={{ marginBottom: '20px' }}>
-  <Paragraph>
-    Mô tả quy trình...
-  </Paragraph>
-  
+<Card title='Quy trình thực hiện' style={{ marginBottom: '20px' }}>
+  <Paragraph>Mô tả quy trình...</Paragraph>
+
   <Steps
     current={currentStep}
     onChange={setCurrentStep}
-    direction="vertical"
-    size="small"
+    direction='vertical'
+    size='small'
     items={procedureSteps}
   />
-</Card>
+</Card>;
 ```
 
 ### 3. Tables
+
 ```css
 .ant-table {
   border-radius: 8px;
@@ -633,6 +671,7 @@ const [phase2Step, setPhase2Step] = React.useState(0);
 ```
 
 ### 4. Buttons
+
 ```css
 .ant-btn {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -645,6 +684,7 @@ const [phase2Step, setPhase2Step] = React.useState(0);
 ```
 
 ### 5. Tags
+
 ```css
 .ant-tag {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -657,17 +697,19 @@ const [phase2Step, setPhase2Step] = React.useState(0);
 ```
 
 ### 6. Progress Bars
+
 ```css
 .ant-progress {
   margin: 0;
 }
 
 .ant-progress-bg {
-  background: linear-gradient(90deg, #1890ff 0%, #0072BC 100%);
+  background: linear-gradient(90deg, #1890ff 0%, #0072bc 100%);
 }
 ```
 
 ### 6. Alerts
+
 ```css
 .ant-alert {
   border-radius: 8px;
@@ -681,6 +723,7 @@ const [phase2Step, setPhase2Step] = React.useState(0);
 ```
 
 ### 7. Steps Component
+
 ```css
 /* Steps Container */
 .ant-steps {
@@ -750,27 +793,29 @@ const [phase2Step, setPhase2Step] = React.useState(0);
 ## 📱 Responsive Design
 
 ### Breakpoints
+
 - **Desktop**: > 1200px
 - **Tablet**: 768px - 1200px
 - **Mobile**: < 768px
 
 ### Mobile Adaptations
+
 ```css
 @media (max-width: 768px) {
   .cooling-system-layout {
     flex-direction: column;
   }
-  
+
   .cooling-system-sider {
     width: 100% !important;
     height: auto;
     max-height: 300px;
   }
-  
+
   .content-wrapper {
     padding: 16px;
   }
-  
+
   .progress-indicator {
     position: relative;
     margin: 16px;
@@ -781,17 +826,20 @@ const [phase2Step, setPhase2Step] = React.useState(0);
 ## 🎯 Content Structure Standards
 
 ### 1. Section Layout
+
 - Mỗi section phải có `id` attribute để scroll
 - Layout dọc (không dùng Row/Col cho các section con)
 - Spacing nhất quán giữa các section
 - Sử dụng LazySection component cho lazy loading
 
 ### 2. ID Naming Convention
+
 - **Main Sections**: `section-{key}` (ví dụ: `section-3.1`)
 - **Sub Sections**: `{key}` (ví dụ: `2.1.1`)
 - **Fallback**: `section-{mainKey}` (ví dụ: `section-4`)
 
 ### 3. Content Organization
+
 - **Title**: Sử dụng Ant Design Typography
 - **Content**: Sử dụng Cards cho các phần chính
 - **Spacing**: Divider giữa các section lớn
@@ -800,23 +848,27 @@ const [phase2Step, setPhase2Step] = React.useState(0);
 ## 🔄 Performance Standards
 
 ### 1. Lazy Loading Strategy
+
 - **Preload**: Section đầu tiên được preload
 - **Intersection Observer**: Detect khi section vào viewport
 - **Force Load**: Tất cả sections được load sau 200ms
 - **Error Handling**: Retry mechanism cho failed loads
 
 ### 2. Code Splitting
+
 - **Dynamic Import**: Sử dụng `import()` cho tất cả sections
 - **Bundle Optimization**: Mỗi section là một chunk riêng biệt
 - **Caching**: Browser cache cho các chunks đã load
 
 ### 3. UX Optimization
+
 - **Progress Indicator**: Hiển thị tiến độ loading
 - **Placeholder**: Loading state đẹp mắt
 - **Completion Message**: Thông báo khi load xong
 - **Smooth Transitions**: Animation mượt mà
 
 ### 4. Auto Collapse Optimization
+
 - **Timing**: 150ms delay cho page transition
 - **Animation**: 300ms cho sidebar collapse/expand
 - **Content Loading**: Chỉ load sau khi sidebar sẵn sàng
@@ -825,30 +877,35 @@ const [phase2Step, setPhase2Step] = React.useState(0);
 ## 🔄 Implementation Checklist
 
 ### ✅ Layout Setup
+
 - [ ] Layout chính với flexbox
 - [ ] Menu container 380px width
 - [ ] Content area full width
 - [ ] Responsive breakpoints
 
 ### ✅ Menu Implementation
+
 - [ ] Menu header với branding
 - [ ] 3-level menu structure
 - [ ] Hover và selected states
 - [ ] Smooth scroll functionality
 
 ### ✅ Auto Collapse Implementation
+
 - [ ] SidebarContext với timing optimization
 - [ ] Sidebar configuration cho từng page
 - [ ] Content loading logic với sidebarReady check
 - [ ] Loading state khi sidebar animating
 
 ### ✅ Lazy Loading Implementation
+
 - [ ] LazySection component
 - [ ] useIntersectionObserver hook
 - [ ] Progress indicator
 - [ ] Error handling và retry
 
 ### ✅ Content Structure
+
 - [ ] Proper ID attributes
 - [ ] Vertical layout cho sections
 - [ ] Consistent spacing
@@ -856,6 +913,7 @@ const [phase2Step, setPhase2Step] = React.useState(0);
 - [ ] Lazy loading cho tất cả sections
 
 ### ✅ Styling
+
 - [ ] Color palette implementation
 - [ ] Typography standards
 - [ ] Animation effects
@@ -864,6 +922,7 @@ const [phase2Step, setPhase2Step] = React.useState(0);
 - [ ] Smooth transitions cho tất cả elements
 
 ### ✅ Performance
+
 - [ ] Optimized CSS
 - [ ] Smooth animations
 - [ ] Efficient scroll handling
@@ -874,6 +933,7 @@ const [phase2Step, setPhase2Step] = React.useState(0);
 ## 🔄 Synchronization Standards
 
 ### 1. Import Structure
+
 Tất cả hệ thống phải sử dụng import structure nhất quán:
 
 ```javascript
@@ -885,6 +945,7 @@ import SystemLayout from '../shared/components/SystemLayout';
 ```
 
 ### 2. Class Naming Convention
+
 Sử dụng class names chuẩn từ shared CSS:
 
 ```javascript
@@ -901,6 +962,7 @@ Sử dụng class names chuẩn từ shared CSS:
 ```
 
 #### CSS Class Hierarchy
+
 ```
 Primary Classes (dùng cho content wrapper):
 - .system-content      (mới, preferred)
@@ -917,7 +979,7 @@ LazySection Classes:
 
 Layout Classes:
 - .system-layout       (layout wrapper)
-- .menu-container      (menu sidebar container)  
+- .menu-container      (menu sidebar container)
 - .system-sider        (menu sider)
 - .system-menu         (menu component)
 
@@ -927,20 +989,21 @@ Section Content Classes (QUAN TRỌNG):
 ```
 
 #### Section Class Usage Examples
+
 ```javascript
 // ĐÚNG - Sử dụng content-section cho main sections
 <div className="content-section">
   <Title level={2} id="section-1">
     1. GIỚI THIỆU CHUNG
   </Title>
-  
+
   {/* Subsections bên trong */}
   <div id="1.1" className="subsection" style={{ scrollMarginTop: '20px' }}>
     <Title level={3}>
       1.1. Thông số kỹ thuật hệ thống
     </Title>
   </div>
-  
+
   <div id="1.2" className="subsection" style={{ scrollMarginTop: '20px' }}>
     <Title level={3}>
       1.2. Cấu trúc và nguyên lý hoạt động
@@ -957,6 +1020,7 @@ Section Content Classes (QUAN TRỌNG):
 ```
 
 ### 3. Menu Structure Pattern
+
 Tất cả hệ thống phải sử dụng menu utility functions:
 
 ```javascript
@@ -982,6 +1046,7 @@ const menuItems = [
 ```
 
 ### 4. Content Organization Pattern
+
 Tất cả sections phải có ID và wrapper chuẩn:
 
 ```javascript
@@ -1004,12 +1069,14 @@ Tất cả sections phải có ID và wrapper chuẩn:
 ### 5. Shared Components Integration Checklist
 
 #### ✅ SystemLayout Integration
+
 - [ ] Import từ '../shared'
 - [ ] Sử dụng createMenuItem, createSubMenuItem, createLeafMenuItem
 - [ ] Truyền đúng props: title, menuItems, selectedKey, onMenuClick, headerBgColor
 - [ ] Sử dụng handleMenuClick từ menuUtils (nếu không có custom logic)
 
-#### ✅ LazySection Integration  
+#### ✅ LazySection Integration
+
 - [ ] Import từ '../shared'
 - [ ] Wrapper với ID: `<div id={`section-${section.id}`}>`
 - [ ] Placeholder sử dụng class "lazy-section-loading"
@@ -1017,16 +1084,19 @@ Tất cả sections phải có ID và wrapper chuẩn:
 - [ ] forceLoad prop để load tất cả sau delay
 
 #### ✅ Content Container Integration
+
 - [ ] Sử dụng className="system-content" thay vì custom class
 - [ ] Loading container sử dụng className="loading-container"
 - [ ] Loading text sử dụng className="loading-text"
 
 #### ✅ Image Components Integration (khi cần)
+
 - [ ] ImageGallery cho nhiều ảnh
 - [ ] ImagePreview cho ảnh đơn
 - [ ] Cấu hình đúng props: columns, imageWidth, imageHeight, maskText
 
 #### ✅ CSS Integration
+
 - [ ] Import CSS từ shared: import '../shared/styles/SystemLayout.css'
 - [ ] KHÔNG tạo CSS riêng trừ khi thực sự cần thiết
 - [ ] Override styles chỉ khi cần custom màu sắc hoặc spacing đặc biệt
@@ -1034,19 +1104,20 @@ Tất cả sections phải có ID và wrapper chuẩn:
 ### 6. Performance Integration Standards
 
 #### Auto-Collapse với SidebarContext
+
 ```javascript
 import { useSidebar } from '../../contexts/SidebarContext';
 
 const SystemContent = () => {
   const { sidebarReady, isAnimating } = useSidebar();
-  
+
   // Loading state khi sidebar đang animating
   if (isAnimating || !sidebarReady) {
     return (
-      <div className="cooling-content">
-        <div className="loading-container">
-          <Spin size="large" />
-          <p className="loading-text">Đang tải tài liệu...</p>
+      <div className='cooling-content'>
+        <div className='loading-container'>
+          <Spin size='large' />
+          <p className='loading-text'>Đang tải tài liệu...</p>
         </div>
       </div>
     );
@@ -1055,6 +1126,7 @@ const SystemContent = () => {
 ```
 
 #### Lazy Loading với SidebarContext
+
 ```javascript
 // Section configuration với subsections metadata
 const sections = [
@@ -1064,8 +1136,8 @@ const sections = [
     importFunc: () => import('./sections/SectionComponent'),
     priority: 'high',
     preload: true, // Chỉ section đầu tiên
-    subsections: ['1.1', '1.2', '1.3'] // Metadata cho menu
-  }
+    subsections: ['1.1', '1.2', '1.3'], // Metadata cho menu
+  },
 ];
 
 // Preload chỉ khi sidebar ready
@@ -1092,6 +1164,7 @@ useEffect(() => {
 ```
 
 #### Progress Tracking Pattern
+
 ```javascript
 // State management chuẩn
 const [loadedSections, setLoadedSections] = useState(0);
@@ -1116,6 +1189,7 @@ const handleSectionError = (sectionName, error) => {
 ```
 
 #### Section Structure Pattern
+
 ```javascript
 {sections.map((section, index) => (
   <div
@@ -1195,3 +1269,4 @@ const handleSectionError = (sectionName, error) => {
 - **content-section**: Có styling và spacing đặc biệt cho main sections
 - **subsection**: Có styling và spacing đặc biệt cho sub-sections
 - **Inheritance**: Subsections inherit từ parent content-section nhưng có override riêng
+```

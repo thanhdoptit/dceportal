@@ -1,4 +1,11 @@
-import { DownloadOutlined, FileExcelOutlined, FileImageOutlined, FilePdfOutlined, FileTextOutlined, FileWordOutlined } from '@ant-design/icons';
+import {
+  DownloadOutlined,
+  FileExcelOutlined,
+  FileImageOutlined,
+  FilePdfOutlined,
+  FileTextOutlined,
+  FileWordOutlined,
+} from '@ant-design/icons';
 import { Button, Card, Col, Row, Space, Table, Tag, Typography } from 'antd';
 import React from 'react';
 import '../../shared/styles/SystemSection.css';
@@ -16,7 +23,7 @@ const DocumentationSection = () => {
       type: 'PDF',
       size: '2.5 MB',
       description: 'Thông số kỹ thuật chi tiết của các model TDAV1321A, TDAV2242A, TDAV2842A',
-      category: 'Catalog'
+      category: 'Catalog',
     },
     {
       key: '2',
@@ -26,7 +33,7 @@ const DocumentationSection = () => {
       type: 'PDF',
       size: '2.5 MB',
       description: 'Installation Manual – Uniflair DX Units',
-      category: 'Catalog'
+      category: 'Catalog',
     },
 
     {
@@ -37,7 +44,7 @@ const DocumentationSection = () => {
       type: 'PDF',
       size: '1.8 MB',
       description: 'Hướng dẫn chi tiết lắp đặt, cấu hình và vận hành điều hòa FM40H',
-      category: 'Hướng dẫn'
+      category: 'Hướng dẫn',
     },
     {
       key: '4',
@@ -47,7 +54,7 @@ const DocumentationSection = () => {
       type: 'PDF',
       size: '3.2 MB',
       description: 'Hướng dẫn lắp đặt hệ thống điều hòa InRow',
-      category: 'Manual'
+      category: 'Manual',
     },
     {
       key: '5',
@@ -57,7 +64,7 @@ const DocumentationSection = () => {
       type: 'PDF',
       size: '3.2 MB',
       description: 'Hướng dẫn vận hành hệ thống điều hòa InRow',
-      category: 'Manual'
+      category: 'Manual',
     },
     {
       key: '6',
@@ -67,7 +74,7 @@ const DocumentationSection = () => {
       type: 'PDF',
       size: '3.2 MB',
       description: 'Tài liệu ACRP',
-      category: 'Manual'
+      category: 'Manual',
     },
     {
       key: '7',
@@ -77,7 +84,7 @@ const DocumentationSection = () => {
       type: 'PDF',
       size: '3.2 MB',
       description: 'Tài liệu quạt thổi sàn AFM4500B',
-      category: 'Manual'
+      category: 'Manual',
     },
     {
       key: '8',
@@ -87,7 +94,7 @@ const DocumentationSection = () => {
       type: 'PDF',
       size: '3.2 MB',
       description: 'e-catalog Room Cooling_2025',
-      category: 'Manual'
+      category: 'Manual',
     },
   ];
 
@@ -105,16 +112,20 @@ const DocumentationSection = () => {
           document.body.removeChild(link);
         } else {
           // Hiển thị thông báo nếu file chưa có
-          alert(`Tài liệu "${fileName}" đang được chuẩn bị. Vui lòng liên hệ phòng Kỹ thuật để được cung cấp.`);
+          alert(
+            `Tài liệu "${fileName}" đang được chuẩn bị. Vui lòng liên hệ phòng Kỹ thuật để được cung cấp.`
+          );
         }
       })
       .catch(() => {
-        alert(`Tài liệu "${fileName}" đang được chuẩn bị. Vui lòng liên hệ phòng Kỹ thuật để được cung cấp.`);
+        alert(
+          `Tài liệu "${fileName}" đang được chuẩn bị. Vui lòng liên hệ phòng Kỹ thuật để được cung cấp.`
+        );
       });
   };
 
   // Hàm lấy icon theo loại file
-  const getFileIcon = (fileType) => {
+  const getFileIcon = fileType => {
     switch (fileType.toLowerCase()) {
       case 'pdf':
         return <FilePdfOutlined style={{ color: 'orange' }} />;
@@ -137,23 +148,24 @@ const DocumentationSection = () => {
   };
 
   return (
-    <section id="section-6" className="content-section">
+    <section id='section-6' className='content-section'>
       <Title level={2} style={{ color: '#1890ff', marginBottom: '24px' }}>
         <FileTextOutlined style={{ marginRight: '12px' }} />
         6. TÀI LIỆU KÈM THEO - TTDL Hòa Lạc
       </Title>
 
-      <Card title="Tài liệu kỹ thuật hệ thống làm mát" style={{ marginBottom: '20px' }}>
+      <Card title='Tài liệu kỹ thuật hệ thống làm mát' style={{ marginBottom: '20px' }}>
         <Paragraph>
-          Dưới đây là các tài liệu kỹ thuật quan trọng liên quan đến hệ thống làm mát của trung tâm dữ liệu.
-          Các tài liệu này cung cấp thông tin chi tiết về thiết kế, lắp đặt, vận hành và bảo trì hệ thống.
+          Dưới đây là các tài liệu kỹ thuật quan trọng liên quan đến hệ thống làm mát của trung tâm
+          dữ liệu. Các tài liệu này cung cấp thông tin chi tiết về thiết kế, lắp đặt, vận hành và
+          bảo trì hệ thống.
         </Paragraph>
       </Card>
 
-      <Card title="Catalog và tài liệu kỹ thuật thiết bị" style={{ marginBottom: '20px' }}>
+      <Card title='Catalog và tài liệu kỹ thuật thiết bị' style={{ marginBottom: '20px' }}>
         <Table
           dataSource={technicalDocuments}
-          rowKey="name"
+          rowKey='name'
           columns={[
             {
               title: 'Tên tài liệu',
@@ -163,30 +175,32 @@ const DocumentationSection = () => {
               render: (text, record) => (
                 <Space>
                   {getFileIcon(record.type)}
-                  <Text strong style={{ fontSize: '13px' }}>{text}</Text>
+                  <Text strong style={{ fontSize: '13px' }}>
+                    {text}
+                  </Text>
                 </Space>
-              )
+              ),
             },
             {
               title: 'Mô tả',
               dataIndex: 'description',
               key: 'description',
               width: '35%',
-              render: (text) => <Text style={{ fontSize: '13px' }}>{text}</Text>
+              render: text => <Text style={{ fontSize: '13px' }}>{text}</Text>,
             },
             {
               title: 'Phân loại',
               dataIndex: 'category',
               key: 'category',
               width: '8%',
-              render: (text) => <Tag color="green">{text}</Tag>
+              render: text => <Tag color='green'>{text}</Tag>,
             },
             {
               title: 'File',
               dataIndex: 'type',
               key: 'type',
               width: '4%',
-              render: (text) => <Tag color="blue">{text}</Tag>
+              render: text => <Tag color='blue'>{text}</Tag>,
             },
             {
               title: 'Tải ',
@@ -195,44 +209,59 @@ const DocumentationSection = () => {
               align: 'center',
               render: (_, record) => (
                 <Button
-                  type="primary"
-                  size="small"
-                  style={{ width: '100%', backgroundColor: '#003c71', color: 'white', borderColor: '#003c71' }}
+                  type='primary'
+                  size='small'
+                  style={{
+                    width: '100%',
+                    backgroundColor: '#003c71',
+                    color: 'white',
+                    borderColor: '#003c71',
+                  }}
                   icon={<DownloadOutlined />}
                   onClick={() => handleDownload(record.fileName, record.filePath)}
-                  title="Tải xuống tài liệu"
+                  title='Tải xuống tài liệu'
                 />
-              )
-            }
+              ),
+            },
           ]}
           pagination={{
             pageSize: 15,
-            showTotal: (total, range) => `${range[0]}-${range[1]} của ${total} tài liệu`
+            showTotal: (total, range) => `${range[0]}-${range[1]} của ${total} tài liệu`,
           }}
-          size="small"
+          size='small'
           bordered
         />
       </Card>
 
-      <Card title="Tài liệu đào tạo và hướng dẫn" style={{ marginBottom: '20px' }}>
+      <Card title='Tài liệu đào tạo và hướng dẫn' style={{ marginBottom: '20px' }}>
         <Row gutter={[16, 16]}>
           <Col xs={24} sm={12} md={8}>
-            <Card size="small" title="Tài liệu đào tạo" extra={<Tag color="blue">DOCX</Tag>}>
+            <Card size='small' title='Tài liệu đào tạo' extra={<Tag color='blue'>DOCX</Tag>}>
               {/* Đặt Paragraph và Button trên cùng một dòng bằng Row + Col của Ant Design */}
-              <Row align="middle" gutter={8} style={{ marginBottom: '1px' }}>
-                <Col flex="auto">
-                  <Paragraph style={{ fontSize: '14px', margin: 0, }} className="whitespace-pre-line break-words">
+              <Row align='middle' gutter={8} style={{ marginBottom: '1px' }}>
+                <Col flex='auto'>
+                  <Paragraph
+                    style={{ fontSize: '14px', margin: 0 }}
+                    className='whitespace-pre-line break-words'
+                  >
                     Tài liệu hệ thống làm mát TTDL Hòa Lạc
                   </Paragraph>
-                  <span style={{ fontSize: '12px', margin: 0, }}>(Ngô Quang Hoàng Sơn - Nguyễn Đăng Hiếu)</span>
+                  <span style={{ fontSize: '12px', margin: 0 }}>
+                    (Ngô Quang Hoàng Sơn - Nguyễn Đăng Hiếu)
+                  </span>
                 </Col>
-                <Col flex="none">
+                <Col flex='none'>
                   <Button
-                    type="primary"
-                    size="small"
-                    style={{ backgroundColor: '#003c71', color: 'white', borderColor: '#003c71', }}
+                    type='primary'
+                    size='small'
+                    style={{ backgroundColor: '#003c71', color: 'white', borderColor: '#003c71' }}
                     icon={<DownloadOutlined />}
-                    onClick={() => handleDownload('Tài liệu hệ thống làm mát TTDL Hòa Lạc.docx', '/cooling/docs/Tài liệu hệ thống làm mát TTDL Hòa Lạc.docx')}
+                    onClick={() =>
+                      handleDownload(
+                        'Tài liệu hệ thống làm mát TTDL Hòa Lạc.docx',
+                        '/cooling/docs/Tài liệu hệ thống làm mát TTDL Hòa Lạc.docx'
+                      )
+                    }
                   >
                     Tải xuống
                   </Button>
@@ -265,20 +294,38 @@ const DocumentationSection = () => {
         </Col> */}
 
           <Col xs={24} sm={12} md={8}>
-            <Card size="small" title="Checklist kiểm tra" extra={<Tag color="green">XLSX</Tag>}>
-              <Row align="middle" gutter={8} style={{ marginBottom: '1px' }}>
-                <Col flex="auto">
-                  <Paragraph style={{ fontSize: '12px', margin: 0, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+            <Card size='small' title='Checklist kiểm tra' extra={<Tag color='green'>XLSX</Tag>}>
+              <Row align='middle' gutter={8} style={{ marginBottom: '1px' }}>
+                <Col flex='auto'>
+                  <Paragraph
+                    style={{
+                      fontSize: '12px',
+                      margin: 0,
+                      whiteSpace: 'nowrap',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                    }}
+                  >
                     Ha tang TTDL Hoa Lac.xlsx
                   </Paragraph>
                 </Col>
-                <Col flex="none">
+                <Col flex='none'>
                   <Button
-                    type="primary"
-                    size="small"
-                    style={{ width: '100%', backgroundColor: '#003c71', color: 'white', borderColor: '#003c71' }}
+                    type='primary'
+                    size='small'
+                    style={{
+                      width: '100%',
+                      backgroundColor: '#003c71',
+                      color: 'white',
+                      borderColor: '#003c71',
+                    }}
                     icon={<DownloadOutlined />}
-                    onClick={() => handleDownload('Ha tang TTDL Hoa Lac.xlsx', '/cooling/docs/Ha tang TTDL Hoa Lac.xlsx')}
+                    onClick={() =>
+                      handleDownload(
+                        'Ha tang TTDL Hoa Lac.xlsx',
+                        '/cooling/docs/Ha tang TTDL Hoa Lac.xlsx'
+                      )
+                    }
                     block
                   >
                     Tải xuống

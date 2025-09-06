@@ -1,6 +1,6 @@
+import { Button, Result } from 'antd';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Result, Button } from 'antd';
 import { useAuth } from '../../contexts/AuthContext';
 
 const ActionGuard = ({ action, children }) => {
@@ -10,10 +10,10 @@ const ActionGuard = ({ action, children }) => {
   const checkPermission = () => {
     // Danh sách các action và quyền tương ứng
     const actionPermissions = {
-      'edit_shift_check': ['datacenter', 'manager'],
-      'create_shift_check': ['datacenter'],
-      'delete_shift_check': ['datacenter', 'manager'],
-      'view_shift_check': ['datacenter', 'manager', 'be']
+      edit_shift_check: ['datacenter', 'manager'],
+      create_shift_check: ['datacenter'],
+      delete_shift_check: ['datacenter', 'manager'],
+      view_shift_check: ['datacenter', 'manager', 'be'],
     };
 
     const allowedRoles = actionPermissions[action] || [];
@@ -23,13 +23,13 @@ const ActionGuard = ({ action, children }) => {
   if (!checkPermission()) {
     return (
       <Result
-        status="403"
-        title="Không có quyền truy cập"
-        subTitle="Bạn không có quyền thực hiện hành động này"
+        status='403'
+        title='Không có quyền truy cập'
+        subTitle='Bạn không có quyền thực hiện hành động này'
         extra={[
-          <Button type="primary" key="back" onClick={() => navigate('/dc/shift-check')}>
+          <Button type='primary' key='back' onClick={() => navigate('/dc/shift-check')}>
             Quay lại
-          </Button>
+          </Button>,
         ]}
       />
     );
@@ -38,4 +38,4 @@ const ActionGuard = ({ action, children }) => {
   return children;
 };
 
-export default ActionGuard; 
+export default ActionGuard;

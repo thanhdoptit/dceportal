@@ -3,25 +3,15 @@ import PropTypes from 'prop-types';
 import { twMerge } from 'tailwind-merge';
 import { Link, useLocation } from 'react-router-dom';
 
-const Sidebar = ({
-  items,
-  className = '',
-  ...props
-}) => {
+const Sidebar = ({ items, className = '', ...props }) => {
   const location = useLocation();
 
   return (
-    <div
-      className={twMerge(
-        'w-64 bg-gray-800 min-h-screen',
-        className
-      )}
-      {...props}
-    >
-      <div className="flex flex-col h-full">
-        <div className="flex-1 flex flex-col pt-5 pb-4 overflow-y-auto">
-          <nav className="mt-5 flex-1 px-2 space-y-1">
-            {items.map((item) => {
+    <div className={twMerge('w-64 bg-gray-800 min-h-screen', className)} {...props}>
+      <div className='flex flex-col h-full'>
+        <div className='flex-1 flex flex-col pt-5 pb-4 overflow-y-auto'>
+          <nav className='mt-5 flex-1 px-2 space-y-1'>
+            {items.map(item => {
               const isActive = location.pathname === item.path;
               return (
                 <Link
@@ -60,10 +50,10 @@ Sidebar.propTypes = {
     PropTypes.shape({
       path: PropTypes.string.isRequired,
       label: PropTypes.string.isRequired,
-      icon: PropTypes.node
+      icon: PropTypes.node,
     })
   ).isRequired,
-  className: PropTypes.string
+  className: PropTypes.string,
 };
 
-export default Sidebar; 
+export default Sidebar;

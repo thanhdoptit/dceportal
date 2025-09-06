@@ -1,14 +1,20 @@
-import React, { useState, useEffect } from 'react';
-import { 
-  Table, Card, Button, Space, TimePicker, Input, 
-  Tag, Modal, Form, Select, message 
+import { DeleteOutlined, EditOutlined, PlusOutlined, SearchOutlined } from '@ant-design/icons';
+import {
+  Button,
+  Card,
+  Form,
+  Input,
+  Modal,
+  Select,
+  Space,
+  Table,
+  Tag,
+  TimePicker,
+  message,
 } from 'antd';
-import { 
-  PlusOutlined, EditOutlined, DeleteOutlined,
-  SearchOutlined, ClockCircleOutlined 
-} from '@ant-design/icons';
-import axios from '../../utils/axios';
 import dayjs from 'dayjs';
+import React, { useEffect, useState } from 'react';
+import axios from '../../utils/axios';
 
 const { Option } = Select;
 
@@ -42,17 +48,17 @@ const ShiftListPage = () => {
     setModalVisible(true);
   };
 
-  const handleEdit = (record) => {
+  const handleEdit = record => {
     form.setFieldsValue({
       ...record,
       startTime: dayjs(record.startTime, 'HH:mm'),
-      endTime: dayjs(record.endTime, 'HH:mm')
+      endTime: dayjs(record.endTime, 'HH:mm'),
     });
     setEditingId(record.id);
     setModalVisible(true);
   };
 
-  const handleDelete = async (id) => {
+  const handleDelete = async id => {
     try {
       await axios.delete(`/api/shifts/manager/shifts/${id}`);
       message.success('Đã xóa ca làm việc thành công');
@@ -63,12 +69,12 @@ const ShiftListPage = () => {
     }
   };
 
-  const handleSubmit = async (values) => {
+  const handleSubmit = async values => {
     try {
       const data = {
         ...values,
         startTime: values.startTime.format('HH:mm'),
-        endTime: values.endTime.format('HH:mm')
+        endTime: values.endTime.format('HH:mm'),
       };
 
       if (editingId) {
@@ -91,46 +97,46 @@ const ShiftListPage = () => {
       title: 'Mã ca',
       dataIndex: 'code',
       key: 'code',
-      render: (code) => <Tag color="blue">Ca {code}</Tag>
+      render: code => <Tag color='blue'>Ca {code}</Tag>,
     },
     {
       title: 'Tên ca',
       dataIndex: 'name',
-      key: 'name'
+      key: 'name',
     },
     {
       title: 'Giờ bắt đầu',
       dataIndex: 'startTime',
-      key: 'startTime'
+      key: 'startTime',
     },
     {
       title: 'Giờ kết thúc',
       dataIndex: 'endTime',
-      key: 'endTime'
+      key: 'endTime',
     },
     {
       title: 'Trạng thái',
       dataIndex: 'status',
       key: 'status',
-      render: (status) => {
+      render: status => {
         const statusMap = {
-          'not_started': { color: 'default', text: 'Chưa bắt đầu' },
-          'doing': { color: 'processing', text: 'Đang làm việc' },
-          'completed': { color: 'success', text: 'Đã hoàn thành' }
+          not_started: { color: 'default', text: 'Chưa bắt đầu' },
+          doing: { color: 'processing', text: 'Đang làm việc' },
+          completed: { color: 'success', text: 'Đã hoàn thành' },
         };
         return <Tag color={statusMap[status]?.color}>{statusMap[status]?.text}</Tag>;
-      }
+      },
     },
     {
       title: 'Số nhân viên',
       dataIndex: 'Users',
       key: 'userCount',
-      render: (users) => users?.length || 0
+      render: users => users?.length || 0,
     },
     {
       title: 'Người tạo',
       dataIndex: ['Creator', 'fullName'],
-      key: 'creator'
+      key: 'creator',
     },
     {
       title: 'Thao tác',
@@ -139,118 +145,103 @@ const ShiftListPage = () => {
         <Space>
           <Button
             icon={<EditOutlined />}
-            type="primary"
-            size="small"
+            type='primary'
+            size='small'
             onClick={() => handleEdit(record)}
           >
             Sửa
           </Button>
           <Button
             icon={<DeleteOutlined />}
-            type="primary"
+            type='primary'
             danger
-            size="small"
+            size='small'
             onClick={() => handleDelete(record.id)}
           >
             Xóa
           </Button>
         </Space>
-      )
-    }
+      ),
+    },
   ];
 
   return (
-    <div className="space-y-4">
+    <div className='space-y-4'>
       <Card
-        title="Quản lý ca làm việc"
+        title='Quản lý ca làm việc'
         extra={
           <Space>
             <Input
-              placeholder="Tìm kiếm ca..."
+              placeholder='Tìm kiếm ca...'
               prefix={<SearchOutlined />}
-              onChange={(e) => {
+              onChange={e => {
                 // Xử lý tìm kiếm
               }}
             />
-            <Button
-              type="primary"
-              icon={<PlusOutlined />}
-              onClick={handleAdd}
-            >
+            <Button type='primary' icon={<PlusOutlined />} onClick={handleAdd}>
               Thêm ca mới
             </Button>
           </Space>
         }
       >
-        <Table
-          columns={columns}
-          dataSource={shifts}
-          rowKey="id"
-          loading={loading}
-        />
+        <Table columns={columns} dataSource={shifts} rowKey='id' loading={loading} />
       </Card>
 
       <Modal
-        title={editingId ? "Chỉnh sửa ca làm việc" : "Thêm ca làm việc mới"}
+        title={editingId ? 'Chỉnh sửa ca làm việc' : 'Thêm ca làm việc mới'}
         open={modalVisible}
         onCancel={() => setModalVisible(false)}
         footer={null}
       >
-        <Form
-          form={form}
-          layout="vertical"
-          onFinish={handleSubmit}
-        >
+        <Form form={form} layout='vertical' onFinish={handleSubmit}>
           <Form.Item
-            name="code"
-            label="Mã ca"
+            name='code'
+            label='Mã ca'
             rules={[{ required: true, message: 'Vui lòng nhập mã ca' }]}
           >
-            <Input placeholder="Nhập mã ca (ví dụ: T1, T2, H1, H2)" />
+            <Input placeholder='Nhập mã ca (ví dụ: T1, T2, H1, H2)' />
           </Form.Item>
 
           <Form.Item
-            name="name"
-            label="Tên ca"
+            name='name'
+            label='Tên ca'
             rules={[{ required: true, message: 'Vui lòng nhập tên ca' }]}
           >
-            <Input placeholder="Nhập tên ca" />
+            <Input placeholder='Nhập tên ca' />
           </Form.Item>
 
           <Form.Item
-            name="startTime"
-            label="Giờ bắt đầu"
+            name='startTime'
+            label='Giờ bắt đầu'
             rules={[{ required: true, message: 'Vui lòng chọn giờ bắt đầu' }]}
           >
-            <TimePicker format="HH:mm" className="w-full" />
+            <TimePicker format='HH:mm' className='w-full' />
           </Form.Item>
 
           <Form.Item
-            name="endTime"
-            label="Giờ kết thúc"
+            name='endTime'
+            label='Giờ kết thúc'
             rules={[{ required: true, message: 'Vui lòng chọn giờ kết thúc' }]}
           >
-            <TimePicker format="HH:mm" className="w-full" />
+            <TimePicker format='HH:mm' className='w-full' />
           </Form.Item>
 
           <Form.Item
-            name="status"
-            label="Trạng thái"
+            name='status'
+            label='Trạng thái'
             rules={[{ required: true, message: 'Vui lòng chọn trạng thái' }]}
           >
-            <Select placeholder="Chọn trạng thái">
-              <Option value="not_started">Chưa bắt đầu</Option>
-              <Option value="doing">Đang làm việc</Option>
-              <Option value="completed">Đã hoàn thành</Option>
+            <Select placeholder='Chọn trạng thái'>
+              <Option value='not_started'>Chưa bắt đầu</Option>
+              <Option value='doing'>Đang làm việc</Option>
+              <Option value='completed'>Đã hoàn thành</Option>
             </Select>
           </Form.Item>
 
-          <Form.Item className="text-right mb-0">
+          <Form.Item className='text-right mb-0'>
             <Space>
-              <Button onClick={() => setModalVisible(false)}>
-                Hủy
-              </Button>
-              <Button type="primary" htmlType="submit">
+              <Button onClick={() => setModalVisible(false)}>Hủy</Button>
+              <Button type='primary' htmlType='submit'>
                 {editingId ? 'Cập nhật' : 'Thêm mới'}
               </Button>
             </Space>
@@ -261,4 +252,4 @@ const ShiftListPage = () => {
   );
 };
 
-export default ShiftListPage; 
+export default ShiftListPage;

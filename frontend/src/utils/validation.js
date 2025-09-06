@@ -1,5 +1,5 @@
 // Validation utilities cho form đăng nhập
-export const validateUsername = (username) => {
+export const validateUsername = username => {
   if (!username) {
     return 'Vui lòng nhập tên đăng nhập!';
   }
@@ -9,7 +9,7 @@ export const validateUsername = (username) => {
   return null;
 };
 
-export const validatePassword = (password) => {
+export const validatePassword = password => {
   if (!password) {
     return 'Vui lòng nhập mật khẩu!';
   }
@@ -22,12 +22,12 @@ export const validatePassword = (password) => {
 export const validateLoginForm = (username, password) => {
   const usernameError = validateUsername(username);
   const passwordError = validatePassword(password);
-  
+
   return {
     isValid: !usernameError && !passwordError,
     errors: {
       username: usernameError,
-      password: passwordError
-    }
+      password: passwordError,
+    },
   };
-}; 
+};

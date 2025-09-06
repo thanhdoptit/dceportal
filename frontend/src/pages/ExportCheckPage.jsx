@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { Form, Upload, Button, Table, Input, Space, message, Tabs, Card, Descriptions, Tag } from 'antd';
-import { UploadOutlined, PlusOutlined, DeleteOutlined, DownloadOutlined } from '@ant-design/icons';
+import { DeleteOutlined, DownloadOutlined, PlusOutlined, UploadOutlined } from '@ant-design/icons';
+import { Button, Card, Descriptions, Form, Input, message, Table, Tabs, Tag, Upload } from 'antd';
 import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const { TabPane } = Tabs;
@@ -29,9 +29,10 @@ const ExportCheckPage = () => {
   const uploadProps = {
     name: 'file',
     accept: '.xlsx,.xls',
-    beforeUpload: (file) => {
-      const isExcel = file.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' || 
-                      file.type === 'application/vnd.ms-excel';
+    beforeUpload: file => {
+      const isExcel =
+        file.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' ||
+        file.type === 'application/vnd.ms-excel';
       if (!isExcel) {
         message.error('Chỉ chấp nhận file Excel!');
         return Upload.LIST_IGNORE;
@@ -40,7 +41,7 @@ const ExportCheckPage = () => {
       return false;
     },
     maxCount: 1,
-    onChange: (info) => {
+    onChange: info => {
       console.log('Upload onChange:', info);
       if (info.file.status === 'done') {
         message.success(`${info.file.name} đã được chọn`);
@@ -50,7 +51,7 @@ const ExportCheckPage = () => {
     },
     onRemove: () => {
       setSelectedFile(null);
-    }
+    },
   };
 
   // Thêm dòng mới vào bảng
@@ -66,18 +67,20 @@ const ExportCheckPage = () => {
   };
 
   // Xóa dòng khỏi bảng
-  const handleDeleteRow = (key) => {
+  const handleDeleteRow = key => {
     setDataSource(dataSource.filter(item => item.key !== key));
   };
 
   // Cập nhật giá trị của một ô
   const handleCellChange = (key, field, value) => {
-    setDataSource(dataSource.map(item => {
-      if (item.key === key) {
-        return { ...item, [field]: value };
-      }
-      return item;
-    }));
+    setDataSource(
+      dataSource.map(item => {
+        if (item.key === key) {
+          return { ...item, [field]: value };
+        }
+        return item;
+      })
+    );
   };
 
   // Xử lý submit form
@@ -87,7 +90,7 @@ const ExportCheckPage = () => {
       setResult(null);
       let response;
       const token = localStorage.getItem('token');
-      
+
       if (!token) {
         message.error('Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại!');
         navigate('/login');
@@ -103,21 +106,21 @@ const ExportCheckPage = () => {
 
         const formData = new FormData();
         formData.append('excel', selectedFile);
-        
+
         // Tạo object credentials từ dataSource
         const credentials = {};
         dataSource.forEach(item => {
           if (item.ip && item.username && item.password) {
             credentials[item.ip] = {
               username: item.username,
-              password: item.password
+              password: item.password,
             };
           }
         });
-        
+
         // Thêm credentials vào formData dưới dạng chuỗi JSON
         formData.append('credentials', JSON.stringify(credentials));
-        
+
         console.log('Sending file:', selectedFile.name, selectedFile.type, selectedFile.size);
         console.log('Credentials:', credentials);
 
@@ -125,7 +128,7 @@ const ExportCheckPage = () => {
           response = await axios.post('http://192.168.1.12:3001/check-export', formData, {
             headers: {
               'Content-Type': 'multipart/form-data',
-              'Authorization': `Bearer ${token}`
+              Authorization: `Bearer ${token}`,
             },
             maxContentLength: Infinity,
             maxBodyLength: Infinity,
@@ -155,21 +158,25 @@ const ExportCheckPage = () => {
           if (item.ip && item.username && item.password) {
             credentials[item.ip] = {
               username: item.username,
-              password: item.password
+              password: item.password,
             };
           }
         });
 
         try {
-          response = await axios.post('http://192.168.1.12:3001/check-export', {
-            credentials: JSON.stringify(credentials)
-          }, {
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${token}`
+          response = await axios.post(
+            'http://192.168.1.12:3001/check-export',
+            {
+              credentials: JSON.stringify(credentials),
             },
-            timeout: 30000
-          });
+            {
+              headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`,
+              },
+              timeout: 30000,
+            }
+          );
         } catch (error) {
           console.error('API Error:', error.response?.data || error.message);
           if (error.response?.data?.message) {
@@ -185,7 +192,7 @@ const ExportCheckPage = () => {
       if (response.data.file) {
         // Lưu kết quả để hiển thị
         setResult(response.data);
-        
+
         // Tạo link tải file
         const url = window.URL.createObjectURL(new Blob([response.data.file]));
         const link = document.createElement('a');
@@ -194,7 +201,7 @@ const ExportCheckPage = () => {
         document.body.appendChild(link);
         link.click();
         link.remove();
-        
+
         message.success('Đã tải file kết quả!');
       } else {
         setResult(response.data);
@@ -222,8 +229,8 @@ const ExportCheckPage = () => {
       render: (_, record) => (
         <Input
           value={record.ip}
-          onChange={(e) => handleCellChange(record.key, 'ip', e.target.value)}
-          placeholder="Nhập IP"
+          onChange={e => handleCellChange(record.key, 'ip', e.target.value)}
+          placeholder='Nhập IP'
         />
       ),
     },
@@ -234,8 +241,8 @@ const ExportCheckPage = () => {
       render: (_, record) => (
         <Input
           value={record.exportPath}
-          onChange={(e) => handleCellChange(record.key, 'exportPath', e.target.value)}
-          placeholder="Nhập đường dẫn export"
+          onChange={e => handleCellChange(record.key, 'exportPath', e.target.value)}
+          placeholder='Nhập đường dẫn export'
         />
       ),
     },
@@ -246,8 +253,8 @@ const ExportCheckPage = () => {
       render: (_, record) => (
         <Input
           value={record.username}
-          onChange={(e) => handleCellChange(record.key, 'username', e.target.value)}
-          placeholder="Nhập username"
+          onChange={e => handleCellChange(record.key, 'username', e.target.value)}
+          placeholder='Nhập username'
         />
       ),
     },
@@ -258,8 +265,8 @@ const ExportCheckPage = () => {
       render: (_, record) => (
         <Input.Password
           value={record.password}
-          onChange={(e) => handleCellChange(record.key, 'password', e.target.value)}
-          placeholder="Nhập password"
+          onChange={e => handleCellChange(record.key, 'password', e.target.value)}
+          placeholder='Nhập password'
         />
       ),
     },
@@ -268,7 +275,7 @@ const ExportCheckPage = () => {
       key: 'action',
       render: (_, record) => (
         <Button
-          type="text"
+          type='text'
           danger
           icon={<DeleteOutlined />}
           onClick={() => handleDeleteRow(record.key)}
@@ -282,19 +289,19 @@ const ExportCheckPage = () => {
     if (!result) return null;
 
     return (
-      <Card title="Kết quả kiểm tra" style={{ marginTop: 24 }}>
+      <Card title='Kết quả kiểm tra' style={{ marginTop: 24 }}>
         <Descriptions bordered>
-          <Descriptions.Item label="Tổng số" span={3}>
+          <Descriptions.Item label='Tổng số' span={3}>
             {result.total || 0}
           </Descriptions.Item>
-          <Descriptions.Item label="Thành công">
-            <Tag color="success">{result.success || 0}</Tag>
+          <Descriptions.Item label='Thành công'>
+            <Tag color='success'>{result.success || 0}</Tag>
           </Descriptions.Item>
-          <Descriptions.Item label="Thất bại">
-            <Tag color="error">{result.failed || 0}</Tag>
+          <Descriptions.Item label='Thất bại'>
+            <Tag color='error'>{result.failed || 0}</Tag>
           </Descriptions.Item>
-          <Descriptions.Item label="Đang xử lý">
-            <Tag color="processing">{result.processing || 0}</Tag>
+          <Descriptions.Item label='Đang xử lý'>
+            <Tag color='processing'>{result.processing || 0}</Tag>
           </Descriptions.Item>
         </Descriptions>
 
@@ -316,15 +323,21 @@ const ExportCheckPage = () => {
                 title: 'Trạng thái',
                 dataIndex: 'status',
                 key: 'status',
-                render: (status) => (
-                  <Tag color={
-                    status === 'success' ? 'success' :
-                    status === 'failed' ? 'error' :
-                    'processing'
-                  }>
-                    {status === 'success' ? 'Thành công' :
-                     status === 'failed' ? 'Thất bại' :
-                     'Đang xử lý'}
+                render: status => (
+                  <Tag
+                    color={
+                      status === 'success'
+                        ? 'success'
+                        : status === 'failed'
+                          ? 'error'
+                          : 'processing'
+                    }
+                  >
+                    {status === 'success'
+                      ? 'Thành công'
+                      : status === 'failed'
+                        ? 'Thất bại'
+                        : 'Đang xử lý'}
                   </Tag>
                 ),
               },
@@ -341,7 +354,7 @@ const ExportCheckPage = () => {
         {result.file && (
           <div style={{ marginTop: 16, textAlign: 'center' }}>
             <Button
-              type="primary"
+              type='primary'
               icon={<DownloadOutlined />}
               onClick={() => {
                 const url = window.URL.createObjectURL(new Blob([result.file]));
@@ -364,13 +377,13 @@ const ExportCheckPage = () => {
   return (
     <div style={{ padding: '24px' }}>
       <h1>Kiểm tra Export</h1>
-      
+
       <Tabs activeKey={activeTab} onChange={setActiveTab}>
-        <TabPane tab="Upload File Excel" key="1">
-          <Form form={form} layout="vertical">
+        <TabPane tab='Upload File Excel' key='1'>
+          <Form form={form} layout='vertical'>
             <Form.Item
-              name="file"
-              label="Chọn file Excel"
+              name='file'
+              label='Chọn file Excel'
               rules={[{ required: true, message: 'Vui lòng chọn file!' }]}
             >
               <Upload {...uploadProps}>
@@ -380,49 +393,31 @@ const ExportCheckPage = () => {
             <div style={{ marginTop: 16 }}>
               <h3>Thông tin xác thực cho các IP</h3>
               <div style={{ marginBottom: 16 }}>
-                <Button
-                  type="primary"
-                  icon={<PlusOutlined />}
-                  onClick={handleAddRow}
-                >
+                <Button type='primary' icon={<PlusOutlined />} onClick={handleAddRow}>
                   Thêm IP
                 </Button>
               </div>
-              <Table
-                dataSource={dataSource}
-                columns={columns}
-                pagination={false}
-                rowKey="key"
-              />
+              <Table dataSource={dataSource} columns={columns} pagination={false} rowKey='key' />
             </div>
           </Form>
         </TabPane>
 
-        <TabPane tab="Nhập trực tiếp" key="2">
+        <TabPane tab='Nhập trực tiếp' key='2'>
           <div style={{ marginBottom: 16 }}>
-            <Button
-              type="primary"
-              icon={<PlusOutlined />}
-              onClick={handleAddRow}
-            >
+            <Button type='primary' icon={<PlusOutlined />} onClick={handleAddRow}>
               Thêm dòng
             </Button>
           </div>
-          <Table
-            dataSource={dataSource}
-            columns={columns}
-            pagination={false}
-            rowKey="key"
-          />
+          <Table dataSource={dataSource} columns={columns} pagination={false} rowKey='key' />
         </TabPane>
       </Tabs>
 
       <div style={{ marginTop: 24, textAlign: 'center' }}>
         <Button
-          type="primary"
+          type='primary'
           onClick={handleSubmit}
           loading={loading}
-          size="large"
+          size='large'
           disabled={activeTab === '1' && !selectedFile}
         >
           Kiểm tra
@@ -434,4 +429,4 @@ const ExportCheckPage = () => {
   );
 };
 
-export default ExportCheckPage; 
+export default ExportCheckPage;

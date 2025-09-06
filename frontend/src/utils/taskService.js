@@ -29,7 +29,7 @@ export const handleModalVisibility = async (type, task, options) => {
     fetchTaskDetail,
     getCurrentUserId,
     lockTask,
-    form
+    form,
   } = options;
 
   setModalType(type);
@@ -50,7 +50,9 @@ export const handleModalVisibility = async (type, task, options) => {
 
     // Check if task is being edited by someone else
     if (updatedTask.lockedBy && updatedTask.lockedBy !== getCurrentUserId()) {
-      message.warning(`Công việc đang được chỉnh sửa bởi ${updatedTask.lockedByUser?.fullname || 'người khác'}`);
+      message.warning(
+        `Công việc đang được chỉnh sửa bởi ${updatedTask.lockedByUser?.fullname || 'người khác'}`
+      );
       setModalType('view');
       return;
     }
@@ -58,11 +60,11 @@ export const handleModalVisibility = async (type, task, options) => {
     try {
       // Try to lock the task
       await lockTask(task.id);
-      
+
       // Set initial form values
       const values = {
         ...updatedTask,
-        worker: updatedTask.worker.split(',').map(w => w.trim())
+        worker: updatedTask.worker.split(',').map(w => w.trim()),
       };
       form.setFieldsValue(values);
     } catch (error) {

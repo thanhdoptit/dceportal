@@ -1,7 +1,7 @@
 import axios from '../utils/axios';
 
 // Bàn giao ca
-export const createHandover = async (data) => {
+export const createHandover = async data => {
   try {
     const response = await axios.post('/shifts/handover', data);
     return response.data;
@@ -11,7 +11,7 @@ export const createHandover = async (data) => {
   }
 };
 
-export const getHandoverDetails = async (handoverId) => {
+export const getHandoverDetails = async handoverId => {
   try {
     const response = await axios.get(`/api/shifts/handover/${handoverId}`);
     return response.data;
@@ -41,7 +41,7 @@ export const rejectHandover = async (handoverId, data) => {
   }
 };
 
-export const getHandoversByStatus = async (params) => {
+export const getHandoversByStatus = async params => {
   try {
     const response = await axios.get('/shifts/handover', { params });
     return response.data;
@@ -51,7 +51,7 @@ export const getHandoversByStatus = async (params) => {
   }
 };
 
-export const getHandoverHistory = async (params) => {
+export const getHandoverHistory = async params => {
   try {
     const response = await axios.get('/shifts/handover/history', { params });
     return response.data;
@@ -71,7 +71,7 @@ export const updateHandover = async (handoverId, data) => {
   }
 };
 
-export const deleteHandover = async (handoverId) => {
+export const deleteHandover = async handoverId => {
   try {
     const response = await axios.delete(`/api/shifts/handover/${handoverId}`);
     return response.data;
@@ -81,7 +81,7 @@ export const deleteHandover = async (handoverId) => {
   }
 };
 
-export const getHandoverStats = async (params) => {
+export const getHandoverStats = async params => {
   try {
     const response = await axios.get('/shifts/handover/stats', { params });
     return response.data;
@@ -91,7 +91,7 @@ export const getHandoverStats = async (params) => {
   }
 };
 
-export const getHandoversByShift = async (shiftId) => {
+export const getHandoversByShift = async shiftId => {
   try {
     const response = await axios.get(`/shifts/${shiftId}/handovers`);
     return response.data;
@@ -101,10 +101,10 @@ export const getHandoversByShift = async (shiftId) => {
   }
 };
 
-export const getHandoversByDate = async (date) => {
+export const getHandoversByDate = async date => {
   try {
     const response = await axios.get('/shifts/handover/by-date', {
-      params: { date }
+      params: { date },
     });
     return response.data;
   } catch (error) {
@@ -122,7 +122,7 @@ export const getWorkSessions = async (params = {}) => {
     console.error('Error fetching work sessions:', error);
     throw error;
   }
-}; 
+};
 
 export const getCurrentShift = async () => {
   try {
@@ -134,7 +134,7 @@ export const getCurrentShift = async () => {
   }
 };
 
-export const getNextShift = async (currentShiftId) => {
+export const getNextShift = async currentShiftId => {
   try {
     const response = await axios.get(`/shifts/${currentShiftId}/next`);
     return response.data;
@@ -145,10 +145,10 @@ export const getNextShift = async (currentShiftId) => {
 };
 
 // Temp files management
-export const uploadTempHandoverFiles = async (formData) => {
+export const uploadTempHandoverFiles = async formData => {
   try {
     const response = await axios.post('/api/shifts/handover/temp/upload', formData, {
-      headers: { 'Content-Type': 'multipart/form-data' }
+      headers: { 'Content-Type': 'multipart/form-data' },
     });
     return response.data;
   } catch (error) {
@@ -161,7 +161,7 @@ export const commitTempFilesToHandover = async (handoverId, sessionId) => {
   try {
     const response = await axios.post('/api/shifts/handover/temp/commit', {
       handoverId,
-      sessionId
+      sessionId,
     });
     return response.data;
   } catch (error) {
@@ -170,7 +170,7 @@ export const commitTempFilesToHandover = async (handoverId, sessionId) => {
   }
 };
 
-export const cleanupTempFiles = async (sessionId) => {
+export const cleanupTempFiles = async sessionId => {
   try {
     const response = await axios.delete(`/api/shifts/handover/temp/cleanup/${sessionId}`);
     return response.data;
@@ -182,7 +182,9 @@ export const cleanupTempFiles = async (sessionId) => {
 
 export const deleteTempFile = async (sessionId, filename) => {
   try {
-    const response = await axios.delete(`/api/shifts/handover/temp/delete/${sessionId}/${filename}`);
+    const response = await axios.delete(
+      `/api/shifts/handover/temp/delete/${sessionId}/${filename}`
+    );
     return response.data;
   } catch (error) {
     console.error('Error deleting temp file:', error);

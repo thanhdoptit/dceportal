@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import deviceService from '../services/deviceService';
 
 /**
@@ -31,14 +31,20 @@ export const useDeviceNames = () => {
   }, [fetchDeviceNames]);
 
   // Lấy tên device theo ID
-  const getDeviceName = useCallback((deviceId) => {
-    return deviceNames[deviceId]?.name || `Thiết bị ${deviceId}`;
-  }, [deviceNames]);
+  const getDeviceName = useCallback(
+    deviceId => {
+      return deviceNames[deviceId]?.name || `Thiết bị ${deviceId}`;
+    },
+    [deviceNames]
+  );
 
   // Lấy thông tin device theo ID
-  const getDeviceInfo = useCallback((deviceId) => {
-    return deviceNames[deviceId] || { id: deviceId, name: `Thiết bị ${deviceId}` };
-  }, [deviceNames]);
+  const getDeviceInfo = useCallback(
+    deviceId => {
+      return deviceNames[deviceId] || { id: deviceId, name: `Thiết bị ${deviceId}` };
+    },
+    [deviceNames]
+  );
 
   // Lấy danh sách device dạng array
   const getDeviceList = useCallback(() => {
@@ -58,7 +64,7 @@ export const useDeviceNames = () => {
     refreshDeviceNames,
     getDeviceName,
     getDeviceInfo,
-    getDeviceList
+    getDeviceList,
   };
 };
 
@@ -79,7 +85,7 @@ export const useDeviceDisplayName = (deviceId, items = [], devices = []) => {
         name: itemWithSnapshot.deviceNameSnapshot,
         isSnapshot: true,
         loading: false,
-        error: null
+        error: null,
       };
     }
   }
@@ -92,7 +98,7 @@ export const useDeviceDisplayName = (deviceId, items = [], devices = []) => {
         name: deviceWithSnapshot.deviceNameSnapshot,
         isSnapshot: true,
         loading: false,
-        error: null
+        error: null,
       };
     }
   }
@@ -102,6 +108,6 @@ export const useDeviceDisplayName = (deviceId, items = [], devices = []) => {
     name: deviceNames[deviceId]?.name || `Thiết bị ${deviceId}`,
     isSnapshot: false,
     loading,
-    error
+    error,
   };
-}; 
+};

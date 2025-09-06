@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef } from 'react';
+import { useCallback, useRef, useState } from 'react';
 
 export const useRateLimit = (maxAttempts = 5, timeWindow = 60000) => {
   const [attempts, setAttempts] = useState(0);
@@ -8,7 +8,7 @@ export const useRateLimit = (maxAttempts = 5, timeWindow = 60000) => {
 
   const checkRateLimit = useCallback(() => {
     const now = Date.now();
-    
+
     // Reset attempts nếu đã qua time window
     if (now - lastAttemptTime.current > timeWindow) {
       setAttempts(0);
@@ -32,14 +32,14 @@ export const useRateLimit = (maxAttempts = 5, timeWindow = 60000) => {
     // Block nếu vượt quá giới hạn
     if (newAttempts >= maxAttempts) {
       setIsBlocked(true);
-      
+
       // Tự động reset sau time window
       resetTimeoutRef.current = setTimeout(() => {
         setAttempts(0);
         setIsBlocked(false);
         resetTimeoutRef.current = null;
       }, timeWindow);
-      
+
       return false;
     }
 
@@ -68,6 +68,6 @@ export const useRateLimit = (maxAttempts = 5, timeWindow = 60000) => {
     getRemainingTime,
     attempts,
     isBlocked,
-    remainingAttempts: Math.max(0, maxAttempts - attempts)
+    remainingAttempts: Math.max(0, maxAttempts - attempts),
   };
-}; 
+};

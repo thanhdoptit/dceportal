@@ -18,4 +18,4 @@ Tài liệu Cấp độ 2: Cấm việc cung cấp, sao chụp/copy, in ấn dư
 
 - Ngày tạo: 30/07/2025
 - Người tạo: Hệ thống DCE
-- Phiên bản: 1.0 
+- Phiên bản: 1.0

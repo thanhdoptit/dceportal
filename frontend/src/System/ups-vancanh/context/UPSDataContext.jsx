@@ -8,37 +8,37 @@ export const UPSDataContext = createContext({
       specifications: [],
       architecture: [],
       operationModes: [],
-      bms: []
+      bms: [],
     },
     // Dữ liệu hệ thống UPS Galaxy VL
     galaxyVL: {
       generalInfo: [],
       installation: [],
       operation: [],
-      maintenance: []
+      maintenance: [],
     },
     // Dữ liệu hệ thống ắc quy & BMS
     batteryBMS: {
       batteries: [],
       bms: [],
-      monitoring: []
+      monitoring: [],
     },
     // Dữ liệu giám sát & điều khiển
     monitoring: {
       userInterface: [],
       networkConnection: [],
-      scada: []
+      scada: [],
     },
     // Dữ liệu quy trình vận hành
     operation: {
       galaxy500kva: [],
-      parallelSystem: []
+      parallelSystem: [],
     },
     // Dữ liệu xử lý sự cố
     troubleshooting: {
       commonIssues: [],
-      resolutionProcess: []
-    }
+      resolutionProcess: [],
+    },
   },
   isLoading: true,
   isFullyLoaded: false,
@@ -51,5 +51,5 @@ export const UPSDataContext = createContext({
   getUPSByStatus: () => [],
   getActiveOperationMode: () => null,
   getBatteryStatus: () => 'normal',
-  getSystemHealth: () => 'good'
+  getSystemHealth: () => 'good',
 });

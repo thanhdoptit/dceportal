@@ -1,29 +1,27 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 const useIntersectionObserver = (options = {}) => {
   const [isIntersecting, setIsIntersecting] = useState(false);
   const [hasIntersected, setHasIntersected] = useState(false);
   const elementRef = useRef(null);
 
-  const {
-    threshold = 0.1,
-    rootMargin = '50px',
-    root = null,
-    triggerOnce = true
-  } = options;
+  const { threshold = 0.1, rootMargin = '50px', root = null, triggerOnce = true } = options;
 
-  const callback = useCallback((entries) => {
-    const [entry] = entries;
-    
-    if (entry.isIntersecting) {
-      setIsIntersecting(true);
-      if (triggerOnce) {
-        setHasIntersected(true);
+  const callback = useCallback(
+    entries => {
+      const [entry] = entries;
+
+      if (entry.isIntersecting) {
+        setIsIntersecting(true);
+        if (triggerOnce) {
+          setHasIntersected(true);
+        }
+      } else if (!triggerOnce) {
+        setIsIntersecting(false);
       }
-    } else if (!triggerOnce) {
-      setIsIntersecting(false);
-    }
-  }, [triggerOnce]);
+    },
+    [triggerOnce]
+  );
 
   useEffect(() => {
     const element = elementRef.current;
@@ -32,7 +30,7 @@ const useIntersectionObserver = (options = {}) => {
     const observer = new IntersectionObserver(callback, {
       threshold,
       rootMargin,
-      root
+      root,
     });
 
     observer.observe(element);

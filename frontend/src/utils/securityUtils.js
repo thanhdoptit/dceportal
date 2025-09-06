@@ -11,11 +11,26 @@ import CryptoJS from 'crypto-js';
  * @param {string} content - Nội dung HTML cần sanitize
  * @returns {string} - Nội dung đã được sanitize
  */
-export const sanitizeHTML = (content) => {
+export const sanitizeHTML = content => {
   if (!content || typeof content !== 'string') return '';
   return DOMPurify.sanitize(content, {
-    ALLOWED_TAGS: ['p', 'br', 'strong', 'em', 'u', 'ol', 'ul', 'li', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
-    ALLOWED_ATTR: ['class', 'style']
+    ALLOWED_TAGS: [
+      'p',
+      'br',
+      'strong',
+      'em',
+      'u',
+      'ol',
+      'ul',
+      'li',
+      'h1',
+      'h2',
+      'h3',
+      'h4',
+      'h5',
+      'h6',
+    ],
+    ALLOWED_ATTR: ['class', 'style'],
   });
 };
 
@@ -24,7 +39,7 @@ export const sanitizeHTML = (content) => {
  * @param {string} data - Dữ liệu cần encrypt
  * @returns {string} - Dữ liệu đã encrypt
  */
-export const encryptData = (data) => {
+export const encryptData = data => {
   if (!data) return '';
   const key = import.meta.env.VITE_ENCRYPTION_KEY || 'default-key';
   return CryptoJS.AES.encrypt(data, key).toString();
@@ -35,7 +50,7 @@ export const encryptData = (data) => {
  * @param {string} encryptedData - Dữ liệu đã encrypt
  * @returns {string} - Dữ liệu gốc
  */
-export const decryptData = (encryptedData) => {
+export const decryptData = encryptedData => {
   if (!encryptedData) return '';
   try {
     const key = import.meta.env.VITE_ENCRYPTION_KEY || 'default-key';
@@ -51,7 +66,7 @@ export const decryptData = (encryptedData) => {
  * Secure token storage
  * @param {string} token - JWT token
  */
-export const secureStoreToken = (token) => {
+export const secureStoreToken = token => {
   if (!token) return;
   const encryptedToken = encryptData(token);
   localStorage.setItem('encrypted_token', encryptedToken);
@@ -96,7 +111,7 @@ export const validateInput = (data, schema) => {
  */
 export const sanitizeForLogging = (obj, sensitiveKeys = ['password', 'token', 'secret']) => {
   if (!obj || typeof obj !== 'object') return obj;
-  
+
   const sanitized = { ...obj };
   sensitiveKeys.forEach(key => {
     if (sanitized[key]) {
@@ -137,27 +152,27 @@ export const generateCSRFToken = () => {
  */
 export const validateFileUpload = (file, allowedTypes = [], maxSize = 10) => {
   const errors = [];
-  
+
   // Kiểm tra kích thước
   if (file.size > maxSize * 1024 * 1024) {
     errors.push(`File không được vượt quá ${maxSize}MB`);
   }
-  
+
   // Kiểm tra loại file
   if (allowedTypes.length > 0 && !allowedTypes.includes(file.type)) {
     errors.push('Loại file không được hỗ trợ');
   }
-  
+
   // Kiểm tra tên file
   const fileName = file.name.toLowerCase();
   const dangerousExtensions = ['.exe', '.bat', '.cmd', '.com', '.pif', '.scr', '.vbs', '.js'];
   if (dangerousExtensions.some(ext => fileName.endsWith(ext))) {
     errors.push('File không được phép upload');
   }
-  
+
   return {
     isValid: errors.length === 0,
-    errors
+    errors,
   };
 };
 
@@ -173,39 +188,36 @@ export const clearAllSensitiveData = async () => {
       localStorage.removeItem(key);
     }
   });
-  
+
   // Clear sessionStorage
   sessionStorage.clear();
-  
+
   // Clear cookies
-  document.cookie.split(";").forEach(function(c) { 
-    document.cookie = c.replace(/^ +/, "")
-      .replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); 
+  document.cookie.split(';').forEach(function (c) {
+    document.cookie = c
+      .replace(/^ +/, '')
+      .replace(/=.*/, '=;expires=' + new Date().toUTCString() + ';path=/');
   });
-  
+
   // Clear browser cache
   if ('caches' in window) {
     try {
       const cacheNames = await caches.keys();
-      await Promise.all(
-        cacheNames.map(cacheName => caches.delete(cacheName))
-      );
+      await Promise.all(cacheNames.map(cacheName => caches.delete(cacheName)));
     } catch (error) {
       console.warn('Failed to clear browser cache:', error);
     }
   }
-  
+
   // Clear service workers
   if ('serviceWorker' in navigator) {
     try {
       const registrations = await navigator.serviceWorker.getRegistrations();
-      await Promise.all(
-        registrations.map(registration => registration.unregister())
-      );
+      await Promise.all(registrations.map(registration => registration.unregister()));
     } catch (error) {
       console.warn('Failed to clear service workers:', error);
     }
   }
-  
+
   console.log('✅ All sensitive data cleared successfully');
 };

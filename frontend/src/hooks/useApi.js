@@ -1,25 +1,27 @@
-import { useState, useCallback } from 'react';
-import api from '../services/api';
+import { useCallback, useState } from 'react';
 
 const useApi = (apiMethod, options = {}) => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const execute = useCallback(async (params) => {
-    try {
-      setLoading(true);
-      setError(null);
-      const response = await apiMethod(params);
-      setData(response.data);
-      return response.data;
-    } catch (err) {
-      setError(err.message);
-      throw err;
-    } finally {
-      setLoading(false);
-    }
-  }, [apiMethod]);
+  const execute = useCallback(
+    async params => {
+      try {
+        setLoading(true);
+        setError(null);
+        const response = await apiMethod(params);
+        setData(response.data);
+        return response.data;
+      } catch (err) {
+        setError(err.message);
+        throw err;
+      } finally {
+        setLoading(false);
+      }
+    },
+    [apiMethod]
+  );
 
   const reset = () => {
     setData(null);
@@ -31,8 +33,8 @@ const useApi = (apiMethod, options = {}) => {
     loading,
     error,
     execute,
-    reset
+    reset,
   };
 };
 
-export default useApi; 
+export default useApi;

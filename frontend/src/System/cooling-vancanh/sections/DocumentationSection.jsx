@@ -1,7 +1,4 @@
-import {
-    DownloadOutlined,
-    FileTextOutlined
-} from '@ant-design/icons';
+import { DownloadOutlined, FileTextOutlined } from '@ant-design/icons';
 import { Alert, Button, Card, Col, Row, Space, Tabs, Typography } from 'antd';
 import React from 'react';
 import '../../shared/styles/SystemSection.css';
@@ -16,32 +13,27 @@ const DocumentationSection = () => {
     height: 'auto',
     lineHeight: '1.4',
     padding: '8px 12px',
-    textAlign: 'left'
+    textAlign: 'left',
   };
 
   // Component wrapper cho button download
   const DownloadButton = ({ children, onClick }) => (
-    <Button 
-      block
-      icon={<DownloadOutlined />}
-      style={downloadButtonStyle}
-      onClick={onClick}
-    >
+    <Button block icon={<DownloadOutlined />} style={downloadButtonStyle} onClick={onClick}>
       {children}
     </Button>
   );
 
   return (
-    <div id="section-7" className="content-section">
+    <div id='section-7' className='content-section'>
       <Title level={2}>
         <FileTextOutlined style={{ marginRight: '12px' }} />
         7. TÀI LIỆU & THAM KHẢO - TTDL Vân Canh
       </Title>
 
       <Alert
-        message="Tài liệu kèm theo"
-        description="Các tài liệu kỹ thuật, catalog và bản vẽ liên quan đến hệ thống làm mát TTDL Vân Canh."
-        type="info"
+        message='Tài liệu kèm theo'
+        description='Các tài liệu kỹ thuật, catalog và bản vẽ liên quan đến hệ thống làm mát TTDL Vân Canh.'
+        type='info'
         showIcon
         style={{ marginBottom: '24px' }}
       />
@@ -54,61 +46,66 @@ const DocumentationSection = () => {
           </Title>
 
           <Alert
-            message="Thư viện bản vẽ HVAC TTDL Vân Canh"
-            description="Tất cả 32 bản vẽ kỹ thuật chính thức đã được số hóa và có sẵn để tải về định dạng PDF. Bao gồm: sơ đồ hệ thống, mặt bằng tầng, chi tiết lắp đặt, hệ thống nước lạnh, thông gió, thoát khói, thoát nước và bản vẽ hoàn công."
-            type="info"
+            message='Thư viện bản vẽ HVAC TTDL Vân Canh'
+            description='Tất cả 32 bản vẽ kỹ thuật chính thức đã được số hóa và có sẵn để tải về định dạng PDF. Bao gồm: sơ đồ hệ thống, mặt bằng tầng, chi tiết lắp đặt, hệ thống nước lạnh, thông gió, thoát khói, thoát nước và bản vẽ hoàn công.'
+            type='info'
             showIcon
             style={{ marginBottom: '20px' }}
           />
 
-          <Tabs defaultActiveKey="1">
-            <TabPane tab="Sơ đồ hệ thống" key="1">
+          <Tabs defaultActiveKey='1'>
+            <TabPane tab='Sơ đồ hệ thống' key='1'>
               <Row gutter={[16, 16]}>
                 <Col span={8}>
-                  <Card size="small" title="Tổng quan hệ thống">
-                    <Space direction="vertical" size="small">
+                  <Card size='small' title='Tổng quan hệ thống'>
+                    <Space direction='vertical' size='small'>
                       <DownloadButton
                         onClick={() => {
                           const link = document.createElement('a');
-                          link.href = '/documents/hvac-drawings/VTB-FC-M-201 - Chiller water system schematic-Layout1.pdf';
-                          link.download = 'VTB-FC-M-201 - Chiller water system schematic-Layout1.pdf';
+                          link.href =
+                            '/documents/hvac-drawings/VTB-FC-M-201 - Chiller water system schematic-Layout1.pdf';
+                          link.download =
+                            'VTB-FC-M-201 - Chiller water system schematic-Layout1.pdf';
                           link.click();
                         }}
                       >
                         VTB-FC-M-201 - Sơ đồ hệ thống nước lạnh
                       </DownloadButton>
-                                              <DownloadButton
-                          onClick={() => {
-                            const link = document.createElement('a');
-                            link.href = '/documents/hvac-drawings/VTB-FC-M-202 - Ventilation system schematic-Layout1.pdf';
-                            link.download = 'VTB-FC-M-202 - Ventilation system schematic-Layout1.pdf';
-                            link.click();
-                          }}
-                        >
-                          VTB-FC-M-202 - Sơ đồ hệ thống thông gió
-                        </DownloadButton>
+                      <DownloadButton
+                        onClick={() => {
+                          const link = document.createElement('a');
+                          link.href =
+                            '/documents/hvac-drawings/VTB-FC-M-202 - Ventilation system schematic-Layout1.pdf';
+                          link.download = 'VTB-FC-M-202 - Ventilation system schematic-Layout1.pdf';
+                          link.click();
+                        }}
+                      >
+                        VTB-FC-M-202 - Sơ đồ hệ thống thông gió
+                      </DownloadButton>
                     </Space>
                   </Card>
                 </Col>
                 <Col span={8}>
-                  <Card size="small" title="Danh sách thiết bị & Ký hiệu">
-                    <Space direction="vertical" size="small">
+                  <Card size='small' title='Danh sách thiết bị & Ký hiệu'>
+                    <Space direction='vertical' size='small'>
                       <DownloadButton
                         onClick={() => {
                           const link = document.createElement('a');
-                          link.href = '/documents/hvac-drawings/VTB-FC-M-301 - Mechanical equipment list -Layout1.pdf';
+                          link.href =
+                            '/documents/hvac-drawings/VTB-FC-M-301 - Mechanical equipment list -Layout1.pdf';
                           link.download = 'VTB-FC-M-301 - Mechanical equipment list -Layout1.pdf';
                           link.click();
                         }}
                       >
                         VTB-FC-M-301 - Danh sách thiết bị cơ khí
                       </DownloadButton>
-                      <Button 
+                      <Button
                         block
                         icon={<DownloadOutlined />}
                         onClick={() => {
                           const link = document.createElement('a');
-                          link.href = '/documents/hvac-drawings/VTB-FC-M-100 - Legend and symbol-Layout1.pdf';
+                          link.href =
+                            '/documents/hvac-drawings/VTB-FC-M-100 - Legend and symbol-Layout1.pdf';
                           link.download = 'VTB-FC-M-100 - Legend and symbol-Layout1.pdf';
                           link.click();
                         }}
@@ -119,26 +116,28 @@ const DocumentationSection = () => {
                   </Card>
                 </Col>
                 <Col span={8}>
-                  <Card size="small" title="Chi tiết lắp đặt">
-                    <Space direction="vertical" size="small">
-                      <Button 
+                  <Card size='small' title='Chi tiết lắp đặt'>
+                    <Space direction='vertical' size='small'>
+                      <Button
                         block
                         icon={<DownloadOutlined />}
                         onClick={() => {
                           const link = document.createElement('a');
-                          link.href = '/documents/hvac-drawings/VTB-FC-M-101 - Detail of installation 1-Layout1.pdf';
+                          link.href =
+                            '/documents/hvac-drawings/VTB-FC-M-101 - Detail of installation 1-Layout1.pdf';
                           link.download = 'VTB-FC-M-101 - Detail of installation 1-Layout1.pdf';
                           link.click();
                         }}
                       >
                         VTB-FC-M-101 - Chi tiết lắp đặt 1
                       </Button>
-                      <Button 
+                      <Button
                         block
                         icon={<DownloadOutlined />}
                         onClick={() => {
                           const link = document.createElement('a');
-                          link.href = '/documents/hvac-drawings/VTB-FC-M-102 - Detail of installation 2-Layout1.pdf';
+                          link.href =
+                            '/documents/hvac-drawings/VTB-FC-M-102 - Detail of installation 2-Layout1.pdf';
                           link.download = 'VTB-FC-M-102 - Detail of installation 2-Layout1.pdf';
                           link.click();
                         }}
@@ -151,53 +150,57 @@ const DocumentationSection = () => {
               </Row>
             </TabPane>
 
-            <TabPane tab="Hệ thống thông gió & Khói" key="2">
+            <TabPane tab='Hệ thống thông gió & Khói' key='2'>
               <Row gutter={[16, 16]}>
                 <Col span={12}>
-                  <Card size="small" title="Hệ thống thông gió">
-                    <Space direction="vertical" size="small">
-                      <Button 
+                  <Card size='small' title='Hệ thống thông gió'>
+                    <Space direction='vertical' size='small'>
+                      <Button
                         block
                         icon={<DownloadOutlined />}
                         onClick={() => {
                           const link = document.createElement('a');
-                          link.href = '/documents/hvac-drawings/VTB-FC-M-701 - Ventilation system in 1st FP-Layout1.pdf';
+                          link.href =
+                            '/documents/hvac-drawings/VTB-FC-M-701 - Ventilation system in 1st FP-Layout1.pdf';
                           link.download = 'VTB-FC-M-701 - Ventilation system in 1st FP-Layout1.pdf';
                           link.click();
                         }}
                       >
                         VTB-FC-M-701 - Thông gió tầng 1
                       </Button>
-                      <Button 
+                      <Button
                         block
                         icon={<DownloadOutlined />}
                         onClick={() => {
                           const link = document.createElement('a');
-                          link.href = '/documents/hvac-drawings/VTB-FC-M-702 - Ventilation system in 2nd FP-Layout1.pdf';
+                          link.href =
+                            '/documents/hvac-drawings/VTB-FC-M-702 - Ventilation system in 2nd FP-Layout1.pdf';
                           link.download = 'VTB-FC-M-702 - Ventilation system in 2nd FP-Layout1.pdf';
                           link.click();
                         }}
                       >
                         VTB-FC-M-702 - Thông gió tầng 2
                       </Button>
-                      <Button 
+                      <Button
                         block
                         icon={<DownloadOutlined />}
                         onClick={() => {
                           const link = document.createElement('a');
-                          link.href = '/documents/hvac-drawings/VTB-FC-M-703 - Ventilation system in 3rd FP-Layout1.pdf';
+                          link.href =
+                            '/documents/hvac-drawings/VTB-FC-M-703 - Ventilation system in 3rd FP-Layout1.pdf';
                           link.download = 'VTB-FC-M-703 - Ventilation system in 3rd FP-Layout1.pdf';
                           link.click();
                         }}
                       >
                         VTB-FC-M-703 - Thông gió tầng 3
                       </Button>
-                      <Button 
+                      <Button
                         block
                         icon={<DownloadOutlined />}
                         onClick={() => {
                           const link = document.createElement('a');
-                          link.href = '/documents/hvac-drawings/VTB-FC-M-704 - Ventilation system in 4th FP-Layout1.pdf';
+                          link.href =
+                            '/documents/hvac-drawings/VTB-FC-M-704 - Ventilation system in 4th FP-Layout1.pdf';
                           link.download = 'VTB-FC-M-704 - Ventilation system in 4th FP-Layout1.pdf';
                           link.click();
                         }}
@@ -208,51 +211,59 @@ const DocumentationSection = () => {
                   </Card>
                 </Col>
                 <Col span={12}>
-                  <Card size="small" title="Hệ thống thoát khói">
-                    <Space direction="vertical" size="small">
-                      <Button 
+                  <Card size='small' title='Hệ thống thoát khói'>
+                    <Space direction='vertical' size='small'>
+                      <Button
                         block
                         icon={<DownloadOutlined />}
                         onClick={() => {
                           const link = document.createElement('a');
-                          link.href = '/documents/hvac-drawings/VTB-FC-M-801 - Smoke exhaust system in 1st FP-Layout1.pdf';
-                          link.download = 'VTB-FC-M-801 - Smoke exhaust system in 1st FP-Layout1.pdf';
+                          link.href =
+                            '/documents/hvac-drawings/VTB-FC-M-801 - Smoke exhaust system in 1st FP-Layout1.pdf';
+                          link.download =
+                            'VTB-FC-M-801 - Smoke exhaust system in 1st FP-Layout1.pdf';
                           link.click();
                         }}
                       >
                         VTB-FC-M-801 - Thoát khói tầng 1
                       </Button>
-                      <Button 
+                      <Button
                         block
                         icon={<DownloadOutlined />}
                         onClick={() => {
                           const link = document.createElement('a');
-                          link.href = '/documents/hvac-drawings/VTB-FC-M-802 - Smoke exhaust system in 2nd FP-Layout1.pdf';
-                          link.download = 'VTB-FC-M-802 - Smoke exhaust system in 2nd FP-Layout1.pdf';
+                          link.href =
+                            '/documents/hvac-drawings/VTB-FC-M-802 - Smoke exhaust system in 2nd FP-Layout1.pdf';
+                          link.download =
+                            'VTB-FC-M-802 - Smoke exhaust system in 2nd FP-Layout1.pdf';
                           link.click();
                         }}
                       >
                         VTB-FC-M-802 - Thoát khói tầng 2
                       </Button>
-                      <Button 
+                      <Button
                         block
                         icon={<DownloadOutlined />}
                         onClick={() => {
                           const link = document.createElement('a');
-                          link.href = '/documents/hvac-drawings/VTB-FC-M-803 - Smoke exhaust system in 3rd FP-Layout1.pdf';
-                          link.download = 'VTB-FC-M-803 - Smoke exhaust system in 3rd FP-Layout1.pdf';
+                          link.href =
+                            '/documents/hvac-drawings/VTB-FC-M-803 - Smoke exhaust system in 3rd FP-Layout1.pdf';
+                          link.download =
+                            'VTB-FC-M-803 - Smoke exhaust system in 3rd FP-Layout1.pdf';
                           link.click();
                         }}
                       >
                         VTB-FC-M-803 - Thoát khói tầng 3
                       </Button>
-                      <Button 
+                      <Button
                         block
                         icon={<DownloadOutlined />}
                         onClick={() => {
                           const link = document.createElement('a');
-                          link.href = '/documents/hvac-drawings/VTB-FC-M-804 - Smoke exhaust system in 4th FP-Layout1.pdf';
-                          link.download = 'VTB-FC-M-804 - Smoke exhaust system in 4th FP-Layout1.pdf';
+                          link.href =
+                            '/documents/hvac-drawings/VTB-FC-M-804 - Smoke exhaust system in 4th FP-Layout1.pdf';
+                          link.download =
+                            'VTB-FC-M-804 - Smoke exhaust system in 4th FP-Layout1.pdf';
                           link.click();
                         }}
                       >
@@ -264,20 +275,21 @@ const DocumentationSection = () => {
               </Row>
             </TabPane>
 
-            <TabPane tab="Bản vẽ hoàn công" key="3">
+            <TabPane tab='Bản vẽ hoàn công' key='3'>
               <Row gutter={[16, 16]}>
                 <Col span={24}>
-                  <Card size="small" title="Bản vẽ hoàn công HVAC">
-                    <Space direction="vertical" size="small" style={{ width: '100%' }}>
+                  <Card size='small' title='Bản vẽ hoàn công HVAC'>
+                    <Space direction='vertical' size='small' style={{ width: '100%' }}>
                       <Row gutter={[8, 8]}>
                         <Col span={8}>
-                          <Button 
+                          <Button
                             block
-                            type="dashed"
+                            type='dashed'
                             icon={<DownloadOutlined />}
                             onClick={() => {
                               const link = document.createElement('a');
-                              link.href = '/documents/hvac-drawings/VTB-AS-HVAC-Asbuilt drawing 04.Dec.pdf';
+                              link.href =
+                                '/documents/hvac-drawings/VTB-AS-HVAC-Asbuilt drawing 04.Dec.pdf';
                               link.download = 'VTB-AS-HVAC-Asbuilt drawing 04.Dec.pdf';
                               link.click();
                             }}
@@ -286,13 +298,14 @@ const DocumentationSection = () => {
                           </Button>
                         </Col>
                         <Col span={8}>
-                          <Button 
+                          <Button
                             block
-                            type="dashed"
+                            type='dashed'
                             icon={<DownloadOutlined />}
                             onClick={() => {
                               const link = document.createElement('a');
-                              link.href = '/documents/hvac-drawings/VTB-AS-HVAC-Asbuilt drawing 31.Dec.pdf';
+                              link.href =
+                                '/documents/hvac-drawings/VTB-AS-HVAC-Asbuilt drawing 31.Dec.pdf';
                               link.download = 'VTB-AS-HVAC-Asbuilt drawing 31.Dec.pdf';
                               link.click();
                             }}
@@ -301,13 +314,14 @@ const DocumentationSection = () => {
                           </Button>
                         </Col>
                         <Col span={8}>
-                          <Button 
+                          <Button
                             block
-                            type="dashed"
+                            type='dashed'
                             icon={<DownloadOutlined />}
                             onClick={() => {
                               const link = document.createElement('a');
-                              link.href = '/documents/hvac-drawings/VTB-AS-HVAC-Asbuilt drawing 31.Dec - R1.pdf';
+                              link.href =
+                                '/documents/hvac-drawings/VTB-AS-HVAC-Asbuilt drawing 31.Dec - R1.pdf';
                               link.download = 'VTB-AS-HVAC-Asbuilt drawing 31.Dec - R1.pdf';
                               link.click();
                             }}
@@ -317,11 +331,11 @@ const DocumentationSection = () => {
                         </Col>
                       </Row>
                       <Alert
-                        message="Bản vẽ hoàn công"
-                        description="Các bản vẽ hoàn công thực tế phản ánh trạng thái cuối cùng của hệ thống sau khi thi công và nghiệm thu"
-                        type="warning"
+                        message='Bản vẽ hoàn công'
+                        description='Các bản vẽ hoàn công thực tế phản ánh trạng thái cuối cùng của hệ thống sau khi thi công và nghiệm thu'
+                        type='warning'
                         showIcon
-                        size="small"
+                        size='small'
                       />
                     </Space>
                   </Card>
@@ -329,66 +343,73 @@ const DocumentationSection = () => {
               </Row>
             </TabPane>
 
-            <TabPane tab="Mặt bằng & Nước lạnh" key="4">
+            <TabPane tab='Mặt bằng & Nước lạnh' key='4'>
               <Row gutter={[16, 16]}>
                 <Col span={12}>
-                  <Card size="small" title="Mặt bằng tầng">
-                    <Space direction="vertical" size="small">
-                      <Button 
+                  <Card size='small' title='Mặt bằng tầng'>
+                    <Space direction='vertical' size='small'>
+                      <Button
                         block
                         icon={<DownloadOutlined />}
                         onClick={() => {
                           const link = document.createElement('a');
-                          link.href = '/documents/hvac-drawings/VTB-FC-M-302- Layout of equipment on 1st FP-Layout1.pdf';
+                          link.href =
+                            '/documents/hvac-drawings/VTB-FC-M-302- Layout of equipment on 1st FP-Layout1.pdf';
                           link.download = 'VTB-FC-M-302- Layout of equipment on 1st FP-Layout1.pdf';
                           link.click();
                         }}
                       >
                         VTB-FC-M-302 - Bố trí thiết bị tầng 1
                       </Button>
-                      <Button 
+                      <Button
                         block
                         icon={<DownloadOutlined />}
                         onClick={() => {
                           const link = document.createElement('a');
-                          link.href = '/documents/hvac-drawings/VTB-FC-M-303- Layout of equipment on 2nd FP-Layout1.pdf';
+                          link.href =
+                            '/documents/hvac-drawings/VTB-FC-M-303- Layout of equipment on 2nd FP-Layout1.pdf';
                           link.download = 'VTB-FC-M-303- Layout of equipment on 2nd FP-Layout1.pdf';
                           link.click();
                         }}
                       >
                         VTB-FC-M-303 - Bố trí thiết bị tầng 2
                       </Button>
-                      <Button 
+                      <Button
                         block
                         icon={<DownloadOutlined />}
                         onClick={() => {
                           const link = document.createElement('a');
-                          link.href = '/documents/hvac-drawings/VTB-FC-M-304- Layout of equipment on 4th FP-Layout1.pdf';
+                          link.href =
+                            '/documents/hvac-drawings/VTB-FC-M-304- Layout of equipment on 4th FP-Layout1.pdf';
                           link.download = 'VTB-FC-M-304- Layout of equipment on 4th FP-Layout1.pdf';
                           link.click();
                         }}
                       >
                         VTB-FC-M-304 - Bố trí thiết bị tầng thượng
                       </Button>
-                      <Button 
+                      <Button
                         block
                         icon={<DownloadOutlined />}
                         onClick={() => {
                           const link = document.createElement('a');
-                          link.href = '/documents/hvac-drawings/VTB-FC-M-306- Layout of equipment on ceiling 1st FP-Layout1.pdf';
-                          link.download = 'VTB-FC-M-306- Layout of equipment on ceiling 1st FP-Layout1.pdf';
+                          link.href =
+                            '/documents/hvac-drawings/VTB-FC-M-306- Layout of equipment on ceiling 1st FP-Layout1.pdf';
+                          link.download =
+                            'VTB-FC-M-306- Layout of equipment on ceiling 1st FP-Layout1.pdf';
                           link.click();
                         }}
                       >
                         VTB-FC-M-306 - Bố trí thiết bị trần tầng 1
                       </Button>
-                      <Button 
+                      <Button
                         block
                         icon={<DownloadOutlined />}
                         onClick={() => {
                           const link = document.createElement('a');
-                          link.href = '/documents/hvac-drawings/VTB-FC-M-307- Layout of equipment on ceiling 2nd FP-Layout1.pdf';
-                          link.download = 'VTB-FC-M-307- Layout of equipment on ceiling 2nd FP-Layout1.pdf';
+                          link.href =
+                            '/documents/hvac-drawings/VTB-FC-M-307- Layout of equipment on ceiling 2nd FP-Layout1.pdf';
+                          link.download =
+                            'VTB-FC-M-307- Layout of equipment on ceiling 2nd FP-Layout1.pdf';
                           link.click();
                         }}
                       >
@@ -398,63 +419,73 @@ const DocumentationSection = () => {
                   </Card>
                 </Col>
                 <Col span={12}>
-                  <Card size="small" title="Hệ thống nước lạnh">
-                    <Space direction="vertical" size="small">
-                      <Button 
+                  <Card size='small' title='Hệ thống nước lạnh'>
+                    <Space direction='vertical' size='small'>
+                      <Button
                         block
                         icon={<DownloadOutlined />}
                         onClick={() => {
                           const link = document.createElement('a');
-                          link.href = '/documents/hvac-drawings/VTB-FC-M-501 - Chiller water system for CRAC 1st FP-Layout1.pdf';
-                          link.download = 'VTB-FC-M-501 - Chiller water system for CRAC 1st FP-Layout1.pdf';
+                          link.href =
+                            '/documents/hvac-drawings/VTB-FC-M-501 - Chiller water system for CRAC 1st FP-Layout1.pdf';
+                          link.download =
+                            'VTB-FC-M-501 - Chiller water system for CRAC 1st FP-Layout1.pdf';
                           link.click();
                         }}
                       >
                         VTB-FC-M-501 - Hệ thống nước lạnh tầng 1
                       </Button>
-                      <Button 
+                      <Button
                         block
                         icon={<DownloadOutlined />}
                         onClick={() => {
                           const link = document.createElement('a');
-                          link.href = '/documents/hvac-drawings/VTB-FC-M-502 - Chiller water system for CRAC 2nd FP rev1-Layout1.pdf';
-                          link.download = 'VTB-FC-M-502 - Chiller water system for CRAC 2nd FP rev1-Layout1.pdf';
+                          link.href =
+                            '/documents/hvac-drawings/VTB-FC-M-502 - Chiller water system for CRAC 2nd FP rev1-Layout1.pdf';
+                          link.download =
+                            'VTB-FC-M-502 - Chiller water system for CRAC 2nd FP rev1-Layout1.pdf';
                           link.click();
                         }}
                       >
                         VTB-FC-M-502 - Hệ thống nước lạnh tầng 2
                       </Button>
-                      <Button 
+                      <Button
                         block
                         icon={<DownloadOutlined />}
                         onClick={() => {
                           const link = document.createElement('a');
-                          link.href = '/documents/hvac-drawings/VTB-FC-M-503 - Chiller water system for CRAC 3rd FP-Layout1.pdf';
-                          link.download = 'VTB-FC-M-503 - Chiller water system for CRAC 3rd FP-Layout1.pdf';
+                          link.href =
+                            '/documents/hvac-drawings/VTB-FC-M-503 - Chiller water system for CRAC 3rd FP-Layout1.pdf';
+                          link.download =
+                            'VTB-FC-M-503 - Chiller water system for CRAC 3rd FP-Layout1.pdf';
                           link.click();
                         }}
                       >
                         VTB-FC-M-503 - Hệ thống nước lạnh tầng 3
                       </Button>
-                      <Button 
+                      <Button
                         block
                         icon={<DownloadOutlined />}
                         onClick={() => {
                           const link = document.createElement('a');
-                          link.href = '/documents/hvac-drawings/VTB-FC-M-504 - Chiller water system for CRAC 4th FP-Layout1.pdf';
-                          link.download = 'VTB-FC-M-504 - Chiller water system for CRAC 4th FP-Layout1.pdf';
+                          link.href =
+                            '/documents/hvac-drawings/VTB-FC-M-504 - Chiller water system for CRAC 4th FP-Layout1.pdf';
+                          link.download =
+                            'VTB-FC-M-504 - Chiller water system for CRAC 4th FP-Layout1.pdf';
                           link.click();
                         }}
                       >
                         VTB-FC-M-504 - Hệ thống nước lạnh tầng 4
                       </Button>
-                      <Button 
+                      <Button
                         block
                         icon={<DownloadOutlined />}
                         onClick={() => {
                           const link = document.createElement('a');
-                          link.href = '/documents/hvac-drawings/VTB-FC-M-505 - Chiller water system from TES water tank - Copy-Layout1.pdf';
-                          link.download = 'VTB-FC-M-505 - Chiller water system from TES water tank - Copy-Layout1.pdf';
+                          link.href =
+                            '/documents/hvac-drawings/VTB-FC-M-505 - Chiller water system from TES water tank - Copy-Layout1.pdf';
+                          link.download =
+                            'VTB-FC-M-505 - Chiller water system from TES water tank - Copy-Layout1.pdf';
                           link.click();
                         }}
                       >
@@ -466,42 +497,48 @@ const DocumentationSection = () => {
               </Row>
             </TabPane>
 
-            <TabPane tab="Hệ thống khác" key="5">
+            <TabPane tab='Hệ thống khác' key='5'>
               <Row gutter={[16, 16]}>
                 <Col span={12}>
-                  <Card size="small" title="Hệ thống thoát nước">
-                    <Space direction="vertical" size="small">
-                      <Button 
+                  <Card size='small' title='Hệ thống thoát nước'>
+                    <Space direction='vertical' size='small'>
+                      <Button
                         block
                         icon={<DownloadOutlined />}
                         onClick={() => {
                           const link = document.createElement('a');
-                          link.href = '/documents/hvac-drawings/VTB-FC-M-601 - Condenser drain pipe for CRAC 1st FP-Layout1.pdf';
-                          link.download = 'VTB-FC-M-601 - Condenser drain pipe for CRAC 1st FP-Layout1.pdf';
+                          link.href =
+                            '/documents/hvac-drawings/VTB-FC-M-601 - Condenser drain pipe for CRAC 1st FP-Layout1.pdf';
+                          link.download =
+                            'VTB-FC-M-601 - Condenser drain pipe for CRAC 1st FP-Layout1.pdf';
                           link.click();
                         }}
                       >
                         VTB-FC-M-601 - Thoát nước CRAC tầng 1
                       </Button>
-                      <Button 
+                      <Button
                         block
                         icon={<DownloadOutlined />}
                         onClick={() => {
                           const link = document.createElement('a');
-                          link.href = '/documents/hvac-drawings/VTB-FC-M-602 - Condenser drain pipe for CRAC 2nd FP-Layout1.pdf';
-                          link.download = 'VTB-FC-M-602 - Condenser drain pipe for CRAC 2nd FP-Layout1.pdf';
+                          link.href =
+                            '/documents/hvac-drawings/VTB-FC-M-602 - Condenser drain pipe for CRAC 2nd FP-Layout1.pdf';
+                          link.download =
+                            'VTB-FC-M-602 - Condenser drain pipe for CRAC 2nd FP-Layout1.pdf';
                           link.click();
                         }}
                       >
                         VTB-FC-M-602 - Thoát nước CRAC tầng 2
                       </Button>
-                      <Button 
+                      <Button
                         block
                         icon={<DownloadOutlined />}
                         onClick={() => {
                           const link = document.createElement('a');
-                          link.href = '/documents/hvac-drawings/VTB-FC-M-602-1 - Emergency drain pipe of 2nd floor-Layout1.pdf';
-                          link.download = 'VTB-FC-M-602-1 - Emergency drain pipe of 2nd floor-Layout1.pdf';
+                          link.href =
+                            '/documents/hvac-drawings/VTB-FC-M-602-1 - Emergency drain pipe of 2nd floor-Layout1.pdf';
+                          link.download =
+                            'VTB-FC-M-602-1 - Emergency drain pipe of 2nd floor-Layout1.pdf';
                           link.click();
                         }}
                       >
@@ -511,34 +548,35 @@ const DocumentationSection = () => {
                   </Card>
                 </Col>
                 <Col span={12}>
-                  <Card size="small" title="Shaft & Tài liệu tham khảo">
-                    <Space direction="vertical" size="small">
-                      <Button 
+                  <Card size='small' title='Shaft & Tài liệu tham khảo'>
+                    <Space direction='vertical' size='small'>
+                      <Button
                         block
                         icon={<DownloadOutlined />}
                         onClick={() => {
                           const link = document.createElement('a');
-                          link.href = '/documents/hvac-drawings/VTB-FC-M-904 - HVAC shaft section view-Layout1.pdf';
+                          link.href =
+                            '/documents/hvac-drawings/VTB-FC-M-904 - HVAC shaft section view-Layout1.pdf';
                           link.download = 'VTB-FC-M-904 - HVAC shaft section view-Layout1.pdf';
                           link.click();
                         }}
                       >
                         VTB-FC-M-904 - Mặt cắt shaft HVAC
                       </Button>
-                      <Button 
+                      <Button
                         block
-                        type="default"
+                        type='default'
                         icon={<DownloadOutlined />}
                         onClick={() => {
                           const link = document.createElement('a');
-                          link.href = '/documents/hvac-drawings/VTB-FC-001 - Drawing list-Layout1.pdf';
+                          link.href =
+                            '/documents/hvac-drawings/VTB-FC-001 - Drawing list-Layout1.pdf';
                           link.download = 'VTB-FC-001 - Drawing list-Layout1.pdf';
                           link.click();
                         }}
                       >
                         VTB-FC-001 - Danh sách bản vẽ
                       </Button>
-                      
                     </Space>
                   </Card>
                 </Col>

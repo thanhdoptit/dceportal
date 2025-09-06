@@ -13,5 +13,5 @@ export default function TableEmpty({ description = 'Không có dữ liệu', cla
 
 TableEmpty.propTypes = {
   description: PropTypes.string,
-  className: PropTypes.string
-}; 
+  className: PropTypes.string,
+};

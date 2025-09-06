@@ -1,11 +1,15 @@
-import { defineConfig, loadEnv } from 'vite'
-import react from '@vitejs/plugin-react'
-import path from 'path'
+import react from '@vitejs/plugin-react';
+import { fileURLToPath } from 'node:url';
+import path from 'path';
+import { defineConfig, loadEnv } from 'vite';
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
   // Load env file based on `mode` in the current working directory.
-  const env = loadEnv(mode, process.cwd(), '')
+  const env = loadEnv(mode, process.cwd(), '');
+
+  // ES modules equivalent of __dirname
+  const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
   return {
     plugins: [react()],
@@ -22,7 +26,7 @@ export default defineConfig(({ mode }) => {
     },
     // Loại bỏ các module Node.js không tương thích
     ssr: {
-      noExternal: ['antd', '@ant-design/icons']
+      noExternal: ['antd', '@ant-design/icons'],
     },
     build: {
       sourcemap: false,
@@ -35,15 +39,15 @@ export default defineConfig(({ mode }) => {
           passes: 3,
           toplevel: true,
           unsafe: true,
-          unsafe_comps: true
+          unsafe_comps: true,
         },
         mangle: {
           safari10: true,
-          toplevel: true
+          toplevel: true,
         },
         format: {
-          comments: false
-        }
+          comments: false,
+        },
       },
       rollupOptions: {
         // Cải thiện external handling
@@ -56,15 +60,14 @@ export default defineConfig(({ mode }) => {
             'form-vendor': ['react-hook-form', '@hookform/resolvers', 'yup'],
             'router-vendor': ['react-router-dom'],
             'ui-vendor': ['react-window', 'react-window-infinite-loader', 'react-icons'],
-            'document-vendor': ['docx', 'xlsx']
+            'document-vendor': ['docx', 'xlsx'],
           },
           // Tối ưu chunk naming
-          chunkFileNames: (chunkInfo) => {
-            const facadeModuleId = chunkInfo.facadeModuleId ? chunkInfo.facadeModuleId.split('/').pop() : 'chunk';
+          chunkFileNames: () => {
             return `js/[name]-[hash].js`;
           },
           entryFileNames: 'js/[name]-[hash].js',
-          assetFileNames: (assetInfo) => {
+          assetFileNames: assetInfo => {
             const info = assetInfo.name.split('.');
             const ext = info[info.length - 1];
             if (/\.(css)$/.test(assetInfo.name)) {
@@ -74,8 +77,8 @@ export default defineConfig(({ mode }) => {
               return `images/[name]-[hash].${ext}`;
             }
             return `assets/[name]-[hash].${ext}`;
-          }
-        }
+          },
+        },
       },
       // Cấu hình phân chia chunks
       chunkSizeWarningLimit: 1000, // Tăng limit
@@ -86,7 +89,7 @@ export default defineConfig(({ mode }) => {
       // Tối ưu CSS
       cssCodeSplit: true,
       // Thêm report
-      reportCompressedSize: false // Tắt để tăng tốc build
+      reportCompressedSize: false, // Tắt để tăng tốc build
     },
     // Cấu hình server
     server: {
@@ -98,9 +101,9 @@ export default defineConfig(({ mode }) => {
           changeOrigin: true,
           secure: false,
           // Thêm timeout
-          timeout: 30000
-        }
-      }
+          timeout: 30000,
+        },
+      },
     },
     // Cấu hình resolve
     resolve: {
@@ -110,27 +113,20 @@ export default defineConfig(({ mode }) => {
         '@pages': path.resolve(__dirname, './src/pages'),
         '@utils': path.resolve(__dirname, './src/utils'),
         '@assets': path.resolve(__dirname, './src/assets'),
-        '@services': path.resolve(__dirname, './src/services')
-      }
+        '@services': path.resolve(__dirname, './src/services'),
+      },
     },
     // Cấu hình CSS
     css: {
       devSourcemap: false,
       modules: {
-        localsConvention: 'camelCase'
-      }
+        localsConvention: 'camelCase',
+      },
     },
     // Tối ưu preflight
     optimizeDeps: {
-      include: [
-        'react',
-        'react-dom',
-        'antd',
-        '@ant-design/icons',
-        'axios',
-        'react-router-dom'
-      ],
-      exclude: ['ews-javascript-api']
-    }
-  }
-})
+      include: ['react', 'react-dom', 'antd', '@ant-design/icons', 'axios', 'react-router-dom'],
+      exclude: ['ews-javascript-api'],
+    },
+  };
+});

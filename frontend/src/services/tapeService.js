@@ -5,14 +5,14 @@ export const getAuthHeader = () => {
   const token = localStorage.getItem('token');
   if (!token) return null;
   return {
-    Authorization: `Bearer ${token}`
+    Authorization: `Bearer ${token}`,
   };
 };
 
-export const fetchAllTapes = async (params) => {
+export const fetchAllTapes = async params => {
   const headers = getAuthHeader();
   if (!headers) throw new Error('Token expired');
-  
+
   try {
     const res = await axios.get('/api/tapes', { params, headers });
     return res.data;
@@ -22,10 +22,10 @@ export const fetchAllTapes = async (params) => {
   }
 };
 
-export const getTapeById = async (id) => {
+export const getTapeById = async id => {
   const headers = getAuthHeader();
   if (!headers) throw new Error('Token expired');
-  
+
   try {
     const res = await axios.get(`/api/tapes/${id}`, { headers });
     return res.data;
@@ -35,10 +35,10 @@ export const getTapeById = async (id) => {
   }
 };
 
-export const createTape = async (data) => {
+export const createTape = async data => {
   const headers = getAuthHeader();
   if (!headers) throw new Error('Token expired');
-  
+
   try {
     const res = await axios.post('/api/tapes', data, { headers });
     return res.data;
@@ -51,7 +51,7 @@ export const createTape = async (data) => {
 export const updateTape = async (id, data) => {
   const headers = getAuthHeader();
   if (!headers) throw new Error('Token expired');
-  
+
   try {
     const res = await axios.put(`/api/tapes/${id}`, data, { headers });
     return res.data;
@@ -61,10 +61,10 @@ export const updateTape = async (id, data) => {
   }
 };
 
-export const deleteTape = async (id) => {
+export const deleteTape = async id => {
   const headers = getAuthHeader();
   if (!headers) throw new Error('Token expired');
-  
+
   try {
     const res = await axios.delete(`/api/tapes/${id}`, { headers });
     return res.data;
@@ -75,19 +75,19 @@ export const deleteTape = async (id) => {
 };
 
 // Hàm kiểm tra barcode đã tồn tại chưa
-export const checkBarcodeExists = async (barcode) => {
+export const checkBarcodeExists = async barcode => {
   if (!barcode) return false;
   const headers = getAuthHeader();
   if (!headers) throw new Error('Token expired');
-  
+
   try {
     const res = await axios.get('/api/tapes/check-barcode', {
       params: { barcode },
-      headers
+      headers,
     });
     return res.data.exists;
   } catch (error) {
     console.error('Error checking barcode:', error);
     throw error;
   }
-}; 
+};

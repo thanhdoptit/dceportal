@@ -1,19 +1,28 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import axios from '../utils/axios';
+import { DeleteOutlined, FileSearchOutlined } from '@ant-design/icons';
 import {
-  Table, Input, Select, DatePicker, Button, Row, Col, Tag, Typography, Card, Space,
-  Statistic, Divider, Tooltip, Modal, Empty, Spin, message
+  Button,
+  Card,
+  Col,
+  DatePicker,
+  Modal,
+  Row,
+  Select,
+  Space,
+  Spin,
+  Table,
+  Tag,
+  Tooltip,
+  Typography,
+  message,
 } from 'antd';
-import {
-  PlusOutlined, SearchOutlined, FileSearchOutlined,
-  EditOutlined, DeleteOutlined, ReloadOutlined
-} from '@ant-design/icons';
 import { format } from 'date-fns';
 import { vi } from 'date-fns/locale';
-import { useAuth } from '../contexts/AuthContext.jsx';
 import dayjs from 'dayjs';
 import isBetween from 'dayjs/plugin/isBetween';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext.jsx';
+import axios from '../utils/axios';
 
 // Extend dayjs with isBetween plugin
 dayjs.extend(isBetween);
@@ -29,18 +38,18 @@ const HandoverPage = () => {
   const [loading, setLoading] = useState(false);
   const [filterLoading, setFilterLoading] = useState({
     status: false,
-    date: false
+    date: false,
   });
   const [handovers, setHandovers] = useState([]);
   const [filters, setFilters] = useState({
     status: 'all',
-    dateRange: null
+    dateRange: null,
   });
   const [pagination, setPagination] = useState({
     page: 1,
     limit: 15,
     total: 0,
-    totalPages: 0
+    totalPages: 0,
   });
 
   const validStatuses = ['all', 'draft', 'pending', 'completed', 'rejected'];
@@ -49,10 +58,8 @@ const HandoverPage = () => {
     draft: { color: 'blue', text: 'Chưa bàn giao' },
     pending: { color: 'orange', text: 'Chờ xác nhận' },
     completed: { color: 'green', text: 'Đã bàn giao' },
-    rejected: { color: 'red', text: 'Từ chối' }
+    rejected: { color: 'red', text: 'Từ chối' },
   };
-
-
 
   // Fetch handovers with filters and pagination
   const fetchHandovers = async (status = 'all', dateRange = null, page = 1, limit = 15) => {
@@ -62,7 +69,7 @@ const HandoverPage = () => {
         page,
         limit,
         status,
-        sort: 'date:desc,FromShift.code:asc'
+        sort: 'date:desc,FromShift.code:asc',
       });
 
       if (dateRange && dateRange[0] && dateRange[1]) {
@@ -81,7 +88,7 @@ const HandoverPage = () => {
           return dateB.getTime() - dateA.getTime();
         }
 
-        const getShiftOrder = (shiftCode) => {
+        const getShiftOrder = shiftCode => {
           if (!shiftCode) return 999;
 
           const shiftType = shiftCode.charAt(0).toUpperCase();
@@ -110,7 +117,7 @@ const HandoverPage = () => {
         total,
         totalPages,
         page,
-        limit
+        limit,
       }));
     } catch (error) {
       console.error('Error fetching handovers:', error);
@@ -120,7 +127,7 @@ const HandoverPage = () => {
     }
   };
 
-  const handleStatusChange = (value) => {
+  const handleStatusChange = value => {
     if (!validStatuses.includes(value)) {
       message.error('Trạng thái không hợp lệ');
       return;
@@ -132,7 +139,7 @@ const HandoverPage = () => {
       setPagination(prev => ({
         ...prev,
         page: 1,
-        limit: 15
+        limit: 15,
       }));
       fetchHandovers(value, filters.dateRange, 1, 15);
     } catch (error) {
@@ -143,7 +150,7 @@ const HandoverPage = () => {
     }
   };
 
-  const handleDateChange = (dates) => {
+  const handleDateChange = dates => {
     if (dates && dates[0] && dates[1]) {
       const diffDays = dates[1].diff(dates[0], 'days');
       if (diffDays > 30) {
@@ -158,7 +165,7 @@ const HandoverPage = () => {
       setPagination(prev => ({
         ...prev,
         page: 1,
-        limit: 15
+        limit: 15,
       }));
       fetchHandovers(filters.status, dates, 1, 15);
     } finally {
@@ -170,7 +177,7 @@ const HandoverPage = () => {
     setPagination(prev => ({
       ...prev,
       page,
-      limit: pageSize
+      limit: pageSize,
     }));
     fetchHandovers(filters.status, filters.dateRange, page, pageSize);
   };
@@ -196,11 +203,15 @@ const HandoverPage = () => {
 
       if (currentShift) {
         // Kiểm tra biên bản hiện có
-        const handoverResponse = await axios.get(`/api/shifts/handover/by-shift/${currentShift.id}`);
+        const handoverResponse = await axios.get(
+          `/api/shifts/handover/by-shift/${currentShift.id}`
+        );
 
         if (handoverResponse.data && Array.isArray(handoverResponse.data)) {
           // Lọc chỉ lấy các handover mà ca hiện tại là bên giao
-          const handoversAsFromShift = handoverResponse.data.filter(h => h.fromShiftId === currentShift.id);
+          const handoversAsFromShift = handoverResponse.data.filter(
+            h => h.fromShiftId === currentShift.id
+          );
 
           if (handoversAsFromShift.length > 0) {
             const existingHandover = handoversAsFromShift[0];
@@ -212,10 +223,10 @@ const HandoverPage = () => {
                 style: {
                   backgroundColor: '#003c71',
                   borderColor: '#003c71',
-                  color: 'white'
-                }
+                  color: 'white',
+                },
               },
-              onOk: () => navigate(`/dc/handover/${existingHandover.id}`)
+              onOk: () => navigate(`/dc/handover/${existingHandover.id}`),
             });
             return;
           }
@@ -237,12 +248,12 @@ const HandoverPage = () => {
     };
   }, []);
 
-  const getStatusTag = (status) => {
+  const getStatusTag = status => {
     const map = {
       draft: { color: 'blue', text: 'Chưa bàn giao' },
       pending: { color: 'orange', text: 'Chờ xác nhận' },
       completed: { color: 'green', text: 'Đã bàn giao' },
-      rejected: { color: 'red', text: 'Từ chối' }
+      rejected: { color: 'red', text: 'Từ chối' },
     };
     return <Tag color={map[status]?.color}>{map[status]?.text}</Tag>;
   };
@@ -254,18 +265,14 @@ const HandoverPage = () => {
       key: 'date',
       width: 100,
       className: 'custom-header border-r border-l border-gray-200',
-      render: (date) => format(new Date(date), 'dd/MM/yyyy', { locale: vi })
+      render: date => format(new Date(date), 'dd/MM/yyyy', { locale: vi }),
     },
     {
       title: 'Ca ',
       key: 'shift',
       width: 50,
       className: 'custom-header border-r border-gray-200',
-      render: (_, r) => (
-        <div className="text-center">
-          {r.FromShift?.code || 'N/A'}
-        </div>
-      )
+      render: (_, r) => <div className='text-center'>{r.FromShift?.code || 'N/A'}</div>,
     },
     {
       title: 'Bên Giao Ca',
@@ -278,17 +285,15 @@ const HandoverPage = () => {
         return (
           <div>
             {users.map((user, index) => (
-              <Tag key={index} color="blue">
+              <Tag key={index} color='blue'>
                 {user.fullname || user.fullName}
                 {user.ShiftHandoverUser?.role === 'leader' && ' (Trưởng ca)'}
               </Tag>
             ))}
-            {users.length === 0 && (
-              <Tag color="default">Không có thông tin</Tag>
-            )}
+            {users.length === 0 && <Tag color='default'>Không có thông tin</Tag>}
           </div>
         );
-      }
+      },
     },
     {
       title: 'Bên Nhận Ca',
@@ -301,17 +306,18 @@ const HandoverPage = () => {
           <div>
             {users.length > 0 ? (
               users.map((user, index) => (
-                <Tag key={index} color="green">
+                <Tag key={index} color='green'>
                   {user.fullname || user.fullName}
-                  {(user.ShiftHandoverUser?.role === 'leader' || user.role === 'leader') && ' (Trưởng ca)'}
+                  {(user.ShiftHandoverUser?.role === 'leader' || user.role === 'leader') &&
+                    ' (Trưởng ca)'}
                 </Tag>
               ))
             ) : (
-              <Tag color="default">Chưa có người nhận</Tag>
+              <Tag color='default'>Chưa có người nhận</Tag>
             )}
           </div>
         );
-      }
+      },
     },
     {
       title: 'Trạng thái',
@@ -322,13 +328,13 @@ const HandoverPage = () => {
       defaultSortOrder: 'ascend',
       sorter: (a, b) => {
         const statusOrder = {
-          'draft': 1,
-          'pending': 2,
-          'completed': 3,
+          draft: 1,
+          pending: 2,
+          completed: 3,
         };
         return statusOrder[a.status] - statusOrder[b.status];
       },
-      render: getStatusTag
+      render: getStatusTag,
     },
     {
       title: 'Thao tác',
@@ -337,12 +343,12 @@ const HandoverPage = () => {
       className: 'custom-header border-gray-200',
       render: (_, record) => (
         <Space>
-          <Tooltip title="Chi tiết">
+          <Tooltip title='Chi tiết'>
             <Button
               icon={<FileSearchOutlined />}
-              type="primary"
-              size="small"
-              className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white"
+              type='primary'
+              size='small'
+              className='flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white'
               onClick={() => {
                 if (currentUser?.role === 'manager') {
                   navigate(`/manager/handovers/${record.id}`);
@@ -354,14 +360,14 @@ const HandoverPage = () => {
               Chi tiết
             </Button>
           </Tooltip>
-          {(record.status === 'draft' && record.FromUsers?.some(u => u.id === currentUser?.id)) && (
+          {record.status === 'draft' && record.FromUsers?.some(u => u.id === currentUser?.id) && (
             <>
-              <Tooltip title="Xoá">
+              <Tooltip title='Xoá'>
                 <Button
                   icon={<DeleteOutlined />}
-                  type="primary"
-                  size="small"
-                  className="flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white"
+                  type='primary'
+                  size='small'
+                  className='flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white'
                   onClick={() => handleDelete(record.id)}
                 >
                   Xoá
@@ -370,12 +376,11 @@ const HandoverPage = () => {
             </>
           )}
         </Space>
-      )
-    }
+      ),
+    },
   ];
 
-
-  const handleDelete = async (id) => {
+  const handleDelete = async id => {
     Modal.confirm({
       title: 'Xác nhận xoá',
       content: 'Bạn chắc chắn muốn xoá biên bản này?',
@@ -387,25 +392,20 @@ const HandoverPage = () => {
           await axios.delete(`${API_URL}/api/shifts/handover/${id}`);
           message.success('Xoá thành công');
           // Fetch lại danh sách với các filter và pagination hiện tại
-          fetchHandovers(
-            filters.status,
-            filters.dateRange,
-            pagination.page,
-            pagination.limit
-          );
+          fetchHandovers(filters.status, filters.dateRange, pagination.page, pagination.limit);
         } catch (err) {
           message.error(err.response?.data?.message || 'Lỗi khi xoá');
         }
-      }
+      },
     });
   };
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center min-h-screen">
-        <Spin size="large">
-          <div className="p-8">
-            <p className="text-gray-600">Đang tải danh sách biên bản bàn giao...</p>
+      <div className='flex justify-center items-center min-h-screen'>
+        <Spin size='large'>
+          <div className='p-8'>
+            <p className='text-gray-600'>Đang tải danh sách biên bản bàn giao...</p>
           </div>
         </Spin>
       </div>
@@ -414,9 +414,11 @@ const HandoverPage = () => {
 
   return (
     <Card style={{ borderRadius: 12 }}>
-      <Row justify="space-between" align="middle" className="mb-4">
+      <Row justify='space-between' align='middle' className='mb-4'>
         <Col>
-          <Title level={4} style={{ color: '#003c71', margin: 0 }}>Danh sách biên bản bàn giao</Title>
+          <Title level={4} style={{ color: '#003c71', margin: 0 }}>
+            Danh sách biên bản bàn giao
+          </Title>
         </Col>
         {/* <Col>
           <Button
@@ -430,8 +432,8 @@ const HandoverPage = () => {
   </Col> */}
       </Row>
 
-      <Row gutter={[16, 16]} className="mb-4">
-        <Col flex="auto">
+      <Row gutter={[16, 16]} className='mb-4'>
+        <Col flex='auto'>
           <Space wrap>
             <Select
               value={filters.status}
@@ -446,11 +448,11 @@ const HandoverPage = () => {
               ))}
             </Select>
             <RangePicker
-              format="DD/MM/YYYY"
+              format='DD/MM/YYYY'
               value={filters.dateRange}
               onChange={handleDateChange}
               loading={filterLoading.date}
-              disabledDate={(current) => current && current > dayjs().endOf('day')}
+              disabledDate={current => current && current > dayjs().endOf('day')}
               placeholder={['Từ ngày', 'Đến ngày']}
             />
           </Space>
@@ -460,7 +462,7 @@ const HandoverPage = () => {
       <Table
         columns={columns}
         dataSource={handovers}
-        rowKey="id"
+        rowKey='id'
         bordered
         loading={loading}
         pagination={{
@@ -471,7 +473,7 @@ const HandoverPage = () => {
           showSizeChanger: true,
           pageSizeOptions: ['15', '20', '50', '100'],
           defaultPageSize: 15,
-          showTotal: (total) => `Tổng số ${total}`
+          showTotal: total => `Tổng số ${total}`,
         }}
       />
     </Card>

@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { getSidebarConfig } from '../components/layout/sidebarConfig';
 
@@ -24,10 +24,10 @@ export const SidebarProvider = ({ children }) => {
   };
 
   // Xử lý thay đổi trạng thái sidebar
-  const handleSidebarChange = (newCollapsed) => {
+  const handleSidebarChange = newCollapsed => {
     setIsAnimating(true);
     setCollapsed(newCollapsed);
-    
+
     // Đợi animation hoàn thành (0.2s + buffer)
     setTimeout(() => {
       setIsAnimating(false);
@@ -38,11 +38,11 @@ export const SidebarProvider = ({ children }) => {
   // Tự động cập nhật trạng thái sidebar khi chuyển page
   useEffect(() => {
     const newConfig = getCurrentConfig();
-    
+
     // Đánh dấu sidebar chưa sẵn sàng
     setSidebarReady(false);
     setIsAnimating(true);
-    
+
     // Delay để đảm bảo page transition mượt mà và sidebar thu gọn xong
     const timer = setTimeout(() => {
       if (newConfig.autoCollapse) {
@@ -51,7 +51,7 @@ export const SidebarProvider = ({ children }) => {
         handleSidebarChange(newConfig.defaultCollapsed);
       }
     }, 150); // Tăng delay từ 100ms lên 150ms để mượt mà hơn
-    
+
     return () => clearTimeout(timer);
   }, [location.pathname]);
 
@@ -60,12 +60,8 @@ export const SidebarProvider = ({ children }) => {
     isAnimating,
     sidebarReady,
     setCollapsed: handleSidebarChange,
-    getCurrentConfig
+    getCurrentConfig,
   };
 
-  return (
-    <SidebarContext.Provider value={value}>
-      {children}
-    </SidebarContext.Provider>
-  );
-}; 
+  return <SidebarContext.Provider value={value}>{children}</SidebarContext.Provider>;
+};

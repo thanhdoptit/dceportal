@@ -1,8 +1,7 @@
-import React, { useCallback } from 'react';
-import { Form, Select, DatePicker, Row, Col, Space, Typography, Card, Spin, Input, message } from 'antd';
-import { SearchOutlined, LoadingOutlined } from '@ant-design/icons';
+import { Card, Col, DatePicker, Row, Select, Typography } from 'antd';
 import dayjs from 'dayjs';
 import PropTypes from 'prop-types';
+import React, { useCallback } from 'react';
 import { STATUS_LABELS } from '../../constants/taskStatus';
 import LocationSelect from '../common/LocationSelect';
 
@@ -10,22 +9,37 @@ const { Option } = Select;
 const { RangePicker } = DatePicker;
 const { Text } = Typography;
 
-export default function TaskFilters({ filters = {}, setFilters, filterLoading = {}, locations = [], locationsLoading = false, locationsError = null, onSearchChange, searchLoading = false }) {
+export default function TaskFilters({
+  filters = {},
+  setFilters,
+  filterLoading = {},
+  locations = [],
+  locationsLoading = false,
+  locationsError = null,
+  onSearchChange,
+  searchLoading = false,
+}) {
   // console.log('TaskFilters render:', { filters, locations: locations.length, locationsLoading, locationsError }); // Tắt debug log
 
-  const handleChange = useCallback((key, value) => {
-    setFilters(prev => ({ ...prev, [key]: value }));
-  }, [setFilters]);
+  const handleChange = useCallback(
+    (key, value) => {
+      setFilters(prev => ({ ...prev, [key]: value }));
+    },
+    [setFilters]
+  );
 
-  const handleSearchChange = useCallback((e) => {
-    const searchText = e.target.value;
-    // Sử dụng debounced search nếu có, ngược lại dùng handleChange
-    if (onSearchChange) {
-      onSearchChange(searchText);
-    } else {
-      handleChange('search', searchText);
-    }
-  }, [onSearchChange, handleChange]);
+  const handleSearchChange = useCallback(
+    e => {
+      const searchText = e.target.value;
+      // Sử dụng debounced search nếu có, ngược lại dùng handleChange
+      if (onSearchChange) {
+        onSearchChange(searchText);
+      } else {
+        handleChange('search', searchText);
+      }
+    },
+    [onSearchChange, handleChange]
+  );
 
   const handleSearchClear = useCallback(() => {
     // Xử lý khi click nút clear
@@ -36,7 +50,7 @@ export default function TaskFilters({ filters = {}, setFilters, filterLoading = 
     }
   }, [onSearchChange, handleChange]);
 
-  const handleDateChange = (dates) => {
+  const handleDateChange = dates => {
     if (dates && dates[0] && dates[1]) {
       const diffDays = dates[1].diff(dates[0], 'days');
       if (diffDays > 90) return;
@@ -49,7 +63,7 @@ export default function TaskFilters({ filters = {}, setFilters, filterLoading = 
 
   return (
     <Card style={{ marginBottom: '24px' }}>
-      <Row gutter={16} align="middle">
+      <Row gutter={16} align='middle'>
         {/* <Col>
           <Text strong>Tìm kiếm:</Text>
         </Col>
@@ -71,14 +85,16 @@ export default function TaskFilters({ filters = {}, setFilters, filterLoading = 
         <Col>
           <Select
             style={{ width: 180 }}
-            placeholder="Chọn trạng thái"
+            placeholder='Chọn trạng thái'
             value={filters.status || undefined}
             onChange={value => handleChange('status', value)}
             loading={filterLoading.status}
           >
-            <Option value="">Tất cả</Option>
+            <Option value=''>Tất cả</Option>
             {Object.entries(statusLabels).map(([value, label]) => (
-              <Option key={value} value={value}>{label}</Option>
+              <Option key={value} value={value}>
+                {label}
+              </Option>
             ))}
           </Select>
         </Col>
@@ -88,13 +104,13 @@ export default function TaskFilters({ filters = {}, setFilters, filterLoading = 
         <Col>
           <LocationSelect
             style={{ width: 180 }}
-            placeholder="Chọn địa điểm"
+            placeholder='Chọn địa điểm'
             value={filters.location || undefined}
             onChange={value => {
               console.log('Location filter changed:', value);
               handleChange('location', value);
             }}
-            onError={(error) => {
+            onError={error => {
               console.error('Error loading locations in filter:', error);
             }}
             locations={locations}
@@ -108,22 +124,22 @@ export default function TaskFilters({ filters = {}, setFilters, filterLoading = 
         <Col>
           <Select
             style={{ width: 180 }}
-            placeholder="Chọn loại thời gian"
+            placeholder='Chọn loại thời gian'
             value={filters.dateField || undefined}
             onChange={value => handleChange('dateField', value)}
             allowClear
           >
-            <Option value="checkInTime">Thời gian bắt đầu</Option>
-            <Option value="checkOutTime">Thời gian kết thúc</Option>
-            <Option value="createdAt">Ngày tạo</Option>
+            <Option value='checkInTime'>Thời gian bắt đầu</Option>
+            <Option value='checkOutTime'>Thời gian kết thúc</Option>
+            <Option value='createdAt'>Ngày tạo</Option>
           </Select>
         </Col>
         <Col>
           <RangePicker
-            format="DD/MM/YYYY"
+            format='DD/MM/YYYY'
             value={filters.dateRange}
             onChange={handleDateChange}
-            disabledDate={(current) => current && current > dayjs().endOf('day')}
+            disabledDate={current => current && current > dayjs().endOf('day')}
             placeholder={['Từ ngày', 'Đến ngày']}
             style={{ width: 300 }}
           />
@@ -140,15 +156,15 @@ TaskFilters.propTypes = {
     dateRange: PropTypes.array,
     statusLabels: PropTypes.object,
     location: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    search: PropTypes.string
+    search: PropTypes.string,
   }),
   setFilters: PropTypes.func.isRequired,
   filterLoading: PropTypes.shape({
-    status: PropTypes.bool
+    status: PropTypes.bool,
   }),
   searchLoading: PropTypes.bool,
   locations: PropTypes.array,
   locationsLoading: PropTypes.bool,
   locationsError: PropTypes.string,
-  onSearchChange: PropTypes.func
+  onSearchChange: PropTypes.func,
 };

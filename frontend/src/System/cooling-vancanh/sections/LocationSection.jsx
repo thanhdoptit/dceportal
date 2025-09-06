@@ -1,19 +1,18 @@
 import {
-    ApartmentOutlined,
-    CloudOutlined,
-    DownloadOutlined,
-    EnvironmentOutlined,
-    RadarChartOutlined,
-    SettingOutlined
+  ApartmentOutlined,
+  CloudOutlined,
+  DownloadOutlined,
+  EnvironmentOutlined,
+  RadarChartOutlined,
+  SettingOutlined,
 } from '@ant-design/icons';
 import { Alert, Button, Card, Col, Divider, Row, Space, Table, Tag, Typography } from 'antd';
 import '../../shared/styles/SystemSection.css';
 const { Title, Paragraph, Text } = Typography;
 
-
 const LocationSection = () => {
   // Function to handle drawing download
-  const handleDownload = (drawingCode) => {
+  const handleDownload = drawingCode => {
     const fileMapping = {
       'VTB-FC-M-302': 'VTB-FC-M-302- Layout of equipment on 1st FP-Layout1.pdf',
       'VTB-FC-M-303': 'VTB-FC-M-303- Layout of equipment on 2nd FP-Layout1.pdf',
@@ -24,7 +23,7 @@ const LocationSection = () => {
       'VTB-FC-M-502': 'VTB-FC-M-502 - Chiller water system for CRAC 2nd FP rev1-Layout1.pdf',
       'VTB-FC-M-503': 'VTB-FC-M-503 - Chiller water system for CRAC 3rd FP-Layout1.pdf',
       'VTB-FC-M-504': 'VTB-FC-M-504 - Chiller water system for CRAC 4th FP-Layout1.pdf',
-      'VTB-FC-M-505': 'VTB-FC-M-505 - Chiller water system from TES water tank - Copy-Layout1.pdf'
+      'VTB-FC-M-505': 'VTB-FC-M-505 - Chiller water system from TES water tank - Copy-Layout1.pdf',
     };
 
     const filename = fileMapping[drawingCode];
@@ -47,7 +46,7 @@ const LocationSection = () => {
       model: 'Máy làm lạnh nước giải nhiệt không khí',
       capacity: '632kW (180RT)',
       power: '194.6kW',
-      notes: '2 chạy, 1 dự phòng, điều khiển VFD'
+      notes: '2 chạy, 1 dự phòng, điều khiển VFD',
     },
     {
       key: '2',
@@ -57,7 +56,7 @@ const LocationSection = () => {
       model: 'Bơm nước lạnh',
       capacity: '25.3 L/s, 40mH2O',
       power: '22kW',
-      notes: '2 chạy, 1 dự phòng, VSD'
+      notes: '2 chạy, 1 dự phòng, VSD',
     },
     {
       key: '3',
@@ -67,7 +66,7 @@ const LocationSection = () => {
       model: 'CRAC nước lạnh',
       capacity: '102.8kW',
       power: '8kW',
-      notes: 'N+2, Thổi xuống, 4 máy tăng ẩm'
+      notes: 'N+2, Thổi xuống, 4 máy tăng ẩm',
     },
     {
       key: '4',
@@ -77,7 +76,7 @@ const LocationSection = () => {
       model: 'Đơn vị InRow nước lạnh',
       capacity: '21.6kW (7RT)',
       power: '1.5kW',
-      notes: 'N+1'
+      notes: 'N+1',
     },
     {
       key: '5',
@@ -87,7 +86,7 @@ const LocationSection = () => {
       model: 'CRAC nước lạnh',
       capacity: '64.4kW (18RT)',
       power: '3kW',
-      notes: 'N+N, Thổi xuống'
+      notes: 'N+N, Thổi xuống',
     },
     {
       key: '6',
@@ -97,7 +96,7 @@ const LocationSection = () => {
       model: 'CRAC nước lạnh',
       capacity: '79.8kW (23RT)',
       power: '15kW',
-      notes: 'N+N, Thổi xuống'
+      notes: 'N+N, Thổi xuống',
     },
     {
       key: '7',
@@ -107,7 +106,7 @@ const LocationSection = () => {
       model: 'CRAC nước lạnh',
       capacity: '9.5kW (3RT)',
       power: '2kW',
-      notes: 'N+N, Thổi xuống'
+      notes: 'N+N, Thổi xuống',
     },
     {
       key: '8',
@@ -117,11 +116,9 @@ const LocationSection = () => {
       model: 'CRAC nước lạnh',
       capacity: '15.6kW (5RT)',
       power: '3kW',
-      notes: 'N+N, Thổi xuống'
-    }
+      notes: 'N+N, Thổi xuống',
+    },
   ];
-
-
 
   // Chilled Water System Layout
   const chilledWaterSystemData = [
@@ -131,7 +128,7 @@ const LocationSection = () => {
       drawing: 'VTB-FC-M-501',
       description: 'Hệ thống nước lạnh cho CRAC tầng 1',
       equipment: 'DC Hall, Phòng điện, Phòng ắc quy',
-      scale: '1/125'
+      scale: '1/125',
     },
     {
       key: '2',
@@ -139,7 +136,7 @@ const LocationSection = () => {
       drawing: 'VTB-FC-M-502',
       description: 'Hệ thống nước lạnh cho CRAC tầng 2',
       equipment: 'Hub Rooms, Thư viện bang',
-      scale: '1/125'
+      scale: '1/125',
     },
     {
       key: '3',
@@ -147,7 +144,7 @@ const LocationSection = () => {
       drawing: 'VTB-FC-M-503',
       description: 'Hệ thống nước lạnh cho CRAC tầng 3',
       equipment: 'Khu vực văn phòng',
-      scale: '1/125'
+      scale: '1/125',
     },
     {
       key: '4',
@@ -155,7 +152,7 @@ const LocationSection = () => {
       drawing: 'VTB-FC-M-504',
       description: 'Hệ thống nước lạnh cho CRAC tầng 4',
       equipment: 'Khu vực kỹ thuật',
-      scale: '1/125'
+      scale: '1/125',
     },
     {
       key: '5',
@@ -163,40 +160,40 @@ const LocationSection = () => {
       drawing: 'VTB-FC-M-505',
       description: 'Hệ thống nước lạnh từ bể TES',
       equipment: 'Kết nối bể TES với hệ thống chính',
-      scale: '1/50'
-    }
+      scale: '1/50',
+    },
   ];
 
   return (
-    <div id="section-4" className="content-section">
-      <Title level={2} >
+    <div id='section-4' className='content-section'>
+      <Title level={2}>
         <EnvironmentOutlined style={{ marginRight: '12px' }} />
         4. VỊ TRÍ HỆ THỐNG - TTDL Vân Canh
       </Title>
 
       <Alert
-        message="Thông tin từ bản vẽ kỹ thuật chính thức"
-        description="Dữ liệu vị trí thiết bị được trích xuất từ 29 bản vẽ HVAC chính thức của TTDL Vân Canh, bao gồm layout, schematic và as-built drawings."
-        type="info"
+        message='Thông tin từ bản vẽ kỹ thuật chính thức'
+        description='Dữ liệu vị trí thiết bị được trích xuất từ 29 bản vẽ HVAC chính thức của TTDL Vân Canh, bao gồm layout, schematic và as-built drawings.'
+        type='info'
         showIcon
         style={{ marginBottom: '24px' }}
       />
 
-      <div id="section-4-1" className="subsection">
-        <Card >
-          <Title level={3} className="subsection-title">
+      <div id='section-4-1' className='subsection'>
+        <Card>
+          <Title level={3} className='subsection-title'>
             <ApartmentOutlined style={{ marginRight: '8px' }} />
             4.1. Sơ đồ bố trí tổng thể
           </Title>
 
           <Alert
-            message="Bản vẽ tổng thể TTDL Vân Canh"
-            description="Hệ thống làm mát được phân bố trên 4 tầng với thiết bị chính tại Terrace Floor"
-            type="success"
+            message='Bản vẽ tổng thể TTDL Vân Canh'
+            description='Hệ thống làm mát được phân bố trên 4 tầng với thiết bị chính tại Terrace Floor'
+            type='success'
             showIcon
             style={{ marginBottom: '20px' }}
           />
- {/* <div style={{ marginBottom: '20px', alignItems: 'center' }}> 
+          {/* <div style={{ marginBottom: '20px', alignItems: 'center' }}> 
   <HVACSystemDiagram /></div> */}
 
           {/* <Tabs
@@ -370,9 +367,9 @@ const LocationSection = () => {
 
       <Divider />
 
-      <div id="section-4-2" className="subsection">
-        <Card >
-          <Title level={3} >
+      <div id='section-4-2' className='subsection'>
+        <Card>
+          <Title level={3}>
             <SettingOutlined style={{ marginRight: '8px' }} />
             4.2. Vị trí các thiết bị chính
           </Title>
@@ -385,52 +382,52 @@ const LocationSection = () => {
                 dataIndex: 'equipment',
                 key: 'equipment',
                 width: '20%',
-                render: (text) => <Text strong>{text}</Text>
+                render: text => <Text strong>{text}</Text>,
               },
               {
                 title: 'SL',
                 dataIndex: 'quantity',
                 key: 'quantity',
                 width: '8%',
-                render: (text) => <Tag color="blue">{text}</Tag>
+                render: text => <Tag color='blue'>{text}</Tag>,
               },
               {
                 title: 'Vị trí',
                 dataIndex: 'location',
                 key: 'location',
                 width: '20%',
-                render: (text) => <Text type="success">{text}</Text>
+                render: text => <Text type='success'>{text}</Text>,
               },
               {
                 title: 'Model',
                 dataIndex: 'model',
                 key: 'model',
-                width: '15%'
+                width: '15%',
               },
               {
                 title: 'Công suất',
                 dataIndex: 'capacity',
                 key: 'capacity',
                 width: '15%',
-                render: (text) => <Tag color="green">{text}</Tag>
+                render: text => <Tag color='green'>{text}</Tag>,
               },
               {
                 title: 'Điện',
                 dataIndex: 'power',
                 key: 'power',
                 width: '10%',
-                render: (text) => <Tag color="orange">{text}</Tag>
+                render: text => <Tag color='orange'>{text}</Tag>,
               },
               {
                 title: 'Ghi chú',
                 dataIndex: 'notes',
                 key: 'notes',
                 width: '12%',
-                render: (text) => <Text type="secondary">{text}</Text>
-              }
+                render: text => <Text type='secondary'>{text}</Text>,
+              },
             ]}
             pagination={false}
-            size="small"
+            size='small'
             bordered
             scroll={{ x: 1200 }}
           />
@@ -439,17 +436,17 @@ const LocationSection = () => {
 
       <Divider />
 
-      <div id="section-4-3" className="subsection">
-        <Card >
-          <Title level={3} >
+      <div id='section-4-3' className='subsection'>
+        <Card>
+          <Title level={3}>
             <RadarChartOutlined style={{ marginRight: '8px' }} />
             4.3. Đường ống và hệ thống phân phối
           </Title>
 
           <Alert
-            message="Hệ thống nước lạnh phân tầng"
-            description="Hệ thống nước lạnh được phân phối từ Terrace Floor xuống các tầng thông qua 5 schematic chính"
-            type="info"
+            message='Hệ thống nước lạnh phân tầng'
+            description='Hệ thống nước lạnh được phân phối từ Terrace Floor xuống các tầng thông qua 5 schematic chính'
+            type='info'
             showIcon
             style={{ marginBottom: '20px' }}
           />
@@ -462,68 +459,82 @@ const LocationSection = () => {
                 dataIndex: 'system',
                 key: 'system',
                 width: '20%',
-                render: (text) => <Text strong>{text}</Text>
+                render: text => <Text strong>{text}</Text>,
               },
               {
                 title: 'Bản vẽ',
                 dataIndex: 'drawing',
                 key: 'drawing',
                 width: '15%',
-                render: (text) => <Text code>{text}</Text>
+                render: text => <Text code>{text}</Text>,
               },
               {
                 title: 'Mô tả',
                 dataIndex: 'description',
                 key: 'description',
-                width: '35%'
+                width: '35%',
               },
               {
                 title: 'Khu vực phục vụ',
                 dataIndex: 'equipment',
                 key: 'equipment',
                 width: '25%',
-                render: (text) => <Tag color="cyan">{text}</Tag>
+                render: text => <Tag color='cyan'>{text}</Tag>,
               },
               {
                 title: 'Tỷ lệ',
                 dataIndex: 'scale',
                 key: 'scale',
                 width: '5%',
-                render: (text) => <Tag color="purple">{text}</Tag>
+                render: text => <Tag color='purple'>{text}</Tag>,
               },
               {
                 title: 'Tải bản vẽ',
                 dataIndex: 'drawing',
                 key: 'download',
                 width: '10%',
-                render: (drawingCode) => (
+                render: drawingCode => (
                   <Button
-                    type="primary"
-                    size="small"
+                    type='primary'
+                    size='small'
                     icon={<DownloadOutlined />}
-                    className="download-button"
+                    className='download-button'
                     onClick={() => handleDownload(drawingCode)}
                     title={`Tải ${drawingCode}.pdf`}
                   >
                     PDF
                   </Button>
-                )
-              }
+                ),
+              },
             ]}
             pagination={false}
-            size="small"
+            size='small'
             bordered
           />
 
-          <div className="system-features">
-            <Title level={4} className="feature-title">Đặc điểm hệ thống đường ống:</Title>
-            <Space direction="vertical" size="small">
-              <Text>• <strong>Cấp chính:</strong> Từ tầng thượng (Chiller + Pump) xuống các tầng</Text>
-              <Text>• <strong>Tích hợp TES:</strong> Bản vẽ VTB-FC-M-505 cho kết nối bể TES</Text>
-              <Text>• <strong>Phân phối theo tầng:</strong> Mỗi tầng có sơ đồ riêng (VTB-FC-M-501~504)</Text>
-              <Text>• <strong>Kích thước ống:</strong> Chính DN150, Nhánh DN80-DN100, Đầu cuối DN50</Text>
-              <Text>• <strong>Lưu lượng:</strong> Tổng 75.9 L/s (3 bơm × 25.3 L/s)</Text>
-              <Text>• <strong>Áp suất:</strong> Áp suất thiết kế 40mH2O</Text>
+          <div className='system-features'>
+            <Title level={4} className='feature-title'>
+              Đặc điểm hệ thống đường ống:
+            </Title>
+            <Space direction='vertical' size='small'>
+              <Text>
+                • <strong>Cấp chính:</strong> Từ tầng thượng (Chiller + Pump) xuống các tầng
+              </Text>
+              <Text>
+                • <strong>Tích hợp TES:</strong> Bản vẽ VTB-FC-M-505 cho kết nối bể TES
+              </Text>
+              <Text>
+                • <strong>Phân phối theo tầng:</strong> Mỗi tầng có sơ đồ riêng (VTB-FC-M-501~504)
+              </Text>
+              <Text>
+                • <strong>Kích thước ống:</strong> Chính DN150, Nhánh DN80-DN100, Đầu cuối DN50
+              </Text>
+              <Text>
+                • <strong>Lưu lượng:</strong> Tổng 75.9 L/s (3 bơm × 25.3 L/s)
+              </Text>
+              <Text>
+                • <strong>Áp suất:</strong> Áp suất thiết kế 40mH2O
+              </Text>
             </Space>
           </div>
         </Card>
@@ -531,25 +542,25 @@ const LocationSection = () => {
 
       <Divider />
 
-      <div id="section-4-4" className="subsection">
-        <Card >
-          <Title level={3} >
+      <div id='section-4-4' className='subsection'>
+        <Card>
+          <Title level={3}>
             <CloudOutlined style={{ marginRight: '8px' }} />
             4.4. Hệ thống thông gió và hút khói
           </Title>
 
           <Alert
-            message="Hệ thống thông gió HVAC"
-            description="Hệ thống thông gió và hút khói được thiết kế để đảm bảo chất lượng không khí và an toàn phòng cháy chữa cháy"
-            type="success"
+            message='Hệ thống thông gió HVAC'
+            description='Hệ thống thông gió và hút khói được thiết kế để đảm bảo chất lượng không khí và an toàn phòng cháy chữa cháy'
+            type='success'
             showIcon
             style={{ marginBottom: '20px' }}
           />
 
           <Row gutter={[16, 16]}>
             <Col xs={24} lg={12}>
-              <Card size="small" title="Hệ thống thông gió">
-                <div className="feature-content">
+              <Card size='small' title='Hệ thống thông gió'>
+                <div className='feature-content'>
                   <Text strong>Thiết bị chính:</Text>
                   <ul>
                     <li>PAU-01: 850 L/s (Tầng thượng)</li>
@@ -561,8 +572,8 @@ const LocationSection = () => {
               </Card>
             </Col>
             <Col xs={24} lg={12}>
-              <Card size="small" title="Hệ thống hút khói">
-                <div className="feature-content">
+              <Card size='small' title='Hệ thống hút khói'>
+                <div className='feature-content'>
                   <Text strong>Chức năng:</Text>
                   <ul>
                     <li>Hút khói khi có cháy</li>

@@ -12,7 +12,7 @@ export default function TablePagination({ current, total, onChange, className })
         onChange={onChange}
         showSizeChanger
         showQuickJumper
-        showTotal={(total) => `Tổng số ${total} mục`}
+        showTotal={total => `Tổng số ${total} mục`}
       />
     </div>
   );
@@ -22,5 +22,5 @@ TablePagination.propTypes = {
   current: PropTypes.number.isRequired,
   total: PropTypes.number.isRequired,
   onChange: PropTypes.func.isRequired,
-  className: PropTypes.string
-}; 
+  className: PropTypes.string,
+};

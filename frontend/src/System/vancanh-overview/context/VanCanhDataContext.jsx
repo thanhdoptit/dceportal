@@ -7,56 +7,56 @@ export const VanCanhDataContext = createContext({
     overview: {
       milestones: [],
       standards: [],
-      comparisons: []
+      comparisons: [],
     },
     // Dữ liệu kiến trúc
     architecture: {
       zones: [],
       standards: [],
-      design: []
+      design: [],
     },
     // Dữ liệu hệ thống điện
     power: {
       substations: [],
       ups: [],
-      distribution: []
+      distribution: [],
     },
     // Dữ liệu hệ thống làm mát
     cooling: {
       chillers: [],
       pacs: [],
-      tes: []
+      tes: [],
     },
     // Dữ liệu hệ thống PCCC
     fireProtection: {
       gasSystems: [],
       smokeDetection: [],
-      monitoring: []
+      monitoring: [],
     },
     // Dữ liệu hệ thống an ninh
     security: {
       cctv: [],
       accessControl: [],
-      pa: []
+      pa: [],
     },
     // Dữ liệu hệ thống mạng
     network: {
       fiber: [],
       copper: [],
-      activeActive: []
+      activeActive: [],
     },
     // Dữ liệu hệ thống rack
     rack: {
       servers: [],
       capacity: [],
-      containment: []
+      containment: [],
     },
     // Dữ liệu hiệu quả và rủi ro
     risk: {
       effectiveness: [],
       risks: [],
-      solutions: []
-    }
+      solutions: [],
+    },
   },
   isLoading: true,
   isFullyLoaded: false,
@@ -69,5 +69,5 @@ export const VanCanhDataContext = createContext({
   getSystemsByType: () => [],
   getActiveSystem: () => null,
   getRiskLevel: () => 'low',
-  getEffectivenessScore: () => 0
+  getEffectivenessScore: () => 0,
 });

@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import { Card, Form, Input, Button, Space, Radio, Row, Col, Checkbox, message } from 'antd';
+import { Button, Card, Col, Form, Input, message, Radio, Row } from 'antd';
 import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -26,7 +26,7 @@ const DeviceCheckFormPage = () => {
       setLoading(true);
       const token = localStorage.getItem('token');
       const response = await axios.get(`${API_URL}/api/shifts/${id}/device-check`, {
-        headers: { Authorization: `Bearer ${token}` }
+        headers: { Authorization: `Bearer ${token}` },
       });
 
       if (response.data) {
@@ -45,7 +45,7 @@ const DeviceCheckFormPage = () => {
       setLoading(true);
       const token = localStorage.getItem('token');
       const response = await axios.get(`${API_URL}/api/shifts/current`, {
-        headers: { Authorization: `Bearer ${token}` }
+        headers: { Authorization: `Bearer ${token}` },
       });
 
       if (response.data?.shift) {
@@ -58,7 +58,7 @@ const DeviceCheckFormPage = () => {
     }
   };
 
-  const handleSubmit = async (values) => {
+  const handleSubmit = async values => {
     try {
       setLoading(true);
       const token = localStorage.getItem('token');
@@ -67,12 +67,16 @@ const DeviceCheckFormPage = () => {
         ? `${API_URL}/api/shifts/${id}/device-check`
         : `${API_URL}/api/shifts/device-check`;
 
-      const response = await axios.post(endpoint, {
-        workShiftId: currentShift.id,
-        deviceCheckForm: values
-      }, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
+      const response = await axios.post(
+        endpoint,
+        {
+          workShiftId: currentShift.id,
+          deviceCheckForm: values,
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
 
       if (response.data) {
         message.success('Lưu thông tin kiểm tra thiết bị thành công');
@@ -94,8 +98,8 @@ const DeviceCheckFormPage = () => {
         location: '',
         description: '',
         currentWork: '',
-        nextActions: ''
-      }
+        nextActions: '',
+      },
     },
     ups: {
       status: 'normal',
@@ -105,8 +109,8 @@ const DeviceCheckFormPage = () => {
         location: '',
         description: '',
         currentWork: '',
-        nextActions: ''
-      }
+        nextActions: '',
+      },
     },
     cooling: {
       status: 'normal',
@@ -116,8 +120,8 @@ const DeviceCheckFormPage = () => {
         location: '',
         description: '',
         currentWork: '',
-        nextActions: ''
-      }
+        nextActions: '',
+      },
     },
     surveillance: {
       status: 'normal',
@@ -127,8 +131,8 @@ const DeviceCheckFormPage = () => {
         location: '',
         description: '',
         currentWork: '',
-        nextActions: ''
-      }
+        nextActions: '',
+      },
     },
     accessControl: {
       status: 'normal',
@@ -138,8 +142,8 @@ const DeviceCheckFormPage = () => {
         location: '',
         description: '',
         currentWork: '',
-        nextActions: ''
-      }
+        nextActions: '',
+      },
     },
     fireSystem: {
       status: 'normal',
@@ -149,8 +153,8 @@ const DeviceCheckFormPage = () => {
         location: '',
         description: '',
         currentWork: '',
-        nextActions: ''
-      }
+        nextActions: '',
+      },
     },
     dataCenter: {
       status: 'normal',
@@ -160,34 +164,29 @@ const DeviceCheckFormPage = () => {
         location: '',
         description: '',
         currentWork: '',
-        nextActions: ''
-      }
-    }
+        nextActions: '',
+      },
+    },
   };
 
   if (loading) {
-    return <div className="text-center py-4">Đang tải...</div>;
+    return <div className='text-center py-4'>Đang tải...</div>;
   }
 
   if (!currentShift) {
-    return <div className="text-center py-4">Không tìm thấy thông tin ca làm việc</div>;
+    return <div className='text-center py-4'>Không tìm thấy thông tin ca làm việc</div>;
   }
 
   return (
-    <div className="p-6">
+    <div className='p-6'>
       <Card title={`Kiểm tra thiết bị - Ca ${currentShift.code}`}>
-        <Form
-          form={form}
-          layout="vertical"
-          initialValues={initialValues}
-          onFinish={handleSubmit}
-        >
+        <Form form={form} layout='vertical' initialValues={initialValues} onFinish={handleSubmit}>
           {/* Hệ thống phân phối điện UPS */}
-          <Card title="1. Hệ thống phân phối điện UPS" className="mb-4">
+          <Card title='1. Hệ thống phân phối điện UPS' className='mb-4'>
             <Form.Item name={['powerDistribution', 'status']}>
               <Radio.Group>
-                <Radio value="normal">Hoạt động bình thường</Radio>
-                <Radio value="error">Có lỗi</Radio>
+                <Radio value='normal'>Hoạt động bình thường</Radio>
+                <Radio value='error'>Có lỗi</Radio>
               </Radio.Group>
             </Form.Item>
             <Form.Item
@@ -198,11 +197,11 @@ const DeviceCheckFormPage = () => {
             >
               {({ getFieldValue }) =>
                 getFieldValue(['powerDistribution', 'status']) === 'error' && (
-                  <div className="bg-gray-50 p-4 rounded">
+                  <div className='bg-gray-50 p-4 rounded'>
                     <Row gutter={16}>
                       <Col span={12}>
                         <Form.Item
-                          label="Tên thiết bị"
+                          label='Tên thiết bị'
                           name={['powerDistribution', 'error', 'deviceName']}
                         >
                           <Input />
@@ -210,33 +209,30 @@ const DeviceCheckFormPage = () => {
                       </Col>
                       <Col span={12}>
                         <Form.Item
-                          label="Số serial"
+                          label='Số serial'
                           name={['powerDistribution', 'error', 'serialNumber']}
                         >
                           <Input />
                         </Form.Item>
                       </Col>
                     </Row>
-                    <Form.Item
-                      label="Vị trí"
-                      name={['powerDistribution', 'error', 'location']}
-                    >
+                    <Form.Item label='Vị trí' name={['powerDistribution', 'error', 'location']}>
                       <Input />
                     </Form.Item>
                     <Form.Item
-                      label="Mô tả lỗi"
+                      label='Mô tả lỗi'
                       name={['powerDistribution', 'error', 'description']}
                     >
                       <Input.TextArea rows={3} />
                     </Form.Item>
                     <Form.Item
-                      label="Công việc đang xử lý"
+                      label='Công việc đang xử lý'
                       name={['powerDistribution', 'error', 'currentWork']}
                     >
                       <Input.TextArea rows={3} />
                     </Form.Item>
                     <Form.Item
-                      label="Đề xuất xử lý tiếp theo"
+                      label='Đề xuất xử lý tiếp theo'
                       name={['powerDistribution', 'error', 'nextActions']}
                     >
                       <Input.TextArea rows={3} />
@@ -250,11 +246,9 @@ const DeviceCheckFormPage = () => {
           {/* Các hệ thống khác tương tự */}
           {/* ... */}
 
-          <div className="flex justify-end gap-2">
-            <Button onClick={() => navigate('/dc/device-check')}>
-              Quay lại
-            </Button>
-            <Button type="primary" htmlType="submit" loading={loading}>
+          <div className='flex justify-end gap-2'>
+            <Button onClick={() => navigate('/dc/device-check')}>Quay lại</Button>
+            <Button type='primary' htmlType='submit' loading={loading}>
               {isEdit ? 'Cập nhật' : 'Tạo mới'}
             </Button>
           </div>

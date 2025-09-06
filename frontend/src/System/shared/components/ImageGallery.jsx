@@ -1,11 +1,10 @@
-import React from 'react';
-import { Image, Row, Col } from 'antd';
+import { Col, Image, Row } from 'antd';
 
 const { PreviewGroup } = Image;
 
 /**
  * Component ImageGallery - Hiển thị gallery ảnh dạng grid với preview
- * 
+ *
  * @param {Object} props - Props của component
  * @param {Array} props.images - Mảng các ảnh
  * @param {number} props.columns - Số cột hiển thị (mặc định: 3)
@@ -24,17 +23,19 @@ const ImageGallery = ({
   maskText = 'Xem ảnh',
   maskClassName = 'custom-mask',
   style = {},
-  fallbackText = 'Không có ảnh nào'
+  fallbackText = 'Không có ảnh nào',
 }) => {
   // Nếu không có ảnh, hiển thị fallback
   if (!images || images.length === 0) {
     return (
-      <div style={{ 
-        textAlign: 'center', 
-        padding: '20px', 
-        color: '#999',
-        ...style 
-      }}>
+      <div
+        style={{
+          textAlign: 'center',
+          padding: '20px',
+          color: '#999',
+          ...style,
+        }}
+      >
         {fallbackText}
       </div>
     );
@@ -63,20 +64,22 @@ const ImageGallery = ({
                   objectFit: 'cover',
                   borderRadius: '8px',
                   boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
-                  cursor: 'pointer'
+                  cursor: 'pointer',
                 }}
                 preview={{
                   mask: maskText,
-                  maskClassName: maskClassName
+                  maskClassName: maskClassName,
                 }}
               />
               {image.caption && (
-                <div style={{
-                  textAlign: 'center',
-                  marginTop: '8px',
-                  fontSize: '12px',
-                  color: '#666'
-                }}>
+                <div
+                  style={{
+                    textAlign: 'center',
+                    marginTop: '8px',
+                    fontSize: '12px',
+                    color: '#666',
+                  }}
+                >
                   {image.caption}
                 </div>
               )}

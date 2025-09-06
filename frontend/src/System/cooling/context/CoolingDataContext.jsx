@@ -7,26 +7,26 @@ export const CoolingDataContext = createContext({
     devices: {
       uniflair: [],
       apc: [],
-      afm: []
+      afm: [],
     },
     // Dữ liệu vận hành
     operations: {
       procedures: [],
       schedules: [],
-      errors: []
+      errors: [],
     },
     // Dữ liệu an toàn
     safety: {
       procedures: [],
       maintenance: [],
-      alerts: []
+      alerts: [],
     },
     // Dữ liệu tài liệu
     documentation: {
       manuals: [],
       drawings: [],
-      references: []
-    }
+      references: [],
+    },
   },
   isLoading: true,
   isFullyLoaded: false,
@@ -39,5 +39,5 @@ export const CoolingDataContext = createContext({
   getDevicesByStatus: () => [],
   getActiveOperationMode: () => null,
   getMaintenanceSchedule: () => [],
-  getSafetyAlerts: () => []
+  getSafetyAlerts: () => [],
 });

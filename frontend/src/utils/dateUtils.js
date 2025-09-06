@@ -39,7 +39,7 @@ export const formatDate = (date, formatStr = DATE_FORMATS.DATE) => {
  * @param {string} timeStr - Time string in HH:mm format
  * @returns {string} Formatted time string
  */
-export const formatTime = (timeStr) => {
+export const formatTime = timeStr => {
   if (!timeStr) return '';
   try {
     if (timeStr.includes(':')) {
@@ -57,7 +57,7 @@ export const formatTime = (timeStr) => {
  * @param {string|Date} datetime - Date object hoặc ISO string
  * @returns {string} Formatted date time string
  */
-export const formatDateTime = (datetime) => {
+export const formatDateTime = datetime => {
   return formatDate(datetime, DATE_FORMATS.DATE_TIME);
 };
 
@@ -66,7 +66,7 @@ export const formatDateTime = (datetime) => {
  * @param {string|Date} date - Date object hoặc ISO string
  * @returns {string} Formatted date string for input
  */
-export const formatDateForInput = (date) => {
+export const formatDateForInput = date => {
   return formatDate(date, DATE_FORMATS.INPUT_DATE_TIME);
 };
 
@@ -75,7 +75,7 @@ export const formatDateForInput = (date) => {
  * @param {string} dateStr - Date string to validate
  * @returns {boolean} True if valid date
  */
-export const isValidDate = (dateStr) => {
+export const isValidDate = dateStr => {
   if (!dateStr) return false;
   const date = new Date(dateStr);
   return date instanceof Date && !isNaN(date);
@@ -91,4 +91,4 @@ export const compareDates = (date1, date2) => {
   const d1 = new Date(date1);
   const d2 = new Date(date2);
   return d1 < d2 ? -1 : d1 > d2 ? 1 : 0;
-}; 
+};

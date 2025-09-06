@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { CoolingDataContext } from './CoolingDataContext.jsx';
 
 // Provider component cho hệ thống làm mát Hòa Lạc
@@ -8,26 +8,26 @@ export const CoolingDataProvider = ({ children }) => {
     devices: {
       uniflair: [],
       apc: [],
-      afm: []
+      afm: [],
     },
     // Dữ liệu vận hành
     operations: {
       procedures: [],
       schedules: [],
-      errors: []
+      errors: [],
     },
     // Dữ liệu an toàn
     safety: {
       procedures: [],
       maintenance: [],
-      alerts: []
+      alerts: [],
     },
     // Dữ liệu tài liệu
     documentation: {
       manuals: [],
       drawings: [],
-      references: []
-    }
+      references: [],
+    },
   });
 
   const [isLoading, setIsLoading] = useState(true);
@@ -41,7 +41,7 @@ export const CoolingDataProvider = ({ children }) => {
   const loadSectionData = async (sectionName, delay = 200) => {
     setCurrentLoadingSection(sectionName);
     await new Promise(resolve => setTimeout(resolve, delay));
-    setLoadingProgress(prev => prev + (100 / 6)); // 6 sections total
+    setLoadingProgress(prev => prev + 100 / 6); // 6 sections total
     setLoadedSections(prev => new Set([...prev, sectionName]));
   };
 
@@ -75,7 +75,7 @@ export const CoolingDataProvider = ({ children }) => {
               quantity: 2,
               status: 'online',
               temperature: 22.1,
-              humidity: 48
+              humidity: 48,
             },
             {
               id: 'tdav2242a',
@@ -85,7 +85,7 @@ export const CoolingDataProvider = ({ children }) => {
               quantity: 3,
               status: 'online',
               temperature: 22.0,
-              humidity: 47
+              humidity: 47,
             },
             {
               id: 'tdav2842a',
@@ -95,8 +95,8 @@ export const CoolingDataProvider = ({ children }) => {
               quantity: 3,
               status: 'online',
               temperature: 21.9,
-              humidity: 46
-            }
+              humidity: 46,
+            },
           ],
           apc: [
             {
@@ -107,7 +107,7 @@ export const CoolingDataProvider = ({ children }) => {
               quantity: 5,
               status: 'online',
               temperature: 22.2,
-              humidity: 49
+              humidity: 49,
             },
             {
               id: 'acrp102',
@@ -117,8 +117,8 @@ export const CoolingDataProvider = ({ children }) => {
               quantity: 4,
               status: 'online',
               temperature: 22.1,
-              humidity: 48
-            }
+              humidity: 48,
+            },
           ],
           afm: [
             {
@@ -129,9 +129,9 @@ export const CoolingDataProvider = ({ children }) => {
               quantity: 10,
               status: 'online',
               fanSpeed: '2 tốc độ',
-              fanPower: '200 W'
-            }
-          ]
+              fanPower: '200 W',
+            },
+          ],
         };
 
         // Load dữ liệu vận hành
@@ -139,18 +139,18 @@ export const CoolingDataProvider = ({ children }) => {
           procedures: [
             { id: 'daily-operation', name: 'Quy trình vận hành hàng ngày', steps: 8 },
             { id: 'error-handling', name: 'Xử lý mã lỗi', steps: 12 },
-            { id: 'maintenance', name: 'Bảo trì định kỳ', steps: 15 }
+            { id: 'maintenance', name: 'Bảo trì định kỳ', steps: 15 },
           ],
           schedules: [
             { id: 'daily', name: 'Kiểm tra hàng ngày', time: '08:00' },
             { id: 'weekly', name: 'Bảo trì hàng tuần', time: '09:00' },
-            { id: 'monthly', name: 'Bảo trì hàng tháng', time: '10:00' }
+            { id: 'monthly', name: 'Bảo trì hàng tháng', time: '10:00' },
           ],
           errors: [
             { id: 'tdav-errors', name: 'Lỗi TDAV Series', count: 9 },
             { id: 'apc-errors', name: 'Lỗi APC Series', count: 7 },
-            { id: 'afm-errors', name: 'Lỗi AFM Series', count: 5 }
-          ]
+            { id: 'afm-errors', name: 'Lỗi AFM Series', count: 5 },
+          ],
         };
 
         // Load dữ liệu an toàn
@@ -158,17 +158,17 @@ export const CoolingDataProvider = ({ children }) => {
           procedures: [
             { id: 'emergency', name: 'Quy trình khẩn cấp', priority: 'high' },
             { id: 'lockout', name: 'Lockout/Tagout', priority: 'high' },
-            { id: 'ppe', name: 'Trang bị bảo hộ', priority: 'medium' }
+            { id: 'ppe', name: 'Trang bị bảo hộ', priority: 'medium' },
           ],
           maintenance: [
             { id: 'filter', name: 'Thay lọc', interval: '3 months' },
             { id: 'belt', name: 'Kiểm tra dây curoa', interval: '6 months' },
-            { id: 'refrigerant', name: 'Kiểm tra gas', interval: '12 months' }
+            { id: 'refrigerant', name: 'Kiểm tra gas', interval: '12 months' },
           ],
           alerts: [
             { id: 'temp-high', message: 'Nhiệt độ cao', level: 'warning' },
-            { id: 'pressure-low', message: 'Áp suất thấp', level: 'info' }
-          ]
+            { id: 'pressure-low', message: 'Áp suất thấp', level: 'info' },
+          ],
         };
 
         // Load dữ liệu tài liệu
@@ -176,17 +176,17 @@ export const CoolingDataProvider = ({ children }) => {
           manuals: [
             { id: 'uniflair-manual', name: 'Hướng dẫn UNIFLAIR TDAV', type: 'PDF' },
             { id: 'apc-manual', name: 'Hướng dẫn APC FM40H/ACRP', type: 'PDF' },
-            { id: 'afm-manual', name: 'Hướng dẫn AFM4500B', type: 'PDF' }
+            { id: 'afm-manual', name: 'Hướng dẫn AFM4500B', type: 'PDF' },
           ],
           drawings: [
             { id: 'piping', name: 'Sơ đồ đường ống', type: 'DWG' },
             { id: 'electrical', name: 'Sơ đồ điện', type: 'DWG' },
-            { id: 'layout', name: 'Bố trí thiết bị', type: 'DWG' }
+            { id: 'layout', name: 'Bố trí thiết bị', type: 'DWG' },
           ],
           references: [
             { id: 'ashrae', name: 'Tiêu chuẩn ASHRAE', type: 'Standard' },
-            { id: 'uptime', name: 'Tiêu chuẩn Uptime', type: 'Standard' }
-          ]
+            { id: 'uptime', name: 'Tiêu chuẩn Uptime', type: 'Standard' },
+          ],
         };
 
         // Cập nhật state với tất cả dữ liệu
@@ -194,7 +194,7 @@ export const CoolingDataProvider = ({ children }) => {
           devices: devicesData,
           operations: operationsData,
           safety: safetyData,
-          documentation: documentationData
+          documentation: documentationData,
         });
 
         // Đảm bảo tất cả sections đã load xong
@@ -202,7 +202,6 @@ export const CoolingDataProvider = ({ children }) => {
         setIsFullyLoaded(true);
         setLoadingProgress(100);
         setCurrentLoadingSection('');
-        
       } catch (err) {
         setError(err.message);
         setIsLoading(false);
@@ -227,23 +226,29 @@ export const CoolingDataProvider = ({ children }) => {
   }, [isLoading]);
 
   // Memoize các hàm helper để tránh re-render
-  const getDeviceById = useCallback((deviceId) => {
-    const allDevices = [
-      ...systemData.devices.uniflair,
-      ...systemData.devices.apc,
-      ...systemData.devices.afm
-    ];
-    return allDevices.find(device => device.id === deviceId);
-  }, [systemData.devices]);
+  const getDeviceById = useCallback(
+    deviceId => {
+      const allDevices = [
+        ...systemData.devices.uniflair,
+        ...systemData.devices.apc,
+        ...systemData.devices.afm,
+      ];
+      return allDevices.find(device => device.id === deviceId);
+    },
+    [systemData.devices]
+  );
 
-  const getDevicesByStatus = useCallback((status) => {
-    const allDevices = [
-      ...systemData.devices.uniflair,
-      ...systemData.devices.apc,
-      ...systemData.devices.afm
-    ];
-    return allDevices.filter(device => device.status === status);
-  }, [systemData.devices]);
+  const getDevicesByStatus = useCallback(
+    status => {
+      const allDevices = [
+        ...systemData.devices.uniflair,
+        ...systemData.devices.apc,
+        ...systemData.devices.afm,
+      ];
+      return allDevices.filter(device => device.status === status);
+    },
+    [systemData.devices]
+  );
 
   const getActiveOperationMode = useCallback(() => {
     return systemData.operations.procedures.find(proc => proc.active);
@@ -258,38 +263,37 @@ export const CoolingDataProvider = ({ children }) => {
   }, [systemData.safety.alerts]);
 
   // Memoize value object để tránh re-render
-  const value = useMemo(() => ({
-    systemData,
-    isLoading,
-    isFullyLoaded,
-    error,
-    loadingProgress,
-    loadedSections,
-    currentLoadingSection,
-    // Helper functions
-    getDeviceById,
-    getDevicesByStatus,
-    getActiveOperationMode,
-    getMaintenanceSchedule,
-    getSafetyAlerts
-  }), [
-    systemData,
-    isLoading,
-    isFullyLoaded,
-    error,
-    loadingProgress,
-    loadedSections,
-    currentLoadingSection,
-    getDeviceById,
-    getDevicesByStatus,
-    getActiveOperationMode,
-    getMaintenanceSchedule,
-    getSafetyAlerts
-  ]);
-
-  return (
-    <CoolingDataContext.Provider value={value}>
-      {children}
-    </CoolingDataContext.Provider>
+  const value = useMemo(
+    () => ({
+      systemData,
+      isLoading,
+      isFullyLoaded,
+      error,
+      loadingProgress,
+      loadedSections,
+      currentLoadingSection,
+      // Helper functions
+      getDeviceById,
+      getDevicesByStatus,
+      getActiveOperationMode,
+      getMaintenanceSchedule,
+      getSafetyAlerts,
+    }),
+    [
+      systemData,
+      isLoading,
+      isFullyLoaded,
+      error,
+      loadingProgress,
+      loadedSections,
+      currentLoadingSection,
+      getDeviceById,
+      getDevicesByStatus,
+      getActiveOperationMode,
+      getMaintenanceSchedule,
+      getSafetyAlerts,
+    ]
   );
+
+  return <CoolingDataContext.Provider value={value}>{children}</CoolingDataContext.Provider>;
 };

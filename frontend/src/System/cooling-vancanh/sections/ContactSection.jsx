@@ -1,8 +1,8 @@
 import {
-    CheckCircleOutlined,
-    InfoCircleOutlined,
-    PhoneOutlined,
-    SettingOutlined
+  CheckCircleOutlined,
+  InfoCircleOutlined,
+  PhoneOutlined,
+  SettingOutlined,
 } from '@ant-design/icons';
 import { Alert, Card, Col, Row, Typography } from 'antd';
 import React from 'react';
@@ -12,22 +12,21 @@ const { Title, Paragraph, Text } = Typography;
 
 const ContactSection = () => {
   return (
-    <div style={{ padding: '20px 0' }}> 
-      
-      <div id="section-8" className="content-section">
+    <div style={{ padding: '20px 0' }}>
+      <div id='section-8' className='content-section'>
         <Title level={2}>
           <PhoneOutlined style={{ marginRight: '12px' }} />
           8. LIÊN HỆ & HỖ TRỢ
         </Title>
         <Alert
-        message="Thông tin liên hệ"
-        description="Thông tin liên hệ kỹ thuật và hỗ trợ cho hệ thống làm mát TTDL Vân Canh."
-        type="info"
-        showIcon
-        style={{ marginBottom: '24px' }}
-      />
+          message='Thông tin liên hệ'
+          description='Thông tin liên hệ kỹ thuật và hỗ trợ cho hệ thống làm mát TTDL Vân Canh.'
+          type='info'
+          showIcon
+          style={{ marginBottom: '24px' }}
+        />
 
-        <div id="section-8-1" className="subsection">
+        <div id='section-8-1' className='subsection'>
           <Title level={3}>
             <InfoCircleOutlined style={{ marginRight: '12px' }} />
             8.1. Thông tin liên hệ
@@ -56,7 +55,7 @@ const ContactSection = () => {
           </Card>
         </div>
 
-        <div id="section-8-2" className="subsection">
+        <div id='section-8-2' className='subsection'>
           <Title level={3}>
             <SettingOutlined style={{ marginRight: '12px' }} />
             8.2. Hỗ trợ kỹ thuật
@@ -81,7 +80,7 @@ const ContactSection = () => {
           </Card>
         </div>
 
-        <div id="section-8-3" className="subsection">
+        <div id='section-8-3' className='subsection'>
           <Title level={3}>
             <CheckCircleOutlined style={{ marginRight: '12px' }} />
             8.3. Báo cáo sự cố

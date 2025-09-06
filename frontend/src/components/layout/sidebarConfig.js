@@ -11,7 +11,7 @@ export const SIDEBAR_CONFIG = {
   '/manager/partners': { autoCollapse: false, defaultCollapsed: false },
   '/manager/users': { autoCollapse: false, defaultCollapsed: false },
   '/manager/settings': { autoCollapse: false, defaultCollapsed: false },
-  
+
   // Datacenter pages
   '/dc/shifts': { autoCollapse: false, defaultCollapsed: false },
   '/dc/tasks': { autoCollapse: false, defaultCollapsed: false },
@@ -25,7 +25,7 @@ export const SIDEBAR_CONFIG = {
   '/dc/electric-vancanh': { autoCollapse: true, defaultCollapsed: true },
   '/dc/fire-system': { autoCollapse: true, defaultCollapsed: true },
   '/dc/security-system': { autoCollapse: true, defaultCollapsed: true },
-  
+
   // BE pages
   '/be/overview': { autoCollapse: false, defaultCollapsed: false },
   '/be/shifts': { autoCollapse: false, defaultCollapsed: false },
@@ -37,16 +37,16 @@ export const SIDEBAR_CONFIG = {
   '/be/partners': { autoCollapse: false, defaultCollapsed: false },
   '/be/users': { autoCollapse: false, defaultCollapsed: false },
   '/be/settings': { autoCollapse: false, defaultCollapsed: false },
-  
+
   // Profile page
   '/profile': { autoCollapse: false, defaultCollapsed: false },
-  
+
   // Default config cho các page chưa được cấu hình
-  'default': { autoCollapse: false, defaultCollapsed: false }
+  default: { autoCollapse: false, defaultCollapsed: false },
 };
 
 // Helper function để lấy cấu hình cho một path
-export const getSidebarConfig = (pathname) => {
+export const getSidebarConfig = pathname => {
   return SIDEBAR_CONFIG[pathname] || SIDEBAR_CONFIG['default'];
 };
 
@@ -60,4 +60,4 @@ export const updateSidebarConfig = (path, config) => {
   if (SIDEBAR_CONFIG[path]) {
     SIDEBAR_CONFIG[path] = { ...SIDEBAR_CONFIG[path], ...config };
   }
-}; 
+};

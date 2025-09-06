@@ -1,25 +1,24 @@
-import React, { useState, useEffect } from 'react';
+import { DeleteOutlined, PlusOutlined } from '@ant-design/icons';
 import {
-  Table,
-  Tag,
   Button,
-  Modal,
+  Card,
+  Col,
+  DatePicker,
   Form,
   Input,
+  message,
+  Modal,
+  Row,
   Select,
   Space,
+  Table,
   Typography,
-  Card,
-  message,
-  Row,
-  Col,
-  DatePicker
 } from 'antd';
-import { PlusOutlined, DeleteOutlined } from '@ant-design/icons';
-import { useNavigate } from 'react-router-dom';
-import dayjs from 'dayjs';
-import { fetchAllTapes, createTape, checkBarcodeExists } from '../services/tapeService';
 import axios from 'axios';
+import dayjs from 'dayjs';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { checkBarcodeExists, createTape, fetchAllTapes } from '../services/tapeService';
 
 const { Title, Text } = Typography;
 const { RangePicker } = DatePicker;
@@ -38,7 +37,6 @@ const SERVER_OPTIONS = [
   { id: 12, name: 'COMMCELL' },
 ];
 
-
 // Component chính
 const TapePage = () => {
   const [tapes, setTapes] = useState([]);
@@ -49,12 +47,12 @@ const TapePage = () => {
     page: 1,
     limit: 15,
     total: 0,
-    totalPages: 0
+    totalPages: 0,
   });
   const [filters, setFilters] = useState({
     location: 'all',
     serverId: 'all',
-    dateRange: null
+    dateRange: null,
   });
   const navigate = useNavigate();
   const [locations, setLocations] = useState([]);
@@ -78,7 +76,8 @@ const TapePage = () => {
       if (customFilters.location && customFilters.location !== 'all') {
         params.location = customFilters.location;
       }
-      if (customFilters.serverId && customFilters.serverId !== 'all') params.serverId = customFilters.serverId;
+      if (customFilters.serverId && customFilters.serverId !== 'all')
+        params.serverId = customFilters.serverId;
       if (customFilters.dateRange && customFilters.dateRange[0] && customFilters.dateRange[1]) {
         params.dateStart = customFilters.dateRange[0].startOf('day').toISOString();
         params.dateEnd = customFilters.dateRange[1].endOf('day').toISOString();
@@ -91,7 +90,7 @@ const TapePage = () => {
         total: res.total || 0,
         totalPages: res.totalPages || 0,
         page,
-        limit
+        limit,
       }));
     } catch (error) {
       if (error.response?.status === 401) {
@@ -106,13 +105,14 @@ const TapePage = () => {
   };
 
   useEffect(() => {
-    axios.get('/api/locations')
+    axios
+      .get('/api/locations')
       .then(res => setLocations(res.data))
       .catch(() => setLocations([]));
   }, []);
 
   // Xử lý tạo mới tape (nhiều tape cùng lúc)
-  const handleCreate = async (values) => {
+  const handleCreate = async values => {
     const barcodes = (values.tapes || []).map(tape => tape.barcode?.trim()).filter(Boolean);
     const hasDuplicate = barcodes.length !== new Set(barcodes).size;
     if (hasDuplicate) {
@@ -159,7 +159,7 @@ const TapePage = () => {
       key: 'id',
       width: '3%',
       className: 'custom-header border-gray-200',
-      render: (id) => id,
+      render: id => id,
       align: 'center',
       defaultSortOrder: 'ascend',
     },
@@ -197,7 +197,7 @@ const TapePage = () => {
       key: 'dateStart',
       width: '10%',
       className: 'custom-header border-gray-200',
-      render: (date) => date ? dayjs(date).format('DD/MM/YYYY') : '-',
+      render: date => (date ? dayjs(date).format('DD/MM/YYYY') : '-'),
     },
     {
       title: 'Ngày kết thúc',
@@ -205,7 +205,7 @@ const TapePage = () => {
       key: 'dateEnd',
       width: '10%',
       className: 'custom-header border-gray-200',
-      render: (date) => date ? dayjs(date).format('DD/MM/YYYY') : '-',
+      render: date => (date ? dayjs(date).format('DD/MM/YYYY') : '-'),
     },
     {
       title: 'Ngày cất',
@@ -213,7 +213,7 @@ const TapePage = () => {
       key: 'dateTerminal',
       width: '10%',
       className: 'custom-header border-gray-200',
-      render: (date) => date ? dayjs(date).format('DD/MM/YYYY') : '-',
+      render: date => (date ? dayjs(date).format('DD/MM/YYYY') : '-'),
     },
     {
       title: 'Người cất',
@@ -222,14 +222,13 @@ const TapePage = () => {
       width: '10%',
       className: 'custom-header border-gray-200',
     },
-
   ];
 
   const handlePaginationChange = (page, pageSize) => {
     setPagination(prev => ({
       ...prev,
       page,
-      limit: pageSize
+      limit: pageSize,
     }));
     // Không gọi fetchTapes trực tiếp, useEffect sẽ tự động gọi khi page/limit thay đổi
   };
@@ -244,7 +243,7 @@ const TapePage = () => {
     setPagination(prev => ({ ...prev, page: 1 }));
   };
 
-  const handleDateRangeChange = (dates) => {
+  const handleDateRangeChange = dates => {
     setFilters(prev => ({ ...prev, dateRange: dates }));
     setPagination(prev => ({ ...prev, page: 1 }));
   };
@@ -254,12 +253,14 @@ const TapePage = () => {
   }, [pagination.page, pagination.limit, filters]);
 
   return (
-    <div className="p-0">
+    <div className='p-0'>
       <Card>
-        <div className="flex justify-between items-center mb-4">
-          <Title level={4} style={{ color: '#003c71', margin: 0 }}>Quản lý Tape</Title>
+        <div className='flex justify-between items-center mb-4'>
+          <Title level={4} style={{ color: '#003c71', margin: 0 }}>
+            Quản lý Tape
+          </Title>
           <Button
-            type="primary"
+            type='primary'
             icon={<PlusOutlined />}
             onClick={() => setCreateModalVisible(true)}
             style={{ backgroundColor: '#003c71', borderColor: '#003c71', color: 'white' }}
@@ -269,7 +270,7 @@ const TapePage = () => {
         </div>
         {/* Bộ lọc */}
         <Card style={{ marginBottom: '24px' }}>
-          <Row gutter={16} align="middle">
+          <Row gutter={16} align='middle'>
             <Col>
               <Text strong>Nơi lưu trữ:</Text>
             </Col>
@@ -279,9 +280,11 @@ const TapePage = () => {
                 value={filters.location}
                 onChange={val => handleFilterChange('location', val)}
               >
-                <Select.Option value="all">Tất cả</Select.Option>
+                <Select.Option value='all'>Tất cả</Select.Option>
                 {locations.map(loc => (
-                  <Select.Option key={loc.id} value={loc.name}>{loc.name}</Select.Option>
+                  <Select.Option key={loc.id} value={loc.name}>
+                    {loc.name}
+                  </Select.Option>
                 ))}
               </Select>
             </Col>
@@ -294,9 +297,11 @@ const TapePage = () => {
                 value={filters.serverId}
                 onChange={val => handleFilterChange('serverId', val)}
               >
-                <Select.Option value="all">Tất cả server</Select.Option>
+                <Select.Option value='all'>Tất cả server</Select.Option>
                 {SERVER_OPTIONS.map(server => (
-                  <Select.Option key={server.id} value={server.id}>{server.name}</Select.Option>
+                  <Select.Option key={server.id} value={server.id}>
+                    {server.name}
+                  </Select.Option>
                 ))}
               </Select>
             </Col>
@@ -308,7 +313,7 @@ const TapePage = () => {
                 style={{ width: 300 }}
                 onChange={handleDateRangeChange}
                 value={filters.dateRange}
-                format="DD/MM/YYYY"
+                format='DD/MM/YYYY'
                 placeholder={['Từ ngày', 'Đến ngày']}
                 allowClear={true}
                 showTime={false}
@@ -321,7 +326,7 @@ const TapePage = () => {
           columns={columns}
           dataSource={tapes}
           loading={loading}
-          rowKey="id"
+          rowKey='id'
           pagination={{
             current: pagination.page,
             pageSize: pagination.limit,
@@ -330,17 +335,17 @@ const TapePage = () => {
             showSizeChanger: true,
             pageSizeOptions: ['15', '20', '50', '100'],
             defaultPageSize: 15,
-            showTotal: (total) => `Tổng số ${total}`,
-            locale: { items_per_page: '/ Trang' }
+            showTotal: total => `Tổng số ${total}`,
+            locale: { items_per_page: '/ Trang' },
           }}
           bordered
-          defaultSortOrder="ascend"
+          defaultSortOrder='ascend'
         />
 
         {/* Modal tạo mới tape */}
         <Modal
-          className="custom-modal"
-          title="Lưu tape export"
+          className='custom-modal'
+          title='Lưu tape export'
           maskClosable={false}
           keyboard={false}
           open={createModalVisible}
@@ -353,52 +358,98 @@ const TapePage = () => {
         >
           <Form
             form={createForm}
-            layout="vertical"
+            layout='vertical'
             onFinish={handleCreate}
             initialValues={{ tapes: [{ dateTerminal: dayjs(), serverId: 12 }] }}
           >
-            <div style={{ padding: 10, backgroundColor: '#f0f0f0', borderRadius: 10, overflow: 'auto' }}>
-              <Form.List name="tapes">
+            <div
+              style={{
+                padding: 10,
+                backgroundColor: '#f0f0f0',
+                borderRadius: 10,
+                overflow: 'auto',
+              }}
+            >
+              <Form.List name='tapes'>
                 {(fields, { add, remove }) => (
                   <>
                     <Row gutter={8} style={{ marginBottom: 8 }}>
-                      <Col flex="auto">
-                        <Button type="dashed" onClick={() => add({ dateTerminal: dayjs(), serverId: 12 })} icon={<PlusOutlined />}>
+                      <Col flex='auto'>
+                        <Button
+                          type='dashed'
+                          onClick={() => add({ dateTerminal: dayjs(), serverId: 12 })}
+                          icon={<PlusOutlined />}
+                        >
                           Thêm tape
                         </Button>
                       </Col>
                       <Col>
-                        <Button danger onClick={() => {
-                          createForm.setFieldsValue({ tapes: [] });
-                        }}>
+                        <Button
+                          danger
+                          onClick={() => {
+                            createForm.setFieldsValue({ tapes: [] });
+                          }}
+                        >
                           Xóa tất cả
                         </Button>
                       </Col>
                     </Row>
-                    <Row gutter={8} style={{ marginBottom: 4, fontWeight: 500, color: '#003c71' }} align="middle">
+                    <Row
+                      gutter={8}
+                      style={{ marginBottom: 4, fontWeight: 500, color: '#003c71' }}
+                      align='middle'
+                    >
                       {/* Header label cho các trường nhập */}
                       <Col span={3}>
-                        <span style={{ fontSize: 14, color: '#003c71', marginLeft: 5 }}>Server</span></Col>
+                        <span style={{ fontSize: 14, color: '#003c71', marginLeft: 5 }}>
+                          Server
+                        </span>
+                      </Col>
                       <Col span={3}>
-                        <span style={{ fontSize: 14, color: '#003c71', marginLeft: 5 }}>Barcode</span></Col>
+                        <span style={{ fontSize: 14, color: '#003c71', marginLeft: 5 }}>
+                          Barcode
+                        </span>
+                      </Col>
                       <Col span={4}>
-                        <span style={{ fontSize: 14, color: '#003c71', marginLeft: 5 }}>Nhãn tape</span></Col>
+                        <span style={{ fontSize: 14, color: '#003c71', marginLeft: 5 }}>
+                          Nhãn tape
+                        </span>
+                      </Col>
                       <Col span={4}>
-                        <span style={{ fontSize: 14, color: '#003c71', marginLeft: 5 }}>Dữ liệu</span></Col>
+                        <span style={{ fontSize: 14, color: '#003c71', marginLeft: 5 }}>
+                          Dữ liệu
+                        </span>
+                      </Col>
                       <Col span={3}>
-                        <span style={{ fontSize: 14, color: '#003c71', marginLeft: 5 }}>Nơi lưu</span></Col>
+                        <span style={{ fontSize: 14, color: '#003c71', marginLeft: 5 }}>
+                          Nơi lưu
+                        </span>
+                      </Col>
                       <Col span={2}>
-                        <span style={{ fontSize: 14, color: '#003c71', marginLeft: 5 }}>Bắt đầu</span></Col>
+                        <span style={{ fontSize: 14, color: '#003c71', marginLeft: 5 }}>
+                          Bắt đầu
+                        </span>
+                      </Col>
                       <Col span={2}>
-                        <span style={{ fontSize: 14, color: '#003c71', marginLeft: 5 }}>Kết thúc</span></Col>
+                        <span style={{ fontSize: 14, color: '#003c71', marginLeft: 5 }}>
+                          Kết thúc
+                        </span>
+                      </Col>
                       <Col span={2}>
-                        <span style={{ fontSize: 14, color: '#003c71', marginLeft: 5 }}>Ngày nhập</span></Col>
+                        <span style={{ fontSize: 14, color: '#003c71', marginLeft: 5 }}>
+                          Ngày nhập
+                        </span>
+                      </Col>
                       <Col span={1}>
-                        <span style={{ fontSize: 14, color: '#003c71', marginLeft: 10 }}></span></Col>
+                        <span style={{ fontSize: 14, color: '#003c71', marginLeft: 10 }}></span>
+                      </Col>
                     </Row>
                     {fields.map(({ name, ...restField }) => (
-
-                      <Row gutter={8} align="middle" style={{ minHeight: 36, position: 'relative' }}>
+                      <Row
+                        gutter={8}
+                        align='middle'
+                        style={{ minHeight: 36, position: 'relative' }}
+                      >
                         <Col span={3}>
                           <Form.Item
                             {...restField}
@@ -406,9 +457,11 @@ const TapePage = () => {
                             rules={[{ required: true, message: 'Chọn server' }]}
                             style={{ marginBottom: 0 }}
                           >
-                            <Select size="normal" placeholder="Server">
+                            <Select size='normal' placeholder='Server'>
                               {SERVER_OPTIONS.map(server => (
-                                <Select.Option key={server.id} value={server.id}>{server.name}</Select.Option>
+                                <Select.Option key={server.id} value={server.id}>
+                                  {server.name}
+                                </Select.Option>
                               ))}
                             </Select>
                           </Form.Item>
@@ -425,12 +478,12 @@ const TapePage = () => {
                                   const exists = await checkBarcodeExists(value);
                                   if (exists) return Promise.reject('Barcode đã tồn tại!');
                                   return Promise.resolve();
-                                }
-                              }
+                                },
+                              },
                             ]}
                             style={{ marginBottom: 0 }}
                           >
-                            <Input size="normal" placeholder="Barcode" />
+                            <Input size='normal' placeholder='Barcode' />
                           </Form.Item>
                         </Col>
                         <Col span={4}>
@@ -440,8 +493,10 @@ const TapePage = () => {
                             rules={[{ required: true, message: 'Nhập label' }]}
                             style={{ marginBottom: 0 }}
                           >
-                            <Select size="normal" placeholder="Label">
-                              <Select.Option value="DC-MA-02_ESL01_infinite">DC-MA-02_ESL01_infinite</Select.Option>
+                            <Select size='normal' placeholder='Label'>
+                              <Select.Option value='DC-MA-02_ESL01_infinite'>
+                                DC-MA-02_ESL01_infinite
+                              </Select.Option>
                             </Select>
                           </Form.Item>
                         </Col>
@@ -452,8 +507,10 @@ const TapePage = () => {
                             rules={[{ required: true, message: 'Nhập DB' }]}
                             style={{ marginBottom: 0 }}
                           >
-                            <Select size="normal" placeholder="Dữ liệu">
-                              <Select.Option value="DC-MA-02_ESL01_infinite">DC-MA-02_ESL01_infinite</Select.Option>
+                            <Select size='normal' placeholder='Dữ liệu'>
+                              <Select.Option value='DC-MA-02_ESL01_infinite'>
+                                DC-MA-02_ESL01_infinite
+                              </Select.Option>
                             </Select>
                           </Form.Item>
                         </Col>
@@ -464,9 +521,11 @@ const TapePage = () => {
                             rules={[{ required: true, message: 'Chọn nơi lưu' }]}
                             style={{ marginBottom: 0 }}
                           >
-                            <Select size="normal" placeholder="Nơi lưu">
+                            <Select size='normal' placeholder='Nơi lưu'>
                               {locations.map(loc => (
-                                <Select.Option key={loc.id} value={loc.name}>{loc.name}</Select.Option>
+                                <Select.Option key={loc.id} value={loc.name}>
+                                  {loc.name}
+                                </Select.Option>
                               ))}
                             </Select>
                           </Form.Item>
@@ -478,10 +537,10 @@ const TapePage = () => {
                             style={{ marginBottom: 0 }}
                           >
                             <DatePicker
-                              size="normal"
+                              size='normal'
                               style={{ width: '100%' }}
-                              format="DD/MM/YYYY"
-                              placeholder="Bắt đầu"
+                              format='DD/MM/YYYY'
+                              placeholder='Bắt đầu'
                             />
                           </Form.Item>
                         </Col>
@@ -492,10 +551,10 @@ const TapePage = () => {
                             style={{ marginBottom: 0 }}
                           >
                             <DatePicker
-                              size="normal"
+                              size='normal'
                               style={{ width: '100%' }}
-                              format="DD/MM/YYYY"
-                              placeholder="Kết thúc"
+                              format='DD/MM/YYYY'
+                              placeholder='Kết thúc'
                             />
                           </Form.Item>
                         </Col>
@@ -506,17 +565,17 @@ const TapePage = () => {
                             style={{ marginBottom: 0 }}
                           >
                             <DatePicker
-                              size="normal"
+                              size='normal'
                               style={{ width: '100%' }}
-                              format="DD/MM/YYYY"
-                              placeholder="Ngày nhập"
+                              format='DD/MM/YYYY'
+                              placeholder='Ngày nhập'
                             />
                           </Form.Item>
-                        </Col >
+                        </Col>
                         <Col span={1}>
                           <Button
                             danger
-                            size="small"
+                            size='small'
                             onClick={() => remove(name)}
                             style={{
                               padding: 10,
@@ -526,7 +585,7 @@ const TapePage = () => {
                               display: 'flex',
                               alignItems: 'center',
                               justifyContent: 'center',
-                              lineHeight: 1
+                              lineHeight: 1,
                             }}
                             icon={<DeleteOutlined />}
                           />
@@ -537,15 +596,21 @@ const TapePage = () => {
                 )}
               </Form.List>
             </div>
-            <Form.Item className="mb-0 text-right" style={{ padding: 10 }}>
+            <Form.Item className='mb-0 text-right' style={{ padding: 10 }}>
               <Space>
-                <Button onClick={() => {
-                  setCreateModalVisible(false);
-                  createForm.resetFields();
-                }}>
+                <Button
+                  onClick={() => {
+                    setCreateModalVisible(false);
+                    createForm.resetFields();
+                  }}
+                >
                   Hủy
                 </Button>
-                <Button type="primary" htmlType="submit" style={{ backgroundColor: '#003c71', borderColor: '#003c71', color: 'white' }}>
+                <Button
+                  type='primary'
+                  htmlType='submit'
+                  style={{ backgroundColor: '#003c71', borderColor: '#003c71', color: 'white' }}
+                >
                   Tạo mới
                 </Button>
               </Space>

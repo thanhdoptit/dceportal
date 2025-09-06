@@ -1,4 +1,4 @@
-self.onmessage = async (e) => {
+self.onmessage = async e => {
   const { file, maxSizeMB } = e.data;
 
   // Nếu file nhỏ hơn maxSizeMB, không cần nén
@@ -9,7 +9,7 @@ self.onmessage = async (e) => {
 
   try {
     const reader = new FileReader();
-    reader.onload = (event) => {
+    reader.onload = event => {
       const img = new Image();
       img.onload = () => {
         const canvas = document.createElement('canvas');
@@ -17,7 +17,7 @@ self.onmessage = async (e) => {
         let height = img.height;
 
         // Tính toán tỷ lệ nén dựa trên kích thước mong muốn
-        const ratio = Math.min(1, maxSizeMB * 1024 * 1024 / file.size);
+        const ratio = Math.min(1, (maxSizeMB * 1024 * 1024) / file.size);
         width *= ratio;
         height *= ratio;
 
@@ -28,7 +28,7 @@ self.onmessage = async (e) => {
         ctx.drawImage(img, 0, 0, width, height);
 
         canvas.toBlob(
-          (blob) => {
+          blob => {
             const compressedFile = new File([blob], file.name, {
               type: file.type,
               lastModified: Date.now(),
@@ -51,4 +51,4 @@ self.onmessage = async (e) => {
   } catch (error) {
     self.postMessage({ error: error.message });
   }
-}; 
+};

@@ -7,7 +7,7 @@ const { Option } = Select;
 const LocationSelect = ({
   value,
   onChange,
-  placeholder = "Chọn địa điểm",
+  placeholder = 'Chọn địa điểm',
   style = { width: '100%' },
   disabled = false,
   allowClear = true,
@@ -21,7 +21,7 @@ const LocationSelect = ({
   onError = null,
   onSuccess = null,
   showAllOption = false,
-  allOptionLabel = "Tất cả",
+  allOptionLabel = 'Tất cả',
   ...props
 }) => {
   // console.log('LocationSelect render:', { value, locations: locations.length, locationsLoading }); // Tắt debug log
@@ -37,11 +37,9 @@ const LocationSelect = ({
   const filteredLocations = activeOnly ? locations.filter(loc => loc.isActive) : locations;
 
   // Sắp xếp locations theo tên
-  const sortedLocations = [...filteredLocations].sort((a, b) =>
-    a.name.localeCompare(b.name, 'vi')
-  );
+  const sortedLocations = [...filteredLocations].sort((a, b) => a.name.localeCompare(b.name, 'vi'));
 
-  const handleChange = (newValue) => {
+  const handleChange = newValue => {
     // console.log('LocationSelect onChange:', newValue); // Tắt debug log
     if (onChange) {
       onChange(newValue);
@@ -61,30 +59,21 @@ const LocationSelect = ({
       notFoundContent={
         locationsLoading ? (
           <div style={{ textAlign: 'center', padding: '8px' }}>
-            <Spin size="small" />
+            <Spin size='small' />
           </div>
         ) : locationsError ? (
           <div style={{ textAlign: 'center', padding: '8px', color: '#ff4d4f' }}>
             Lỗi tải dữ liệu
           </div>
         ) : (
-          <div style={{ textAlign: 'center', padding: '8px', color: '#999' }}>
-            Không có dữ liệu
-          </div>
+          <div style={{ textAlign: 'center', padding: '8px', color: '#999' }}>Không có dữ liệu</div>
         )
       }
       {...props}
     >
-      {showAllOption && (
-        <Option value="Tất cả">
-          {allOptionLabel}
-        </Option>
-      )}
+      {showAllOption && <Option value='Tất cả'>{allOptionLabel}</Option>}
       {sortedLocations.map(location => (
-        <Option
-          key={location.id}
-          value={location.id}
-        >
+        <Option key={location.id} value={location.id}>
           {location.name}
         </Option>
       ))}
@@ -93,11 +82,7 @@ const LocationSelect = ({
 };
 
 LocationSelect.propTypes = {
-  value: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number,
-    PropTypes.array
-  ]),
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array]),
   onChange: PropTypes.func,
   placeholder: PropTypes.string,
   style: PropTypes.object,
@@ -113,7 +98,7 @@ LocationSelect.propTypes = {
   onError: PropTypes.func,
   onSuccess: PropTypes.func,
   showAllOption: PropTypes.bool,
-  allOptionLabel: PropTypes.string
+  allOptionLabel: PropTypes.string,
 };
 
 export default LocationSelect;

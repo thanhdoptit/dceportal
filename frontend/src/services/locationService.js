@@ -12,7 +12,7 @@ export const fetchAllLocations = async () => {
 };
 
 // Lấy location theo ID
-export const fetchLocationById = async (locationId) => {
+export const fetchLocationById = async locationId => {
   try {
     const response = await axios.get(`/api/locations/${locationId}`);
     return response.data;
@@ -23,7 +23,7 @@ export const fetchLocationById = async (locationId) => {
 };
 
 // Tạo location mới
-export const createLocation = async (locationData) => {
+export const createLocation = async locationData => {
   try {
     const response = await axios.post('/api/locations', locationData);
     return response.data;
@@ -45,7 +45,7 @@ export const updateLocation = async (locationId, locationData) => {
 };
 
 // Xóa location
-export const deleteLocation = async (locationId) => {
+export const deleteLocation = async locationId => {
   try {
     const response = await axios.delete(`/api/locations/${locationId}`);
     return response.data;
@@ -67,7 +67,7 @@ export const fetchActiveLocations = async () => {
 };
 
 // Tìm kiếm locations theo tên
-export const searchLocations = async (searchTerm) => {
+export const searchLocations = async searchTerm => {
   try {
     const response = await axios.get(`/api/locations?search=${encodeURIComponent(searchTerm)}`);
     return response.data;
@@ -75,4 +75,4 @@ export const searchLocations = async (searchTerm) => {
     console.error('Error searching locations:', error);
     throw new Error('Không thể tìm kiếm địa điểm');
   }
-}; 
+};

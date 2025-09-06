@@ -9,21 +9,21 @@
  */
 export const handleMenuClick = ({ key }, setSelectedKey) => {
   setSelectedKey(key);
-  
+
   // Tìm element tương ứng trong content
   let targetElement = document.getElementById(`section-${key}`);
-  
+
   // Nếu không tìm thấy, thử tìm trực tiếp với key (cho section 2.x.x)
   if (!targetElement) {
     targetElement = document.getElementById(key);
   }
-  
+
   // Nếu vẫn không tìm thấy, thử tìm với key chính (ví dụ: 4.1 -> 4)
   if (!targetElement && key.includes('.')) {
     const mainKey = key.split('.')[0];
     targetElement = document.getElementById(`section-${mainKey}`);
   }
-  
+
   if (targetElement) {
     // Scroll trong content area thay vì toàn trang
     const contentElement = document.querySelector('.system-content, .cooling-system-content');
@@ -32,10 +32,10 @@ export const handleMenuClick = ({ key }, setSelectedKey) => {
       const contentRect = contentElement.getBoundingClientRect();
       const scrollTop = contentElement.scrollTop;
       const targetTop = targetRect.top - contentRect.top + scrollTop;
-      
+
       contentElement.scrollTo({
         top: targetTop - 20, // Offset 20px từ top
-        behavior: 'smooth'
+        behavior: 'smooth',
       });
     }
   } else {
@@ -44,7 +44,7 @@ export const handleMenuClick = ({ key }, setSelectedKey) => {
     if (contentElement) {
       contentElement.scrollTo({
         top: 0,
-        behavior: 'smooth'
+        behavior: 'smooth',
       });
     }
   }
@@ -61,7 +61,7 @@ export const getMenuHeaderStyle = (backgroundColor = '#0072BC') => ({
   padding: '8px',
   borderRadius: '8px',
   margin: '8px',
-  textAlign: 'center'
+  textAlign: 'center',
 });
 
 /**
@@ -75,7 +75,7 @@ export const getMenuHeaderTitleStyle = (backgroundColor = '#0072BC') => ({
   fontWeight: 'bold',
   textAlign: 'center',
   color: '#fff',
-  backgroundColor
+  backgroundColor,
 });
 
 /**
@@ -83,13 +83,13 @@ export const getMenuHeaderTitleStyle = (backgroundColor = '#0072BC') => ({
  * @param {Array} items - Array các menu items
  * @returns {Array} Menu items với cấu trúc chuẩn
  */
-export const createMenuStructure = (items) => {
+export const createMenuStructure = items => {
   return items.map(item => ({
     key: item.key,
     icon: item.icon,
     label: item.label,
     children: item.children || [],
-    style: item.style || {}
+    style: item.style || {},
   }));
 };
 
@@ -107,7 +107,7 @@ export const createMenuItem = (key, icon, label, children = [], style = {}) => (
   icon,
   label,
   children,
-  style
+  style,
 });
 
 /**
@@ -120,7 +120,7 @@ export const createMenuItem = (key, icon, label, children = [], style = {}) => (
 export const createSubMenuItem = (key, label, children = []) => ({
   key,
   label,
-  children
+  children,
 });
 
 /**
@@ -131,5 +131,5 @@ export const createSubMenuItem = (key, label, children = []) => ({
  */
 export const createLeafMenuItem = (key, label) => ({
   key,
-  label
+  label,
 });

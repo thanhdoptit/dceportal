@@ -1,38 +1,35 @@
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import {
-  Table,
-  Tag,
-  Button,
-  Modal,
-  Form,
-  Input,
-  Select,
-  Space,
-  Typography,
-  Card,
-  message,
-  Row,
-  Col,
-  DatePicker,
-  Tooltip,
-  Popconfirm
-} from 'antd';
-import {
-  PlusOutlined,
+  BankOutlined,
   EditOutlined,
-  DeleteOutlined,
-  SearchOutlined,
-  UserOutlined,
+  EyeOutlined,
+  IdcardOutlined,
   MailOutlined,
   PhoneOutlined,
-  IdcardOutlined,
-  BankOutlined,
-  EyeOutlined
+  PlusOutlined,
+  SearchOutlined,
+  UserOutlined,
 } from '@ant-design/icons';
+import {
+  Button,
+  Card,
+  Col,
+  DatePicker,
+  Form,
+  Input,
+  message,
+  Modal,
+  Row,
+  Select,
+  Space,
+  Table,
+  Tooltip,
+  Typography,
+} from 'antd';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 import dayjs from 'dayjs';
 import debounce from 'lodash/debounce';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import CreatePartnerModal from '../components/partner/CreatePartnerModal';
 import PartnerTaskModal from '../components/partner/PartnerTaskModal';
 import { useAuth } from '../contexts/AuthContext';
@@ -55,7 +52,7 @@ const PartnerPage = () => {
     page: 1,
     limit: 15,
     total: 0,
-    totalPages: 0
+    totalPages: 0,
   });
   const [donViList, setDonViList] = useState([]);
   const [taskModalVisible, setTaskModalVisible] = useState(false);
@@ -83,7 +80,13 @@ const PartnerPage = () => {
   };
 
   // Lấy danh sách đối tác
-  const fetchPartners = async (keyword = '', donVi = 'Tất cả', dateRange = null, page = 1, limit = 15) => {
+  const fetchPartners = async (
+    keyword = '',
+    donVi = 'Tất cả',
+    dateRange = null,
+    page = 1,
+    limit = 15
+  ) => {
     try {
       setLoading(true);
       const token = getAuthToken();
@@ -118,7 +121,7 @@ const PartnerPage = () => {
       }
 
       const response = await axios.get(url, {
-        headers: { Authorization: `Bearer ${token}` }
+        headers: { Authorization: `Bearer ${token}` },
       });
 
       setPartners(response.data.partners || response.data || []);
@@ -127,7 +130,7 @@ const PartnerPage = () => {
         total: response.data.total || 0,
         totalPages: response.data.totalPages || 0,
         page,
-        limit
+        limit,
       }));
     } catch (error) {
       if (error.response?.status === 401) {
@@ -151,7 +154,7 @@ const PartnerPage = () => {
       }
 
       const response = await axios.get('/api/partners/donvi', {
-        headers: { Authorization: `Bearer ${token}` }
+        headers: { Authorization: `Bearer ${token}` },
       });
 
       setDonViList(response.data || []);
@@ -162,7 +165,7 @@ const PartnerPage = () => {
 
   // Tìm kiếm với debounce - giảm delay xuống 300ms
   const debouncedSearch = useCallback(
-    debounce((value) => {
+    debounce(value => {
       setSearchKeyword(value);
       setPagination(prev => ({ ...prev, page: 1 }));
       fetchPartners(value, donViFilter, dateRange, 1, pagination.limit);
@@ -171,26 +174,26 @@ const PartnerPage = () => {
   );
 
   // Xử lý tìm kiếm
-  const handleSearch = (value) => {
+  const handleSearch = value => {
     debouncedSearch(value);
   };
 
   // Xử lý filter đơn vị
-  const handleDonViFilterChange = (value) => {
+  const handleDonViFilterChange = value => {
     setDonViFilter(value);
     setPagination(prev => ({ ...prev, page: 1 }));
     fetchPartners(searchKeyword, value, dateRange, 1, pagination.limit);
   };
 
   // Xử lý filter thời gian
-  const handleDateRangeChange = (dates) => {
+  const handleDateRangeChange = dates => {
     setDateRange(dates);
     setPagination(prev => ({ ...prev, page: 1 }));
     fetchPartners(searchKeyword, donViFilter, dates, 1, pagination.limit);
   };
 
   // Xử lý cập nhật đối tác
-  const handleUpdate = async (values) => {
+  const handleUpdate = async values => {
     try {
       const token = getAuthToken();
       if (!token) {
@@ -204,11 +207,11 @@ const PartnerPage = () => {
         donVi: values.donVi?.trim() || '',
         email: values.email?.trim() || '',
         phone: values.phone?.trim() || '',
-        cccd: values.cccd?.trim() || ''
+        cccd: values.cccd?.trim() || '',
       };
 
       await axios.put(`/api/partners/${selectedPartner.id}`, payload, {
-        headers: { Authorization: `Bearer ${token}` }
+        headers: { Authorization: `Bearer ${token}` },
       });
 
       message.success('Cập nhật thành công');
@@ -242,7 +245,7 @@ const PartnerPage = () => {
   };
 
   // Xử lý xóa đối tác
-  const handleDelete = async (partnerId) => {
+  const handleDelete = async partnerId => {
     try {
       const token = getAuthToken();
       if (!token) {
@@ -251,7 +254,7 @@ const PartnerPage = () => {
       }
 
       await axios.delete(`/api/partners/${partnerId}`, {
-        headers: { Authorization: `Bearer ${token}` }
+        headers: { Authorization: `Bearer ${token}` },
       });
 
       message.success('Xóa đối tác thành công');
@@ -267,14 +270,14 @@ const PartnerPage = () => {
   };
 
   // Hiển thị modal chỉnh sửa
-  const showEditModal = (partner) => {
+  const showEditModal = partner => {
     setSelectedPartner(partner);
     editForm.setFieldsValue({
       fullname: partner.fullname,
       donVi: partner.donVi,
       email: partner.email,
       phone: partner.phone,
-      cccd: partner.cccd
+      cccd: partner.cccd,
     });
     setEditModalVisible(true);
   };
@@ -284,163 +287,170 @@ const PartnerPage = () => {
     setPagination(prev => ({
       ...prev,
       page,
-      limit: pageSize
+      limit: pageSize,
     }));
     fetchPartners(searchKeyword, donViFilter, dateRange, page, pageSize);
   };
 
   // Xử lý mở modal xem task
-  const handleViewTasks = (record) => {
+  const handleViewTasks = record => {
     setSelectedPartner(record);
     setTaskModalVisible(true);
   };
-
 
   const { currentUser } = useAuth();
   const isManager = currentUser?.role?.toLowerCase() === 'manager';
   const isDatacenter = currentUser?.role?.toLowerCase() === 'datacenter';
 
   // Cấu hình cột bảng - sử dụng useMemo để tối ưu performance
-  const columns = useMemo(() => [
-    {
-      title: 'Mã',
-      dataIndex: 'id',
-      key: 'id',
-      width: '3%',
-      className: 'custom-header border-gray-200',
-      render: (id) => `${id}`,
-      align: 'center',
-      defaultSortOrder: 'ascend',
-    },
-    {
-      title: 'Họ tên',
-      dataIndex: 'fullname',
-      key: 'fullname',
-      width: '15%',
-      className: 'custom-header border-gray-200',
-      render: (text) => (
-        <div className="flex items-center">
-          <UserOutlined className="mr-2 text-blue-500" />
-          <span className="font-medium">{text}</span>
-        </div>
-      )
-    },
-    {
-      title: 'Đơn vị',
-      dataIndex: 'donVi',
-      key: 'donVi',
-      width: '15%',
-      className: 'custom-header border-gray-200',
-      render: (text) => (
-        <div className="flex items-center">
-          <BankOutlined className="mr-2 text-green-500" />
-          <span>{text || 'Chưa có'}</span>
-        </div>
-      )
-    },
-    {
-      title: 'Số thẻ / CCCD',
-      dataIndex: 'cccd',
-      key: 'cccd',
-      width: '12%',
-      className: 'custom-header border-gray-200',
-      render: (text) => (
-        <div className="flex items-center">
-          <IdcardOutlined className="mr-2 text-purple-500" />
-          <span>{text || 'Chưa có'}</span>
-        </div>
-      )
-    },
-    {
-      title: 'Email',
-      dataIndex: 'email',
-      key: 'email',
-      width: '15%',
-      className: 'custom-header border-gray-200',
-      render: (text) => (
-        <div className="flex items-center">
-          <MailOutlined className="mr-2 text-orange-500" />
-          <span>{text || 'Chưa có'}</span>
-        </div>
-      )
-    },
-    {
-      title: 'Số điện thoại',
-      dataIndex: 'phone',
-      key: 'phone',
-      width: '12%',
-      className: 'custom-header border-gray-200',
-      render: (text) => (
-        <div className="flex items-center">
-          <PhoneOutlined className="mr-2 text-green-600" />
-          <span>{text || 'Chưa có'}</span>
-        </div>
-      )
-    },
+  const columns = useMemo(
+    () => [
+      {
+        title: 'Mã',
+        dataIndex: 'id',
+        key: 'id',
+        width: '3%',
+        className: 'custom-header border-gray-200',
+        render: id => `${id}`,
+        align: 'center',
+        defaultSortOrder: 'ascend',
+      },
+      {
+        title: 'Họ tên',
+        dataIndex: 'fullname',
+        key: 'fullname',
+        width: '15%',
+        className: 'custom-header border-gray-200',
+        render: text => (
+          <div className='flex items-center'>
+            <UserOutlined className='mr-2 text-blue-500' />
+            <span className='font-medium'>{text}</span>
+          </div>
+        ),
+      },
+      {
+        title: 'Đơn vị',
+        dataIndex: 'donVi',
+        key: 'donVi',
+        width: '15%',
+        className: 'custom-header border-gray-200',
+        render: text => (
+          <div className='flex items-center'>
+            <BankOutlined className='mr-2 text-green-500' />
+            <span>{text || 'Chưa có'}</span>
+          </div>
+        ),
+      },
+      {
+        title: 'Số thẻ / CCCD',
+        dataIndex: 'cccd',
+        key: 'cccd',
+        width: '12%',
+        className: 'custom-header border-gray-200',
+        render: text => (
+          <div className='flex items-center'>
+            <IdcardOutlined className='mr-2 text-purple-500' />
+            <span>{text || 'Chưa có'}</span>
+          </div>
+        ),
+      },
+      {
+        title: 'Email',
+        dataIndex: 'email',
+        key: 'email',
+        width: '15%',
+        className: 'custom-header border-gray-200',
+        render: text => (
+          <div className='flex items-center'>
+            <MailOutlined className='mr-2 text-orange-500' />
+            <span>{text || 'Chưa có'}</span>
+          </div>
+        ),
+      },
+      {
+        title: 'Số điện thoại',
+        dataIndex: 'phone',
+        key: 'phone',
+        width: '12%',
+        className: 'custom-header border-gray-200',
+        render: text => (
+          <div className='flex items-center'>
+            <PhoneOutlined className='mr-2 text-green-600' />
+            <span>{text || 'Chưa có'}</span>
+          </div>
+        ),
+      },
 
-    {
-      title: 'Thao tác',
-      key: 'actions',
-      width: '5%',
-      align: 'center',
-      className: 'custom-header border-gray-200',
-      render: (_, record) => (
-        <Space>
-          {isManager && <Tooltip title="Xem danh sách công việc">
-            <Button
-              type="primary"
-              size="small"
-              icon={<EyeOutlined />}
-              onClick={() => handleViewTasks(record)}
-              style={{ backgroundColor: '#1890ff', borderColor: '#1890ff' }}
-            >
-              Công việc
-            </Button>
-          </Tooltip>}
-          <Tooltip title="Chỉnh sửa">
-            <Button
-              onClick={() => showEditModal(record)}
-              size='small'
-              type='primary'
-              icon={<EditOutlined />}
-              style={{ backgroundColor: '#1890ff', borderColor: '#1890ff' }}
-            >
-              Sửa
-            </Button>
-          </Tooltip>
-        </Space>
-      ),
-    },
-  ], [handleViewTasks, showEditModal, handleDelete]);
+      {
+        title: 'Thao tác',
+        key: 'actions',
+        width: '5%',
+        align: 'center',
+        className: 'custom-header border-gray-200',
+        render: (_, record) => (
+          <Space>
+            {isManager && (
+              <Tooltip title='Xem danh sách công việc'>
+                <Button
+                  type='primary'
+                  size='small'
+                  icon={<EyeOutlined />}
+                  onClick={() => handleViewTasks(record)}
+                  style={{ backgroundColor: '#1890ff', borderColor: '#1890ff' }}
+                >
+                  Công việc
+                </Button>
+              </Tooltip>
+            )}
+            <Tooltip title='Chỉnh sửa'>
+              <Button
+                onClick={() => showEditModal(record)}
+                size='small'
+                type='primary'
+                icon={<EditOutlined />}
+                style={{ backgroundColor: '#1890ff', borderColor: '#1890ff' }}
+              >
+                Sửa
+              </Button>
+            </Tooltip>
+          </Space>
+        ),
+      },
+    ],
+    [handleViewTasks, showEditModal, handleDelete]
+  );
 
   // Tối ưu pagination config
-  const paginationConfig = useMemo(() => ({
-    current: pagination.page,
-    pageSize: pagination.limit,
-    total: pagination.total,
-    onChange: handlePaginationChange,
-    showSizeChanger: true,
-    pageSizeOptions: ['15', '20', '50', '100'],
-    defaultPageSize: 15,
-    showTotal: (total) => `Tổng số ${total} đối tác`,
-    locale: { items_per_page: '/ Trang' }
-  }), [pagination.page, pagination.limit, pagination.total, handlePaginationChange]);
+  const paginationConfig = useMemo(
+    () => ({
+      current: pagination.page,
+      pageSize: pagination.limit,
+      total: pagination.total,
+      onChange: handlePaginationChange,
+      showSizeChanger: true,
+      pageSizeOptions: ['15', '20', '50', '100'],
+      defaultPageSize: 15,
+      showTotal: total => `Tổng số ${total} đối tác`,
+      locale: { items_per_page: '/ Trang' },
+    }),
+    [pagination.page, pagination.limit, pagination.total, handlePaginationChange]
+  );
 
   // Tối ưu Select options
-  const donViOptions = useMemo(() => [
-    { value: 'Tất cả', label: 'Tất cả đơn vị' },
-    ...donViList.map(donVi => ({ value: donVi, label: donVi }))
-  ], [donViList]);
+  const donViOptions = useMemo(
+    () => [
+      { value: 'Tất cả', label: 'Tất cả đơn vị' },
+      ...donViList.map(donVi => ({ value: donVi, label: donVi })),
+    ],
+    [donViList]
+  );
 
   // Fetch dữ liệu khi mount - gọi API song song để tối ưu performance
   useEffect(() => {
     if (!initialized) {
       setInitialized(true);
       // Gọi API song song thay vì tuần tự
-      Promise.all([
-        fetchDonViList(),
-        fetchPartners()
-      ]).catch(error => {
+      Promise.all([fetchDonViList(), fetchPartners()]).catch(error => {
         console.error('Error initializing data:', error);
       });
     }
@@ -455,12 +465,14 @@ const PartnerPage = () => {
   };
 
   return (
-    <div className="p-0">
+    <div className='p-0'>
       <Card>
-        <div className="flex justify-between items-center mb-4">
-          <Title level={4} style={{ color: '#003c71', margin: 0 }}>Quản lý nhân sự ra vào Trung Tâm Dữ Liệu</Title>
+        <div className='flex justify-between items-center mb-4'>
+          <Title level={4} style={{ color: '#003c71', margin: 0 }}>
+            Quản lý nhân sự ra vào Trung Tâm Dữ Liệu
+          </Title>
           <Button
-            type="primary"
+            type='primary'
             icon={<PlusOutlined />}
             onClick={() => setCreateModalVisible(true)}
             style={{ backgroundColor: '#003c71', borderColor: '#003c71', color: 'white' }}
@@ -471,16 +483,16 @@ const PartnerPage = () => {
 
         {/* Bộ lọc */}
         <Card style={{ marginBottom: '24px' }}>
-          <Row gutter={16} align="middle">
+          <Row gutter={16} align='middle'>
             <Col>
               <Text strong>Tìm kiếm:</Text>
             </Col>
             <Col>
               <Input
-                placeholder="Nhập tên, email, số điện thoại..."
+                placeholder='Nhập tên, email, số điện thoại...'
                 prefix={<SearchOutlined />}
                 style={{ width: 300 }}
-                onChange={(e) => handleSearch(e.target.value)}
+                onChange={e => handleSearch(e.target.value)}
                 allowClear
                 onClear={() => {
                   setSearchKeyword('');
@@ -496,7 +508,7 @@ const PartnerPage = () => {
                 style={{ width: 200 }}
                 value={donViFilter}
                 onChange={handleDonViFilterChange}
-                placeholder="Chọn đơn vị"
+                placeholder='Chọn đơn vị'
                 allowClear
               >
                 {donViOptions.map(option => (
@@ -531,10 +543,10 @@ const PartnerPage = () => {
           columns={columns}
           dataSource={partners}
           loading={loading}
-          rowKey="id"
+          rowKey='id'
           pagination={paginationConfig}
           bordered
-          defaultSortOrder="ascend"
+          defaultSortOrder='ascend'
         />
 
         {/* Modal tạo mới đối tác */}
@@ -542,12 +554,12 @@ const PartnerPage = () => {
           visible={createModalVisible}
           onCancel={() => setCreateModalVisible(false)}
           onSuccess={handleCreateSuccess}
-          title="Tạo nhân sự mới"
+          title='Tạo nhân sự mới'
         />
 
         {/* Modal chỉnh sửa đối tác */}
         <Modal
-          title="Chỉnh sửa đối tác"
+          title='Chỉnh sửa đối tác'
           open={editModalVisible}
           onCancel={() => {
             setEditModalVisible(false);
@@ -556,27 +568,20 @@ const PartnerPage = () => {
           footer={null}
           width={600}
         >
-          <Form
-            form={editForm}
-            layout="vertical"
-            onFinish={handleUpdate}
-          >
+          <Form form={editForm} layout='vertical' onFinish={handleUpdate}>
             <Row gutter={16}>
               <Col span={12}>
                 <Form.Item
-                  name="fullname"
-                  label="Họ tên"
+                  name='fullname'
+                  label='Họ tên'
                   rules={[{ required: true, message: 'Vui lòng nhập họ tên' }]}
                 >
-                  <Input placeholder="Nhập họ tên đối tác" />
+                  <Input placeholder='Nhập họ tên đối tác' />
                 </Form.Item>
               </Col>
               <Col span={12}>
-                <Form.Item
-                  name="donVi"
-                  label="Đơn vị"
-                >
-                  <Input placeholder="Nhập đơn vị" />
+                <Form.Item name='donVi' label='Đơn vị'>
+                  <Input placeholder='Nhập đơn vị' />
                 </Form.Item>
               </Col>
             </Row>
@@ -584,47 +589,52 @@ const PartnerPage = () => {
             <Row gutter={16}>
               <Col span={12}>
                 <Form.Item
-                  name="email"
-                  label="Email"
-                  rules={[
-                    { type: 'email', message: 'Email không đúng định dạng' }
-                  ]}
+                  name='email'
+                  label='Email'
+                  rules={[{ type: 'email', message: 'Email không đúng định dạng' }]}
                 >
-                  <Input placeholder="Nhập email" />
+                  <Input placeholder='Nhập email' />
                 </Form.Item>
               </Col>
               <Col span={12}>
                 <Form.Item
-                  name="phone"
-                  label="Số điện thoại"
+                  name='phone'
+                  label='Số điện thoại'
                   rules={[
-                    { pattern: /^[0-9+\-\s()]{10,15}$/, message: 'Số điện thoại không đúng định dạng' }
+                    {
+                      pattern: /^[0-9+\-\s()]{10,15}$/,
+                      message: 'Số điện thoại không đúng định dạng',
+                    },
                   ]}
                 >
-                  <Input placeholder="Nhập số điện thoại" />
+                  <Input placeholder='Nhập số điện thoại' />
                 </Form.Item>
               </Col>
             </Row>
 
             <Form.Item
-              name="cccd"
-              label="Số thẻ / CCCD"
-              rules={[
-                { pattern: /^\d{1,12}$/, message: 'Số thẻ / CCCD phải có 1 đến 12 chữ số' }
-              ]}
+              name='cccd'
+              label='Số thẻ / CCCD'
+              rules={[{ pattern: /^\d{1,12}$/, message: 'Số thẻ / CCCD phải có 1 đến 12 chữ số' }]}
             >
-              <Input placeholder="Nhập số thẻ / CCCD (1 đến 12 số)" />
+              <Input placeholder='Nhập số thẻ / CCCD (1 đến 12 số)' />
             </Form.Item>
 
-            <Form.Item className="mb-0 text-right">
+            <Form.Item className='mb-0 text-right'>
               <Space>
-                <Button onClick={() => {
-                  setEditModalVisible(false);
-                  editForm.resetFields();
-                }}>
+                <Button
+                  onClick={() => {
+                    setEditModalVisible(false);
+                    editForm.resetFields();
+                  }}
+                >
                   Hủy
                 </Button>
-                <Button type="primary" htmlType="submit" style={{ backgroundColor: '#003c71', borderColor: '#003c71', color: 'white' }}>
+                <Button
+                  type='primary'
+                  htmlType='submit'
+                  style={{ backgroundColor: '#003c71', borderColor: '#003c71', color: 'white' }}
+                >
                   Cập nhật
                 </Button>
               </Space>

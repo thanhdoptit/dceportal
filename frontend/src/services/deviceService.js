@@ -35,8 +35,11 @@ class DeviceService {
    */
   async getDeviceNames() {
     // Kiểm tra cache có hợp lệ không
-    if (this.deviceNamesCache && this.lastFetchTime && 
-        (Date.now() - this.lastFetchTime) < this.cacheExpiry) {
+    if (
+      this.deviceNamesCache &&
+      this.lastFetchTime &&
+      Date.now() - this.lastFetchTime < this.cacheExpiry
+    ) {
       return this.deviceNamesCache;
     }
 
@@ -80,11 +83,14 @@ class DeviceService {
    * Kiểm tra xem cache có hợp lệ không
    */
   isCacheValid() {
-    return this.deviceNamesCache && this.lastFetchTime && 
-           (Date.now() - this.lastFetchTime) < this.cacheExpiry;
+    return (
+      this.deviceNamesCache &&
+      this.lastFetchTime &&
+      Date.now() - this.lastFetchTime < this.cacheExpiry
+    );
   }
 }
 
 // Export singleton instance
 export const deviceService = new DeviceService();
-export default deviceService; 
+export default deviceService;

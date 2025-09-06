@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import api from '../services/api';
 import { setAccessToken } from '../utils/axios';
 
@@ -28,7 +28,7 @@ const useAuth = () => {
     }
   };
 
-  const login = async (credentials) => {
+  const login = async credentials => {
     try {
       setLoading(true);
       const response = await api.login(credentials);
@@ -55,8 +55,8 @@ const useAuth = () => {
     error,
     login,
     logout,
-    isAuthenticated: !!user
+    isAuthenticated: !!user,
   };
 };
 
-export default useAuth; 
+export default useAuth;

@@ -5,7 +5,16 @@ import { vi } from 'date-fns/locale';
 import dayjs from 'dayjs';
 import timezone from 'dayjs/plugin/timezone';
 import utc from 'dayjs/plugin/utc';
-import React, { useCallback, useDeferredValue, useEffect, useId, useMemo, useRef, useState, useTransition } from 'react';
+import React, {
+  useCallback,
+  useDeferredValue,
+  useEffect,
+  useId,
+  useMemo,
+  useRef,
+  useState,
+  useTransition,
+} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import axios from '../utils/axios';
@@ -38,11 +47,11 @@ const LAYOUT_CONFIG = {
   // Cấu hình cho layout horizontal
   horizontal: {
     gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-    containerClass: 'grid gap-4 auto-rows-fr'
+    containerClass: 'grid gap-4 auto-rows-fr',
   },
-  // Cấu hình cho layout vertical  
+  // Cấu hình cho layout vertical
   vertical: {
-    gridTemplateColumns: (totalGroups) => {
+    gridTemplateColumns: totalGroups => {
       if (totalGroups === 1) return 'md:grid-cols-1 md:max-w-md md:mx-auto';
       if (totalGroups === 2) return 'md:grid-cols-2';
       if (totalGroups === 3) return 'md:grid-cols-3';
@@ -51,8 +60,9 @@ const LAYOUT_CONFIG = {
       if (totalGroups === 6) return 'md:grid-cols-6';
       return 'md:grid-cols-auto-fit';
     },
-    containerClass: (totalGroups) => `grid grid-cols-1 ${LAYOUT_CONFIG.vertical.gridTemplateColumns(totalGroups)} gap-6`
-  }
+    containerClass: totalGroups =>
+      `grid grid-cols-1 ${LAYOUT_CONFIG.vertical.gridTemplateColumns(totalGroups)} gap-6`,
+  },
 };
 
 // Constants
@@ -69,27 +79,37 @@ const Badge = React.memo(({ color, children }) => (
   <span className={`px-2 py-1 rounded-full text-sm font-medium ${color}`}>{children}</span>
 ));
 
-const getStatusColor = (status) => {
+const getStatusColor = status => {
   switch (status) {
-    case 'doing': return 'bg-green-100 text-green-800';
-    case 'handover': return 'bg-yellow-100 text-yellow-800';
-    case 'done': return 'bg-red-100 text-red-800';
-    case 'waiting': return 'bg-gray-100 text-gray-800';
-    default: return 'bg-gray-100 text-gray-800';
+    case 'doing':
+      return 'bg-green-100 text-green-800';
+    case 'handover':
+      return 'bg-yellow-100 text-yellow-800';
+    case 'done':
+      return 'bg-red-100 text-red-800';
+    case 'waiting':
+      return 'bg-gray-100 text-gray-800';
+    default:
+      return 'bg-gray-100 text-gray-800';
   }
 };
 
-const getStatusText = (status) => {
+const getStatusText = status => {
   switch (status) {
-    case 'doing': return 'Đang làm việc';
-    case 'handover': return 'Đang bàn giao';
-    case 'done': return 'Đã kết thúc';
-    case 'waiting': return 'Đang chờ';
-    default: return 'Chưa bắt đầu';
+    case 'doing':
+      return 'Đang làm việc';
+    case 'handover':
+      return 'Đang bàn giao';
+    case 'done':
+      return 'Đã kết thúc';
+    case 'waiting':
+      return 'Đang chờ';
+    default:
+      return 'Chưa bắt đầu';
   }
 };
 
-const getShiftName = (code) => {
+const getShiftName = code => {
   if (code.startsWith('T')) return 'Trần Hưng Đạo';
   if (code.startsWith('H')) return 'Hòa Lạc';
   if (code.startsWith('V')) return 'Vân Canh';
@@ -106,12 +126,12 @@ const getLocationInfo = (code, locations) => {
 const handleBackendMessage = (data, setBackendMessage) => {
   if (data.message) {
     setBackendMessage(data.message);
-    
+
     // Tự động clear message sau 10 giây
     setTimeout(() => {
       setBackendMessage(null);
     }, 10000);
-    
+
     // Không hiển thị toast vì đã có banner
     return true; // Có backend message
   }
@@ -121,12 +141,12 @@ const handleBackendMessage = (data, setBackendMessage) => {
 const handleBackendError = (err, setBackendMessage) => {
   if (err.response?.data?.message) {
     setBackendMessage(err.response.data.message);
-    
+
     // Tự động clear error message sau 15 giây
     setTimeout(() => {
       setBackendMessage(null);
     }, 15000);
-    
+
     // Không hiển thị toast vì đã có banner
     return true; // Có backend error message
   }
@@ -134,147 +154,147 @@ const handleBackendError = (err, setBackendMessage) => {
 };
 
 // Optimized ShiftTable với React 19 features
-const ShiftTable = React.memo(({
-  data,
-  loading,
-  dateFilter,
-  onDateFilterChange,
-  pagination,
-  onPaginationChange,
-  searchText,
-  onSearchChange,
-  onOpenShiftSchedule,
-}) => {
-  const tableId = useId(); // Sử dụng useId cho unique ID
+const ShiftTable = React.memo(
+  ({
+    data,
+    loading,
+    dateFilter,
+    onDateFilterChange,
+    pagination,
+    onPaginationChange,
+    searchText,
+    onSearchChange,
+    onOpenShiftSchedule,
+  }) => {
+    const tableId = useId(); // Sử dụng useId cho unique ID
 
-
-  const columns = [
-    {
-      title: 'Ca làm việc',
-      dataIndex: 'code',
-      key: 'code',
-      className: 'custom-header border-gray-200',
-      width: 120,
-      render: (text) => <span className="text-sm font-medium">Ca {text}</span>,
-    },
-    {
-      title: 'Địa điểm',
-      dataIndex: 'code',
-      key: 'location',
-      className: 'custom-header border-gray-200',
-      width: 120,
-      render: (code) => <span>{getShiftName(code)}</span>,
-    },
-    {
-      title: 'Ngày',
-      dataIndex: 'date',
-      key: 'date',
-      className: 'custom-header border-gray-200',
-      width: 120,
-      render: (date) => format(new Date(date), 'dd/MM/yyyy', { locale: vi }),
-    },
-    {
-      title: 'Thành viên',
-      dataIndex: 'Users',
-      key: 'users',
-      className: 'custom-header border-gray-200',
-      render: (users, record) => (
-        <span>
-          {record.status === 'done'
-            ? (record.Users?.map(user => user.fullname).join(', ') || 'Chưa có thành viên')
-            : (users?.map(user => user.fullname).join(', ') || 'Chưa có thành viên')
-          }
-        </span>
-      ),
-    },
-    {
-      title: 'Trạng thái',
-      dataIndex: 'status',
-      key: 'status',
-      className: 'custom-header border-gray-200',
-      width: 120,
-      defaultSortOrder: 'ascend',
-      sorter: (a, b) => {
-        const statusOrder = {
-          'doing': 2,
-          'handover': 1,
-          'waiting': 3,
-          'done': 4,
-        };
-        return statusOrder[a.status] - statusOrder[b.status];
+    const columns = [
+      {
+        title: 'Ca làm việc',
+        dataIndex: 'code',
+        key: 'code',
+        className: 'custom-header border-gray-200',
+        width: 120,
+        render: text => <span className='text-sm font-medium'>Ca {text}</span>,
       },
-      render: (status) => (
-        <Badge color={getStatusColor(status)}>
-          <span className="text-xs">{getStatusText(status)}</span>
-        </Badge>
-      ),
-    },
-  ];
+      {
+        title: 'Địa điểm',
+        dataIndex: 'code',
+        key: 'location',
+        className: 'custom-header border-gray-200',
+        width: 120,
+        render: code => <span>{getShiftName(code)}</span>,
+      },
+      {
+        title: 'Ngày',
+        dataIndex: 'date',
+        key: 'date',
+        className: 'custom-header border-gray-200',
+        width: 120,
+        render: date => format(new Date(date), 'dd/MM/yyyy', { locale: vi }),
+      },
+      {
+        title: 'Thành viên',
+        dataIndex: 'Users',
+        key: 'users',
+        className: 'custom-header border-gray-200',
+        render: (users, record) => (
+          <span>
+            {record.status === 'done'
+              ? record.Users?.map(user => user.fullname).join(', ') || 'Chưa có thành viên'
+              : users?.map(user => user.fullname).join(', ') || 'Chưa có thành viên'}
+          </span>
+        ),
+      },
+      {
+        title: 'Trạng thái',
+        dataIndex: 'status',
+        key: 'status',
+        className: 'custom-header border-gray-200',
+        width: 120,
+        defaultSortOrder: 'ascend',
+        sorter: (a, b) => {
+          const statusOrder = {
+            doing: 2,
+            handover: 1,
+            waiting: 3,
+            done: 4,
+          };
+          return statusOrder[a.status] - statusOrder[b.status];
+        },
+        render: status => (
+          <Badge color={getStatusColor(status)}>
+            <span className='text-xs'>{getStatusText(status)}</span>
+          </Badge>
+        ),
+      },
+    ];
 
-  return (
-    <div className="p-6 bg-[#F8F9FD]">
-      <div className="flex justify-between items-center mb-6">
-        <h3 className="text-base font-medium text-[#2D3958]">Danh sách ca làm việc</h3>
-        <Space>
-          <Button
-            type="primary"
-            icon={<CalendarOutlined />}
-            onClick={onOpenShiftSchedule}
-            className="bg-[#0F60FF] hover:bg-[#0040FF] border-[#0F60FF]"
-          >
-            Lịch làm việc
-          </Button>
-          <input
-            type="text"
-            placeholder="Tìm kiếm ..."
-            value={searchText}
-            onChange={onSearchChange}
-            className="px-3 py-1 border border-[#E5E9F2] rounded-lg focus:border-[#0F60FF] focus:outline-none"
-            style={{ minWidth: '150px' }}
-            id={`${tableId}-search`}
-            aria-label="Tìm kiếm ca làm việc"
-          />
-          <DatePicker
-            value={dateFilter}
-            placeholder="Chọn ngày ... "
-            onChange={onDateFilterChange}
-            locale={locale}
-            allowClear
-            className="border-[#E5E9F2] hover:border-[#0F60FF] rounded-lg"
-          />
-        </Space>
+    return (
+      <div className='p-6 bg-[#F8F9FD]'>
+        <div className='flex justify-between items-center mb-6'>
+          <h3 className='text-base font-medium text-[#2D3958]'>Danh sách ca làm việc</h3>
+          <Space>
+            <Button
+              type='primary'
+              icon={<CalendarOutlined />}
+              onClick={onOpenShiftSchedule}
+              className='bg-[#0F60FF] hover:bg-[#0040FF] border-[#0F60FF]'
+            >
+              Lịch làm việc
+            </Button>
+            <input
+              type='text'
+              placeholder='Tìm kiếm ...'
+              value={searchText}
+              onChange={onSearchChange}
+              className='px-3 py-1 border border-[#E5E9F2] rounded-lg focus:border-[#0F60FF] focus:outline-none'
+              style={{ minWidth: '150px' }}
+              id={`${tableId}-search`}
+              aria-label='Tìm kiếm ca làm việc'
+            />
+            <DatePicker
+              value={dateFilter}
+              placeholder='Chọn ngày ... '
+              onChange={onDateFilterChange}
+              locale={locale}
+              allowClear
+              className='border-[#E5E9F2] hover:border-[#0F60FF] rounded-lg'
+            />
+          </Space>
+        </div>
+
+        <Table
+          dataSource={data}
+          columns={columns}
+          bordered
+          rowKey={record => `shift-${record.code}-${record.date}`}
+          size='small'
+          id={tableId}
+          pagination={{
+            current: pagination.page,
+            pageSize: pagination.limit,
+            total: pagination.total,
+            onChange: onPaginationChange,
+            showSizeChanger: true,
+            showQuickJumper: true,
+            pageSizeOptions: ['15', '20', '50', '100'],
+            defaultPageSize: 15,
+            locale: { items_per_page: '/ Trang' },
+            showTotal: total => `Tổng số ${total} ca`,
+          }}
+          loading={loading}
+          className='custom-table'
+          locale={{
+            emptyText: dateFilter
+              ? 'Không có ca làm việc nào trong ngày đã chọn'
+              : 'Không có dữ liệu ca làm việc',
+          }}
+        />
       </div>
-
-      <Table
-        dataSource={data}
-        columns={columns}
-        bordered
-        rowKey={(record) => `shift-${record.code}-${record.date}`}
-        size="small"
-        id={tableId}
-        pagination={{
-          current: pagination.page,
-          pageSize: pagination.limit,
-          total: pagination.total,
-          onChange: onPaginationChange,
-          showSizeChanger: true,
-          showQuickJumper: true,
-          pageSizeOptions: ['15', '20', '50', '100'],
-          defaultPageSize: 15,
-          locale: { items_per_page: '/ Trang' },
-          showTotal: (total) => `Tổng số ${total} ca`
-        }}
-        loading={loading}
-        className="custom-table"
-        locale={{
-          emptyText: dateFilter
-            ? 'Không có ca làm việc nào trong ngày đã chọn'
-            : 'Không có dữ liệu ca làm việc'
-        }}
-      />
-    </div>
-  );
-});
+    );
+  }
+);
 
 // Optimized ShiftCard với React.memo và performance optimizations
 const ShiftCard = React.memo(({ shift, onSelect, currentShift }) => {
@@ -290,48 +310,46 @@ const ShiftCard = React.memo(({ shift, onSelect, currentShift }) => {
   const canSelect = useMemo(() => {
     // Manager không thể chọn ca
     if (isManager) return false;
-    
+
     // Đã có ca hiện tại thì không thể chọn ca khác
     if (currentShift) return false;
-    
+
     // Ca đã kết thúc hoặc đang bàn giao thì không thể chọn
     if (shift.status === 'done' || shift.status === 'handover') return false;
-    
+
     // Chỉ có thể chọn ca ở trạng thái waiting hoặc doing
     return ['waiting', 'doing'].includes(shift.status);
   }, [currentShift, shift.status, isManager]);
   return (
     <div
-      className="flex flex-col bg-white rounded-xl border border-solid border-[#E5E9F2] p-4 hover:border-[#0F60FF] transition-colors shadow-sm"
+      className='flex flex-col bg-white rounded-xl border border-solid border-[#E5E9F2] p-4 hover:border-[#0F60FF] transition-colors shadow-sm'
       id={cardId}
       data-shift-id={shift.id}
     >
-      <div className="flex justify-between items-start mb-3">
-        <h3 className="font-medium text-[#2D3958] " >Ca {shift.code}</h3>
-        <Badge color={getStatusColor(shift.status)}>
-          {getStatusText(shift.status)}
-        </Badge>
+      <div className='flex justify-between items-start mb-3'>
+        <h3 className='font-medium text-[#2D3958] '>Ca {shift.code}</h3>
+        <Badge color={getStatusColor(shift.status)}>{getStatusText(shift.status)}</Badge>
       </div>
-      <div className="text-sm text-[#8F95B2] mb-3 line-clamp-2">
+      <div className='text-sm text-[#8F95B2] mb-3 line-clamp-2'>
         {shift.status !== 'doing' ? (
-          <div className="flex flex-col gap-1">
-            <div className="flex items-center gap-1">
-              <span className="text-[#8F95B2]"></span>
+          <div className='flex flex-col gap-1'>
+            <div className='flex items-center gap-1'>
+              <span className='text-[#8F95B2]'></span>
               <span className='text-[#8F95B2]'>{userNames}</span>
             </div>
           </div>
         ) : (
-          <div className="flex items-center gap-1">
-            <span className="text-[#8F95B2]"></span>
-            <span className="font-medium text-blue-600 ">{userNames}</span>
+          <div className='flex items-center gap-1'>
+            <span className='text-[#8F95B2]'></span>
+            <span className='font-medium text-blue-600 '>{userNames}</span>
           </div>
         )}
       </div>
-      <div className="mt-auto">
+      <div className='mt-auto'>
         {canSelect && (
           <button
             onClick={() => onSelect(shift)}
-            className="w-full px-4 py-2 text-sm font-medium text-white bg-[#0F60FF] rounded-lg hover:bg-[#0040FF] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            className='w-full px-4 py-2 text-sm font-medium text-white bg-[#0F60FF] rounded-lg hover:bg-[#0040FF] disabled:opacity-50 disabled:cursor-not-allowed transition-colors'
           >
             Chọn ca
           </button>
@@ -341,181 +359,195 @@ const ShiftCard = React.memo(({ shift, onSelect, currentShift }) => {
   );
 });
 
-
-
 // Optimized ShiftGroup với React.memo
-const ShiftGroup = React.memo(({ shifts, title, currentShift, onSelect, locations, shiftLayout }) => {
-  const groupId = useId(); // Sử dụng useId cho unique ID
+const ShiftGroup = React.memo(
+  ({ shifts, title, currentShift, onSelect, locations, shiftLayout }) => {
+    const groupId = useId(); // Sử dụng useId cho unique ID
 
-  // Kiểm tra data readiness
-  const isDataReady = shifts && locations && shiftLayout && shiftLayout.length > 0;
+    // Kiểm tra data readiness
+    const isDataReady = shifts && locations && shiftLayout && shiftLayout.length > 0;
 
-  if (!isDataReady) {
-    return (
-      <div className="space-y-6" id={groupId}>
-        <h3 className="font-medium text-[#2D3958] mb-3">{title}</h3>
-        <div className="flex justify-center py-8">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+    if (!isDataReady) {
+      return (
+        <div className='space-y-6' id={groupId}>
+          <h3 className='font-medium text-[#2D3958] mb-3'>{title}</h3>
+          <div className='flex justify-center py-8'>
+            <div className='animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600'></div>
+          </div>
         </div>
-      </div>
-    );
-  }
+      );
+    }
 
-  // Lấy danh sách group có dữ liệu từ shifts
-  const availableGroups = Array.from(new Set(shifts.map(shift => shift.code[0])));
+    // Lấy danh sách group có dữ liệu từ shifts
+    const availableGroups = Array.from(new Set(shifts.map(shift => shift.code[0])));
 
-  // Tạo layout giữ tất cả nhóm theo thứ tự, kể cả nhóm không có dữ liệu
-  const displayGroups = shiftLayout
-    .map(group => ({
+    // Tạo layout giữ tất cả nhóm theo thứ tự, kể cả nhóm không có dữ liệu
+    const displayGroups = shiftLayout.map(group => ({
       code: group.code,
       name: group.name,
       locationId: group.locationId,
-      hasData: availableGroups.includes(group.code) // Đánh dấu nhóm có dữ liệu
+      hasData: availableGroups.includes(group.code), // Đánh dấu nhóm có dữ liệu
     }));
-  
-  // Sắp xếp theo locationId từ backend để đảm bảo thứ tự chính xác
-  const sortedGroup = [...displayGroups].sort((a, b) => {
-    // Sử dụng locationId nếu có, nếu không thì fallback về code
-    const aId = a.locationId || 0;
-    const bId = b.locationId || 0;
-    return aId - bId;
-  });
 
+    // Sắp xếp theo locationId từ backend để đảm bảo thứ tự chính xác
+    const sortedGroup = [...displayGroups].sort((a, b) => {
+      // Sử dụng locationId nếu có, nếu không thì fallback về code
+      const aId = a.locationId || 0;
+      const bId = b.locationId || 0;
+      return aId - bId;
+    });
 
+    // Render layout theo LAYOUT_CONFIG.mode
+    const currentMode = LAYOUT_CONFIG.mode;
+    const totalGroups = shiftLayout.length;
 
-  // Render layout theo LAYOUT_CONFIG.mode
-  const currentMode = LAYOUT_CONFIG.mode;
-  const totalGroups = shiftLayout.length;
+    if (currentMode === 'horizontal') {
+      // Layout mới: Nhóm ca theo dòng, ca theo cột
+      return (
+        <div className='space-y-6' id={groupId}>
+          <h3 className='font-medium text-[#2D3958] mb-3'>{title}</h3>
 
-  if (currentMode === 'horizontal') {
-    // Layout mới: Nhóm ca theo dòng, ca theo cột
-    return (
-      <div className="space-y-6" id={groupId}>
-        <h3 className="font-medium text-[#2D3958] mb-3">{title}</h3>
-
-        {sortedGroup.map((group) => {
-          const locationInfo = getLocationInfo(group.code + '1', locations);
-          const groupName = group.name || locationInfo?.name || group.code;
-          const groupShifts = shifts.filter(shift => shift.code.startsWith(group.code));
-
-          return (
-            <div key={`location-${group.code}-${title}`} className="rounded-lg p-4">
-              <div className="flex items-center gap-2 mb-4">
-                <h3 className="font-medium text-[#2D3958] text-lg">{groupName}</h3>
-                {locationInfo && (
-                  <Tooltip
-                    title={
-                      <div>
-                        {locationInfo.description && (
-                          <div><strong>Địa chỉ:</strong> {locationInfo.description}</div>
-                        )}
-                        {locationInfo.hotline && (
-                          <div><strong>Hotline:</strong> {locationInfo.hotline}</div>
-                        )}
-                      </div>
-                    }
-                    placement="right"
-                  >
-                    <InfoCircleOutlined className="text-blue-500 cursor-pointer" />
-                  </Tooltip>
-                )}
-              </div>
-
-              <div
-                className={LAYOUT_CONFIG.horizontal.containerClass}
-                style={{
-                  gridTemplateColumns: LAYOUT_CONFIG.horizontal.gridTemplateColumns
-                }}
-              >
-                {groupShifts.length > 0 ? (
-                  groupShifts.map(shift => (
-                    <ShiftCard
-                      key={`shift-${shift.code}-${shift.date}`}
-                      shift={shift}
-                      currentShift={currentShift}
-                      onSelect={onSelect}
-                    />
-                  ))
-                ) : (
-                  <div className="flex items-center justify-center p-8 text-gray-400 border-2 border-dashed border-gray-200 rounded-lg">
-                    <div className="text-center">
-                      <svg className="w-12 h-12 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-                      </svg>
-                      <p className="text-sm">Không có ca làm việc</p>
-                    </div>
-                  </div>
-                )}
-              </div>
-            </div>
-          );
-        })}
-      </div>
-    );
-  } else {
-    // Layout cũ: Nhóm ca theo cột, ca theo dòng
-    return (
-      <div className="space-y-4">
-        <h3 className="font-medium text-[#2D3958] mb-3">{title}</h3>
-        <div 
-          className="fixed-grid"
-          style={{
-            gridTemplateColumns: `repeat(${totalGroups}, 1fr)`,
-            gap: '1.5rem'
-          }}
-        >
-          {sortedGroup.map((group) => {
+          {sortedGroup.map(group => {
             const locationInfo = getLocationInfo(group.code + '1', locations);
             const groupName = group.name || locationInfo?.name || group.code;
+            const groupShifts = shifts.filter(shift => shift.code.startsWith(group.code));
 
             return (
-              <div key={`location-${group.code}-${title}`}>
-                <div className="flex items-center gap-2 mb-3">
-                  <h3 className="font-medium text-[#2D3958]">{groupName}</h3>
+              <div key={`location-${group.code}-${title}`} className='rounded-lg p-4'>
+                <div className='flex items-center gap-2 mb-4'>
+                  <h3 className='font-medium text-[#2D3958] text-lg'>{groupName}</h3>
                   {locationInfo && (
                     <Tooltip
                       title={
                         <div>
                           {locationInfo.description && (
-                            <div><strong>Địa chỉ:</strong> {locationInfo.description}</div>
+                            <div>
+                              <strong>Địa chỉ:</strong> {locationInfo.description}
+                            </div>
                           )}
                           {locationInfo.hotline && (
-                            <div><strong>Hotline:</strong> {locationInfo.hotline}</div>
+                            <div>
+                              <strong>Hotline:</strong> {locationInfo.hotline}
+                            </div>
                           )}
                         </div>
                       }
-                      placement="right"
+                      placement='right'
                     >
-                      <InfoCircleOutlined className="text-blue-500 cursor-pointer" />
+                      <InfoCircleOutlined className='text-blue-500 cursor-pointer' />
                     </Tooltip>
                   )}
                 </div>
-                <div className="space-y-4">
-                  {(() => {
-                    const groupShifts = shifts.filter(shift => shift.code.startsWith(group.code));
-                    return groupShifts.length > 0 ? (
-                      groupShifts.map(shift => (
-                        <ShiftCard
-                          key={`shift-${shift.code}-${shift.date}`}
-                          shift={shift}
-                          currentShift={currentShift}
-                          onSelect={onSelect}
-                        />
-                      ))
-                    ) : (
-                      <div >
+
+                <div
+                  className={LAYOUT_CONFIG.horizontal.containerClass}
+                  style={{
+                    gridTemplateColumns: LAYOUT_CONFIG.horizontal.gridTemplateColumns,
+                  }}
+                >
+                  {groupShifts.length > 0 ? (
+                    groupShifts.map(shift => (
+                      <ShiftCard
+                        key={`shift-${shift.code}-${shift.date}`}
+                        shift={shift}
+                        currentShift={currentShift}
+                        onSelect={onSelect}
+                      />
+                    ))
+                  ) : (
+                    <div className='flex items-center justify-center p-8 text-gray-400 border-2 border-dashed border-gray-200 rounded-lg'>
+                      <div className='text-center'>
+                        <svg
+                          className='w-12 h-12 mx-auto mb-2'
+                          fill='none'
+                          stroke='currentColor'
+                          viewBox='0 0 24 24'
+                        >
+                          <path
+                            strokeLinecap='round'
+                            strokeLinejoin='round'
+                            strokeWidth={1}
+                            d='M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2'
+                          />
+                        </svg>
+                        <p className='text-sm'>Không có ca làm việc</p>
                       </div>
-                    );
-                  })()}
+                    </div>
+                  )}
                 </div>
               </div>
             );
           })}
         </div>
-      </div>
-    );
+      );
+    } else {
+      // Layout cũ: Nhóm ca theo cột, ca theo dòng
+      return (
+        <div className='space-y-4'>
+          <h3 className='font-medium text-[#2D3958] mb-3'>{title}</h3>
+          <div
+            className='fixed-grid'
+            style={{
+              gridTemplateColumns: `repeat(${totalGroups}, 1fr)`,
+              gap: '1.5rem',
+            }}
+          >
+            {sortedGroup.map(group => {
+              const locationInfo = getLocationInfo(group.code + '1', locations);
+              const groupName = group.name || locationInfo?.name || group.code;
+
+              return (
+                <div key={`location-${group.code}-${title}`}>
+                  <div className='flex items-center gap-2 mb-3'>
+                    <h3 className='font-medium text-[#2D3958]'>{groupName}</h3>
+                    {locationInfo && (
+                      <Tooltip
+                        title={
+                          <div>
+                            {locationInfo.description && (
+                              <div>
+                                <strong>Địa chỉ:</strong> {locationInfo.description}
+                              </div>
+                            )}
+                            {locationInfo.hotline && (
+                              <div>
+                                <strong>Hotline:</strong> {locationInfo.hotline}
+                              </div>
+                            )}
+                          </div>
+                        }
+                        placement='right'
+                      >
+                        <InfoCircleOutlined className='text-blue-500 cursor-pointer' />
+                      </Tooltip>
+                    )}
+                  </div>
+                  <div className='space-y-4'>
+                    {(() => {
+                      const groupShifts = shifts.filter(shift => shift.code.startsWith(group.code));
+                      return groupShifts.length > 0 ? (
+                        groupShifts.map(shift => (
+                          <ShiftCard
+                            key={`shift-${shift.code}-${shift.date}`}
+                            shift={shift}
+                            currentShift={currentShift}
+                            onSelect={onSelect}
+                          />
+                        ))
+                      ) : (
+                        <div></div>
+                      );
+                    })()}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      );
+    }
   }
-});
+);
 
 export default function ShiftSelector() {
   // React 19 features
@@ -548,7 +580,7 @@ export default function ShiftSelector() {
     page: 1,
     limit: 15,
     total: 0,
-    totalPages: 0
+    totalPages: 0,
   });
 
   // Refs
@@ -565,8 +597,6 @@ export default function ShiftSelector() {
   const filteredShifts = useMemo(() => {
     if (!shifts || !Array.isArray(shifts)) return [];
 
-
-
     if (!deferredSearchText.trim()) return shifts;
 
     // Optimize search performance với Set
@@ -579,12 +609,8 @@ export default function ShiftSelector() {
       if (getShiftName(shift.code).toLowerCase().includes(searchLower)) return true;
 
       // Check users (most expensive operation last)
-      return shift.Users?.some(user =>
-        user.fullname.toLowerCase().includes(searchLower)
-      ) || false;
+      return shift.Users?.some(user => user.fullname.toLowerCase().includes(searchLower)) || false;
     });
-
-
 
     return filtered;
   }, [shifts, deferredSearchText]);
@@ -595,43 +621,46 @@ export default function ShiftSelector() {
     navigate('/login');
   }, [navigate]);
 
-  const fetchHandoverIdForShift = useCallback(async (shiftId) => {
-    if (!shiftId) {
-      setHandoverId(null);
-      setHandoverStatus(null);
-      return;
-    }
+  const fetchHandoverIdForShift = useCallback(
+    async shiftId => {
+      if (!shiftId) {
+        setHandoverId(null);
+        setHandoverStatus(null);
+        return;
+      }
 
-    try {
-      // Tìm handover với các trạng thái phù hợp cho việc nhận bàn giao
-      const { data } = await axios.get('/api/shifts/handover/by-status/all', {
-        params: {
-          toShiftId: shiftId
+      try {
+        // Tìm handover với các trạng thái phù hợp cho việc nhận bàn giao
+        const { data } = await axios.get('/api/shifts/handover/by-status/all', {
+          params: {
+            toShiftId: shiftId,
+          },
+        });
+
+        // Tìm handover phù hợp nhất (ưu tiên pending, sau đó completed)
+        const suitableHandover = data.handovers?.find(handover => {
+          const isSuitable = handover.status === 'pending' || handover.status === 'completed';
+          return isSuitable;
+        });
+
+        if (suitableHandover) {
+          setHandoverId(suitableHandover.id);
+          setHandoverStatus(suitableHandover.status);
+        } else {
+          setHandoverId(null);
+          setHandoverStatus(null);
         }
-      });
-
-      // Tìm handover phù hợp nhất (ưu tiên pending, sau đó completed)
-      const suitableHandover = data.handovers?.find(handover => {
-        const isSuitable = handover.status === 'pending' || handover.status === 'completed';
-        return isSuitable;
-      });
-
-      if (suitableHandover) {
-        setHandoverId(suitableHandover.id);
-        setHandoverStatus(suitableHandover.status);
-      } else {
+      } catch (err) {
+        console.error('Lỗi khi lấy handover ID:', err);
+        if (err.response?.status === 401) {
+          handleUnauthorized();
+        }
         setHandoverId(null);
         setHandoverStatus(null);
       }
-    } catch (err) {
-      console.error('Lỗi khi lấy handover ID:', err);
-      if (err.response?.status === 401) {
-        handleUnauthorized();
-      }
-      setHandoverId(null);
-      setHandoverStatus(null);
-    }
-  }, [handleUnauthorized]);
+    },
+    [handleUnauthorized]
+  );
 
   // Fetch data functions
   const fetchShiftLayout = useCallback(async () => {
@@ -660,7 +689,6 @@ export default function ShiftSelector() {
       }
     }
   }, [handleUnauthorized]);
-
 
   const fetchCurrentShift = useCallback(async () => {
     try {
@@ -718,7 +746,7 @@ export default function ShiftSelector() {
       setLoading(true);
       const params = {
         page: pagination.page,
-        limit: pagination.limit
+        limit: pagination.limit,
       };
 
       if (dateFilter) {
@@ -731,7 +759,7 @@ export default function ShiftSelector() {
       setPagination(prev => ({
         ...prev,
         total: data.total,
-        totalPages: data.totalPages
+        totalPages: data.totalPages,
       }));
 
       if (data.message) {
@@ -771,7 +799,7 @@ export default function ShiftSelector() {
         fetchAvailableShifts(),
         fetchShifts(),
         fetchLocations(),
-        fetchShiftLayout()
+        fetchShiftLayout(),
       ]);
 
       // Sử dụng startTransition để cập nhật state
@@ -787,25 +815,35 @@ export default function ShiftSelector() {
         handleUnauthorized();
       }
     }
-  }, [fetchCurrentShift, fetchAvailableShifts, fetchShifts, fetchLocations, fetchShiftLayout, handleUnauthorized]);
+  }, [
+    fetchCurrentShift,
+    fetchAvailableShifts,
+    fetchShifts,
+    fetchLocations,
+    fetchShiftLayout,
+    handleUnauthorized,
+  ]);
 
   // Optimized shift selection
-  const handleShiftSelect = useCallback((shift) => {
-    // Clear backend message khi bắt đầu action mới
-    setBackendMessage(null);
-    
-    startTransition(() => {
-      setSelectedShiftCode(shift.code);
-      setSelectedShiftDate(shift.date);
-      setConfirmModalVisible(true);
-    });
-  }, [startTransition]);
+  const handleShiftSelect = useCallback(
+    shift => {
+      // Clear backend message khi bắt đầu action mới
+      setBackendMessage(null);
+
+      startTransition(() => {
+        setSelectedShiftCode(shift.code);
+        setSelectedShiftDate(shift.date);
+        setConfirmModalVisible(true);
+      });
+    },
+    [startTransition]
+  );
 
   const handleConfirmSelect = useCallback(async () => {
     try {
       const { data } = await axios.put('/api/shifts/select', {
         shiftCode: selectedShiftCode,
-        shiftDate: selectedshiftDate
+        shiftDate: selectedshiftDate,
       });
       handleBackendMessage(data, setBackendMessage);
       // Sau khi chọn ca, cần lấy lại currentShift và handoverId ngay để bật nút "Nhận bàn giao"
@@ -825,7 +863,7 @@ export default function ShiftSelector() {
         fetchAvailableShifts(),
         fetchShifts(),
         fetchLocations(),
-        fetchShiftLayout()
+        fetchShiftLayout(),
       ]);
     } catch (err) {
       console.error('Lỗi khi chọn ca:', err);
@@ -835,7 +873,15 @@ export default function ShiftSelector() {
       setSelectedShiftCode(null);
       setSelectedShiftDate(null);
     }
-  }, [selectedShiftCode, selectedshiftDate, fetchHandoverIdForShift, fetchAvailableShifts, fetchShifts, fetchLocations, fetchShiftLayout]); // Bỏ fetchData để tránh vòng lặp
+  }, [
+    selectedShiftCode,
+    selectedshiftDate,
+    fetchHandoverIdForShift,
+    fetchAvailableShifts,
+    fetchShifts,
+    fetchLocations,
+    fetchShiftLayout,
+  ]); // Bỏ fetchData để tránh vòng lặp
 
   const handleExitShift = useCallback(() => {
     // Clear backend message khi bắt đầu action mới
@@ -865,16 +911,16 @@ export default function ShiftSelector() {
     setPagination(prev => ({
       ...prev,
       page,
-      limit: pageSize
+      limit: pageSize,
     }));
   }, []);
 
   // Handle date filter change
-  const handleDateFilterChange = useCallback((date) => {
+  const handleDateFilterChange = useCallback(date => {
     setDateFilter(date);
     setPagination(prev => ({
       ...prev,
-      page: 1 // Reset to first page when filter changes
+      page: 1, // Reset to first page when filter changes
     }));
   }, []);
 
@@ -883,7 +929,7 @@ export default function ShiftSelector() {
     setDateFilter(null);
     setPagination(prev => ({
       ...prev,
-      page: 1 // Reset to first page when filter changes
+      page: 1, // Reset to first page when filter changes
     }));
   }, []);
 
@@ -901,10 +947,10 @@ export default function ShiftSelector() {
     // Kiểm tra data readiness
     if (!isInitialized || !shiftLayout) {
       return (
-        <div className="flex justify-center items-center py-16">
-          <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-            <p className="text-gray-600">Đang tải dữ liệu ca làm việc...</p>
+        <div className='flex justify-center items-center py-16'>
+          <div className='text-center'>
+            <div className='animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4'></div>
+            <p className='text-gray-600'>Đang tải dữ liệu ca làm việc...</p>
           </div>
         </div>
       );
@@ -929,34 +975,49 @@ export default function ShiftSelector() {
         shiftDate.getDate() === today.getDate() &&
         shiftDate.getMonth() === today.getMonth() &&
         shiftDate.getFullYear() === today.getFullYear() &&
-        (shift.status === 'handover' || shift.status === 'doing' || shift.status === 'waiting' || shift.status === 'not-started' )
+        (shift.status === 'handover' ||
+          shift.status === 'doing' ||
+          shift.status === 'waiting' ||
+          shift.status === 'not-started')
       );
     });
 
     return (
-      <div className="space-y-6 p-6 bg-[#F8F9FD]">
+      <div className='space-y-6 p-6 bg-[#F8F9FD]'>
         {backendMessage && (
-          <div className="bg-blue-50 border-l-4 border-blue-500 p-4 mb-4">
-            <div className="flex justify-between items-start">
-              <div className="flex">
-                <div className="flex-shrink-0">
-                  <svg className="h-5 w-5 text-blue-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                    <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
+          <div className='bg-blue-50 border-l-4 border-blue-500 p-4 mb-4'>
+            <div className='flex justify-between items-start'>
+              <div className='flex'>
+                <div className='flex-shrink-0'>
+                  <svg
+                    className='h-5 w-5 text-blue-500'
+                    xmlns='http://www.w3.org/2000/svg'
+                    viewBox='0 0 20 20'
+                    fill='currentColor'
+                  >
+                    <path
+                      fillRule='evenodd'
+                      d='M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z'
+                      clipRule='evenodd'
+                    />
                   </svg>
                 </div>
-                <div className="ml-3">
-                  <p className="text-sm text-blue-700">
-                    {backendMessage}
-                  </p>
+                <div className='ml-3'>
+                  <p className='text-sm text-blue-700'>{backendMessage}</p>
                 </div>
               </div>
               <button
                 onClick={() => setBackendMessage(null)}
-                className="text-blue-400 hover:text-blue-600 transition-colors"
-                aria-label="Đóng thông báo"
+                className='text-blue-400 hover:text-blue-600 transition-colors'
+                aria-label='Đóng thông báo'
               >
-                <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                <svg className='h-4 w-4' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+                  <path
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                    strokeWidth={2}
+                    d='M6 18L18 6M6 6l12 12'
+                  />
                 </svg>
               </button>
             </div>
@@ -964,60 +1025,68 @@ export default function ShiftSelector() {
         )}
 
         {!isManager && (
-          <div className="bg-white rounded-xl border border-[#E5E9F2] p-4 shadow-sm">
-            <div className="flex justify-between items-center">
-              <div className="flex items-center gap-2">
-                <span className="text-[#2D3958] font-medium">Bạn đang làm:</span>
+          <div className='bg-white rounded-xl border border-[#E5E9F2] p-4 shadow-sm'>
+            <div className='flex justify-between items-center'>
+              <div className='flex items-center gap-2'>
+                <span className='text-[#2D3958] font-medium'>Bạn đang làm:</span>
                 {currentShift ? (
-                  <div className="flex items-center gap-2">
-                    <span className="text-[#2D3958]">Ca {currentShift.code} ({format(new Date(currentShift.date), 'dd/MM/yyyy', { locale: vi })})</span>
+                  <div className='flex items-center gap-2'>
+                    <span className='text-[#2D3958]'>
+                      Ca {currentShift.code} (
+                      {format(new Date(currentShift.date), 'dd/MM/yyyy', { locale: vi })})
+                    </span>
                     <Badge color={getStatusColor(currentShift.status)}>
                       {getStatusText(currentShift.status)}
                     </Badge>
                   </div>
                 ) : (
-                  <span className="text-[#8F95B2]">Bạn chưa vào ca nào</span>
+                  <span className='text-[#8F95B2]'>Bạn chưa vào ca nào</span>
                 )}
               </div>
-              <div className="flex items-center gap-2">
-
-
+              <div className='flex items-center gap-2'>
                 {currentShift && handoverStatus === 'completed' && (
-                  <Tooltip title="Vào trang quản lý công việc của ca hiện tại" placement="top">
+                  <Tooltip title='Vào trang quản lý công việc của ca hiện tại' placement='top'>
                     <button
                       onClick={() => navigate('/dc/my-shifts')}
-                      className="px-4 py-2 text-sm font-medium text-blue-600 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors"
+                      className='px-4 py-2 text-sm font-medium text-blue-600 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors'
                     >
                       Vào ca làm việc
                     </button>
                   </Tooltip>
                 )}
                 {currentShift && handoverId && handoverStatus !== 'completed' && (
-                  <Tooltip title="Xác nhận biên bản bàn giao ca" placement="top">
+                  <Tooltip title='Xác nhận biên bản bàn giao ca' placement='top'>
                     <button
                       onClick={() => navigate(`/dc/handover/${handoverId}`)}
-                      className="px-4 py-2 text-sm font-medium text-green-600 bg-green-50 rounded-lg hover:bg-green-100 transition-colors"
+                      className='px-4 py-2 text-sm font-medium text-green-600 bg-green-50 rounded-lg hover:bg-green-100 transition-colors'
                     >
                       Nhận bàn giao
                     </button>
                   </Tooltip>
                 )}
                 {currentShift && (
-                  <Tooltip title="Thoát khỏi ca làm việc hiện tại" placement="top">
+                  <Tooltip title='Thoát khỏi ca làm việc hiện tại' placement='top'>
                     <button
                       onClick={handleExitShift}
-                      className="px-4 py-2 text-sm font-medium text-red-600 bg-red-50 rounded-lg hover:bg-red-100 transition-colors"
+                      className='px-4 py-2 text-sm font-medium text-red-600 bg-red-50 rounded-lg hover:bg-red-100 transition-colors'
                     >
                       Thoát ca
                     </button>
                   </Tooltip>
                 )}
                 {!currentShift && (
-                  <div className="flex items-center gap-2 text-sm text-gray-500 bg-gray-50 px-3 py-2 rounded-lg">
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  <div className='flex items-center gap-2 text-sm text-gray-500 bg-gray-50 px-3 py-2 rounded-lg'>
+                    <svg className='w-4 h-4' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+                      <path
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                        strokeWidth={2}
+                        d='M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z'
+                      />
                     </svg>
-                    <span>Vui lòng chọn ca làm việc để sử dụng các tính năng quản lý công việc</span>
+                    <span>
+                      Vui lòng chọn ca làm việc để sử dụng các tính năng quản lý công việc
+                    </span>
                   </div>
                 )}
               </div>
@@ -1025,7 +1094,7 @@ export default function ShiftSelector() {
           </div>
         )}
 
-        <h2 className="text-xxl font-semibold text-[#2D3958] text-center mb-6">
+        <h2 className='text-xxl font-semibold text-[#2D3958] text-center mb-6'>
           Ca làm việc tại các Trung Tâm Dữ Liệu
         </h2>
 
@@ -1049,7 +1118,21 @@ export default function ShiftSelector() {
         )}
       </div>
     );
-  }, [availableShifts, currentShift, handleExitShift, handleRefresh, handleShiftSelect, backendMessage, isManager, locations, shiftLayout, isInitialized, handoverStatus, handoverId, navigate]);
+  }, [
+    availableShifts,
+    currentShift,
+    handleExitShift,
+    handleRefresh,
+    handleShiftSelect,
+    backendMessage,
+    isManager,
+    locations,
+    shiftLayout,
+    isInitialized,
+    handoverStatus,
+    handoverId,
+    navigate,
+  ]);
 
   // Tabs configuration
   const items = [
@@ -1062,15 +1145,15 @@ export default function ShiftSelector() {
       key: 'tab-all-shifts',
       label: 'Danh sách ca làm việc',
       children: loading ? (
-        <div className="flex justify-center py-8">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+        <div className='flex justify-center py-8'>
+          <div className='animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600'></div>
         </div>
       ) : (
         <>
           {isPending && (
-            <div className="flex justify-center items-center py-4">
-              <Spin size="large" />
-              <span className="ml-2 text-gray-600">Đang cập nhật dữ liệu...</span>
+            <div className='flex justify-center items-center py-4'>
+              <Spin size='large' />
+              <span className='ml-2 text-gray-600'>Đang cập nhật dữ liệu...</span>
             </div>
           )}
 
@@ -1083,7 +1166,7 @@ export default function ShiftSelector() {
             pagination={pagination}
             onPaginationChange={handlePaginationChange}
             searchText={searchText}
-            onSearchChange={(e) => setSearchText(e.target.value)}
+            onSearchChange={e => setSearchText(e.target.value)}
             onOpenShiftSchedule={handleOpenShiftSchedule}
           />
         </>
@@ -1094,7 +1177,7 @@ export default function ShiftSelector() {
   // WebSocket connection với proper cleanup
   // Hệ thống realtime update cho:
   // - Chọn ca (select): Cập nhật trạng thái ca và danh sách user
-  // - Thoát ca (exit): Cập nhật trạng thái ca và danh sách user  
+  // - Thoát ca (exit): Cập nhật trạng thái ca và danh sách user
   // - Bàn giao ca (handover): Cập nhật trạng thái ca từ 'doing' sang 'handover'
   // - Thay đổi trạng thái (status): Cập nhật trạng thái ca (waiting, doing, handover, done)
   // - Cập nhật handoverId: Tự động cập nhật nút "Nhận bàn giao" khi có thay đổi
@@ -1170,7 +1253,7 @@ export default function ShiftSelector() {
           if (retryTimeout) {
             clearTimeout(retryTimeout);
             retryTimeout = null;
-          }    
+          }
 
           // Start heartbeat
           heartbeatInterval = setInterval(() => {
@@ -1181,7 +1264,7 @@ export default function ShiftSelector() {
           }, HEARTBEAT_INTERVAL);
         };
 
-        ws.onmessage = (event) => {
+        ws.onmessage = event => {
           if (!isComponentMounted) return;
           try {
             const data = JSON.parse(event.data);
@@ -1228,7 +1311,7 @@ export default function ShiftSelector() {
                     ...data.shift,
                     status: data.shift.status || currentShift.status,
                     version: newVersion,
-                    updatedAt: data.shift.updatedAt || new Date().toISOString()
+                    updatedAt: data.shift.updatedAt || new Date().toISOString(),
                   };
 
                   updatedShifts[shiftIndex] = mergedShift;
@@ -1265,7 +1348,7 @@ export default function ShiftSelector() {
                       ...prevShift,
                       ...data.shift,
                       version: newVersion,
-                      updatedAt: data.shift.updatedAt || new Date().toISOString()
+                      updatedAt: data.shift.updatedAt || new Date().toISOString(),
                     };
 
                     // Cập nhật handoverId nếu cần
@@ -1313,22 +1396,20 @@ export default function ShiftSelector() {
                     ...currentShift,
                     ...data.shift,
                     version: newVersion,
-                    updatedAt: data.shift.updatedAt || new Date().toISOString()
+                    updatedAt: data.shift.updatedAt || new Date().toISOString(),
                   };
 
                   updatedShifts[shiftIndex] = mergedShift;
                   return updatedShifts;
                 });
               });
-
-
             }
           } catch (error) {
             console.error('Error processing WebSocket message:', error);
           }
         };
 
-        ws.onerror = (error) => {
+        ws.onerror = error => {
           if (!isComponentMounted) return;
           console.error('WebSocket error:', error);
 
@@ -1338,7 +1419,7 @@ export default function ShiftSelector() {
           }
         };
 
-        ws.onclose = (event) => {
+        ws.onclose = event => {
           if (!isComponentMounted) return;
           isConnecting = false;
 
@@ -1381,7 +1462,6 @@ export default function ShiftSelector() {
     isComponentMountedRef.current = true;
     let interval;
 
-
     const initializeData = async () => {
       try {
         // Fetch tuần tự để đảm bảo thứ tự và tránh race condition
@@ -1391,10 +1471,7 @@ export default function ShiftSelector() {
 
         await fetchShiftLayout();
 
-        await Promise.all([
-          fetchAvailableShifts(),
-          fetchShifts()
-        ]);
+        await Promise.all([fetchAvailableShifts(), fetchShifts()]);
 
         setIsInitialized(true);
       } catch (error) {
@@ -1427,7 +1504,6 @@ export default function ShiftSelector() {
     };
   }, []); // Chỉ chạy 1 lần khi component mount
 
-
   // Gọi fetchShifts khi pagination hoặc dateFilter thay đổi
   useEffect(() => {
     if (!hasInitialListFetchedRef.current) {
@@ -1452,15 +1528,15 @@ export default function ShiftSelector() {
 
   return (
     <ErrorBoundary>
-      <div className="bg-[#F8F9FD] rounded-lg shadow-sm" id={componentId}>
+      <div className='bg-[#F8F9FD] rounded-lg shadow-sm' id={componentId}>
         <Tabs
-          defaultActiveKey="tab-current-shift"
+          defaultActiveKey='tab-current-shift'
           items={items}
-          className="custom-tabs"
+          className='custom-tabs'
           tabBarStyle={{
             marginBottom: 0,
             paddingLeft: '24px',
-            borderBottom: '1px solid #E5E9F2'
+            borderBottom: '1px solid #E5E9F2',
           }}
         />
         <style>{`
@@ -1566,15 +1642,15 @@ export default function ShiftSelector() {
 
         {/* Confirmation Modal for Shift Selection */}
         <Modal
-          title="Xác nhận chọn ca"
+          title='Xác nhận chọn ca'
           open={confirmModalVisible}
           onOk={handleConfirmSelect}
           onCancel={() => {
             setConfirmModalVisible(false);
             setSelectedShiftCode(null);
           }}
-          okText="Xác nhận"
-          cancelText="Hủy"
+          okText='Xác nhận'
+          cancelText='Hủy'
           okButtonProps={{ className: 'bg-[#003c71]' }}
         >
           <p>Bạn có chắc chắn muốn chọn ca {selectedShiftCode} không?</p>
@@ -1582,12 +1658,12 @@ export default function ShiftSelector() {
 
         {/* Confirmation Modal for Exit Shift */}
         <Modal
-          title="Xác nhận thoát ca"
+          title='Xác nhận thoát ca'
           open={exitModalVisible}
           onOk={handleConfirmExit}
           onCancel={() => setExitModalVisible(false)}
-          okText="Xác nhận"
-          cancelText="Hủy"
+          okText='Xác nhận'
+          cancelText='Hủy'
           okButtonProps={{ className: 'bg-[#003c71]' }}
         >
           <p>Bạn có chắc chắn muốn thoát ca hiện tại không?</p>
@@ -1597,7 +1673,7 @@ export default function ShiftSelector() {
         <ShiftScheduleModal
           visible={shiftScheduleModalVisible}
           onCancel={handleCloseShiftSchedule}
-          locationId="all"
+          locationId='all'
         />
       </div>
     </ErrorBoundary>

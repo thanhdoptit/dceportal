@@ -3,7 +3,7 @@ import { Button } from 'antd';
 
 /**
  * PrimaryButton Component - Áp dụng styling standards cho buttons chính
- * 
+ *
  * @param {Object} props
  * @param {string} props.children - Text của button
  * @param {string} props.variant - 'primary' | 'secondary' | 'danger'
@@ -27,7 +27,7 @@ const PrimaryButton = ({
 }) => {
   // Brand color - VietinBank Blue
   const BRAND_COLOR = '#003c71';
-  
+
   // Variant styles
   const variantStyles = {
     primary: {
@@ -37,7 +37,7 @@ const PrimaryButton = ({
       hover: {
         backgroundColor: '#002a5a',
         borderColor: '#002a5a',
-      }
+      },
     },
     secondary: {
       backgroundColor: '#2563eb',
@@ -46,7 +46,7 @@ const PrimaryButton = ({
       hover: {
         backgroundColor: '#1d4ed8',
         borderColor: '#1d4ed8',
-      }
+      },
     },
     danger: {
       backgroundColor: '#dc2626',
@@ -55,8 +55,8 @@ const PrimaryButton = ({
       hover: {
         backgroundColor: '#b91c1c',
         borderColor: '#b91c1c',
-      }
-    }
+      },
+    },
   };
 
   const currentStyle = variantStyles[variant];
@@ -64,7 +64,7 @@ const PrimaryButton = ({
 
   return (
     <Button
-      type="primary"
+      type='primary'
       size={size}
       icon={icon}
       onClick={onClick}
@@ -75,15 +75,15 @@ const PrimaryButton = ({
         backgroundColor: currentStyle.backgroundColor,
         borderColor: currentStyle.borderColor,
         color: currentStyle.color,
-        ...props.style
+        ...props.style,
       }}
-      onMouseEnter={(e) => {
+      onMouseEnter={e => {
         if (!disabled && !loading) {
           e.target.style.backgroundColor = currentStyle.hover.backgroundColor;
           e.target.style.borderColor = currentStyle.hover.borderColor;
         }
       }}
-      onMouseLeave={(e) => {
+      onMouseLeave={e => {
         if (!disabled && !loading) {
           e.target.style.backgroundColor = currentStyle.backgroundColor;
           e.target.style.borderColor = currentStyle.borderColor;
@@ -146,16 +146,10 @@ export const StatusButton = ({
   const baseClassName = `flex items-center gap-2 text-white whitespace-nowrap ${colorClass} ${className}`;
 
   return (
-    <Button
-      onClick={onClick}
-      size={size}
-      type="primary"
-      className={baseClassName}
-      {...props}
-    >
+    <Button onClick={onClick} size={size} type='primary' className={baseClassName} {...props}>
       {children}
     </Button>
   );
 };
 
-export default PrimaryButton; 
+export default PrimaryButton;

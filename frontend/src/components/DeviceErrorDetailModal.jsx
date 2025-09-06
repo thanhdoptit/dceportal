@@ -1,56 +1,49 @@
-import React, { useEffect, useState } from 'react';
 import {
-  Modal,
-  Form,
-  Input,
-  Select,
-  Space,
-  Typography,
-  Card,
-  Timeline,
-  Button,
-  Row,
-  Col,
-  Tag,
-  message,
-  DatePicker,
-  Upload,
-  Image,
-  Tooltip,
-  Spin
-} from 'antd';
-import {
+  CheckOutlined,
+  ClockCircleOutlined,
+  DeleteOutlined,
+  EditOutlined,
+  ExclamationCircleOutlined,
   FileSearchOutlined,
   HistoryOutlined,
   InfoCircleOutlined,
-  EditOutlined,
-  CheckCircleOutlined,
-  CloseCircleOutlined,
-  CheckOutlined,
-  MailOutlined,
-  UserOutlined,
-  PlusOutlined,
-  DeleteOutlined,
-  ExclamationCircleOutlined,
   LeftOutlined,
+  MailOutlined,
+  PlusOutlined,
   RightOutlined,
-  ClockCircleOutlined
+  UserOutlined,
 } from '@ant-design/icons';
-import _ from 'lodash';
-import dayjs from 'dayjs';
-import { sendEmail } from '../services/emailService';
-import { useContext } from 'react';
-import { AuthContext } from '../contexts/AuthContext';
-import { format } from 'date-fns';
+import {
+  Button,
+  Card,
+  Col,
+  DatePicker,
+  Form,
+  Input,
+  Modal,
+  Row,
+  Select,
+  Space,
+  Spin,
+  Tag,
+  Timeline,
+  Tooltip,
+  Typography,
+  Upload,
+  message,
+} from 'antd';
 import axios from 'axios';
+import { format } from 'date-fns';
+import dayjs from 'dayjs';
+import _ from 'lodash';
+import React, { useContext, useEffect, useState } from 'react';
 import {
   DEVICE_ERROR_STATUS,
   DEVICE_ERROR_STATUS_COLORS,
-  DEVICE_ERROR_STATUS_OPTIONS,
   DEVICE_ERROR_STATUS_LABELS,
-  canTransitionTo,
-  getNextAvailableStatuses
 } from '../constants/deviceErrorStatus';
+import { AuthContext } from '../contexts/AuthContext';
+import { sendEmail } from '../services/emailService';
 
 const { Title, Text } = Typography;
 const { TextArea } = Input;
@@ -84,12 +77,16 @@ const ImagePreview = ({ image, deviceErrorId, style, onClick }) => {
 
         const res = await fetch(imageUrl, {
           headers: {
-            Authorization: `Bearer ${token}`
-          }
+            Authorization: `Bearer ${token}`,
+          },
         });
         console.log('🔍 DeviceError ImagePreview - Response status:', res.status);
         if (!res.ok) {
-          console.error('🔍 DeviceError ImagePreview - Response not ok:', res.status, res.statusText);
+          console.error(
+            '🔍 DeviceError ImagePreview - Response not ok:',
+            res.status,
+            res.statusText
+          );
           throw new Error('Fetch image failed');
         }
         const blob = await res.blob();
@@ -109,41 +106,47 @@ const ImagePreview = ({ image, deviceErrorId, style, onClick }) => {
     };
   }, [deviceErrorId, image]);
 
-  if (loading) return (
-    <div style={{
-      ...style,
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      background: '#f0f0f0',
-      borderRadius: '4px'
-    }}>
-      <Spin size="small" />
-    </div>
-  );
+  if (loading)
+    return (
+      <div
+        style={{
+          ...style,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          background: '#f0f0f0',
+          borderRadius: '4px',
+        }}
+      >
+        <Spin size='small' />
+      </div>
+    );
 
-  if (error) return (
-    <div style={{
-      ...style,
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      background: '#f0f0f0',
-      borderRadius: '4px',
-      color: '#999',
-      fontSize: '12px'
-    }}>
-      <ExclamationCircleOutlined style={{ marginRight: 4 }} />
-      Lỗi tải ảnh
-    </div>
-  );
+  if (error)
+    return (
+      <div
+        style={{
+          ...style,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          background: '#f0f0f0',
+          borderRadius: '4px',
+          color: '#999',
+          fontSize: '12px',
+        }}
+      >
+        <ExclamationCircleOutlined style={{ marginRight: 4 }} />
+        Lỗi tải ảnh
+      </div>
+    );
 
   return (
     <img
       src={imageUrl}
       alt={`Hình ảnh lỗi thiết bị`}
       style={style}
-      onClick={(e) => {
+      onClick={e => {
         console.log('Device error image clicked', image, onClick);
         if (onClick) onClick(e);
       }}
@@ -159,13 +162,17 @@ const AuthenticatedUpload = ({ fileList, onChange, onRemove, onPreview, children
     const loadAuthenticatedFiles = async () => {
       const token = localStorage.getItem('token');
       const newFileList = await Promise.all(
-        fileList.map(async (file) => {
-          if (file.url && (file.url.includes('/api/devices/errors/') || file.url.includes('/uploads/device-errors/temp/'))) {
+        fileList.map(async file => {
+          if (
+            file.url &&
+            (file.url.includes('/api/devices/errors/') ||
+              file.url.includes('/uploads/device-errors/temp/'))
+          ) {
             try {
               const res = await fetch(file.url, {
                 headers: {
-                  Authorization: `Bearer ${token}`
-                }
+                  Authorization: `Bearer ${token}`,
+                },
               });
               if (res.ok) {
                 const blob = await res.blob();
@@ -173,7 +180,7 @@ const AuthenticatedUpload = ({ fileList, onChange, onRemove, onPreview, children
                 return {
                   ...file,
                   url: url,
-                  thumbUrl: url
+                  thumbUrl: url,
                 };
               }
             } catch (error) {
@@ -202,7 +209,15 @@ const AuthenticatedUpload = ({ fileList, onChange, onRemove, onPreview, children
   );
 };
 
-const DeviceErrorDetailModal = ({ visible, onClose, error, history, onResolve, onRefresh, setSelectedError }) => {
+const DeviceErrorDetailModal = ({
+  visible,
+  onClose,
+  error,
+  history,
+  onResolve,
+  onRefresh,
+  setSelectedError,
+}) => {
   console.log('🚀 DeviceErrorDetailModal component rendered'); // Debug log
   console.log('🚀 Props:', { visible, error: !!error, history: history?.length }); // Debug log
   const [form] = Form.useForm();
@@ -235,7 +250,7 @@ const DeviceErrorDetailModal = ({ visible, onClose, error, history, onResolve, o
         serialNumber: error.serialNumber,
         errorCode: error.errorCode,
         position: error.position || '',
-        solution: isEditing ? '' : error.solution // Nếu đang edit thì để trống
+        solution: isEditing ? '' : error.solution, // Nếu đang edit thì để trống
       });
 
       // Cập nhật fileList cho Upload component
@@ -243,21 +258,26 @@ const DeviceErrorDetailModal = ({ visible, onClose, error, history, onResolve, o
         const imageUrls = error.images ? JSON.parse(error.images) : [];
         console.log('📋 Parsed image URLs:', imageUrls);
 
-        const fileList = Array.isArray(imageUrls) ? imageUrls.map((url, index) => {
-          // Trích xuất tên file từ URL
-          const filename = url.split('/').pop();
+        const fileList = Array.isArray(imageUrls)
+          ? imageUrls.map((url, index) => {
+              // Trích xuất tên file từ URL
+              const filename = url.split('/').pop();
 
-          return {
-            uid: `-${index}`,
-            name: filename,
-            status: 'done',
-            // Không set url/thumbUrl để ImagePreview component xử lý authentication
-            isExisting: true // Đánh dấu là ảnh hiện có
-          };
-        }) : [];
+              return {
+                uid: `-${index}`,
+                name: filename,
+                status: 'done',
+                // Không set url/thumbUrl để ImagePreview component xử lý authentication
+                isExisting: true, // Đánh dấu là ảnh hiện có
+              };
+            })
+          : [];
 
         console.log('📋 Setting fileList:', fileList);
-        console.log('📋 File URLs:', fileList.map(f => f.url));
+        console.log(
+          '📋 File URLs:',
+          fileList.map(f => f.url)
+        );
         setUploadFileList(fileList);
       } catch (e) {
         console.error('❌ Error parsing images for upload:', e);
@@ -279,7 +299,7 @@ const DeviceErrorDetailModal = ({ visible, onClose, error, history, onResolve, o
     if (emailModalVisible && emailForm) {
       emailForm.setFieldsValue({
         to: ['CNTT@vietinbank.vn'],
-        cc: ['datacenter@vietinbank.vn']
+        cc: ['datacenter@vietinbank.vn'],
       });
     }
   }, [emailModalVisible, emailForm]);
@@ -287,7 +307,7 @@ const DeviceErrorDetailModal = ({ visible, onClose, error, history, onResolve, o
   if (!error) return null;
 
   // Hàm lấy màu theo loại thay đổi
-  const getColor = (type) => {
+  const getColor = type => {
     if (type === 'create') return '#003c71';
     if (type === 'resolve') return '#003c71';
     if (type === 'update') return '#003c71';
@@ -295,7 +315,7 @@ const DeviceErrorDetailModal = ({ visible, onClose, error, history, onResolve, o
   };
 
   // Hàm ánh xạ tên trường sang tiếng Việt
-  const getFieldLabel = (field) => {
+  const getFieldLabel = field => {
     switch (field) {
       case 'errorCause':
         return 'Nguyên nhân';
@@ -323,56 +343,112 @@ const DeviceErrorDetailModal = ({ visible, onClose, error, history, onResolve, o
   // Gom các bản ghi cùng changeId
   const grouped = _.groupBy(history, item => item.changeId || item.id);
   // Sắp xếp các nhóm theo thời gian mới nhất
-  const sortedGroups = Object.values(grouped).sort((a, b) => new Date(b[0].createdAt) - new Date(a[0].createdAt));
+  const sortedGroups = Object.values(grouped).sort(
+    (a, b) => new Date(b[0].createdAt) - new Date(a[0].createdAt)
+  );
 
   // Hàm render chi tiết các trường thay đổi (update)
   const renderUpdateDetail = (group, first, getFieldLabel) => (
     <>
-      {group.map(item => (
-        item.field && item.field !== 'all' && item.field !== 'solution' && item.field !== 'resolveStatus' && (
-          <div key={item.field} style={{ marginBottom: 4 }}>
-            {(item.field === 'resolvedAt' || item.field === 'resolveNote') ? (
-              <>
-                <b>{getFieldLabel(item.field)}</b> : "<span style={{ color: '#389e0d' }}>{
-                  item.field === 'resolvedAt'
-                    ? (item.newValue ? new Date(item.newValue).toLocaleString('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false }) : '')
-                    : item.newValue
-                }</span>"
-              </>
-            ) : (
-              item.oldValue !== undefined && item.oldValue !== null && item.oldValue !== '' && item.oldValue !== item.newValue ? (
+      {group.map(
+        item =>
+          item.field &&
+          item.field !== 'all' &&
+          item.field !== 'solution' &&
+          item.field !== 'resolveStatus' && (
+            <div key={item.field} style={{ marginBottom: 4 }}>
+              {item.field === 'resolvedAt' || item.field === 'resolveNote' ? (
                 <>
-                  Đã thay đổi <b>{getFieldLabel(item.field)}</b> từ "<span style={{ color: '#d46b08' }}>{
-                    item.field === 'resolvedAt'
-                      ? (item.oldValue ? new Date(item.oldValue).toLocaleString('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false }) : '')
-                      : item.oldValue
-                  }</span>" thành "<span style={{ color: '#389e0d' }}>{
-                    item.field === 'resolvedAt'
-                      ? (item.newValue ? new Date(item.newValue).toLocaleString('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false }) : '')
-                      : item.newValue
-                  }</span>"
+                  <b>{getFieldLabel(item.field)}</b> : "
+                  <span style={{ color: '#389e0d' }}>
+                    {item.field === 'resolvedAt'
+                      ? item.newValue
+                        ? new Date(item.newValue).toLocaleString('vi-VN', {
+                            day: '2-digit',
+                            month: '2-digit',
+                            year: 'numeric',
+                            hour: '2-digit',
+                            minute: '2-digit',
+                            second: '2-digit',
+                            hour12: false,
+                          })
+                        : ''
+                      : item.newValue}
+                  </span>
+                  "
+                </>
+              ) : item.oldValue !== undefined &&
+                item.oldValue !== null &&
+                item.oldValue !== '' &&
+                item.oldValue !== item.newValue ? (
+                <>
+                  Đã thay đổi <b>{getFieldLabel(item.field)}</b> từ "
+                  <span style={{ color: '#d46b08' }}>
+                    {item.field === 'resolvedAt'
+                      ? item.oldValue
+                        ? new Date(item.oldValue).toLocaleString('vi-VN', {
+                            day: '2-digit',
+                            month: '2-digit',
+                            year: 'numeric',
+                            hour: '2-digit',
+                            minute: '2-digit',
+                            second: '2-digit',
+                            hour12: false,
+                          })
+                        : ''
+                      : item.oldValue}
+                  </span>
+                  " thành "
+                  <span style={{ color: '#389e0d' }}>
+                    {item.field === 'resolvedAt'
+                      ? item.newValue
+                        ? new Date(item.newValue).toLocaleString('vi-VN', {
+                            day: '2-digit',
+                            month: '2-digit',
+                            year: 'numeric',
+                            hour: '2-digit',
+                            minute: '2-digit',
+                            second: '2-digit',
+                            hour12: false,
+                          })
+                        : ''
+                      : item.newValue}
+                  </span>
+                  "
                 </>
               ) : (
                 <>
-                  Đã cập nhật <b>{getFieldLabel(item.field)}</b> thành "<span style={{ color: '#389e0d' }}>{
-                    item.field === 'resolvedAt'
-                      ? (item.newValue ? new Date(item.newValue).toLocaleString('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false }) : '')
-                      : item.newValue
-                  }</span>"
+                  Đã cập nhật <b>{getFieldLabel(item.field)}</b> thành "
+                  <span style={{ color: '#389e0d' }}>
+                    {item.field === 'resolvedAt'
+                      ? item.newValue
+                        ? new Date(item.newValue).toLocaleString('vi-VN', {
+                            day: '2-digit',
+                            month: '2-digit',
+                            year: 'numeric',
+                            hour: '2-digit',
+                            minute: '2-digit',
+                            second: '2-digit',
+                            hour12: false,
+                          })
+                        : ''
+                      : item.newValue}
+                  </span>
+                  "
                 </>
-              )
-            )}
-          </div>
-        )
-      ))}
-
+              )}
+            </div>
+          )
+      )}
     </>
   );
 
-  const timelineItems = sortedGroups.map((group) => {
+  const timelineItems = sortedGroups.map(group => {
     const first = group[0];
     // Kiểm tra nếu trong group có cập nhật resolveStatus thành Đã xử lý
-    const isResolved = group.some(item => item.field === 'resolveStatus' && item.newValue === 'Đã xử lý');
+    const isResolved = group.some(
+      item => item.field === 'resolveStatus' && item.newValue === 'Đã xử lý'
+    );
     let label = '';
     if (first.changeType === 'create') label = 'Tạo mới';
     else if (isResolved) label = 'Đã xử lý';
@@ -384,16 +460,20 @@ const DeviceErrorDetailModal = ({ visible, onClose, error, history, onResolve, o
     return {
       color: getColor(first.changeType),
       children: (
-        <div className="p-2 border border-gray-200 rounded-md">
-          <div className="flex items-center justify-between gap-1">
-            <div className="flex items-center gap-1">
-              <UserOutlined className="text-blue-500" />
-              <span className="font-medium text-sm">{first.changedByUser?.username}</span>
-              <span className="text-gray-400">•</span>
-              <span className="text-gray-400 text-sm">
+        <div className='p-2 border border-gray-200 rounded-md'>
+          <div className='flex items-center justify-between gap-1'>
+            <div className='flex items-center gap-1'>
+              <UserOutlined className='text-blue-500' />
+              <span className='font-medium text-sm'>{first.changedByUser?.username}</span>
+              <span className='text-gray-400'>•</span>
+              <span className='text-gray-400 text-sm'>
                 {new Date(first.createdAt).toLocaleString('vi-VN', {
-                  day: '2-digit', month: '2-digit', year: 'numeric',
-                  hour: '2-digit', minute: '2-digit', hour12: false
+                  day: '2-digit',
+                  month: '2-digit',
+                  year: 'numeric',
+                  hour: '2-digit',
+                  minute: '2-digit',
+                  hour12: false,
                 })}
               </span>
             </div>
@@ -402,15 +482,13 @@ const DeviceErrorDetailModal = ({ visible, onClose, error, history, onResolve, o
             </Tag>
           </div>
 
-          <div className="rounded-lg p-1">
-            {renderUpdateDetail(group, first, getFieldLabel)}
-          </div>
+          <div className='rounded-lg p-1'>{renderUpdateDetail(group, first, getFieldLabel)}</div>
         </div>
-      )
+      ),
     };
   });
 
-  const handleResolve = async (values) => {
+  const handleResolve = async values => {
     try {
       setLoading(true);
 
@@ -427,9 +505,12 @@ const DeviceErrorDetailModal = ({ visible, onClose, error, history, onResolve, o
 
           for (const filename of filesToDelete) {
             try {
-              await axios.delete(`${import.meta.env.VITE_API_URL}/api/devices/errors/${error.id}/images/${encodeURIComponent(filename)}`, {
-                headers: { 'Authorization': `Bearer ${token}` }
-              });
+              await axios.delete(
+                `${import.meta.env.VITE_API_URL}/api/devices/errors/${error.id}/images/${encodeURIComponent(filename)}`,
+                {
+                  headers: { Authorization: `Bearer ${token}` },
+                }
+              );
               console.log(`✅ Deleted file: ${filename}`);
             } catch (deleteError) {
               console.error(`❌ Failed to delete file: ${filename}`, deleteError);
@@ -452,11 +533,15 @@ const DeviceErrorDetailModal = ({ visible, onClose, error, history, onResolve, o
       if (tempImageNames.length > 0) {
         try {
           const token = localStorage.getItem('token');
-          const moveResponse = await axios.post(`/api/devices/errors/${error.id}/move-temp-images`, {
-            tempImageNames: tempImageNames
-          }, {
-            headers: { 'Authorization': `Bearer ${token}` }
-          });
+          const moveResponse = await axios.post(
+            `/api/devices/errors/${error.id}/move-temp-images`,
+            {
+              tempImageNames: tempImageNames,
+            },
+            {
+              headers: { Authorization: `Bearer ${token}` },
+            }
+          );
           console.log('✅ Moved temp images response:', moveResponse.data);
         } catch (moveError) {
           console.error('❌ Error moving temp images:', moveError);
@@ -467,8 +552,9 @@ const DeviceErrorDetailModal = ({ visible, onClose, error, history, onResolve, o
       // Nếu solution để trống thì giữ lại giá trị cũ
       const data = {
         ...values,
-        solution: values.solution && values.solution.trim() !== '' ? values.solution : error.solution,
-        position: values.position || error.position
+        solution:
+          values.solution && values.solution.trim() !== '' ? values.solution : error.solution,
+        position: values.position || error.position,
       };
 
       console.log('📝 Final data to send:', data);
@@ -491,7 +577,7 @@ const DeviceErrorDetailModal = ({ visible, onClose, error, history, onResolve, o
         try {
           const token = localStorage.getItem('token');
           const response = await fetch(`/api/devices/errors/${error.id}`, {
-            headers: { 'Authorization': `Bearer ${token}` }
+            headers: { Authorization: `Bearer ${token}` },
           });
           if (response.ok) {
             const data = await response.json();
@@ -509,7 +595,7 @@ const DeviceErrorDetailModal = ({ visible, onClose, error, history, onResolve, o
     }
   };
 
-  const handleQuickResolve = async (values) => {
+  const handleQuickResolve = async values => {
     try {
       setLoading(true);
       const resolveData = {
@@ -519,7 +605,7 @@ const DeviceErrorDetailModal = ({ visible, onClose, error, history, onResolve, o
         resolveNote: values.resolveNote,
         solution: values.solution || error.solution,
         errorCause: values.errorCause || error.errorCause,
-        position: values.position || error.position
+        position: values.position || error.position,
       };
       await onResolve(resolveData);
 
@@ -535,13 +621,15 @@ const DeviceErrorDetailModal = ({ visible, onClose, error, history, onResolve, o
         try {
           const token = localStorage.getItem('token');
           const response = await fetch(`/api/devices/errors/${error.id}`, {
-            headers: { 'Authorization': `Bearer ${token}` }
+            headers: { Authorization: `Bearer ${token}` },
           });
           if (response.ok) {
             const data = await response.json();
             setSelectedError(data);
           }
-        } catch { /* ignore */ }
+        } catch {
+          /* ignore */
+        }
       }
     } catch (error) {
       message.error('Không thể xử lý lỗi');
@@ -561,7 +649,7 @@ const DeviceErrorDetailModal = ({ visible, onClose, error, history, onResolve, o
         resolveNote: 'Bắt đầu xử lý lỗi',
         solution: error.solution,
         errorCause: error.errorCause,
-        position: error.position
+        position: error.position,
       };
       await onResolve(progressData);
       message.success('Đã chuyển sang trạng thái đang xử lý');
@@ -573,13 +661,15 @@ const DeviceErrorDetailModal = ({ visible, onClose, error, history, onResolve, o
         try {
           const token = localStorage.getItem('token');
           const response = await fetch(`/api/devices/errors/${error.id}`, {
-            headers: { 'Authorization': `Bearer ${token}` }
+            headers: { Authorization: `Bearer ${token}` },
           });
           if (response.ok) {
             const data = await response.json();
             setSelectedError(data);
           }
-        } catch { /* ignore */ }
+        } catch {
+          /* ignore */
+        }
       }
     } catch (error) {
       message.error('Không thể chuyển trạng thái');
@@ -590,7 +680,7 @@ const DeviceErrorDetailModal = ({ visible, onClose, error, history, onResolve, o
   };
 
   // Hàm xử lý upload hình ảnh đơn lẻ
-  const handleImageUpload = async (file) => {
+  const handleImageUpload = async file => {
     console.log('📤 Edit modal - handleImageUpload called with file:', file);
 
     try {
@@ -607,10 +697,10 @@ const DeviceErrorDetailModal = ({ visible, onClose, error, history, onResolve, o
 
       const response = await axios.post(`/api/devices/errors/${error.id}/temp/images`, formData, {
         headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'multipart/form-data'
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'multipart/form-data',
         },
-        timeout: 30000 // 30 giây timeout
+        timeout: 30000, // 30 giây timeout
       });
 
       console.log('📤 Upload response:', response.data);
@@ -619,39 +709,41 @@ const DeviceErrorDetailModal = ({ visible, onClose, error, history, onResolve, o
         message.success(`Upload ${response.data.uploadedFiles.length} hình ảnh thành công`);
 
         // Tạo file paths từ uploadedFiles
-        const filePaths = response.data.uploadedFiles.map(file =>
-          `/uploads/device-errors/temp/${error.id}/${file.filename}`
+        const filePaths = response.data.uploadedFiles.map(
+          file => `/uploads/device-errors/temp/${error.id}/${file.filename}`
         );
 
-        const fullUrls = await Promise.all(filePaths.map(async (url) => {
-          try {
-            const filename = url.split('/').pop();
-            const apiUrl = `${import.meta.env.VITE_API_URL}/api/devices/errors/${error.id}/temp/images/${filename}`;
+        const fullUrls = await Promise.all(
+          filePaths.map(async url => {
+            try {
+              const filename = url.split('/').pop();
+              const apiUrl = `${import.meta.env.VITE_API_URL}/api/devices/errors/${error.id}/temp/images/${filename}`;
 
-            console.log(`🔗 Loading image as blob: ${apiUrl}`);
+              console.log(`🔗 Loading image as blob: ${apiUrl}`);
 
-            const token = localStorage.getItem('token');
-            if (!token) {
-              console.error('❌ No auth token for image load');
-              return apiUrl; // Fallback to API URL
+              const token = localStorage.getItem('token');
+              if (!token) {
+                console.error('❌ No auth token for image load');
+                return apiUrl; // Fallback to API URL
+              }
+
+              const response = await axios.get(apiUrl, {
+                headers: {
+                  Authorization: `Bearer ${token}`,
+                },
+                responseType: 'blob',
+              });
+
+              const blobUrl = window.URL.createObjectURL(response.data);
+              console.log(`✅ Created blob URL: ${blobUrl}`);
+              return blobUrl;
+            } catch (error) {
+              console.error('❌ Error creating blob URL:', error);
+              const filename = url.split('/').pop();
+              return `${import.meta.env.VITE_API_URL}/api/devices/errors/${error.id}/temp/images/${filename}`;
             }
-
-            const response = await axios.get(apiUrl, {
-              headers: {
-                'Authorization': `Bearer ${token}`
-              },
-              responseType: 'blob'
-            });
-
-            const blobUrl = window.URL.createObjectURL(response.data);
-            console.log(`✅ Created blob URL: ${blobUrl}`);
-            return blobUrl;
-          } catch (error) {
-            console.error('❌ Error creating blob URL:', error);
-            const filename = url.split('/').pop();
-            return `${import.meta.env.VITE_API_URL}/api/devices/errors/${error.id}/temp/images/${filename}`;
-          }
-        }));
+          })
+        );
 
         // Cập nhật fileList với ảnh mới
         const newFiles = filePaths.map((path, index) => ({
@@ -660,7 +752,7 @@ const DeviceErrorDetailModal = ({ visible, onClose, error, history, onResolve, o
           status: 'done',
           url: fullUrls[index],
           thumbUrl: fullUrls[index],
-          filename: path.split('/').pop() // Đánh dấu là file temp
+          filename: path.split('/').pop(), // Đánh dấu là file temp
         }));
 
         setUploadFileList(prev => {
@@ -692,7 +784,7 @@ const DeviceErrorDetailModal = ({ visible, onClose, error, history, onResolve, o
   };
 
   // Hàm xử lý upload nhiều hình ảnh cùng lúc
-  const handleMultipleImageUpload = async (fileList) => {
+  const handleMultipleImageUpload = async fileList => {
     try {
       const token = localStorage.getItem('token');
       if (!token) {
@@ -705,17 +797,17 @@ const DeviceErrorDetailModal = ({ visible, onClose, error, history, onResolve, o
 
       // Tạo FormData với nhiều file
       const formData = new FormData();
-      fileList.forEach((file) => {
+      fileList.forEach(file => {
         formData.append('images', file.originFileObj || file);
       });
 
       // Upload files
       const response = await axios.post(`/api/devices/errors/${error.id}/temp/images`, formData, {
         headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'multipart/form-data'
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'multipart/form-data',
         },
-        timeout: 30000 // 30 giây timeout
+        timeout: 30000, // 30 giây timeout
       });
 
       console.log('📤 Multiple upload response:', response.data);
@@ -724,33 +816,35 @@ const DeviceErrorDetailModal = ({ visible, onClose, error, history, onResolve, o
         message.success(`Upload thành công ${response.data.uploadedFiles.length} hình ảnh`);
 
         // Tạo file paths từ uploadedFiles
-        const filePaths = response.data.uploadedFiles.map(file =>
-          `/uploads/device-errors/temp/${error.id}/${file.filename}`
+        const filePaths = response.data.uploadedFiles.map(
+          file => `/uploads/device-errors/temp/${error.id}/${file.filename}`
         );
 
-        const fullUrls = await Promise.all(filePaths.map(async (url) => {
-          try {
-            const filename = url.split('/').pop();
-            const apiUrl = `${import.meta.env.VITE_API_URL}/api/devices/errors/${error.id}/temp/images/${filename}`;
-            console.log(`🔗 Loading image as blob: ${apiUrl}`);
-            const token = localStorage.getItem('token');
-            if (!token) {
-              console.error('❌ No auth token for image load');
-              return apiUrl; // Fallback to API URL
+        const fullUrls = await Promise.all(
+          filePaths.map(async url => {
+            try {
+              const filename = url.split('/').pop();
+              const apiUrl = `${import.meta.env.VITE_API_URL}/api/devices/errors/${error.id}/temp/images/${filename}`;
+              console.log(`🔗 Loading image as blob: ${apiUrl}`);
+              const token = localStorage.getItem('token');
+              if (!token) {
+                console.error('❌ No auth token for image load');
+                return apiUrl; // Fallback to API URL
+              }
+              const response = await axios.get(apiUrl, {
+                headers: { Authorization: `Bearer ${token}` },
+                responseType: 'blob',
+              });
+              const blobUrl = window.URL.createObjectURL(response.data);
+              console.log(`✅ Created blob URL: ${blobUrl}`);
+              return blobUrl;
+            } catch (error) {
+              console.error('❌ Error creating blob URL:', error);
+              const filename = url.split('/').pop();
+              return `${import.meta.env.VITE_API_URL}/api/devices/errors/${error.id}/temp/images/${filename}`;
             }
-            const response = await axios.get(apiUrl, {
-              headers: { 'Authorization': `Bearer ${token}` },
-              responseType: 'blob'
-            });
-            const blobUrl = window.URL.createObjectURL(response.data);
-            console.log(`✅ Created blob URL: ${blobUrl}`);
-            return blobUrl;
-          } catch (error) {
-            console.error('❌ Error creating blob URL:', error);
-            const filename = url.split('/').pop();
-            return `${import.meta.env.VITE_API_URL}/api/devices/errors/${error.id}/temp/images/${filename}`;
-          }
-        }));
+          })
+        );
 
         // Cập nhật fileList với ảnh mới
         const newFiles = filePaths.map((path, index) => ({
@@ -759,7 +853,7 @@ const DeviceErrorDetailModal = ({ visible, onClose, error, history, onResolve, o
           status: 'done',
           url: fullUrls[index],
           thumbUrl: fullUrls[index],
-          filename: path.split('/').pop() // Đánh dấu là file temp
+          filename: path.split('/').pop(), // Đánh dấu là file temp
         }));
 
         setUploadFileList(prev => {
@@ -791,7 +885,7 @@ const DeviceErrorDetailModal = ({ visible, onClose, error, history, onResolve, o
   };
 
   // Hàm xử lý xóa hình ảnh
-  const handleImageRemove = async (file) => {
+  const handleImageRemove = async file => {
     try {
       const token = localStorage.getItem('token');
       if (!token) {
@@ -812,7 +906,10 @@ const DeviceErrorDetailModal = ({ visible, onClose, error, history, onResolve, o
 
       console.log('🗑️ === EXTRACTING FILENAME ===');
       console.log('🗑️ File URL type:', typeof file.url);
-      console.log('🗑️ File URL includes /api/:', file.url && file.url.includes('/api/devices/errors/'));
+      console.log(
+        '🗑️ File URL includes /api/:',
+        file.url && file.url.includes('/api/devices/errors/')
+      );
       console.log('🗑️ File URL starts with blob:', file.url && file.url.startsWith('blob:'));
 
       // Ưu tiên lấy filename từ file.filename (đã được đánh dấu)
@@ -835,7 +932,10 @@ const DeviceErrorDetailModal = ({ visible, onClose, error, history, onResolve, o
       console.log('🗑️ Final filename:', filename);
 
       // Xác định loại file và hành động xóa
-      let isTempFile = file.filename || (file.url && file.url.includes('temp')) || (file.url && file.url.startsWith('blob:'));
+      let isTempFile =
+        file.filename ||
+        (file.url && file.url.includes('temp')) ||
+        (file.url && file.url.startsWith('blob:'));
       let deleteEndpoint;
 
       if (isTempFile) {
@@ -854,8 +954,8 @@ const DeviceErrorDetailModal = ({ visible, onClose, error, history, onResolve, o
 
       const response = await axios.delete(`${import.meta.env.VITE_API_URL}${deleteEndpoint}`, {
         headers: {
-          'Authorization': `Bearer ${token}`
-        }
+          Authorization: `Bearer ${token}`,
+        },
       });
 
       console.log('🗑️ Response status:', response.status);
@@ -868,7 +968,10 @@ const DeviceErrorDetailModal = ({ visible, onClose, error, history, onResolve, o
         setUploadFileList(prev => {
           const filteredList = prev.filter(f => f.uid !== file.uid);
           console.log('🗑️ After filtering - Removed file with uid:', file.uid);
-          console.log('🗑️ Remaining files:', filteredList.map(f => ({ uid: f.uid, name: f.name, filename: f.filename })));
+          console.log(
+            '🗑️ Remaining files:',
+            filteredList.map(f => ({ uid: f.uid, name: f.name, filename: f.filename }))
+          );
           return filteredList;
         });
       } else {
@@ -889,7 +992,7 @@ const DeviceErrorDetailModal = ({ visible, onClose, error, history, onResolve, o
   };
 
   // Hàm xử lý preview ảnh
-  const handlePreview = async (file) => {
+  const handlePreview = async file => {
     try {
       if (!file.url && !file.preview) {
         // Nếu là file mới upload, tạo preview từ originFileObj
@@ -898,7 +1001,9 @@ const DeviceErrorDetailModal = ({ visible, onClose, error, history, onResolve, o
         }
       }
 
-      setPreviewTitle(file.name || file.url?.substring(file.url.lastIndexOf('/') + 1) || 'Hình ảnh');
+      setPreviewTitle(
+        file.name || file.url?.substring(file.url.lastIndexOf('/') + 1) || 'Hình ảnh'
+      );
       setPreviewVisible(true);
     } catch (error) {
       console.error('Error creating preview:', error);
@@ -916,15 +1021,15 @@ const DeviceErrorDetailModal = ({ visible, onClose, error, history, onResolve, o
   };
 
   // Hàm tạo base64 từ file
-  const getBase64 = (file) =>
+  const getBase64 = file =>
     new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = () => resolve(reader.result);
-      reader.onerror = (error) => reject(error);
+      reader.onerror = error => reject(error);
     });
 
-  const handleSendEmail = async (values) => {
+  const handleSendEmail = async values => {
     try {
       setLoading(true);
 
@@ -950,19 +1055,24 @@ const DeviceErrorDetailModal = ({ visible, onClose, error, history, onResolve, o
                   console.log(`📎 Loading attachment ${i + 1}/${imageUrls.length}: ${filename}`);
 
                   const response = await axios.get(apiUrl, {
-                    headers: { 'Authorization': `Bearer ${token}` },
-                    responseType: 'blob'
+                    headers: { Authorization: `Bearer ${token}` },
+                    responseType: 'blob',
                   });
 
                   console.log('📎 Attachment response type:', typeof response.data);
-                  console.log('📎 Attachment response constructor:', response.data.constructor.name);
+                  console.log(
+                    '📎 Attachment response constructor:',
+                    response.data.constructor.name
+                  );
                   console.log('📎 Attachment response size:', response.data.size);
 
                   // Convert Blob to base64 string
                   const arrayBuffer = await response.data.arrayBuffer();
                   const base64String = btoa(
-                    new Uint8Array(arrayBuffer)
-                      .reduce((data, byte) => data + String.fromCharCode(byte), '')
+                    new Uint8Array(arrayBuffer).reduce(
+                      (data, byte) => data + String.fromCharCode(byte),
+                      ''
+                    )
                   );
 
                   console.log('📎 Base64 string length:', base64String.length);
@@ -972,7 +1082,7 @@ const DeviceErrorDetailModal = ({ visible, onClose, error, history, onResolve, o
                   attachments.push({
                     filename: `${error.subDeviceName}_${base}${ext}`,
                     content: base64String,
-                    contentType: response.headers['content-type'] || 'image/jpeg'
+                    contentType: response.headers['content-type'] || 'image/jpeg',
                   });
 
                   console.log(`✅ Attachment ${i + 1} prepared: ${filename}`);
@@ -996,11 +1106,15 @@ const DeviceErrorDetailModal = ({ visible, onClose, error, history, onResolve, o
         attachments: attachments,
         html: `
           <div style="font-family: Arial, sans-serif; width: 100%;">
-            ${values.customContent ? `
+            ${
+              values.customContent
+                ? `
             <div >
               ${values.customContent.replace(/\n/g, '<br>')}
             </div>
-            ` : ''}
+            `
+                : ''
+            }
             <h2 style="color: #003c71; margin-bottom: 20px;">Thông tin lỗi thiết bị</h2>
             <table style="width: 100%; border-collapse: collapse; border: 1px solid #e5e7eb;">
               <tbody>
@@ -1024,18 +1138,26 @@ const DeviceErrorDetailModal = ({ visible, onClose, error, history, onResolve, o
                   <td style="padding: 12px; background-color: #f3f4f6; font-weight: bold; border: 1px solid #e5e7eb;">Thời điểm ghi nhận</td>
                   <td style="padding: 12px; border: 1px solid #e5e7eb;">${new Date(error.createdAt).toLocaleString('vi-VN')}</td>
                 </tr>
-                ${error.resolvedAt ? `
+                ${
+                  error.resolvedAt
+                    ? `
                 <tr>
                   <td style="padding: 12px; background-color: #f3f4f6; font-weight: bold; border: 1px solid #e5e7eb;">Thời điểm xử lý</td>
                   <td style="padding: 12px; border: 1px solid #e5e7eb;">${new Date(error.resolvedAt).toLocaleString('vi-VN')}</td>
                 </tr>
-                ` : ''}
-                ${error.resolveNote ? `
+                `
+                    : ''
+                }
+                ${
+                  error.resolveNote
+                    ? `
                 <tr>
                   <td style="padding: 12px; background-color: #f3f4f6; font-weight: bold; border: 1px solid #e5e7eb;">Ghi chú xử lý</td>
                   <td style="padding: 12px; border: 1px solid #e5e7eb; white-space: pre-line;">${error.resolveNote}</td>
                 </tr>
-                ` : ''}
+                `
+                    : ''
+                }
                 <tr>
                 <td style="padding: 12px; background-color: #f3f4f6; font-weight: bold; border: 1px solid #e5e7eb;">Trạng thái</td>
                 <td style="padding: 12px; border: 1px solid #e5e7eb;">
@@ -1050,15 +1172,20 @@ const DeviceErrorDetailModal = ({ visible, onClose, error, history, onResolve, o
                     </tr>
               </tbody>
             </table>
-            ${attachments.length > 0 ? `
+            ${
+              attachments.length > 0
+                ? `
             <div style="margin-top: 20px;">
               <h3 style="color: #003c71; margin-bottom: 10px;">Hình ảnh lỗi (${attachments.length} ảnh):</h3>
               <p style="color: #666; font-size: 14px;">Các hình ảnh đã được đính kèm trong email.</p>
             </div>
-            ` : ''}
+            `
+                : ''
+            }
           </div>
         `,
-        text: values.customContent ? `
+        text: values.customContent
+          ? `
 ${values.customContent}
 
 ----------------------------------------
@@ -1075,11 +1202,14 @@ Thời điểm ghi nhận: ${new Date(error.createdAt).toLocaleString('vi-VN')
 ${error.resolvedAt ? `Thời điểm xử lý: ${new Date(error.resolvedAt).toLocaleString('vi-VN')}` : ''}
 ${error.resolveNote ? `Ghi chú xử lý: ${error.resolveNote}` : ''}
 ${attachments.length > 0 ? `\nHình ảnh: ${attachments.length} ảnh đính kèm` : ''}
-        ` : ''
+        `
+          : '',
       };
 
       await sendEmail(emailData);
-      message.success(`Gửi email thành công${attachments.length > 0 ? ` với ${attachments.length} ảnh đính kèm` : ''}`);
+      message.success(
+        `Gửi email thành công${attachments.length > 0 ? ` với ${attachments.length} ảnh đính kèm` : ''}`
+      );
       setEmailModalVisible(false);
       emailForm.resetFields();
     } catch (error) {
@@ -1092,109 +1222,108 @@ ${attachments.length > 0 ? `\nHình ảnh: ${attachments.length} ảnh đính k�
 
   const renderDetailContent = () => (
     <div>
-      <div style={{
-        maxHeight: 'calc(600px - 60px)', //
-        overflowY: 'auto',
-        padding: '10px'
-      }}
-        className='border border-gray-200 z-10 p-2 rounded-lg shadow-sm ma'>
+      <div
+        style={{
+          maxHeight: 'calc(600px - 60px)', //
+          overflowY: 'auto',
+          padding: '10px',
+        }}
+        className='border border-gray-200 z-10 p-2 rounded-lg shadow-sm ma'
+      >
         <Row gutter={16}>
           <Col span={6}>
-            <div className="mb-4">
-              <div className="text-gray-500 mb-1">Thiết bị</div>
-              <div className="whitespace-pre-line break-words">
-                {error.subDeviceName}
-              </div>
+            <div className='mb-4'>
+              <div className='text-gray-500 mb-1'>Thiết bị</div>
+              <div className='whitespace-pre-line break-words'>{error.subDeviceName}</div>
             </div>
           </Col>
           <Col span={6}>
-            <div className="mb-4">
-              <div className="text-gray-500 mb-1">Vị trí</div>
-              <div className="whitespace-pre-line break-words">
-                {error.position || 'Chưa có'}
-              </div>
+            <div className='mb-4'>
+              <div className='text-gray-500 mb-1'>Vị trí</div>
+              <div className='whitespace-pre-line break-words'>{error.position || 'Chưa có'}</div>
             </div>
           </Col>
           <Col span={6}>
-            <div className="mb-4">
-              <div className="text-gray-500 mb-1">Số serial</div>
-              <div className="whitespace-pre-line break-words">
-                {error.serialNumber}
-              </div>
+            <div className='mb-4'>
+              <div className='text-gray-500 mb-1'>Số serial</div>
+              <div className='whitespace-pre-line break-words'>{error.serialNumber}</div>
             </div>
           </Col>
           <Col span={6}>
-            <div className="mb-4">
-              <div className="text-gray-500 mb-1">Mã lỗi</div>
-              <div className="whitespace-pre-line break-words">
-                {error.errorCode}
-              </div>
+            <div className='mb-4'>
+              <div className='text-gray-500 mb-1'>Mã lỗi</div>
+              <div className='whitespace-pre-line break-words'>{error.errorCode}</div>
             </div>
           </Col>
-
         </Row>
         <Row gutter={16}>
           <Col span={6}>
-            <div className="mb-4">
-              <div className="text-gray-500 mb-1">Địa điểm</div>
-              <Tag className="whitespace-pre-line break-words" color="blue">
+            <div className='mb-4'>
+              <div className='text-gray-500 mb-1'>Địa điểm</div>
+              <Tag className='whitespace-pre-line break-words' color='blue'>
                 {error.location || 'Chưa có'}
               </Tag>
             </div>
           </Col>
           <Col span={6}>
-            <div className="mb-4">
-              <div className="text-gray-500 mb-1">Trạng thái</div>
+            <div className='mb-4'>
+              <div className='text-gray-500 mb-1'>Trạng thái</div>
               <Tag color={DEVICE_ERROR_STATUS_COLORS[error.resolveStatus] || 'default'}>
                 {error.resolveStatus}
               </Tag>
             </div>
           </Col>
         </Row>
-        <div className="mb-4">
-          <div className="text-gray-500 mb-1">Nguyên nhân</div>
-          <div className="bg-gray-50 p-2 rounded whitespace-pre-line break-words">
+        <div className='mb-4'>
+          <div className='text-gray-500 mb-1'>Nguyên nhân</div>
+          <div className='bg-gray-50 p-2 rounded whitespace-pre-line break-words'>
             {error.errorCause}
           </div>
         </div>
 
         {/* Hiển thị hình ảnh lỗi */}
         {error.images && (
-          <div className="mb-4">
-            <div className="text-gray-500 mb-2">Hình ảnh lỗi</div>
-            <div className="flex flex-wrap gap-2">
+          <div className='mb-4'>
+            <div className='text-gray-500 mb-2'>Hình ảnh lỗi</div>
+            <div className='flex flex-wrap gap-2'>
               {(() => {
                 try {
                   const imageUrls = JSON.parse(error.images);
-                  return Array.isArray(imageUrls) ? imageUrls.map((url, index) => {
-                    // Trích xuất tên file từ URL
-                    const filename = url.split('/').pop();
-                    console.log('🖼️ Processing image:', { url, filename, deviceErrorId: error.id });
+                  return Array.isArray(imageUrls)
+                    ? imageUrls.map((url, index) => {
+                        // Trích xuất tên file từ URL
+                        const filename = url.split('/').pop();
+                        console.log('🖼️ Processing image:', {
+                          url,
+                          filename,
+                          deviceErrorId: error.id,
+                        });
 
-                    return (
-                      <div key={index} className="relative">
-                        <ImagePreview
-                          image={filename}
-                          deviceErrorId={error.id}
-                          style={{
-                            width: 120,
-                            height: 90,
-                            objectFit: 'cover',
-                            borderRadius: '4px',
-                            cursor: 'pointer'
-                          }}
-                          onClick={() => {
-                            console.log('🖼️ Image clicked:', filename);
-                            // Mở preview modal với ảnh hiện tại
-                            setPreviewImages(imageUrls);
-                            setPreviewIndex(index);
-                            setPreviewTitle(filename);
-                            setPreviewVisible(true);
-                          }}
-                        />
-                      </div>
-                    );
-                  }) : null;
+                        return (
+                          <div key={index} className='relative'>
+                            <ImagePreview
+                              image={filename}
+                              deviceErrorId={error.id}
+                              style={{
+                                width: 120,
+                                height: 90,
+                                objectFit: 'cover',
+                                borderRadius: '4px',
+                                cursor: 'pointer',
+                              }}
+                              onClick={() => {
+                                console.log('🖼️ Image clicked:', filename);
+                                // Mở preview modal với ảnh hiện tại
+                                setPreviewImages(imageUrls);
+                                setPreviewIndex(index);
+                                setPreviewTitle(filename);
+                                setPreviewVisible(true);
+                              }}
+                            />
+                          </div>
+                        );
+                      })
+                    : null;
                 } catch (e) {
                   console.error('Error parsing images:', e);
                   return null;
@@ -1203,17 +1332,21 @@ ${attachments.length > 0 ? `\nHình ảnh: ${attachments.length} ảnh đính k�
             </div>
           </div>
         )}
-        {(error.resolveStatus === DEVICE_ERROR_STATUS.IN_PROGRESS, error.resolveStatus === DEVICE_ERROR_STATUS.RESOLVED) && (
-          <div className="mb-1">
-            <div className="text-gray-500 mb-1">Nội dung</div>
-            <div className="bg-gray-50 p-2 rounded whitespace-pre-line break-words">
+        {(error.resolveStatus === DEVICE_ERROR_STATUS.IN_PROGRESS,
+        error.resolveStatus === DEVICE_ERROR_STATUS.RESOLVED) && (
+          <div className='mb-1'>
+            <div className='text-gray-500 mb-1'>Nội dung</div>
+            <div className='bg-gray-50 p-2 rounded whitespace-pre-line break-words'>
               {error.resolveNote}
             </div>
           </div>
         )}
-        <div className="mb-1">
-          <div className="text-gray-500 mb-1">Quá trình xử lý</div>
-          <div className="bg-gray-50 p-2 rounded border border-gray-200" style={{ maxHeight: 200, overflowY: 'auto' }}>
+        <div className='mb-1'>
+          <div className='text-gray-500 mb-1'>Quá trình xử lý</div>
+          <div
+            className='bg-gray-50 p-2 rounded border border-gray-200'
+            style={{ maxHeight: 200, overflowY: 'auto' }}
+          >
             {(() => {
               // Lấy các bản ghi cập nhật solution
               const solutionHistory = history
@@ -1226,8 +1359,12 @@ ${attachments.length > 0 ? `\nHình ảnh: ${attachments.length} ảnh đính k�
               // Ưu tiên lấy người tạo từ bản ghi create trong history
               let initialCreator = '';
               const createItem = history.find(item => item.changeType === 'create');
-              if (createItem && (createItem.changedByUser?.fullname || createItem.changedByUser?.username)) {
-                initialCreator = createItem.changedByUser.fullname || createItem.changedByUser.username;
+              if (
+                createItem &&
+                (createItem.changedByUser?.fullname || createItem.changedByUser?.username)
+              ) {
+                initialCreator =
+                  createItem.changedByUser.fullname || createItem.changedByUser.username;
               } else if (error.creator?.fullname) {
                 initialCreator = error.creator.fullname;
               } else if (error.createdByUser?.fullname) {
@@ -1238,7 +1375,9 @@ ${attachments.length > 0 ? `\nHình ảnh: ${attachments.length} ảnh đính k�
                 initialCreator = `ID: ${error.createdBy}`;
               }
 
-              const createSolutionItem = history.find(item => item.changeType === 'create' && item.field === 'solution');
+              const createSolutionItem = history.find(
+                item => item.changeType === 'create' && item.field === 'solution'
+              );
               if (createSolutionItem) {
                 initialSolution = createSolutionItem.newValue || '';
                 initialCreatedAt = createSolutionItem.createdAt;
@@ -1253,25 +1392,33 @@ ${attachments.length > 0 ? `\nHình ảnh: ${attachments.length} ảnh đính k�
                 <>
                   {initialSolution ? (
                     <div style={{ display: 'flex', flexDirection: 'column', marginBottom: 4 }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: 5, marginBottom: 4 }}>
+                      <div
+                        style={{ display: 'flex', alignItems: 'center', gap: 5, marginBottom: 4 }}
+                      >
                         <UserOutlined style={{ color: '#1677ff' }} />
                         <span style={{ fontWeight: 500 }}>
-                          {initialCreator && <> {initialCreator}</>}</span>
+                          {initialCreator && <> {initialCreator}</>}
+                        </span>
                         <span style={{ color: '#888', fontSize: 12 }}>
-                          {initialCreatedAt && (<> {format(new Date(initialCreatedAt), 'HH:mm dd/MM/yyyy',)}</>)}
+                          {initialCreatedAt && (
+                            <> {format(new Date(initialCreatedAt), 'HH:mm dd/MM/yyyy')}</>
+                          )}
                         </span>
                         <span style={{ color: '#888', fontSize: 12 }}> đã tạo:</span>
                       </div>
-                      <div style={{ borderRadius: 2, padding: 2 }}>
-                        {initialSolution}
-                      </div>
+                      <div style={{ borderRadius: 2, padding: 2 }}>{initialSolution}</div>
                     </div>
                   ) : (
                     <div style={{ color: '#888' }}>Chưa có quá trình xử lý</div>
                   )}
                   {solutionHistory.map((item, idx) => (
-                    <div key={idx} style={{ display: 'flex', flexDirection: 'column', marginBottom: 4 }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: 5, marginBottom: 4 }}>
+                    <div
+                      key={idx}
+                      style={{ display: 'flex', flexDirection: 'column', marginBottom: 4 }}
+                    >
+                      <div
+                        style={{ display: 'flex', alignItems: 'center', gap: 5, marginBottom: 4 }}
+                      >
                         <UserOutlined style={{ color: '#1677ff' }} />
                         <span style={{ fontWeight: 500 }}>
                           {item.changedByUser?.fullname || item.changedByUser?.username} -
@@ -1281,9 +1428,7 @@ ${attachments.length > 0 ? `\nHình ảnh: ${attachments.length} ảnh đính k�
                         </span>
                         <span style={{ color: '#888', fontSize: 12 }}> :</span>
                       </div>
-                      <div style={{ borderRadius: 2, padding: 2 }}>
-                        {item.newValue}
-                      </div>
+                      <div style={{ borderRadius: 2, padding: 2 }}>{item.newValue}</div>
                     </div>
                   ))}
                 </>
@@ -1293,28 +1438,28 @@ ${attachments.length > 0 ? `\nHình ảnh: ${attachments.length} ảnh đính k�
         </div>
       </div>
       <br />
-      <div className="flex justify-between items-center mt-4 border border-gray-200 z-10 p-2 rounded-lg shadow-sm">
-        <div className="flex gap-2">
+      <div className='flex justify-between items-center mt-4 border border-gray-200 z-10 p-2 rounded-lg shadow-sm'>
+        <div className='flex gap-2'>
           {error.resolveStatus === DEVICE_ERROR_STATUS.PENDING && (
             <>
               <Button
-                type="primary"
+                type='primary'
                 icon={<ClockCircleOutlined />}
                 onClick={handleStartProgress}
                 style={{
                   backgroundColor: '#fa8c16',
-                  borderColor: '#fa8c16'
+                  borderColor: '#fa8c16',
                 }}
               >
                 Bắt đầu xử lý
               </Button>
               <Button
-                type="primary"
+                type='primary'
                 icon={<CheckOutlined />}
                 onClick={() => setResolveModalVisible(true)}
                 style={{
                   backgroundColor: '#003c71',
-                  borderColor: '#003c71'
+                  borderColor: '#003c71',
                 }}
               >
                 Xử lý xong
@@ -1324,12 +1469,12 @@ ${attachments.length > 0 ? `\nHình ảnh: ${attachments.length} ảnh đính k�
           {error.resolveStatus === DEVICE_ERROR_STATUS.IN_PROGRESS && (
             <>
               <Button
-                type="primary"
+                type='primary'
                 icon={<CheckOutlined />}
                 onClick={() => setResolveModalVisible(true)}
                 style={{
                   backgroundColor: '#003c71',
-                  borderColor: '#003c71'
+                  borderColor: '#003c71',
                 }}
               >
                 Xử lý xong
@@ -1337,33 +1482,30 @@ ${attachments.length > 0 ? `\nHình ảnh: ${attachments.length} ảnh đính k�
             </>
           )}
           <Button
-            type="primary"
+            type='primary'
             icon={<MailOutlined />}
             onClick={() => setEmailModalVisible(true)}
             style={{
               backgroundColor: '#1890ff',
-              borderColor: '#1890ff'
+              borderColor: '#1890ff',
             }}
           >
             Gửi Email
           </Button>
         </div>
-        <div className="flex gap-2">
+        <div className='flex gap-2'>
           <Button
-            type="primary"
+            type='primary'
             icon={<EditOutlined />}
             onClick={() => setIsEditing(true)}
             style={{
               backgroundColor: '#003c71',
-              borderColor: '#003c71'
+              borderColor: '#003c71',
             }}
           >
             Cập nhật
           </Button>
-          <Button onClick={onClose}>
-            Đóng
-          </Button>
-
+          <Button onClick={onClose}>Đóng</Button>
         </div>
       </div>
     </div>
@@ -1375,65 +1517,59 @@ ${attachments.length > 0 ? `\nHình ảnh: ${attachments.length} ảnh đính k�
       console.log('🎨 Current uploadFileList:', uploadFileList); // Debug log
 
       return (
-        <Form form={form} onFinish={handleResolve} layout="vertical">
-          <div style={{
-            maxHeight: 'calc(600px - 60px)',
-            overflowY: 'auto',
-            padding: '10px'
-          }}
-            className='border border-gray-200 z-10 p-1 rounded-lg shadow-sm ma'>
+        <Form form={form} onFinish={handleResolve} layout='vertical'>
+          <div
+            style={{
+              maxHeight: 'calc(600px - 60px)',
+              overflowY: 'auto',
+              padding: '10px',
+            }}
+            className='border border-gray-200 z-10 p-1 rounded-lg shadow-sm ma'
+          >
             <Row gutter={16}>
               <Col span={6}>
                 <Form.Item
-                  name="subDeviceName"
-                  label="Tên thiết bị"
+                  name='subDeviceName'
+                  label='Tên thiết bị'
                   initialValue={error.subDeviceName}
                 >
                   <Input readOnly />
                 </Form.Item>
               </Col>
               <Col span={6}>
-                <Form.Item name="position" label="Vị trí" initialValue={error.position}>
-                  <Input placeholder="Ví dụ: Rack A1, Slot 2" />
+                <Form.Item name='position' label='Vị trí' initialValue={error.position}>
+                  <Input placeholder='Ví dụ: Rack A1, Slot 2' />
                 </Form.Item>
               </Col>
               <Col span={6}>
                 <Form.Item
-                  name="serialNumber"
-                  label="Serial"
+                  name='serialNumber'
+                  label='Serial'
                   initialValue={error.serialNumber}
                   rules={[{ required: true, message: 'Nhập serial' }]}
                 >
-                  <TextArea
-                    autoSize={{ minRows: 1, maxRows: 5 }}
-                    style={{ resize: 'none' }} />
+                  <TextArea autoSize={{ minRows: 1, maxRows: 5 }} style={{ resize: 'none' }} />
                 </Form.Item>
               </Col>
               <Col span={6}>
                 <Form.Item
-                  name="errorCode"
-                  label="Mã lỗi"
+                  name='errorCode'
+                  label='Mã lỗi'
                   initialValue={error.errorCode}
                   rules={[{ required: true, message: 'Nhập mã lỗi' }]}
                 >
-                  <TextArea
-                    autoSize={{ minRows: 1, maxRows: 5 }}
-                    style={{ resize: 'none' }} />
+                  <TextArea autoSize={{ minRows: 1, maxRows: 5 }} style={{ resize: 'none' }} />
                 </Form.Item>
               </Col>
-
             </Row>
-            <Form.Item
-              name="errorCause"
-              label="Nguyên nhân"
-              initialValue={error.errorCause}>
-              <TextArea
-                autoSize={{ minRows: 1, maxRows: 5 }}
-                style={{ resize: 'none' }}
-              />
+            <Form.Item name='errorCause' label='Nguyên nhân' initialValue={error.errorCause}>
+              <TextArea autoSize={{ minRows: 1, maxRows: 5 }} style={{ resize: 'none' }} />
             </Form.Item>
-            <Form.Item label="Quá trình xử lý">
-              <div className="bg-gray-50 p-1 rounded border border-gray-200" style={{ maxHeight: 200, overflowY: 'auto' }}>
+            <Form.Item label='Quá trình xử lý'>
+              <div
+                className='bg-gray-50 p-1 rounded border border-gray-200'
+                style={{ maxHeight: 200, overflowY: 'auto' }}
+              >
                 {(() => {
                   // Lấy các bản ghi cập nhật solution
                   const solutionHistory = history
@@ -1446,8 +1582,12 @@ ${attachments.length > 0 ? `\nHình ảnh: ${attachments.length} ảnh đính k�
                   // Ưu tiên lấy người tạo từ bản ghi create trong history
                   let initialCreator = '';
                   const createItem = history.find(item => item.changeType === 'create');
-                  if (createItem && (createItem.changedByUser?.fullname || createItem.changedByUser?.username)) {
-                    initialCreator = createItem.changedByUser.fullname || createItem.changedByUser.username;
+                  if (
+                    createItem &&
+                    (createItem.changedByUser?.fullname || createItem.changedByUser?.username)
+                  ) {
+                    initialCreator =
+                      createItem.changedByUser.fullname || createItem.changedByUser.username;
                   } else if (error.creator?.fullname) {
                     initialCreator = error.creator.fullname;
                   } else if (error.createdByUser?.fullname) {
@@ -1458,7 +1598,9 @@ ${attachments.length > 0 ? `\nHình ảnh: ${attachments.length} ảnh đính k�
                     initialCreator = `ID: ${error.createdBy}`;
                   }
 
-                  const createSolutionItem = history.find(item => item.changeType === 'create' && item.field === 'solution');
+                  const createSolutionItem = history.find(
+                    item => item.changeType === 'create' && item.field === 'solution'
+                  );
                   if (createSolutionItem) {
                     initialSolution = createSolutionItem.newValue || '';
                     initialCreatedAt = createSolutionItem.createdAt;
@@ -1473,23 +1615,41 @@ ${attachments.length > 0 ? `\nHình ảnh: ${attachments.length} ảnh đính k�
                     <>
                       {initialSolution && (
                         <div style={{ display: 'flex', flexDirection: 'column', marginBottom: 4 }}>
-                          <div style={{ display: 'flex', alignItems: 'center', gap: 5, marginBottom: 4 }}>
+                          <div
+                            style={{
+                              display: 'flex',
+                              alignItems: 'center',
+                              gap: 5,
+                              marginBottom: 4,
+                            }}
+                          >
                             <UserOutlined style={{ color: '#1677ff' }} />
                             <span style={{ fontWeight: 500 }}>
-                              {initialCreator && <> {initialCreator}</>}</span>
+                              {initialCreator && <> {initialCreator}</>}
+                            </span>
                             <span style={{ color: '#888', fontSize: 12 }}>
-                              {initialCreatedAt && (<> {format(new Date(initialCreatedAt), 'HH:mm dd/MM/yyyy')}</>)}
+                              {initialCreatedAt && (
+                                <> {format(new Date(initialCreatedAt), 'HH:mm dd/MM/yyyy')}</>
+                              )}
                             </span>
                             <span style={{ color: '#888', fontSize: 12 }}> đã tạo:</span>
                           </div>
-                          <div style={{ borderRadius: 2, padding: 2 }}>
-                            {initialSolution}
-                          </div>
+                          <div style={{ borderRadius: 2, padding: 2 }}>{initialSolution}</div>
                         </div>
                       )}
                       {solutionHistory.map((item, idx) => (
-                        <div key={idx} style={{ display: 'flex', flexDirection: 'column', marginBottom: 4 }}>
-                          <div style={{ display: 'flex', alignItems: 'center', gap: 5, marginBottom: 4 }}>
+                        <div
+                          key={idx}
+                          style={{ display: 'flex', flexDirection: 'column', marginBottom: 4 }}
+                        >
+                          <div
+                            style={{
+                              display: 'flex',
+                              alignItems: 'center',
+                              gap: 5,
+                              marginBottom: 4,
+                            }}
+                          >
                             <UserOutlined style={{ color: '#1677ff' }} />
                             <span style={{ fontWeight: 500 }}>
                               {item.changedByUser?.fullname || item.changedByUser?.username} -
@@ -1499,9 +1659,7 @@ ${attachments.length > 0 ? `\nHình ảnh: ${attachments.length} ảnh đính k�
                             </span>
                             <span style={{ color: '#888', fontSize: 12 }}> :</span>
                           </div>
-                          <div style={{ borderRadius: 2, padding: 2 }}>
-                            {item.newValue}
-                          </div>
+                          <div style={{ borderRadius: 2, padding: 2 }}>{item.newValue}</div>
                         </div>
                       ))}
                     </>
@@ -1509,21 +1667,18 @@ ${attachments.length > 0 ? `\nHình ảnh: ${attachments.length} ảnh đính k�
                 })()}
               </div>
             </Form.Item>
-            <Form.Item name="solution" label="Quá trình xử lý">
-              <TextArea
-                autoSize={{ minRows: 1, maxRows: 5 }}
-                style={{ resize: 'none' }}
-              />
+            <Form.Item name='solution' label='Quá trình xử lý'>
+              <TextArea autoSize={{ minRows: 1, maxRows: 5 }} style={{ resize: 'none' }} />
             </Form.Item>
-            <Form.Item label="Hình ảnh lỗi">
-              <div className="flex items-center gap-1">
+            <Form.Item label='Hình ảnh lỗi'>
+              <div className='flex items-center gap-1'>
                 <input
-                  type="file"
+                  type='file'
                   multiple
-                  accept="image/*"
+                  accept='image/*'
                   style={{ display: 'none' }}
-                  id="multiple-image-upload-edit"
-                  onChange={async (e) => {
+                  id='multiple-image-upload-edit'
+                  onChange={async e => {
                     const files = Array.from(e.target.files);
                     console.log('🔍 Multiple file input selected in edit mode:', files);
 
@@ -1563,26 +1718,25 @@ ${attachments.length > 0 ? `\nHình ảnh: ${attachments.length} ảnh đính k�
                   }}
                 />
                 <Button
-                  type="primary"
-                  className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white whitespace-nowrap"
+                  type='primary'
+                  className='flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white whitespace-nowrap'
                   onClick={() => document.getElementById('multiple-image-upload-edit').click()}
                   disabled={uploadFileList.length >= 10}
                 >
                   <PlusOutlined />
-                  <div className="ml-1">Upload ảnh</div>
-                  <div className="text-white">
-                    ({uploadFileList.length}/10 ảnh)
-                  </div>
+                  <div className='ml-1'>Upload ảnh</div>
+                  <div className='text-white'>({uploadFileList.length}/10 ảnh)</div>
                 </Button>
                 <Tooltip
                   title={
                     <>
                       Upload tối đa 10 ảnh. Dung lượng tối đa mỗi ảnh 5MB.
-                      <br /><br />
+                      <br />
+                      <br />
                       Hỗ trợ các định dạng: .doc, .docx, .pdf, .xls, .xlsx, .jpg, .jpeg, .png, .msg.
                     </>
                   }
-                  placement="right"
+                  placement='right'
                 >
                   <InfoCircleOutlined style={{ color: '#1677ff', cursor: 'pointer' }} />
                 </Tooltip>
@@ -1591,7 +1745,10 @@ ${attachments.length > 0 ? `\nHình ảnh: ${attachments.length} ảnh đính k�
               {/* Hiển thị danh sách ảnh đã upload */}
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
                 {uploadFileList.map((file, index) => (
-                  <div key={file.uid || index} style={{ position: 'relative', width: 104, height: 104 }}>
+                  <div
+                    key={file.uid || index}
+                    style={{ position: 'relative', width: 104, height: 104 }}
+                  >
                     {file.url && file.url.startsWith('blob:') ? (
                       // Ảnh mới upload (blob URL) - hiển thị trực tiếp
                       <img
@@ -1603,7 +1760,7 @@ ${attachments.length > 0 ? `\nHình ảnh: ${attachments.length} ảnh đính k�
                           objectFit: 'cover',
                           border: '1px solid #d9d9d9',
                           borderRadius: 6,
-                          cursor: 'pointer'
+                          cursor: 'pointer',
                         }}
                         onClick={() => handlePreview(file)}
                       />
@@ -1618,7 +1775,7 @@ ${attachments.length > 0 ? `\nHình ảnh: ${attachments.length} ảnh đính k�
                           objectFit: 'cover',
                           border: '1px solid #d9d9d9',
                           borderRadius: 6,
-                          cursor: 'pointer'
+                          cursor: 'pointer',
                         }}
                         onClick={() => handlePreview(file)}
                       />
@@ -1633,14 +1790,14 @@ ${attachments.length > 0 ? `\nHình ảnh: ${attachments.length} ảnh đính k�
                           objectFit: 'cover',
                           border: '1px solid #d9d9d9',
                           borderRadius: 6,
-                          cursor: 'pointer'
+                          cursor: 'pointer',
                         }}
                         onClick={() => handlePreview(file)}
                       />
                     )}
                     <Button
-                      type="text"
-                      size="small"
+                      type='text'
+                      size='small'
                       danger
                       icon={<DeleteOutlined />}
                       style={{
@@ -1654,28 +1811,27 @@ ${attachments.length > 0 ? `\nHình ảnh: ${attachments.length} ảnh đính k�
                         height: 24,
                         display: 'flex',
                         alignItems: 'center',
-                        justifyContent: 'center'
+                        justifyContent: 'center',
                       }}
                       onClick={() => handleImageRemove(file)}
                     />
                   </div>
                 ))}
               </div>
-
             </Form.Item>
-          </div >
+          </div>
           <br />
-          <div className="flex justify-end items-center mb-3 border border-gray-200 z-10 p-2 rounded-lg shadow-sm ma">
+          <div className='flex justify-end items-center mb-3 border border-gray-200 z-10 p-2 rounded-lg shadow-sm ma'>
             <Space>
               <Button
-                type="primary"
-                htmlType="submit"
+                type='primary'
+                htmlType='submit'
                 loading={loading}
                 style={{
                   backgroundColor: '#003c71',
                   borderColor: '#003c71',
                   color: 'white',
-                  minWidth: '100px'
+                  minWidth: '100px',
                 }}
               >
                 Cập nhật
@@ -1693,12 +1849,18 @@ ${attachments.length > 0 ? `\nHình ảnh: ${attachments.length} ảnh đính k�
                         // Xóa từng ảnh temp
                         for (const file of tempFiles) {
                           try {
-                            await axios.delete(`/api/devices/errors/${error.id}/temp/images/${encodeURIComponent(file.filename)}`, {
-                              headers: { 'Authorization': `Bearer ${token}` }
-                            });
+                            await axios.delete(
+                              `/api/devices/errors/${error.id}/temp/images/${encodeURIComponent(file.filename)}`,
+                              {
+                                headers: { Authorization: `Bearer ${token}` },
+                              }
+                            );
                             console.log(`✅ Deleted temp image: ${file.filename}`);
                           } catch (error) {
-                            console.error(`❌ Failed to delete temp image: ${file.filename}`, error);
+                            console.error(
+                              `❌ Failed to delete temp image: ${file.filename}`,
+                              error
+                            );
                           }
                         }
 
@@ -1715,14 +1877,14 @@ ${attachments.length > 0 ? `\nHình ảnh: ${attachments.length} ảnh đính k�
                   setFilesToDelete([]);
                 }}
                 style={{
-                  minWidth: '100px'
+                  minWidth: '100px',
                 }}
               >
                 Hủy
               </Button>
             </Space>
           </div>
-        </Form >
+        </Form>
       );
     } catch (error) {
       console.error('❌ Error rendering edit content:', error);
@@ -1734,7 +1896,7 @@ ${attachments.length > 0 ? `\nHình ảnh: ${attachments.length} ảnh đính k�
     <Form.Provider>
       <Modal
         title={
-          <div className="flex items-center gap-2">
+          <div className='flex items-center gap-2'>
             <FileSearchOutlined />
             <span>Chi tiết lỗi thiết bị</span>
           </div>
@@ -1747,12 +1909,13 @@ ${attachments.length > 0 ? `\nHình ảnh: ${attachments.length} ảnh đính k�
         styles={{
           body: {
             maxHeight: 'calc(100vh - 200px)',
-          }
+          },
         }}
       >
-        <div className="flex gap-4">
+        <div className='flex gap-4'>
           <div className='w-2/3 rounded-lg'>
-            {isEditing ? renderEditContent() : renderDetailContent()}</div>
+            {isEditing ? renderEditContent() : renderDetailContent()}
+          </div>
           <div className='w-1/3 rounded-lg'>
             <Card
               style={{
@@ -1761,17 +1924,21 @@ ${attachments.length > 0 ? `\nHình ảnh: ${attachments.length} ảnh đính k�
                 height: '100%',
               }}
             >
-              <Title level={4} style={{ color: '#003c71', margin: "0px" }}>
+              <Title level={4} style={{ color: '#003c71', margin: '0px' }}>
                 <HistoryOutlined /> Lịch sử thay đổi
               </Title>
 
               <Timeline
-                items={timelineItems.length > 0 ? timelineItems : [{ color: 'gray', children: <div>Không có lịch sử thay đổi</div> }]}
+                items={
+                  timelineItems.length > 0
+                    ? timelineItems
+                    : [{ color: 'gray', children: <div>Không có lịch sử thay đổi</div> }]
+                }
                 style={{
                   maxHeight: 'calc(600px - 60px)', // 600px là maxHeight của Card, trừ đi khoảng 60px cho title và padding
                   overflowY: 'auto',
                   marginTop: '10px',
-                  padding: '10px'
+                  padding: '10px',
                 }}
               />
             </Card>
@@ -1781,7 +1948,7 @@ ${attachments.length > 0 ? `\nHình ảnh: ${attachments.length} ảnh đính k�
 
       <Modal
         title={
-          <div className="flex items-center gap-2">
+          <div className='flex items-center gap-2'>
             <CheckOutlined />
             <span>Xử lý lỗi</span>
           </div>
@@ -1795,58 +1962,53 @@ ${attachments.length > 0 ? `\nHình ảnh: ${attachments.length} ảnh đính k�
         <Form
           form={resolveForm}
           onFinish={handleQuickResolve}
-          layout="vertical"
+          layout='vertical'
           initialValues={{
-            resolvedAt: dayjs()
+            resolvedAt: dayjs(),
           }}
         >
           <Form.Item
-            name="resolvedAt"
-            label="Thời điểm xử lý"
+            name='resolvedAt'
+            label='Thời điểm xử lý'
             rules={[{ required: true, message: 'Vui lòng chọn thời điểm xử lý' }]}
           >
-            <DatePicker
-              showTime
-              format="DD/MM/YYYY HH:mm"
-              style={{ width: '100%' }}
-            />
+            <DatePicker showTime format='DD/MM/YYYY HH:mm' style={{ width: '100%' }} />
           </Form.Item>
           <Form.Item
-            name="resolveStatus"
-            label="Trạng thái xử lý"
+            name='resolveStatus'
+            label='Trạng thái xử lý'
             rules={[{ required: true, message: 'Vui lòng chọn trạng thái xử lý' }]}
             initialValue={DEVICE_ERROR_STATUS.RESOLVED}
           >
             <Select
-              placeholder="trạng thái xử lý"
+              placeholder='trạng thái xử lý'
               options={[
                 {
                   value: DEVICE_ERROR_STATUS.RESOLVED,
-                  label: DEVICE_ERROR_STATUS_LABELS[DEVICE_ERROR_STATUS.RESOLVED]
-                }
+                  label: DEVICE_ERROR_STATUS_LABELS[DEVICE_ERROR_STATUS.RESOLVED],
+                },
               ]}
             />
           </Form.Item>
           <Form.Item
-            name="resolveNote"
-            label="Ghi chú xử lý"
+            name='resolveNote'
+            label='Ghi chú xử lý'
             rules={[{ required: true, message: 'Vui lòng nhập ghi chú xử lý' }]}
           >
-            <TextArea rows={1}
-              autoSize={{ minRows: 1, maxRows: 5 }} />
+            <TextArea rows={1} autoSize={{ minRows: 1, maxRows: 5 }} />
           </Form.Item>
 
           <Form.Item>
             <Space>
               <Button
-                type="primary"
-                htmlType="submit"
+                type='primary'
+                htmlType='submit'
                 loading={loading}
                 style={{
                   backgroundColor: '#003c71',
                   borderColor: '#003c71',
                   color: 'white',
-                  minWidth: '100px'
+                  minWidth: '100px',
                 }}
               >
                 Xác nhận
@@ -1854,7 +2016,7 @@ ${attachments.length > 0 ? `\nHình ảnh: ${attachments.length} ảnh đính k�
               <Button
                 onClick={() => setResolveModalVisible(false)}
                 style={{
-                  minWidth: '100px'
+                  minWidth: '100px',
                 }}
               >
                 Hủy
@@ -1866,7 +2028,7 @@ ${attachments.length > 0 ? `\nHình ảnh: ${attachments.length} ảnh đính k�
 
       <Modal
         title={
-          <div className="flex items-center gap-2">
+          <div className='flex items-center gap-2'>
             <MailOutlined />
             <span>Gửi email thông báo</span>
           </div>
@@ -1880,25 +2042,25 @@ ${attachments.length > 0 ? `\nHình ảnh: ${attachments.length} ảnh đính k�
         <Form
           form={emailForm}
           onFinish={handleSendEmail}
-          layout="vertical"
+          layout='vertical'
           initialValues={{
             to: ['CNTT@vietinbank.vn'],
-            cc: ['datacenter@vietinbank.vn']
+            cc: ['datacenter@vietinbank.vn'],
           }}
         >
           <Row gutter={16}>
             <Col span={12}>
               <Form.Item
-                name="to"
-                label="Người nhận"
+                name='to'
+                label='Người nhận'
                 rules={[{ required: true, message: 'Vui lòng nhập email người nhận' }]}
               >
                 <Select
-                  mode="tags"
-                  placeholder="Nhập email người nhận"
+                  mode='tags'
+                  placeholder='Nhập email người nhận'
                   style={{ width: '100%' }}
                   tokenSeparators={[',', ';']}
-                  onInputKeyDown={(e) => {
+                  onInputKeyDown={e => {
                     if (e.key === 'Tab') {
                       e.stopPropagation();
                     }
@@ -1906,34 +2068,31 @@ ${attachments.length > 0 ? `\nHình ảnh: ${attachments.length} ảnh đính k�
                 />
               </Form.Item>
 
-              <Form.Item
-                name="cc"
-                label="CC"
-              >
+              <Form.Item name='cc' label='CC'>
                 <Select
-                  mode="tags"
-                  placeholder="Nhập email CC"
+                  mode='tags'
+                  placeholder='Nhập email CC'
                   style={{ width: '100%' }}
                   tokenSeparators={[',', ';', '']}
-                  onInputKeyDown={(e) => {
+                  onInputKeyDown={e => {
                     if (e.key === 'Tab') {
                       e.stopPropagation();
                     }
                   }}
                   initialValues={{
-                    to: ['datacenter@vietinbank.vn']
+                    to: ['datacenter@vietinbank.vn'],
                   }}
                 />
               </Form.Item>
 
               <Form.Item
-                name="customContent"
-                label="Nội dung "
-                tooltip="Nội dung này sẽ được hiển thị ở đầu email"
+                name='customContent'
+                label='Nội dung '
+                tooltip='Nội dung này sẽ được hiển thị ở đầu email'
               >
                 <TextArea
                   rows={4}
-                  placeholder="Nhập nội dung  (tùy chọn)"
+                  placeholder='Nhập nội dung  (tùy chọn)'
                   style={{ resize: 'none' }}
                 />
               </Form.Item>
@@ -1941,14 +2100,14 @@ ${attachments.length > 0 ? `\nHình ảnh: ${attachments.length} ảnh đính k�
               <Form.Item>
                 <Space>
                   <Button
-                    type="primary"
-                    htmlType="submit"
+                    type='primary'
+                    htmlType='submit'
                     loading={loading}
                     style={{
                       backgroundColor: '#003c71',
                       borderColor: '#003c71',
                       color: 'white',
-                      minWidth: '100px'
+                      minWidth: '100px',
                     }}
                   >
                     Gửi
@@ -1956,7 +2115,7 @@ ${attachments.length > 0 ? `\nHình ảnh: ${attachments.length} ảnh đính k�
                   <Button
                     onClick={() => setEmailModalVisible(false)}
                     style={{
-                      minWidth: '100px'
+                      minWidth: '100px',
                     }}
                   >
                     Hủy
@@ -1965,57 +2124,64 @@ ${attachments.length > 0 ? `\nHình ảnh: ${attachments.length} ảnh đính k�
               </Form.Item>
             </Col>
             <Col span={12}>
-              <div className="bg-gray-50 p-4 rounded border border-gray-200" style={{ maxHeight: '400px', overflowY: 'auto' }}>
-                <h3 className="text-lg font-semibold mb-4">Nội dung email: </h3>
-                <table className="w-full border-collapse">
+              <div
+                className='bg-gray-50 p-4 rounded border border-gray-200'
+                style={{ maxHeight: '400px', overflowY: 'auto' }}
+              >
+                <h3 className='text-lg font-semibold mb-4'>Nội dung email: </h3>
+                <table className='w-full border-collapse'>
                   <tbody>
-                    <tr className="border-b border-gray-200">
-                      <td className="py-2 px-3 font-medium bg-gray-100 w-1/3">Tiêu đề:</td>
-                      <td className="py-2 px-3">{`Thông báo lỗi thiết bị: ${error.subDeviceName}`}</td>
+                    <tr className='border-b border-gray-200'>
+                      <td className='py-2 px-3 font-medium bg-gray-100 w-1/3'>Tiêu đề:</td>
+                      <td className='py-2 px-3'>{`Thông báo lỗi thiết bị: ${error.subDeviceName}`}</td>
                     </tr>
-                    <tr className="border-b border-gray-200">
-                      <td className="py-2 px-3 font-medium bg-gray-100">Thiết bị:</td>
-                      <td className="py-2 px-3">{error.subDeviceName}</td>
+                    <tr className='border-b border-gray-200'>
+                      <td className='py-2 px-3 font-medium bg-gray-100'>Thiết bị:</td>
+                      <td className='py-2 px-3'>{error.subDeviceName}</td>
                     </tr>
-                    <tr className="border-b border-gray-200">
-                      <td className="py-2 px-3 font-medium bg-gray-100">Vị trí:</td>
-                      <td className="py-2 px-3">{error.position || 'Chưa có'}</td>
+                    <tr className='border-b border-gray-200'>
+                      <td className='py-2 px-3 font-medium bg-gray-100'>Vị trí:</td>
+                      <td className='py-2 px-3'>{error.position || 'Chưa có'}</td>
                     </tr>
-                    <tr className="border-b border-gray-200">
-                      <td className="py-2 px-3 font-medium bg-gray-100">Số serial:</td>
-                      <td className="py-2 px-3">{error.serialNumber}</td>
+                    <tr className='border-b border-gray-200'>
+                      <td className='py-2 px-3 font-medium bg-gray-100'>Số serial:</td>
+                      <td className='py-2 px-3'>{error.serialNumber}</td>
                     </tr>
-                    <tr className="border-b border-gray-200">
-                      <td className="py-2 px-3 font-medium bg-gray-100">Mã lỗi:</td>
-                      <td className="py-2 px-3">{error.errorCode}</td>
+                    <tr className='border-b border-gray-200'>
+                      <td className='py-2 px-3 font-medium bg-gray-100'>Mã lỗi:</td>
+                      <td className='py-2 px-3'>{error.errorCode}</td>
                     </tr>
-                    <tr className="border-b border-gray-200">
-                      <td className="py-2 px-3 font-medium bg-gray-100">Thời điểm ghi nhận:</td>
-                      <td className="py-2 px-3">{new Date(error.createdAt).toLocaleString('vi-VN')}</td>
+                    <tr className='border-b border-gray-200'>
+                      <td className='py-2 px-3 font-medium bg-gray-100'>Thời điểm ghi nhận:</td>
+                      <td className='py-2 px-3'>
+                        {new Date(error.createdAt).toLocaleString('vi-VN')}
+                      </td>
                     </tr>
                     {error.resolvedAt && (
-                      <tr className="border-b border-gray-200">
-                        <td className="py-2 px-3 font-medium bg-gray-100">Thời điểm xử lý:</td>
-                        <td className="py-2 px-3">{new Date(error.resolvedAt).toLocaleString('vi-VN')}</td>
+                      <tr className='border-b border-gray-200'>
+                        <td className='py-2 px-3 font-medium bg-gray-100'>Thời điểm xử lý:</td>
+                        <td className='py-2 px-3'>
+                          {new Date(error.resolvedAt).toLocaleString('vi-VN')}
+                        </td>
                       </tr>
                     )}
                     {error.resolveNote && (
-                      <tr className="border-b border-gray-200">
-                        <td className="py-2 px-3 font-medium bg-gray-100">Ghi chú xử lý:</td>
-                        <td className="py-2 px-3 whitespace-pre-line">{error.resolveNote}</td>
+                      <tr className='border-b border-gray-200'>
+                        <td className='py-2 px-3 font-medium bg-gray-100'>Ghi chú xử lý:</td>
+                        <td className='py-2 px-3 whitespace-pre-line'>{error.resolveNote}</td>
                       </tr>
                     )}
-                    <tr className="border-b border-gray-200">
-                      <td className="py-2 px-3 font-medium bg-gray-100">Trạng thái:</td>
-                      <td className="py-2 px-3">
+                    <tr className='border-b border-gray-200'>
+                      <td className='py-2 px-3 font-medium bg-gray-100'>Trạng thái:</td>
+                      <td className='py-2 px-3'>
                         <Tag color={DEVICE_ERROR_STATUS_COLORS[error.resolveStatus] || 'default'}>
                           {error.resolveStatus}
                         </Tag>
                       </td>
                     </tr>
-                    <tr className="border-b border-gray-200">
-                      <td className="py-2 px-3 font-medium bg-gray-100">Liên hệ:</td>
-                      <td className="py-2 px-3">{currentUser?.username}@vietinbank.vn</td>
+                    <tr className='border-b border-gray-200'>
+                      <td className='py-2 px-3 font-medium bg-gray-100'>Liên hệ:</td>
+                      <td className='py-2 px-3'>{currentUser?.username}@vietinbank.vn</td>
                     </tr>
                   </tbody>
                 </table>
@@ -2031,10 +2197,10 @@ ${attachments.length > 0 ? `\nHình ảnh: ${attachments.length} ảnh đính k�
         title={previewTitle}
         footer={null}
         onCancel={() => setPreviewVisible(false)}
-        width="80%"
+        width='80%'
         centered
         styles={{
-          body: { textAlign: 'center', padding: 0 }
+          body: { textAlign: 'center', padding: 0 },
         }}
       >
         <div style={{ position: 'relative' }}>
@@ -2048,7 +2214,7 @@ ${attachments.length > 0 ? `\nHình ảnh: ${attachments.length} ảnh đính k�
           {previewImages.length > 1 && (
             <>
               <Button
-                type="primary"
+                type='primary'
                 icon={<LeftOutlined />}
                 onClick={handlePreviewPrev}
                 style={{
@@ -2056,11 +2222,11 @@ ${attachments.length > 0 ? `\nHình ảnh: ${attachments.length} ảnh đính k�
                   left: 16,
                   top: '50%',
                   transform: 'translateY(-50%)',
-                  zIndex: 1000
+                  zIndex: 1000,
                 }}
               />
               <Button
-                type="primary"
+                type='primary'
                 icon={<RightOutlined />}
                 onClick={handlePreviewNext}
                 style={{
@@ -2068,20 +2234,22 @@ ${attachments.length > 0 ? `\nHình ảnh: ${attachments.length} ảnh đính k�
                   right: 16,
                   top: '50%',
                   transform: 'translateY(-50%)',
-                  zIndex: 1000
+                  zIndex: 1000,
                 }}
               />
-              <div style={{
-                position: 'absolute',
-                bottom: 16,
-                left: '50%',
-                transform: 'translateX(-50%)',
-                background: 'rgba(0,0,0,0.7)',
-                color: 'white',
-                padding: '4px 12px',
-                borderRadius: '12px',
-                fontSize: '14px'
-              }}>
+              <div
+                style={{
+                  position: 'absolute',
+                  bottom: 16,
+                  left: '50%',
+                  transform: 'translateX(-50%)',
+                  background: 'rgba(0,0,0,0.7)',
+                  color: 'white',
+                  padding: '4px 12px',
+                  borderRadius: '12px',
+                  fontSize: '14px',
+                }}
+              >
                 {previewIndex + 1} / {previewImages.length}
               </div>
             </>

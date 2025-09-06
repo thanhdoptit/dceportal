@@ -1,9 +1,9 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-export const useShiftsPagination = (filters) => {
+export const useShiftsPagination = filters => {
   const [shifts, setShifts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -11,7 +11,7 @@ export const useShiftsPagination = (filters) => {
   const [pagination, setPagination] = useState({
     page: 1,
     limit: 50,
-    total: 0
+    total: 0,
   });
 
   const fetchShifts = useCallback(async () => {
@@ -24,18 +24,15 @@ export const useShiftsPagination = (filters) => {
       const queryParams = new URLSearchParams({
         page: pagination.page,
         limit: pagination.limit,
-        ...filters
+        ...filters,
       });
 
       const startTime = performance.now();
-      const response = await fetch(
-        `${API_URL}/api/shifts/all?${queryParams}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        }
-      );
+      const response = await fetch(`${API_URL}/api/shifts/all?${queryParams}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       if (!response.ok) throw new Error('Failed to fetch shifts');
 
@@ -43,14 +40,10 @@ export const useShiftsPagination = (filters) => {
       const endTime = performance.now();
       console.log(`Fetch shifts took ${endTime - startTime}ms`);
 
-      setShifts(prev => 
-        pagination.page === 1 
-          ? data.shifts 
-          : [...prev, ...data.shifts]
-      );
+      setShifts(prev => (pagination.page === 1 ? data.shifts : [...prev, ...data.shifts]));
       setPagination(prev => ({
         ...prev,
-        total: data.total
+        total: data.total,
       }));
       setHasMore(data.shifts.length === pagination.limit);
     } catch (error) {
@@ -66,7 +59,7 @@ export const useShiftsPagination = (filters) => {
     if (!loading && hasMore) {
       setPagination(prev => ({
         ...prev,
-        page: prev.page + 1
+        page: prev.page + 1,
       }));
     }
   }, [loading, hasMore]);
@@ -74,7 +67,7 @@ export const useShiftsPagination = (filters) => {
   const refresh = useCallback(() => {
     setPagination(prev => ({
       ...prev,
-      page: 1
+      page: 1,
     }));
     setShifts([]);
   }, []);
@@ -90,6 +83,6 @@ export const useShiftsPagination = (filters) => {
     hasMore,
     loadMore,
     refresh,
-    total: pagination.total
+    total: pagination.total,
   };
-}; 
+};

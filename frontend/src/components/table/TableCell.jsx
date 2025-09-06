@@ -12,5 +12,5 @@ export default function TableCell({ children, className }) {
 
 TableCell.propTypes = {
   children: PropTypes.node.isRequired,
-  className: PropTypes.string
-}; 
+  className: PropTypes.string,
+};

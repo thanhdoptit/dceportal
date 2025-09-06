@@ -19,7 +19,7 @@ const ShiftScheduleList = () => {
       code: 'DC1',
       description: 'Phòng datacenter chính',
       staffCount: 15,
-      status: 'active'
+      status: 'active',
     },
     {
       id: 2,
@@ -27,7 +27,7 @@ const ShiftScheduleList = () => {
       code: 'DC2',
       description: 'Phòng datacenter phụ',
       staffCount: 12,
-      status: 'active'
+      status: 'active',
     },
     {
       id: 3,
@@ -35,8 +35,8 @@ const ShiftScheduleList = () => {
       code: 'BACKUP',
       description: 'Phòng backup dữ liệu',
       staffCount: 8,
-      status: 'active'
-    }
+      status: 'active',
+    },
   ];
 
   useEffect(() => {
@@ -49,7 +49,7 @@ const ShiftScheduleList = () => {
       // TODO: Thay thế bằng API call thực tế
       // const response = await api.get('/api/locations');
       // setLocations(response.data);
-      
+
       // Tạm thời sử dụng dữ liệu mẫu
       console.log('Loading locations:', mockLocations);
       setLocations(mockLocations);
@@ -60,7 +60,7 @@ const ShiftScheduleList = () => {
     }
   };
 
-  const handleViewSchedule = (location) => {
+  const handleViewSchedule = location => {
     console.log('Opening schedule for location:', location);
     console.log('Current modalVisible state:', modalVisible);
     setSelectedLocation(location);
@@ -78,13 +78,11 @@ const ShiftScheduleList = () => {
       <Card>
         <Row gutter={[16, 16]} style={{ marginBottom: 16 }}>
           <Col span={24}>
-            <Space direction="vertical" size="small">
+            <Space direction='vertical' size='small'>
               <Title level={3}>
                 <TeamOutlined /> Danh Sách Phòng Datacenter
               </Title>
-              <Text type="secondary">
-                Chọn phòng để xem lịch trực chi tiết
-              </Text>
+              <Text type='secondary'>Chọn phòng để xem lịch trực chi tiết</Text>
             </Space>
           </Col>
         </Row>
@@ -92,26 +90,21 @@ const ShiftScheduleList = () => {
         <List
           loading={loading}
           dataSource={locations}
-          renderItem={(location) => (
+          renderItem={location => (
             <List.Item
               actions={[
                 <Button
-                  key="view"
-                  type="primary"
+                  key='view'
+                  type='primary'
                   icon={<EyeOutlined />}
                   onClick={() => handleViewSchedule(location)}
                 >
                   Xem Lịch Trực
-                </Button>
+                </Button>,
               ]}
             >
               <List.Item.Meta
-                avatar={
-                  <Avatar
-                    icon={<TeamOutlined />}
-                    style={{ backgroundColor: '#1890ff' }}
-                  />
-                }
+                avatar={<Avatar icon={<TeamOutlined />} style={{ backgroundColor: '#1890ff' }} />}
                 title={
                   <Space>
                     <Text strong>{location.name}</Text>
@@ -119,11 +112,9 @@ const ShiftScheduleList = () => {
                   </Space>
                 }
                 description={
-                  <Space direction="vertical" size="small">
+                  <Space direction='vertical' size='small'>
                     <Text>{location.description}</Text>
-                    <Text type="secondary">
-                      Số nhân viên: {location.staffCount} người
-                    </Text>
+                    <Text type='secondary'>Số nhân viên: {location.staffCount} người</Text>
                   </Space>
                 }
               />
@@ -141,4 +132,4 @@ const ShiftScheduleList = () => {
   );
 };
 
-export default ShiftScheduleList; 
+export default ShiftScheduleList;

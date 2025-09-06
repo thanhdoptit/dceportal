@@ -19,16 +19,16 @@ class ErrorBoundary extends React.Component {
     if (this.state.hasError) {
       return (
         <Result
-          status="error"
-          title="Đã xảy ra lỗi"
+          status='error'
+          title='Đã xảy ra lỗi'
           subTitle={this.state.error?.message || 'Vui lòng thử lại sau'}
           extra={[
-            <Button type="primary" key="reload" onClick={() => window.location.reload()}>
+            <Button type='primary' key='reload' onClick={() => window.location.reload()}>
               Tải lại trang
             </Button>,
-            <Button key="back" onClick={() => window.history.back()}>
+            <Button key='back' onClick={() => window.history.back()}>
               Quay lại
-            </Button>
+            </Button>,
           ]}
         />
       );
@@ -38,4 +38,4 @@ class ErrorBoundary extends React.Component {
   }
 }
 
-export default ErrorBoundary; 
+export default ErrorBoundary;

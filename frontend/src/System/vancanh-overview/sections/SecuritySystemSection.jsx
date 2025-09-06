@@ -1,6 +1,5 @@
 import { AppstoreOutlined, PictureOutlined, SafetyOutlined } from '@ant-design/icons';
 import { Alert, Card, Space, Tag, Typography } from 'antd';
-import React from 'react';
 import { ImageGallery, ImagePreview } from '../../shared';
 import '../../shared/styles/SystemSection.css';
 
@@ -8,27 +7,27 @@ const { Title, Text } = Typography;
 
 const SecuritySystemSection = () => {
   return (
-    <div id="section-6" className="content-section">
-      <Title level={2} >
+    <div id='section-6' className='content-section'>
+      <Title level={2}>
         <SafetyOutlined style={{ marginRight: '8px' }} />
         6. HỆ THỐNG AN NINH TTDL VÂN CANH
       </Title>
 
       <Alert
-        message="HỆ THỐNG CAM VÀ HỆ ACS GIÁM SÁT TOÀN BỘ TRONG, NGOÀI DC VÂN CANH"
-        description="Đáp ứng tiêu chuẩn Thông tư 09 của NHNN về an ninh ngân hàng."
-        type="info"
+        message='HỆ THỐNG CAM VÀ HỆ ACS GIÁM SÁT TOÀN BỘ TRONG, NGOÀI DC VÂN CANH'
+        description='Đáp ứng tiêu chuẩn Thông tư 09 của NHNN về an ninh ngân hàng.'
+        type='info'
         showIcon
         style={{ marginBottom: '20px' }}
       />
 
       {/* Hình ảnh hệ thống an ninh */}
 
-      <div id="section-6-1" className="subsection">
-        <Title level={3} >
+      <div id='section-6-1' className='subsection'>
+        <Title level={3}>
           <AppstoreOutlined style={{ marginRight: '8px' }} /> 6.1 Hệ thống CCTV
         </Title>
-        
+
         {/* Hiển thị gallery ảnh CCTV */}
         <Card
           title={
@@ -41,48 +40,48 @@ const SecuritySystemSection = () => {
         >
           <div style={{ textAlign: 'center' }}>
             <ImagePreview
-              src="/vancanh-overview/cctv1.jpg"
-              alt="Hệ thống CCTV"
+              src='/vancanh-overview/cctv1.jpg'
+              alt='Hệ thống CCTV'
               width='90%'
-              height= 'auto'  
-                style={{                
+              height='auto'
+              style={{
                 border: '1px solid #d9d9d9',
                 borderRadius: '6px',
                 boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
                 display: 'block',
-                margin: '0 auto'
+                margin: '0 auto',
               }}
             />
           </div>
         </Card>
-        <Card title="Hệ thống CCTV" style={{ marginBottom: '20px' }}>
-          <Space direction="vertical" size="middle" style={{ width: '100%' }}>
+        <Card title='Hệ thống CCTV' style={{ marginBottom: '20px' }}>
+          <Space direction='vertical' size='middle' style={{ width: '100%' }}>
             <div>
-              <Tag color="blue">Số lượng camera</Tag>
+              <Tag color='blue'>Số lượng camera</Tag>
               <Text>110 Camera từ vòng ngoài, hành lang, các phòng chức năng</Text>
             </div>
             <div>
-              <Tag color="blue">Phân vùng</Tag>
+              <Tag color='blue'>Phân vùng</Tag>
               <Text>Chia làm 2 vùng: vùng trong và vùng ngoài</Text>
             </div>
             <div>
-              <Tag color="blue">Server recording</Tag>
+              <Tag color='blue'>Server recording</Tag>
               <Text>2 server: 10.0.208.5 (tầng 1), 10.0.208.6 (tầng 2,3,4)</Text>
             </div>
             <div>
-              <Tag color="blue">Lưu trữ</Tag>
+              <Tag color='blue'>Lưu trữ</Tag>
               <Text>Thời gian lưu trữ 100 ngày</Text>
             </div>
             <div>
-              <Tag color="blue">Phần mềm</Tag>
+              <Tag color='blue'>Phần mềm</Tag>
               <Text>Xprotect Managerment Client để view camera</Text>
             </div>
           </Space>
         </Card>
       </div>
 
-      <div id="section-6-2" className="subsection">
-        <Title level={3} >
+      <div id='section-6-2' className='subsection'>
+        <Title level={3}>
           <AppstoreOutlined style={{ marginRight: '8px' }} /> 6.2 Hệ thống kiểm soát vào ra ACS
         </Title>
         <Card
@@ -91,78 +90,82 @@ const SecuritySystemSection = () => {
               <PictureOutlined />
               Hệ thống kiểm soát vào ra
             </Space>
-            }
-            style={{ marginBottom: '20px' }}
-          ><ImageGallery
-          images={[
-            '/vancanh-overview/cctv2.jpg',
-            '/vancanh-overview/cctv3.jpg',
-            '/vancanh-overview/cctv4.jpg'
-          ]}
-          columns={3}
-          imageWidth='100%'
-          imageHeight='350px'
-          maskText="Click để xem chi tiết"
-        />
-        <p style={{
-        color: '#666',
-        margin: '8px 0 0 0',
-        fontSize: '12px',
-        fontStyle: 'italic',
-        textAlign: 'center'
-      }}>
-        HỆ THỐNG KIỂM SOÁT VÀO RA ACS.
-      </p>
-
+          }
+          style={{ marginBottom: '20px' }}
+        >
+          <ImageGallery
+            images={[
+              '/vancanh-overview/cctv2.jpg',
+              '/vancanh-overview/cctv3.jpg',
+              '/vancanh-overview/cctv4.jpg',
+            ]}
+            columns={3}
+            imageWidth='100%'
+            imageHeight='350px'
+            maskText='Click để xem chi tiết'
+          />
+          <p
+            style={{
+              color: '#666',
+              margin: '8px 0 0 0',
+              fontSize: '12px',
+              fontStyle: 'italic',
+              textAlign: 'center',
+            }}
+          >
+            HỆ THỐNG KIỂM SOÁT VÀO RA ACS.
+          </p>
         </Card>
 
-        <Card title="Hệ thống kiểm soát vào ra (ACS)" style={{ marginBottom: '20px' }}>
-          <Space direction="vertical" size="middle" style={{ width: '100%' }}>
+        <Card title='Hệ thống kiểm soát vào ra (ACS)' style={{ marginBottom: '20px' }}>
+          <Space direction='vertical' size='middle' style={{ width: '100%' }}>
             <div>
-              <Tag color="green">Phần cứng</Tag>
+              <Tag color='green'>Phần cứng</Tag>
               <Text>Khóa từ, đầu đọc vân tay, nút exit, nút mở cửa khẩn cấp</Text>
             </div>
             <div>
-              <Tag color="green">Controller</Tag>
+              <Tag color='green'>Controller</Tag>
               <Text>Đặt ở phòng Hub1 và Hub2, kết nối với nhau bởi các switch</Text>
             </div>
             <div>
-              <Tag color="green">Server</Tag>
+              <Tag color='green'>Server</Tag>
               <Text>Đặt ở phòng security monitor, IP: 10.0.208.200</Text>
             </div>
             <div>
-              <Tag color="green">Phần mềm</Tag>
-              <Text>AS Manager giám sát ra, điều khiển vào ra, xác thực bằng vân tay và hình ảnh</Text>
+              <Tag color='green'>Phần mềm</Tag>
+              <Text>
+                AS Manager giám sát ra, điều khiển vào ra, xác thực bằng vân tay và hình ảnh
+              </Text>
             </div>
             <div>
-              <Tag color="green">Bảo mật cao</Tag>
+              <Tag color='green'>Bảo mật cao</Tag>
               <Text>Phòng máy chủ tầng 2 có cửa xác thực bằng hình ảnh chỉ cho 1 người vào</Text>
             </div>
           </Space>
         </Card>
       </div>
 
-      <div id="section-6-3" className="subsection">
-        <Title level={3} >
+      <div id='section-6-3' className='subsection'>
+        <Title level={3}>
           <AppstoreOutlined style={{ marginRight: '8px' }} /> 6.3 Hệ thống thông báo PA
         </Title>
 
-        <Card title="Hệ thống thông báo PA" style={{ marginBottom: '20px' }}>
-          <Space direction="vertical" size="middle" style={{ width: '100%' }}>
+        <Card title='Hệ thống thông báo PA' style={{ marginBottom: '20px' }}>
+          <Space direction='vertical' size='middle' style={{ width: '100%' }}>
             <div>
-              <Tag color="orange">Thiết bị</Tag>
+              <Tag color='orange'>Thiết bị</Tag>
               <Text>Đặt ở phòng security monitor tầng 1</Text>
             </div>
             <div>
-              <Tag color="orange">Phòng NOC</Tag>
+              <Tag color='orange'>Phòng NOC</Tag>
               <Text>Có Mic nói bằng cách chọn 1,2,3 ấn giữ nói, chỉ nói và phát nhạc</Text>
             </div>
             <div>
-              <Tag color="orange">Phát nhạc</Tag>
+              <Tag color='orange'>Phát nhạc</Tag>
               <Text>Phát 1 bản nhạc xuống tầng 1, cắm USB phát nhạc vào thiết bị</Text>
             </div>
             <div>
-              <Tag color="orange">Bộ phát nhạc nền</Tag>
+              <Tag color='orange'>Bộ phát nhạc nền</Tag>
               <Text>Model: PLE-SDT</Text>
             </div>
           </Space>

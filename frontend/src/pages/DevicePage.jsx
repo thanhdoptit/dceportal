@@ -1,49 +1,43 @@
-import React, { useState, useEffect } from 'react';
+import { DeleteOutlined, PlusOutlined } from '@ant-design/icons';
 import {
-  Table,
-  Tag,
   Button,
-  Modal,
-  Form,
-  Input,
-  Select,
-  Space,
-  Typography,
   Card,
-  Timeline,
-  message,
-  Row,
   Col,
   DatePicker,
-  Upload,
-  Image
+  Form,
+  Input,
+  message,
+  Modal,
+  Row,
+  Select,
+  Space,
+  Table,
+  Tag,
+  Typography,
 } from 'antd';
-import { AimOutlined, CheckCircleOutlined, CloseCircleOutlined, HistoryOutlined, IeOutlined, PlusOutlined, DeleteOutlined } from '@ant-design/icons';
 import axios from 'axios';
+import dayjs from 'dayjs';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import _ from 'lodash';
 import DeviceErrorDetailModal from '../components/DeviceErrorDetailModal';
 import LocationSelect from '../components/common/LocationSelect';
-import dayjs from 'dayjs';
 import {
   DEVICE_ERROR_STATUS,
   DEVICE_ERROR_STATUS_COLORS,
   DEVICE_ERROR_STATUS_FILTER_OPTIONS,
-  STATUS_ORDER,
   DEVICE_ERROR_STATUS_OPTIONS,
-  DEVICE_ERROR_STATUS_LABELS
 } from '../constants/deviceErrorStatus';
 
 const { Title, Text } = Typography;
 const { RangePicker } = DatePicker;
 
 // Hàm chuyển đổi file thành base64
-const getBase64 = (file) =>
+const getBase64 = file =>
   new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = () => resolve(reader.result);
-    reader.onerror = (error) => reject(error);
+    reader.onerror = error => reject(error);
   });
 
 // Component chính
@@ -64,9 +58,8 @@ const DevicePage = () => {
     page: 1,
     limit: 15,
     total: 0,
-    totalPages: 0
+    totalPages: 0,
   });
-
 
   const [locations, setLocations] = useState([]);
   const [locationsLoading, setLocationsLoading] = useState(false);
@@ -109,8 +102,8 @@ const DevicePage = () => {
 
       const response = await axios.get('/api/devices', {
         headers: {
-          Authorization: `Bearer ${token}`
-        }
+          Authorization: `Bearer ${token}`,
+        },
       });
       setDevices(response.data);
     } catch (error) {
@@ -124,7 +117,14 @@ const DevicePage = () => {
   };
 
   // Lấy danh sách lỗi của thiết bị hoặc tất cả thiết bị
-  const fetchErrors = async (deviceId, resolveStatus = 'all', location = 'all', dateRange = null, page = 1, limit = 15) => {
+  const fetchErrors = async (
+    deviceId,
+    resolveStatus = 'all',
+    location = 'all',
+    dateRange = null,
+    page = 1,
+    limit = 15
+  ) => {
     try {
       setLoading(true);
       const token = getAuthToken();
@@ -147,7 +147,7 @@ const DevicePage = () => {
       params.push(`limit=${limit}`);
       if (params.length > 0) url += `?${params.join('&')}`;
       const response = await axios.get(url, {
-        headers: { Authorization: `Bearer ${token}` }
+        headers: { Authorization: `Bearer ${token}` },
       });
       const errorsData = response.data.errors || [];
       console.log('DeviceErrors data:', errorsData); // Debug log
@@ -158,7 +158,7 @@ const DevicePage = () => {
         total: response.data.total || 0,
         totalPages: response.data.totalPages || 0,
         page,
-        limit
+        limit,
       }));
     } catch (error) {
       if (error.response?.status === 401) {
@@ -173,7 +173,7 @@ const DevicePage = () => {
   };
 
   // Xử lý khi chọn thiết bị
-  const handleDeviceChange = (deviceId) => {
+  const handleDeviceChange = deviceId => {
     // Xử lý khi clear filter (deviceId là undefined/null)
     if (!deviceId) {
       setSelectedDevice('all');
@@ -186,7 +186,7 @@ const DevicePage = () => {
   };
 
   // Xử lý khi chọn filter trạng thái
-  const handleStatusFilterChange = (value) => {
+  const handleStatusFilterChange = value => {
     // Xử lý khi clear filter (value là undefined/null)
     if (!value) {
       setResolveStatusFilter('all');
@@ -199,7 +199,7 @@ const DevicePage = () => {
   };
 
   // Xử lý khi chọn filter địa điểm
-  const handleLocationFilterChange = (value) => {
+  const handleLocationFilterChange = value => {
     // Xử lý khi clear filter (value là undefined/null)
     if (!value) {
       setLocationFilter('Tất cả');
@@ -218,12 +218,12 @@ const DevicePage = () => {
   };
 
   // Xử lý khi chọn khoảng thời gian
-  const handleDateRangeChange = (dates) => {
+  const handleDateRangeChange = dates => {
     console.log('Date range changed:', dates);
     if (dates) {
       console.log('Selected dates:', {
         start: dates[0]?.format('YYYY-MM-DD HH:mm:ss'),
-        end: dates[1]?.format('YYYY-MM-DD HH:mm:ss')
+        end: dates[1]?.format('YYYY-MM-DD HH:mm:ss'),
       });
     }
     setDateRange(dates);
@@ -241,7 +241,7 @@ const DevicePage = () => {
   // };
 
   // Lấy lịch sử lỗi
-  const fetchErrorHistory = async (errorId) => {
+  const fetchErrorHistory = async errorId => {
     try {
       const token = getAuthToken();
       if (!token) {
@@ -251,8 +251,8 @@ const DevicePage = () => {
 
       const response = await axios.get(`/api/devices/errors/${errorId}/history`, {
         headers: {
-          Authorization: `Bearer ${token}`
-        }
+          Authorization: `Bearer ${token}`,
+        },
       });
       setErrorHistory(response.data);
     } catch (error) {
@@ -266,7 +266,7 @@ const DevicePage = () => {
   };
 
   // Xử lý lỗi
-  const handleResolve = async (values) => {
+  const handleResolve = async values => {
     try {
       const token = getAuthToken();
       if (!token) {
@@ -281,23 +281,30 @@ const DevicePage = () => {
         subDeviceName: values.subDeviceName,
         serialNumber: values.serialNumber,
         errorCode: values.errorCode,
-        position: values.position
+        position: values.position,
       };
       if (values.resolveStatus === 'Đã xử lý') {
         payload.resolvedAt = new Date();
       }
       await axios.put(`/api/devices/errors/${selectedError.id}`, payload, {
         headers: {
-          Authorization: `Bearer ${token}`
-        }
+          Authorization: `Bearer ${token}`,
+        },
       });
       message.success('Cập nhật lỗi thành công');
-      fetchErrors(selectedDevice, resolveStatusFilter, locationFilter, dateRange, 1, pagination.limit);
+      fetchErrors(
+        selectedDevice,
+        resolveStatusFilter,
+        locationFilter,
+        dateRange,
+        1,
+        pagination.limit
+      );
       await fetchErrorHistory(selectedError.id);
 
       // Lấy lại thông tin lỗi mới nhất và cập nhật selectedError
       const response = await axios.get(`/api/devices/errors/${selectedError.id}`, {
-        headers: { Authorization: `Bearer ${token}` }
+        headers: { Authorization: `Bearer ${token}` },
       });
       // Nếu API trả về object lỗi nằm trong response.data.error hoặc response.data
       setSelectedError(response.data.error || response.data);
@@ -312,7 +319,7 @@ const DevicePage = () => {
   };
 
   // Hiển thị chi tiết lỗi
-  const showDetail = async (error) => {
+  const showDetail = async error => {
     try {
       const token = getAuthToken();
       if (!token) {
@@ -323,8 +330,8 @@ const DevicePage = () => {
       // Lấy thông tin chi tiết mới nhất từ API
       const response = await axios.get(`/api/devices/errors/${error.id}`, {
         headers: {
-          Authorization: `Bearer ${token}`
-        }
+          Authorization: `Bearer ${token}`,
+        },
       });
 
       setSelectedError(response.data);
@@ -341,7 +348,7 @@ const DevicePage = () => {
   };
 
   // Xử lý tạo mới lỗi thiết bị
-  const handleCreate = async (values) => {
+  const handleCreate = async values => {
     console.log('🚀 === BẮT ĐẦU TẠO DEVICE ERROR ===');
     console.log('📋 Form values:', values);
     console.log('📁 Uploaded images count:', uploadedImages.length);
@@ -351,7 +358,9 @@ const DevicePage = () => {
 
     let locationName = values.location;
     if (locations.length > 0 && values.location !== 'Tất cả') {
-      const found = locations.find(loc => loc.id === values.location || loc.name === values.location);
+      const found = locations.find(
+        loc => loc.id === values.location || loc.name === values.location
+      );
       if (found) locationName = found.name;
     }
 
@@ -377,8 +386,8 @@ const DevicePage = () => {
       console.log('📤 Sending request to /api/devices/errors');
       const response = await axios.post('/api/devices/errors', payload, {
         headers: {
-          Authorization: `Bearer ${token}`
-        }
+          Authorization: `Bearer ${token}`,
+        },
       });
 
       console.log('✅ Response from backend:', response.data);
@@ -387,7 +396,14 @@ const DevicePage = () => {
       createForm.resetFields();
       setUploadedImages([]);
       setUploadedImagePaths([]);
-      fetchErrors(selectedDevice, resolveStatusFilter, locationFilter, dateRange, 1, pagination.limit);
+      fetchErrors(
+        selectedDevice,
+        resolveStatusFilter,
+        locationFilter,
+        dateRange,
+        1,
+        pagination.limit
+      );
     } catch (error) {
       if (error.response?.status === 401) {
         handleUnauthorized();
@@ -400,7 +416,7 @@ const DevicePage = () => {
   };
 
   // Hàm xử lý upload hình ảnh trong modal tạo mới - VERSION MỚI
-  const handleCreateImageUpload = async (file) => {
+  const handleCreateImageUpload = async file => {
     console.log('📤 Create modal - handleCreateImageUpload called with file:', file);
 
     try {
@@ -417,10 +433,10 @@ const DevicePage = () => {
 
       const response = await axios.post('/api/devices/errors/temp/images', formData, {
         headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'multipart/form-data'
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'multipart/form-data',
         },
-        timeout: 30000 // 30 giây timeout
+        timeout: 30000, // 30 giây timeout
       });
 
       console.log('📤 Upload response:', response.data);
@@ -433,36 +449,38 @@ const DevicePage = () => {
 
         // Lưu file paths cho backend và tạo blob URLs cho hiển thị
         const filePaths = response.data.uploadedUrls; // Lưu paths gốc cho backend
-        const fullUrls = await Promise.all(response.data.uploadedUrls.map(async (url) => {
-          try {
-            const filename = url.split('/').pop();
-            const apiUrl = `${import.meta.env.VITE_API_URL}/api/devices/errors/temp/images/${filename}`;
+        const fullUrls = await Promise.all(
+          response.data.uploadedUrls.map(async url => {
+            try {
+              const filename = url.split('/').pop();
+              const apiUrl = `${import.meta.env.VITE_API_URL}/api/devices/errors/temp/images/${filename}`;
 
-            console.log(`🔗 Loading image as blob: ${apiUrl}`);
+              console.log(`🔗 Loading image as blob: ${apiUrl}`);
 
-            const token = getAuthToken();
-            if (!token) {
-              console.error('❌ No auth token for image load');
-              return apiUrl; // Fallback to API URL
+              const token = getAuthToken();
+              if (!token) {
+                console.error('❌ No auth token for image load');
+                return apiUrl; // Fallback to API URL
+              }
+
+              const response = await axios.get(apiUrl, {
+                headers: {
+                  Authorization: `Bearer ${token}`,
+                },
+                responseType: 'blob',
+              });
+
+              const blobUrl = window.URL.createObjectURL(response.data);
+              console.log(`✅ Created blob URL: ${blobUrl}`);
+              return blobUrl;
+            } catch (error) {
+              console.error('❌ Error creating blob URL:', error);
+              // Fallback to API URL
+              const filename = url.split('/').pop();
+              return `${import.meta.env.VITE_API_URL}/api/devices/errors/temp/images/${filename}`;
             }
-
-            const response = await axios.get(apiUrl, {
-              headers: {
-                'Authorization': `Bearer ${token}`
-              },
-              responseType: 'blob'
-            });
-
-            const blobUrl = window.URL.createObjectURL(response.data);
-            console.log(`✅ Created blob URL: ${blobUrl}`);
-            return blobUrl;
-          } catch (error) {
-            console.error('❌ Error creating blob URL:', error);
-            // Fallback to API URL
-            const filename = url.split('/').pop();
-            return `${import.meta.env.VITE_API_URL}/api/devices/errors/temp/images/${filename}`;
-          }
-        }));
+          })
+        );
 
         setUploadedImages(prev => {
           const newImages = [...prev, ...fullUrls];
@@ -516,7 +534,7 @@ const DevicePage = () => {
   };
 
   // Xử lý upload nhiều hình ảnh cùng lúc
-  const handleCreateMultipleImageUpload = async (fileList) => {
+  const handleCreateMultipleImageUpload = async fileList => {
     try {
       const token = getAuthToken();
       if (!token) {
@@ -529,17 +547,17 @@ const DevicePage = () => {
 
       // Tạo FormData với nhiều file
       const formData = new FormData();
-      fileList.forEach((file) => {
+      fileList.forEach(file => {
         formData.append('images', file.originFileObj || file);
       });
 
       // Upload files
       const response = await axios.post('/api/devices/errors/temp/images', formData, {
         headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'multipart/form-data'
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'multipart/form-data',
         },
-        timeout: 30000 // 30 giây timeout
+        timeout: 30000, // 30 giây timeout
       });
 
       console.log('📤 Multiple upload response:', response.data);
@@ -548,29 +566,31 @@ const DevicePage = () => {
         message.success(`Upload thành công ${response.data.uploadedUrls.length} hình ảnh`);
 
         const filePaths = response.data.uploadedUrls; // Lưu paths gốc cho backend
-        const fullUrls = await Promise.all(response.data.uploadedUrls.map(async (url) => {
-          try {
-            const filename = url.split('/').pop();
-            const apiUrl = `${import.meta.env.VITE_API_URL}/api/devices/errors/temp/images/${filename}`;
-            console.log(`🔗 Loading image as blob: ${apiUrl}`);
-            const token = getAuthToken();
-            if (!token) {
-              console.error('❌ No auth token for image load');
-              return apiUrl; // Fallback to API URL
+        const fullUrls = await Promise.all(
+          response.data.uploadedUrls.map(async url => {
+            try {
+              const filename = url.split('/').pop();
+              const apiUrl = `${import.meta.env.VITE_API_URL}/api/devices/errors/temp/images/${filename}`;
+              console.log(`🔗 Loading image as blob: ${apiUrl}`);
+              const token = getAuthToken();
+              if (!token) {
+                console.error('❌ No auth token for image load');
+                return apiUrl; // Fallback to API URL
+              }
+              const response = await axios.get(apiUrl, {
+                headers: { Authorization: `Bearer ${token}` },
+                responseType: 'blob',
+              });
+              const blobUrl = window.URL.createObjectURL(response.data);
+              console.log(`✅ Created blob URL: ${blobUrl}`);
+              return blobUrl;
+            } catch (error) {
+              console.error('❌ Error creating blob URL:', error);
+              const filename = url.split('/').pop();
+              return `${import.meta.env.VITE_API_URL}/api/devices/errors/temp/images/${filename}`;
             }
-            const response = await axios.get(apiUrl, {
-              headers: { 'Authorization': `Bearer ${token}` },
-              responseType: 'blob'
-            });
-            const blobUrl = window.URL.createObjectURL(response.data);
-            console.log(`✅ Created blob URL: ${blobUrl}`);
-            return blobUrl;
-          } catch (error) {
-            console.error('❌ Error creating blob URL:', error);
-            const filename = url.split('/').pop();
-            return `${import.meta.env.VITE_API_URL}/api/devices/errors/temp/images/${filename}`;
-          }
-        }));
+          })
+        );
 
         setUploadedImages(prev => {
           const newImages = [...prev, ...fullUrls];
@@ -626,7 +646,7 @@ const DevicePage = () => {
   };
 
   // Hàm xử lý preview hình ảnh
-  const handlePreview = async (file) => {
+  const handlePreview = async file => {
     if (!file.url && !file.preview) {
       file.preview = await getBase64(file.originFileObj);
     }
@@ -636,7 +656,7 @@ const DevicePage = () => {
   };
 
   // Hàm xử lý xóa hình ảnh trong modal tạo mới
-  const handleCreateImageRemove = async (file) => {
+  const handleCreateImageRemove = async file => {
     try {
       const token = getAuthToken();
       if (!token) {
@@ -659,8 +679,14 @@ const DevicePage = () => {
 
       console.log('🗑️ === EXTRACTING FILENAME ===');
       console.log('🗑️ File URL type:', typeof file.url);
-      console.log('🗑️ File URL includes /api/:', file.url && file.url.includes('/api/devices/errors/temp/images/'));
-      console.log('🗑️ File URL starts with VITE_API_URL:', file.url && file.url.startsWith(import.meta.env.VITE_API_URL));
+      console.log(
+        '🗑️ File URL includes /api/:',
+        file.url && file.url.includes('/api/devices/errors/temp/images/')
+      );
+      console.log(
+        '🗑️ File URL starts with VITE_API_URL:',
+        file.url && file.url.startsWith(import.meta.env.VITE_API_URL)
+      );
       console.log('🗑️ File URL starts with blob:', file.url && file.url.startsWith('blob:'));
 
       // Ưu tiên lấy filename từ URL thực tế
@@ -743,14 +769,20 @@ const DevicePage = () => {
       }
 
       console.log('🗑️ Final filename:', filename);
-      console.log('🗑️ Delete URL:', `${import.meta.env.VITE_API_URL}/api/devices/errors/temp/images/${encodeURIComponent(filename)}`);
+      console.log(
+        '🗑️ Delete URL:',
+        `${import.meta.env.VITE_API_URL}/api/devices/errors/temp/images/${encodeURIComponent(filename)}`
+      );
 
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/devices/errors/temp/images/${encodeURIComponent(filename)}`, {
-        method: 'DELETE',
-        headers: {
-          'Authorization': `Bearer ${token}`
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/devices/errors/temp/images/${encodeURIComponent(filename)}`,
+        {
+          method: 'DELETE',
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
-      });
+      );
 
       console.log('🗑️ Response status:', response.status);
       console.log('🗑️ Response ok:', response.ok);
@@ -796,7 +828,7 @@ const DevicePage = () => {
       key: 'id',
       width: '3%',
       className: 'custom-header border-gray-200',
-      render: (id) => id,
+      render: id => id,
       align: 'center',
     },
     {
@@ -812,11 +844,7 @@ const DevicePage = () => {
       key: 'subDeviceName',
       width: '8%',
       className: 'custom-header border-gray-200',
-      render: (text) => (
-        <div className="whitespace-pre-line break-words">
-          {text}
-        </div>
-      )
+      render: text => <div className='whitespace-pre-line break-words'>{text}</div>,
     },
     {
       title: 'Vị trí',
@@ -824,11 +852,7 @@ const DevicePage = () => {
       key: 'position',
       width: '6%',
       className: 'custom-header border-gray-200',
-      render: (text) => (
-        <div className="whitespace-pre-line break-words">
-          {text || 'Chưa có'}
-        </div>
-      )
+      render: text => <div className='whitespace-pre-line break-words'>{text || 'Chưa có'}</div>,
     },
     {
       title: 'Số serial',
@@ -836,11 +860,7 @@ const DevicePage = () => {
       key: 'serialNumber',
       width: '8%',
       className: 'custom-header border-gray-200',
-      render: (text) => (
-        <div className="whitespace-pre-line break-words">
-          {text}
-        </div>
-      )
+      render: text => <div className='whitespace-pre-line break-words'>{text}</div>,
     },
     {
       title: 'Mã lỗi',
@@ -848,11 +868,7 @@ const DevicePage = () => {
       key: 'errorCode',
       width: '8%',
       className: 'custom-header border-gray-200',
-      render: (text) => (
-        <div className="whitespace-pre-line break-words">
-          {text}
-        </div>
-      )
+      render: text => <div className='whitespace-pre-line break-words'>{text}</div>,
     },
     {
       title: 'Nguyên nhân',
@@ -861,11 +877,7 @@ const DevicePage = () => {
       width: '8%',
       className: 'custom-header border-gray-200',
       ellipsis: true,
-      render: (text) => (
-        <div className="whitespace-pre-line break-words">
-          {text}
-        </div>
-      )
+      render: text => <div className='whitespace-pre-line break-words'>{text}</div>,
     },
     {
       title: 'Thời gian tạo',
@@ -873,7 +885,7 @@ const DevicePage = () => {
       key: 'createdAt',
       width: '5%',
       className: 'custom-header border-gray-200',
-      render: (date) => dayjs(date).format(' HH:mm DD/MM/YYYY'),
+      render: date => dayjs(date).format(' HH:mm DD/MM/YYYY'),
     },
     {
       title: 'Trạng thái',
@@ -882,8 +894,11 @@ const DevicePage = () => {
       width: '4%',
       align: 'center',
       className: 'custom-header border-gray-200',
-      render: (status) => (
-        <Tag color={DEVICE_ERROR_STATUS_COLORS[status] || 'default'} className="whitespace-pre-line break-words flex justify-center">
+      render: status => (
+        <Tag
+          color={DEVICE_ERROR_STATUS_COLORS[status] || 'default'}
+          className='whitespace-pre-line break-words flex justify-center'
+        >
           {status}
         </Tag>
       ),
@@ -900,7 +915,7 @@ const DevicePage = () => {
             onClick={() => showDetail(record)}
             size='small'
             type='primary'
-            className="flex items-center gap-2 bg-[#0F60FF] hover:bg-[#0040FF] text-white whitespace-pre-line break-words justify-center"
+            className='flex items-center gap-2 bg-[#0F60FF] hover:bg-[#0040FF] text-white whitespace-pre-line break-words justify-center'
           >
             Chi tiết
           </Button>
@@ -913,7 +928,7 @@ const DevicePage = () => {
     setPagination(prev => ({
       ...prev,
       page,
-      limit: pageSize
+      limit: pageSize,
     }));
     fetchErrors(selectedDevice, resolveStatusFilter, locationFilter, dateRange, page, pageSize);
   };
@@ -921,7 +936,8 @@ const DevicePage = () => {
   // Fetch danh sách location khi mount
   useEffect(() => {
     setLocationsLoading(true);
-    axios.get('/api/locations')
+    axios
+      .get('/api/locations')
       .then(res => setLocations(res.data))
       .catch(() => setLocations([]))
       .finally(() => setLocationsLoading(false));
@@ -929,16 +945,25 @@ const DevicePage = () => {
 
   useEffect(() => {
     fetchDevices();
-    fetchErrors(selectedDevice, resolveStatusFilter, locationFilter, dateRange, 1, pagination.limit);
+    fetchErrors(
+      selectedDevice,
+      resolveStatusFilter,
+      locationFilter,
+      dateRange,
+      1,
+      pagination.limit
+    );
   }, []);
 
   return (
-    <div className="p-0">
+    <div className='p-0'>
       <Card>
-        <div className="flex justify-between items-center mb-4">
-          <Title level={4} style={{ color: '#003c71', margin: 0 }}>Quản lý sự cố hạ tầng Trung Tâm Dữ Liệu</Title>
+        <div className='flex justify-between items-center mb-4'>
+          <Title level={4} style={{ color: '#003c71', margin: 0 }}>
+            Quản lý sự cố hạ tầng Trung Tâm Dữ Liệu
+          </Title>
           <Button
-            type="primary"
+            type='primary'
             icon={<PlusOutlined />}
             onClick={() => setCreateModalVisible(true)}
             style={{ backgroundColor: '#003c71', borderColor: '#003c71', color: 'white' }}
@@ -947,14 +972,14 @@ const DevicePage = () => {
           </Button>
         </div>
         <Card style={{ marginBottom: '24px' }}>
-          <Row gutter={16} align="middle">
+          <Row gutter={16} align='middle'>
             <Col>
               <Text strong>Thiết bị:</Text>
             </Col>
             <Col>
               <Select
                 style={{ width: 300 }}
-                placeholder="Chọn loại thiết bị"
+                placeholder='Chọn loại thiết bị'
                 onChange={handleDeviceChange}
                 value={selectedDevice === 'all' ? undefined : selectedDevice}
                 allowClear={true}
@@ -972,7 +997,7 @@ const DevicePage = () => {
             <Col>
               <Select
                 style={{ width: 180 }}
-                placeholder="Chọn trạng thái"
+                placeholder='Chọn trạng thái'
                 value={resolveStatusFilter === 'all' ? undefined : resolveStatusFilter}
                 onChange={handleStatusFilterChange}
                 allowClear={true}
@@ -987,11 +1012,11 @@ const DevicePage = () => {
                 style={{ width: 180 }}
                 value={locationFilter === 'Tất cả' ? undefined : locationFilter}
                 onChange={handleLocationFilterChange}
-                placeholder="Chọn địa điểm"
+                placeholder='Chọn địa điểm'
                 allowClear={true}
                 locations={locations}
                 locationsLoading={locationsLoading}
-                optionLabelProp="children"
+                optionLabelProp='children'
                 getPopupContainer={trigger => trigger.parentNode}
                 showAllOption={false}
               />
@@ -1004,11 +1029,11 @@ const DevicePage = () => {
                 style={{ width: 300 }}
                 onChange={handleDateRangeChange}
                 value={dateRange}
-                format="DD/MM/YYYY"
+                format='DD/MM/YYYY'
                 placeholder={['Từ ngày', 'Đến ngày']}
                 allowClear={true}
                 showTime={false}
-                disabledDate={(current) => {
+                disabledDate={current => {
                   return current && current > dayjs();
                 }}
               />
@@ -1027,7 +1052,7 @@ const DevicePage = () => {
           columns={columns}
           dataSource={errors}
           loading={loading}
-          rowKey="id"
+          rowKey='id'
           pagination={{
             current: pagination.page,
             pageSize: pagination.limit,
@@ -1036,17 +1061,16 @@ const DevicePage = () => {
             showSizeChanger: true,
             pageSizeOptions: ['15', '20', '50', '100'],
             defaultPageSize: 15,
-            showTotal: (total) => `Tổng số ${total}`,
-            locale: { items_per_page: '/ Trang' }
+            showTotal: total => `Tổng số ${total}`,
+            locale: { items_per_page: '/ Trang' },
           }}
           bordered
-          defaultSortOrder="ascend"
-
+          defaultSortOrder='ascend'
         />
 
         {/* Modal tạo mới lỗi thiết bị */}
         <Modal
-          title="Tạo mới lỗi thiết bị"
+          title='Tạo mới lỗi thiết bị'
           open={createModalVisible}
           onCancel={() => {
             setCreateModalVisible(false);
@@ -1055,19 +1079,15 @@ const DevicePage = () => {
           footer={null}
           width={800}
         >
-          <Form
-            form={createForm}
-            layout="vertical"
-            onFinish={handleCreate}
-          >
+          <Form form={createForm} layout='vertical' onFinish={handleCreate}>
             <Row gutter={16}>
               <Col span={12}>
                 <Form.Item
-                  name="deviceId"
-                  label="Thiết bị"
+                  name='deviceId'
+                  label='Thiết bị'
                   rules={[{ required: true, message: 'Vui lòng chọn thiết bị' }]}
                 >
-                  <Select placeholder="Chọn thiết bị">
+                  <Select placeholder='Chọn thiết bị'>
                     {devices.map(device => (
                       <Select.Option key={device.id} value={device.id}>
                         {device.deviceName}
@@ -1078,16 +1098,16 @@ const DevicePage = () => {
               </Col>
               <Col span={12}>
                 <Form.Item
-                  name="location"
-                  label="Địa điểm"
+                  name='location'
+                  label='Địa điểm'
                   rules={[{ required: true, message: 'Vui lòng chọn địa điểm' }]}
                 >
                   <LocationSelect
-                    placeholder="Chọn địa điểm"
+                    placeholder='Chọn địa điểm'
                     activeOnly={true}
                     locations={locations}
                     locationsLoading={locationsLoading}
-                    optionLabelProp="children"
+                    optionLabelProp='children'
                     getPopupContainer={trigger => trigger.parentNode}
                   />
                 </Form.Item>
@@ -1097,20 +1117,20 @@ const DevicePage = () => {
             <Row gutter={16}>
               <Col span={12}>
                 <Form.Item
-                  name="subDeviceName"
-                  label="Tên thiết bị"
+                  name='subDeviceName'
+                  label='Tên thiết bị'
                   rules={[{ required: true, message: 'Vui lòng nhập tên thiết bị' }]}
                 >
-                  <Input placeholder="Nhập tên thiết bị" />
+                  <Input placeholder='Nhập tên thiết bị' />
                 </Form.Item>
               </Col>
               <Col span={12}>
                 <Form.Item
-                  name="serialNumber"
-                  label="Số serial"
+                  name='serialNumber'
+                  label='Số serial'
                   rules={[{ required: true, message: 'Vui lòng nhập số serial' }]}
                 >
-                  <Input placeholder="Nhập số serial" />
+                  <Input placeholder='Nhập số serial' />
                 </Form.Item>
               </Col>
             </Row>
@@ -1118,22 +1138,20 @@ const DevicePage = () => {
             <Row gutter={16}>
               <Col span={12}>
                 <Form.Item
-                  name="position"
-                  label="Vị trí"
+                  name='position'
+                  label='Vị trí'
                   rules={[{ required: true, message: 'Vui lòng nhập vị trí thiết bị' }]}
                 >
-                  <Input placeholder="Ví dụ: Rack A1, Slot 2" />
+                  <Input placeholder='Ví dụ: Rack A1, Slot 2' />
                 </Form.Item>
               </Col>
               <Col span={12}>
                 <Form.Item
-                  name="resolveStatus"
-                  label="Trạng thái"
+                  name='resolveStatus'
+                  label='Trạng thái'
                   initialValue={DEVICE_ERROR_STATUS.PENDING}
                 >
-                  <Select
-                    options={DEVICE_ERROR_STATUS_OPTIONS}
-                  />
+                  <Select options={DEVICE_ERROR_STATUS_OPTIONS} />
                 </Form.Item>
               </Col>
             </Row>
@@ -1141,46 +1159,46 @@ const DevicePage = () => {
             <Row gutter={16}>
               <Col span={12}>
                 <Form.Item
-                  name="errorCode"
-                  label="Mã lỗi"
+                  name='errorCode'
+                  label='Mã lỗi'
                   rules={[{ required: true, message: 'Vui lòng nhập mã lỗi' }]}
                 >
-                  <Input placeholder="Nhập mã lỗi" />
+                  <Input placeholder='Nhập mã lỗi' />
                 </Form.Item>
               </Col>
             </Row>
 
             <Form.Item
-              name="errorCause"
-              label="Nguyên nhân"
+              name='errorCause'
+              label='Nguyên nhân'
               rules={[{ required: true, message: 'Vui lòng nhập nguyên nhân' }]}
             >
               <Input.TextArea
                 autoSize={{ minRows: 1, maxRows: 6 }}
-                placeholder="Nhập nguyên nhân lỗi"
+                placeholder='Nhập nguyên nhân lỗi'
               />
             </Form.Item>
 
             <Form.Item
-              name="solution"
-              label="Giải pháp"
+              name='solution'
+              label='Giải pháp'
               rules={[{ required: true, message: 'Vui lòng nhập giải pháp' }]}
             >
               <Input.TextArea
                 autoSize={{ minRows: 1, maxRows: 6 }}
-                placeholder="Nhập giải pháp khắc phục"
+                placeholder='Nhập giải pháp khắc phục'
               />
             </Form.Item>
 
-            <Form.Item label="Hình ảnh lỗi">
+            <Form.Item label='Hình ảnh lỗi'>
               <div style={{ marginBottom: 16 }}>
                 <input
-                  type="file"
+                  type='file'
                   multiple
-                  accept="image/*"
+                  accept='image/*'
                   style={{ display: 'none' }}
-                  id="multiple-image-upload"
-                  onChange={async (e) => {
+                  id='multiple-image-upload'
+                  onChange={async e => {
                     const files = Array.from(e.target.files);
                     console.log('🔍 Multiple file input selected:', files);
 
@@ -1220,7 +1238,7 @@ const DevicePage = () => {
                   }}
                 />
                 <Button
-                  type="dashed"
+                  type='dashed'
                   onClick={() => document.getElementById('multiple-image-upload').click()}
                   style={{ width: '100%', height: 100, borderStyle: 'dashed' }}
                   disabled={uploadedImages.length >= 10}
@@ -1245,13 +1263,13 @@ const DevicePage = () => {
                         height: '100%',
                         objectFit: 'cover',
                         border: '1px solid #d9d9d9',
-                        borderRadius: 6
+                        borderRadius: 6,
                       }}
                       onClick={() => handlePreview({ url, name: `image-${index + 1}` })}
                     />
                     <Button
-                      type="text"
-                      size="small"
+                      type='text'
+                      size='small'
                       danger
                       icon={<DeleteOutlined />}
                       style={{
@@ -1265,7 +1283,7 @@ const DevicePage = () => {
                         height: 24,
                         display: 'flex',
                         alignItems: 'center',
-                        justifyContent: 'center'
+                        justifyContent: 'center',
                       }}
                       onClick={() => handleCreateImageRemove({ url, uid: `-${index}` })}
                     />
@@ -1274,50 +1292,59 @@ const DevicePage = () => {
               </div>
 
               <div style={{ marginTop: 8, fontSize: '12px', color: '#666' }}>
-                Hỗ trợ: JPG, PNG, GIF, WEBP. Kích thước tối đa: 5MB/ảnh. Có thể chọn nhiều file cùng lúc.
+                Hỗ trợ: JPG, PNG, GIF, WEBP. Kích thước tối đa: 5MB/ảnh. Có thể chọn nhiều file cùng
+                lúc.
               </div>
             </Form.Item>
 
-            <Form.Item className="mb-0 text-right">
+            <Form.Item className='mb-0 text-right'>
               <Space>
-                <Button onClick={async () => {
-                  // Xóa tất cả ảnh temp đã upload
-                  if (uploadedImages.length > 0) {
-                    try {
-                      const token = getAuthToken();
-                      if (token) {
-                        console.log('🗑️ Cleaning up temp images before closing modal...');
+                <Button
+                  onClick={async () => {
+                    // Xóa tất cả ảnh temp đã upload
+                    if (uploadedImages.length > 0) {
+                      try {
+                        const token = getAuthToken();
+                        if (token) {
+                          console.log('🗑️ Cleaning up temp images before closing modal...');
 
-                        // Xóa từng ảnh temp
-                        for (const imagePath of uploadedImagePaths) {
-                          const filename = imagePath.split('/').pop();
-                          try {
-                            await axios.delete(`/api/devices/errors/temp/images/${encodeURIComponent(filename)}`, {
-                              headers: { 'Authorization': `Bearer ${token}` }
-                            });
-                            console.log(`✅ Deleted temp image: ${filename}`);
-                          } catch (error) {
-                            console.error(`❌ Failed to delete temp image: ${filename}`, error);
+                          // Xóa từng ảnh temp
+                          for (const imagePath of uploadedImagePaths) {
+                            const filename = imagePath.split('/').pop();
+                            try {
+                              await axios.delete(
+                                `/api/devices/errors/temp/images/${encodeURIComponent(filename)}`,
+                                {
+                                  headers: { Authorization: `Bearer ${token}` },
+                                }
+                              );
+                              console.log(`✅ Deleted temp image: ${filename}`);
+                            } catch (error) {
+                              console.error(`❌ Failed to delete temp image: ${filename}`, error);
+                            }
                           }
+
+                          message.success('Đã xóa ảnh tạm thời');
                         }
-
-                        message.success('Đã xóa ảnh tạm thời');
+                      } catch (error) {
+                        console.error('❌ Error cleaning up temp images:', error);
                       }
-                    } catch (error) {
-                      console.error('❌ Error cleaning up temp images:', error);
                     }
-                  }
 
-                  // Reset form và state
-                  setCreateModalVisible(false);
-                  createForm.resetFields();
-                  setUploadedImages([]);
-                  setUploadedImagePaths([]);
-                  setFileUidToFilename(new Map());
-                }}>
+                    // Reset form và state
+                    setCreateModalVisible(false);
+                    createForm.resetFields();
+                    setUploadedImages([]);
+                    setUploadedImagePaths([]);
+                    setFileUidToFilename(new Map());
+                  }}
+                >
                   Hủy
                 </Button>
-                <Button type="primary" htmlType="submit" style={{ backgroundColor: '#003c71', borderColor: '#003c71', color: 'white' }}
+                <Button
+                  type='primary'
+                  htmlType='submit'
+                  style={{ backgroundColor: '#003c71', borderColor: '#003c71', color: 'white' }}
                 >
                   Tạo mới
                 </Button>
@@ -1332,7 +1359,16 @@ const DevicePage = () => {
           error={selectedError}
           history={errorHistory}
           onResolve={handleResolve}
-          onRefresh={() => fetchErrors(selectedDevice, resolveStatusFilter, locationFilter, dateRange, 1, pagination.limit)}
+          onRefresh={() =>
+            fetchErrors(
+              selectedDevice,
+              resolveStatusFilter,
+              locationFilter,
+              dateRange,
+              1,
+              pagination.limit
+            )
+          }
           setSelectedError={setSelectedError}
         />
 
@@ -1343,7 +1379,7 @@ const DevicePage = () => {
           footer={null}
           onCancel={() => setPreviewVisible(false)}
         >
-          <img alt="preview" style={{ width: '100%' }} src={previewImage} />
+          <img alt='preview' style={{ width: '100%' }} src={previewImage} />
         </Modal>
       </Card>
     </div>

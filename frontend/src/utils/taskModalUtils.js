@@ -7,27 +7,27 @@ import * as taskService from '../services/taskService';
 const API_URL = import.meta.env.VITE_API_URL || window.location.origin;
 
 // Fetch task detail
-export const fetchTaskDetailApi = async (taskId) => {
+export const fetchTaskDetailApi = async taskId => {
   const token = localStorage.getItem('token');
   const response = await axios.get(`${API_URL}/api/tasks/${taskId}`, {
-    headers: { Authorization: `Bearer ${token}` }
+    headers: { Authorization: `Bearer ${token}` },
   });
   return response.data;
 };
 
 // Lock task for editing
-export const lockTask = async (taskId) => {
+export const lockTask = async taskId => {
   const token = localStorage.getItem('token');
   await axios.post(`${API_URL}/api/tasks/${taskId}/lock`, null, {
-    headers: { Authorization: `Bearer ${token}` }
+    headers: { Authorization: `Bearer ${token}` },
   });
 };
 
 // Unlock task after editing
-export const unlockTask = async (taskId) => {
+export const unlockTask = async taskId => {
   const token = localStorage.getItem('token');
   await axios.delete(`${API_URL}/api/tasks/${taskId}/lock`, {
-    headers: { Authorization: `Bearer ${token}` }
+    headers: { Authorization: `Bearer ${token}` },
   });
 };
 
@@ -52,7 +52,7 @@ export const downloadFile = async (file, selectedTask, message) => {
 
   try {
     const headers = {
-      Authorization: `Bearer ${localStorage.getItem('token')}`
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
     };
 
     const response = await fetch(url, { headers });
@@ -85,7 +85,7 @@ export const downloadFile = async (file, selectedTask, message) => {
         if (matches && matches[1]) {
           try {
             let extractedName = matches[1].replace(/['"]/g, '');
-            if (extractedName.startsWith('UTF-8\'\'')) {
+            if (extractedName.startsWith("UTF-8''")) {
               extractedName = extractedName.substring(7);
             }
             filename = decodeURIComponent(extractedName);
@@ -130,7 +130,7 @@ export const downloadFile = async (file, selectedTask, message) => {
       contentDisposition: response.headers.get('Content-Disposition'),
       originalName: file.originalName,
       path: file.path,
-      finalFilename: filename
+      finalFilename: filename,
     });
 
     const blob = await response.blob();
@@ -208,9 +208,10 @@ export const prepareTaskFormData = (values, modalType, selectedTask, removedAtta
   }
 
   // Set change reason
-  const changeReason = modalType === 'edit' 
-    ? (values.changeReason?.trim() || 'Cập nhật thông tin')
-    : 'Tạo mới công việc';
+  const changeReason =
+    modalType === 'edit'
+      ? values.changeReason?.trim() || 'Cập nhật thông tin'
+      : 'Tạo mới công việc';
   formData.set('changeReason', changeReason);
 
   return formData;
@@ -228,7 +229,7 @@ export const handleShowModal = async (type, task, options = {}) => {
     fetchTaskDetail,
     lockTask,
     getFileUrl,
-    formatFileName
+    formatFileName,
   } = options;
 
   setModalType(type);
@@ -247,7 +248,9 @@ export const handleShowModal = async (type, task, options = {}) => {
     }
 
     if (updatedTask.lockedBy && updatedTask.lockedBy !== getCurrentUserId()) {
-      message.warning(`Công việc đang được chỉnh sửa bởi ${updatedTask.lockedByUser?.fullname || 'người khác'}`);
+      message.warning(
+        `Công việc đang được chỉnh sửa bởi ${updatedTask.lockedByUser?.fullname || 'người khác'}`
+      );
       setModalType('view');
       return;
     }
@@ -256,11 +259,13 @@ export const handleShowModal = async (type, task, options = {}) => {
       await lockTask(updatedTask.id);
       setSelectedTask(prev => ({
         ...prev,
-        isLocked: true
+        isLocked: true,
       }));
     } catch (error) {
       if (error.response?.status === 423) {
-        message.warning(error.response?.data?.message || 'Công việc đang được chỉnh sửa bởi người khác');
+        message.warning(
+          error.response?.data?.message || 'Công việc đang được chỉnh sửa bởi người khác'
+        );
         setModalType('view');
         return;
       }
@@ -269,13 +274,14 @@ export const handleShowModal = async (type, task, options = {}) => {
       return;
     }
 
-    const fileList = updatedTask?.attachments?.map((file, index) => ({
-      uid: index,
-      name: formatFileName(file.originalName),
-      status: 'done',
-      url: getFileUrl(file, updatedTask),
-      response: file
-    })) || [];
+    const fileList =
+      updatedTask?.attachments?.map((file, index) => ({
+        uid: index,
+        name: formatFileName(file.originalName),
+        status: 'done',
+        url: getFileUrl(file, updatedTask),
+        response: file,
+      })) || [];
 
     const taskLocation = updatedTask?.location || task?.location;
 
@@ -283,21 +289,22 @@ export const handleShowModal = async (type, task, options = {}) => {
     setTimeout(() => {
       form.setFieldsValue({
         location: taskLocation,
-        worker: (updatedTask?.staff && updatedTask.staff.length > 0)
-          ? updatedTask.staff
-          : (updatedTask?.fullName
+        worker:
+          updatedTask?.staff && updatedTask.staff.length > 0
+            ? updatedTask.staff
+            : updatedTask?.fullName
               ? updatedTask.fullName.split(',').map(name => ({
                   type: 'partner',
                   id: null,
-                  fullName: name.trim()
+                  fullName: name.trim(),
                 }))
-              : []),
+              : [],
         taskDescription: '',
         taskTitle: updatedTask.taskTitle,
         checkInTime: updatedTask.checkInTime ? dayjs(updatedTask.checkInTime) : undefined,
         checkOutTime: updatedTask.checkOutTime ? dayjs(updatedTask.checkOutTime) : undefined,
         attachments: fileList,
-        changeReason: ''
+        changeReason: '',
       });
     }, 100);
   } else {
@@ -306,17 +313,17 @@ export const handleShowModal = async (type, task, options = {}) => {
 };
 
 // Hàm lấy ID người dùng hiện tại
-export const getCurrentUserId = (currentUser) => {
+export const getCurrentUserId = currentUser => {
   return currentUser?.id;
 };
 
 // Hàm lấy role người dùng hiện tại
-export const getCurrentUserRole = (currentUser) => {
+export const getCurrentUserRole = currentUser => {
   return currentUser?.role;
 };
 
 // Hàm lấy header xác thực
-export const getAuthHeader = (navigate) => {
+export const getAuthHeader = navigate => {
   const token = localStorage.getItem('token');
   if (!token) {
     message.error('Phiên đăng nhập đã hết hạn');
@@ -338,7 +345,7 @@ export const showModal = async ({
   getCurrentUserId,
   lockTask,
   message,
-  form
+  form,
 }) => {
   setModalType(type);
   setRemovedAttachments([]);
@@ -358,7 +365,9 @@ export const showModal = async ({
 
     // Check if task is being edited by someone else
     if (updatedTask.lockedBy && updatedTask.lockedBy !== getCurrentUserId()) {
-      message.warning(`Công việc đang được chỉnh sửa bởi ${updatedTask.lockedByUser?.fullname || 'người khác'}`);
+      message.warning(
+        `Công việc đang được chỉnh sửa bởi ${updatedTask.lockedByUser?.fullname || 'người khác'}`
+      );
       setModalType('view');
       return;
     }
@@ -369,7 +378,9 @@ export const showModal = async ({
       setSelectedTask({ ...updatedTask, isLocked: true });
     } catch (error) {
       if (error.response?.status === 423) {
-        message.warning(error.response?.data?.message || 'Công việc đang được chỉnh sửa bởi người khác');
+        message.warning(
+          error.response?.data?.message || 'Công việc đang được chỉnh sửa bởi người khác'
+        );
         setModalType('view');
         return;
       }
@@ -383,23 +394,24 @@ export const showModal = async ({
     setTimeout(() => {
       form.setFieldsValue({
         location: updatedTask?.location,
-        worker: (updatedTask?.staff && updatedTask.staff.length > 0)
-          ? updatedTask.staff.map(p => ({
-              ...p,
-              key: p.id,
-              value: p.id,
-              label: (p.fullName || p.fullname || p.name) + (p.donVi ? ` (${p.donVi})` : '')
-            }))
-          : (updatedTask?.fullName
+        worker:
+          updatedTask?.staff && updatedTask.staff.length > 0
+            ? updatedTask.staff.map(p => ({
+                ...p,
+                key: p.id,
+                value: p.id,
+                label: (p.fullName || p.fullname || p.name) + (p.donVi ? ` (${p.donVi})` : ''),
+              }))
+            : updatedTask?.fullName
               ? updatedTask.fullName.split(',').map(name => ({
                   type: 'partner',
                   id: null,
                   fullName: name.trim(),
                   key: null,
                   value: null,
-                  label: name.trim()
+                  label: name.trim(),
                 }))
-              : []),
+              : [],
         taskDescription: '',
         taskTitle: updatedTask.taskTitle,
         checkInTime: updatedTask.checkInTime ? dayjs(updatedTask.checkInTime) : undefined,
@@ -409,9 +421,9 @@ export const showModal = async ({
           name: file.originalName,
           status: 'done',
           url: file.url,
-          response: file
+          response: file,
         })),
-        changeReason: ''
+        changeReason: '',
       });
     }, 100);
 
@@ -438,7 +450,7 @@ export const handleModalSubmit = async ({
   fetchAllTasksData,
   unlockTask,
   setModalType,
-  locations = []
+  locations = [],
 }) => {
   try {
     const values = await form.validateFields();
@@ -540,8 +552,8 @@ export const handleModalSubmit = async ({
           const trackChanges = {
             staff: {
               added: added.map(s => s.fullName || s.fullname || s.name),
-              removed: removed.map(s => s.fullName || s.fullname || s.name)
-            }
+              removed: removed.map(s => s.fullName || s.fullname || s.name),
+            },
           };
           formData.set('trackChanges', JSON.stringify(trackChanges));
         }
@@ -552,7 +564,7 @@ export const handleModalSubmit = async ({
               ? staff
               : {
                   ...staff,
-                  type: staff.fullName || staff.fullname ? 'partner' : 'user'
+                  type: staff.fullName || staff.fullname ? 'partner' : 'user',
                 };
             await taskService.addTaskStaff(selectedTask.id, staffData);
           }
@@ -630,7 +642,7 @@ export const handleReasonSubmit = async ({
   pendingAction,
   selectedTask,
   handleStatusChange,
-  setReasonModalVisible
+  setReasonModalVisible,
 }) => {
   try {
     const values = await reasonForm.validateFields();
@@ -658,7 +670,7 @@ export const handleReopen = async ({
   navigate,
   setReopenModalVisible,
   fetchTaskDetail,
-  fetchAllTasksData
+  fetchAllTasksData,
 }) => {
   try {
     const values = await reopenForm.validateFields();
@@ -691,7 +703,7 @@ export const handleReopen = async ({
         type: staff.type || (staff.fullName ? 'partner' : 'user'),
         id: staff.id,
         fullName: staff.fullName || staff.fullname || staff.name,
-        donVi: staff.donVi
+        donVi: staff.donVi,
       }));
       formData.set('worker', JSON.stringify(staffList));
     } else if (selectedTask.fullName) {
@@ -710,12 +722,12 @@ export const handleReopen = async ({
     const trackChanges = {
       status: {
         oldValue: selectedTask.status,
-        newValue: 'in_progress'
+        newValue: 'in_progress',
       },
       checkOutTime: {
         oldValue: selectedTask.checkOutTime,
-        newValue: reopenTime.format('YYYY-MM-DD HH:mm:ss')
-      }
+        newValue: reopenTime.format('YYYY-MM-DD HH:mm:ss'),
+      },
     };
 
     formData.set('trackChanges', JSON.stringify(trackChanges));
@@ -725,8 +737,8 @@ export const handleReopen = async ({
       await axios.put(`${API_URL}/api/tasks/${selectedTask.id}`, formData, {
         headers: {
           ...headers,
-          'Content-Type': 'multipart/form-data'
-        }
+          'Content-Type': 'multipart/form-data',
+        },
       });
 
       message.success('Đã mở lại công việc');

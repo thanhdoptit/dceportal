@@ -1,6 +1,6 @@
-import React from 'react';
-import { Breadcrumb, Space } from 'antd';
 import { CalendarOutlined, HomeOutlined } from '@ant-design/icons';
+import { Breadcrumb, Space } from 'antd';
+import React from 'react';
 import ShiftScheduleList from '../components/common/ShiftScheduleList';
 
 const ShiftSchedulePage = () => {
@@ -23,8 +23,8 @@ const ShiftSchedulePage = () => {
         ]}
         style={{ marginBottom: '16px' }}
       />
-      
-      <Space direction="vertical" size="large" style={{ width: '100%' }}>
+
+      <Space direction='vertical' size='large' style={{ width: '100%' }}>
         <ShiftScheduleTest />
         <ShiftScheduleList />
       </Space>
@@ -32,4 +32,4 @@ const ShiftSchedulePage = () => {
   );
 };
 
-export default ShiftSchedulePage; 
+export default ShiftSchedulePage;

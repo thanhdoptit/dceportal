@@ -1,41 +1,29 @@
-import React, { useState, useEffect } from 'react';
-import { Card, Typography, Divider, List, Tag, Space, Alert, Row, Col, Spin, Button, Image, Input, Modal, Slider, Tooltip } from 'antd';
-import '../styles/ImagePreview.css';
 import {
-  ThunderboltOutlined,
-  SafetyOutlined,
-  ToolOutlined,
-  ExclamationCircleOutlined,
   CalendarOutlined,
-  UserOutlined,
-  LinkOutlined,
   DownloadOutlined,
-  EyeOutlined,
   EditOutlined,
+  ExclamationCircleOutlined,
+  EyeOutlined,
   FileTextOutlined,
   SearchOutlined,
-  ZoomInOutlined,
-  ZoomOutOutlined,
-  FullscreenOutlined,
-  FullscreenExitOutlined,
-  RotateLeftOutlined,
-  RotateRightOutlined,
-  CloseOutlined,
-  LeftOutlined,
-  RightOutlined
+  ThunderboltOutlined,
+  UserOutlined,
 } from '@ant-design/icons';
-import { useParams, useNavigate } from 'react-router-dom';
-import api from '../services/api';
-import { useAuth } from '../contexts/AuthContext';
-import { processFileName } from '../utils/VietnameseFile';
+import { Alert, Button, Card, Col, Input, List, Row, Space, Spin, Tag, Typography } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import ImagePreviewModal from '../components/common/ImagePreviewModal';
+import { useAuth } from '../contexts/AuthContext';
+import api from '../services/api';
+import '../styles/ImagePreview.css';
+import { processFileName } from '../utils/VietnameseFile';
 
 const { Title, Paragraph, Text } = Typography;
 
 // Dữ liệu mặc định cho UPS system
 const defaultUPSData = {
-  title: "Hệ thống UPS (Uninterruptible Power Supply)",
-  subtitle: "Hệ thống cung cấp điện liên tục cho trung tâm dữ liệu",
+  title: 'Hệ thống UPS (Uninterruptible Power Supply)',
+  subtitle: 'Hệ thống cung cấp điện liên tục cho trung tâm dữ liệu',
   content: `# Hệ thống UPS (Uninterruptible Power Supply)
 
 ## Mục đích
@@ -46,7 +34,7 @@ Hệ thống UPS đảm bảo cung cấp điện liên tục cho các thiết b�
 - Bảo vệ thiết bị khỏi sự cố điện
 - Đảm bảo thời gian chuyển đổi nhanh chóng
 
-## ... (bạn có thể bổ sung thêm nội dung mẫu ở đây) ...`
+## ... (bạn có thể bổ sung thêm nội dung mẫu ở đây) ...`,
 };
 
 // Component tùy chỉnh để hiển thị hình ảnh qua API
@@ -66,13 +54,19 @@ const ImagePreview = ({ image, systemInfoId, style, onClick }) => {
         console.log('🔍 ImagePreview - Loading image:', image.filename);
         console.log('🔍 ImagePreview - SystemInfoId:', systemInfoId);
         console.log('🔍 ImagePreview - Image path:', image.path);
-        console.log('🔍 ImagePreview - Full URL:', `${import.meta.env.VITE_API_URL}/api/system-info/${systemInfoId}/files/${image.filename}`);
+        console.log(
+          '🔍 ImagePreview - Full URL:',
+          `${import.meta.env.VITE_API_URL}/api/system-info/${systemInfoId}/files/${image.filename}`
+        );
 
-        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/system-info/${systemInfoId}/files/${image.filename}`, {
-          headers: {
-            Authorization: `Bearer ${token}`
+        const res = await fetch(
+          `${import.meta.env.VITE_API_URL}/api/system-info/${systemInfoId}/files/${image.filename}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
           }
-        });
+        );
         console.log('🔍 ImagePreview - Response status:', res.status);
         if (!res.ok) {
           console.error('🔍 ImagePreview - Response not ok:', res.status, res.statusText);
@@ -95,41 +89,47 @@ const ImagePreview = ({ image, systemInfoId, style, onClick }) => {
     };
   }, [systemInfoId, image.filename]);
 
-  if (loading) return (
-    <div style={{
-      ...style,
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      background: '#f0f0f0',
-      borderRadius: '4px'
-    }}>
-      <Spin size="large" />
-    </div>
-  );
+  if (loading)
+    return (
+      <div
+        style={{
+          ...style,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          background: '#f0f0f0',
+          borderRadius: '4px',
+        }}
+      >
+        <Spin size='large' />
+      </div>
+    );
 
-  if (error) return (
-    <div style={{
-      ...style,
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      background: '#f0f0f0',
-      borderRadius: '4px',
-      color: '#999',
-      fontSize: '14px'
-    }}>
-      <ExclamationCircleOutlined style={{ marginRight: 8 }} />
-      Lỗi tải ảnh
-    </div>
-  );
+  if (error)
+    return (
+      <div
+        style={{
+          ...style,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          background: '#f0f0f0',
+          borderRadius: '4px',
+          color: '#999',
+          fontSize: '14px',
+        }}
+      >
+        <ExclamationCircleOutlined style={{ marginRight: 8 }} />
+        Lỗi tải ảnh
+      </div>
+    );
 
   return (
     <img
       src={imageUrl}
       alt={image.originalName}
       style={style}
-      onClick={(e) => {
+      onClick={e => {
         console.log('Image clicked', image, onClick);
         if (onClick) onClick(e);
       }}
@@ -152,7 +152,6 @@ const SystemInfoPage = () => {
   const [currentPreviewImages, setCurrentPreviewImages] = useState([]);
   const [currentPreviewTitle, setCurrentPreviewTitle] = useState('');
 
-
   // Hàm helper để lấy prefix route theo role
   const getRoutePrefix = () => {
     if (!currentUser) return '/dc';
@@ -169,7 +168,7 @@ const SystemInfoPage = () => {
   };
 
   // Hàm navigate đến chi tiết hệ thống
-  const navigateToSystemDetail = (systemType) => {
+  const navigateToSystemDetail = systemType => {
     const prefix = getRoutePrefix();
     const targetPath = `${prefix}/system-info/${systemType}`;
     console.log('SystemInfoPage - Navigating to:', targetPath);
@@ -232,13 +231,13 @@ const SystemInfoPage = () => {
             components: { items: [], files: [] },
             operation: { normal: { steps: [], files: [] }, backup: { steps: [], files: [] } },
             procedures: { items: [], files: [] },
-            troubleshooting: { description: apiData.troubleshooting || '', items: [], files: [] }
+            troubleshooting: { description: apiData.troubleshooting || '', items: [], files: [] },
           };
         }
 
         setSystemInfo({
           ...apiData,
-          content: parsedContent
+          content: parsedContent,
         });
         setDataReady(true);
         console.log('🔍 SystemInfoPage - System info set successfully');
@@ -253,8 +252,8 @@ const SystemInfoPage = () => {
         console.log('🔍 SystemInfoPage - All systems:', allSystems);
 
         // Tìm system theo systemType
-        const foundSystem = allSystems.find(system =>
-          system.systemType?.toLowerCase() === systemType?.toLowerCase()
+        const foundSystem = allSystems.find(
+          system => system.systemType?.toLowerCase() === systemType?.toLowerCase()
         );
 
         if (foundSystem) {
@@ -270,7 +269,7 @@ const SystemInfoPage = () => {
 
           setSystemInfo({
             ...foundSystem,
-            content: parsedContent
+            content: parsedContent,
           });
           setDataReady(true);
           return;
@@ -310,7 +309,7 @@ const SystemInfoPage = () => {
   const displayData = systemInfo || defaultUPSData;
 
   // Lấy documents và images từ content JSON - hỗ trợ cả cấu trúc cũ và mới
-  const getFilesFromContent = (section) => {
+  const getFilesFromContent = section => {
     if (!displayData.content || typeof displayData.content !== 'object') return [];
 
     // Cấu trúc mới: files trong từng item của section
@@ -362,7 +361,7 @@ const SystemInfoPage = () => {
   const generalFiles = getFilesFromContent('general');
 
   // Tách images và documents từ files
-  const separateFiles = (files) => {
+  const separateFiles = files => {
     const images = [];
     const documents = [];
     files.forEach(file => {
@@ -428,7 +427,7 @@ const SystemInfoPage = () => {
   }
 
   // Hàm download file qua API (bảo mật, có token)
-  const handleDownloadImage = async (image) => {
+  const handleDownloadImage = async image => {
     try {
       console.log('🔍 Download image:', image);
       console.log('🔍 Image path:', image.path);
@@ -439,10 +438,15 @@ const SystemInfoPage = () => {
         return;
       }
 
-      const response = await api.get(`/api/system-info/${systemInfo.id}/files/${encodeURIComponent(image.path)}`, {
-        responseType: 'blob'
+      const response = await api.get(
+        `/api/system-info/${systemInfo.id}/files/${encodeURIComponent(image.path)}`,
+        {
+          responseType: 'blob',
+        }
+      );
+      const blob = new Blob([response.data], {
+        type: image.mimetype || 'application/octet-stream',
       });
-      const blob = new Blob([response.data], { type: image.mimetype || 'application/octet-stream' });
       const url = window.URL.createObjectURL(blob);
       const link = document.createElement('a');
       link.href = url;
@@ -457,19 +461,16 @@ const SystemInfoPage = () => {
   };
 
   // Hàm xác định username được phép chỉnh sửa nội dung hệ thống
-  const canEditSystemInfo = (username) => {
+  const canEditSystemInfo = username => {
     // Danh sách username được phép chỉnh sửa
-    const allowedUsernames = [
-      'dce1',
-      'dopt'
-    ];
+    const allowedUsernames = ['dce1', 'dopt'];
 
     // Kiểm tra username có trong danh sách không
     return allowedUsernames.includes(username?.toLowerCase());
   };
 
   // Hàm download file qua API (bảo mật, có token) - cho documents
-  const handleDownloadDocument = async (doc) => {
+  const handleDownloadDocument = async doc => {
     try {
       console.log('🔍 Download document:', doc);
       console.log('🔍 Document path:', doc.path);
@@ -480,9 +481,12 @@ const SystemInfoPage = () => {
         return;
       }
 
-      const response = await api.get(`/api/system-info/${systemInfo.id}/files/${encodeURIComponent(doc.path)}`, {
-        responseType: 'blob'
-      });
+      const response = await api.get(
+        `/api/system-info/${systemInfo.id}/files/${encodeURIComponent(doc.path)}`,
+        {
+          responseType: 'blob',
+        }
+      );
       const blob = new Blob([response.data], { type: doc.mimetype || 'application/octet-stream' });
       const url = window.URL.createObjectURL(blob);
       const link = document.createElement('a');
@@ -515,10 +519,6 @@ const SystemInfoPage = () => {
     setPreviewIndex((previewIndex - 1 + currentPreviewImages.length) % currentPreviewImages.length);
   };
 
-
-
-
-
   // Nếu không có systemType: Hiển thị danh sách hệ thống
   if (!systemType) {
     return (
@@ -528,7 +528,7 @@ const SystemInfoPage = () => {
           Danh sách hệ thống kỹ thuật trung tâm dữ liệu
         </Title>
         <Input
-          placeholder="Tìm kiếm theo tên hệ thống..."
+          placeholder='Tìm kiếm theo tên hệ thống...'
           prefix={<SearchOutlined />}
           style={{ marginBottom: 24, maxWidth: 400 }}
           allowClear
@@ -536,29 +536,30 @@ const SystemInfoPage = () => {
           onChange={e => setSearch(e.target.value)}
         />
         {loading || !dataReady ? (
-          <Spin size="large" />
+          <Spin size='large' />
         ) : error ? (
-          <Alert message="Lỗi" description={error} type="error" showIcon />
+          <Alert message='Lỗi' description={error} type='error' showIcon />
         ) : (
           <Row gutter={[24, 24]}>
             {/* Cột 1: Hệ thống có ID từ 1-8 */}
             <Col xs={24} md={12}>
-              <Card title="Hệ thống chính (ID: 1-8)" style={{ marginBottom: '16px' }}>
+              <Card title='Hệ thống chính (ID: 1-8)' style={{ marginBottom: '16px' }}>
                 {systemList
                   .filter(sys => sys.id >= 1 && sys.id <= 8)
-                  .filter(sys =>
-                    !search ||
-                    sys.title?.toLowerCase().includes(search.toLowerCase()) ||
-                    sys.subtitle?.toLowerCase().includes(search.toLowerCase())
+                  .filter(
+                    sys =>
+                      !search ||
+                      sys.title?.toLowerCase().includes(search.toLowerCase()) ||
+                      sys.subtitle?.toLowerCase().includes(search.toLowerCase())
                   )
                   .map((sys, idx) => (
                     <Card
                       key={sys.id || idx}
-                      size="small"
+                      size='small'
                       title={`${sys.title}`}
                       extra={
                         <Button
-                          type="link"
+                          type='link'
                           icon={<EyeOutlined />}
                           onClick={() => navigateToSystemDetail(sys.systemType)}
                         >
@@ -568,10 +569,9 @@ const SystemInfoPage = () => {
                       style={{ marginBottom: '12px' }}
                       hoverable
                     >
-                      <Paragraph type="secondary" style={{ marginBottom: '8px' }}>
+                      <Paragraph type='secondary' style={{ marginBottom: '8px' }}>
                         {sys.subtitle}
                       </Paragraph>
-
                     </Card>
                   ))}
               </Card>
@@ -579,22 +579,23 @@ const SystemInfoPage = () => {
 
             {/* Cột 2: Hệ thống có ID từ 9-16 */}
             <Col xs={24} md={12}>
-              <Card title="Hệ thống phụ trợ (ID: 9-15)" style={{ marginBottom: '16px' }}>
+              <Card title='Hệ thống phụ trợ (ID: 9-15)' style={{ marginBottom: '16px' }}>
                 {systemList
                   .filter(sys => sys.id >= 9 && sys.id <= 15)
-                  .filter(sys =>
-                    !search ||
-                    sys.title?.toLowerCase().includes(search.toLowerCase()) ||
-                    sys.subtitle?.toLowerCase().includes(search.toLowerCase())
+                  .filter(
+                    sys =>
+                      !search ||
+                      sys.title?.toLowerCase().includes(search.toLowerCase()) ||
+                      sys.subtitle?.toLowerCase().includes(search.toLowerCase())
                   )
                   .map((sys, idx) => (
                     <Card
                       key={sys.id || idx}
-                      size="small"
+                      size='small'
                       title={`${sys.id}. ${sys.title}`}
                       extra={
                         <Button
-                          type="link"
+                          type='link'
                           icon={<EyeOutlined />}
                           onClick={() => navigateToSystemDetail(sys.systemType)}
                         >
@@ -604,10 +605,9 @@ const SystemInfoPage = () => {
                       style={{ marginBottom: '12px' }}
                       hoverable
                     >
-                      <Paragraph type="secondary" style={{ marginBottom: '8px' }}>
+                      <Paragraph type='secondary' style={{ marginBottom: '8px' }}>
                         {sys.subtitle}
                       </Paragraph>
-
                     </Card>
                   ))}
               </Card>
@@ -622,7 +622,7 @@ const SystemInfoPage = () => {
   if (loading || !dataReady) {
     return (
       <div style={{ padding: '24px', textAlign: 'center' }}>
-        <Spin size="large" />
+        <Spin size='large' />
         <div style={{ marginTop: '16px' }}>Đang tải thông tin hệ thống...</div>
       </div>
     );
@@ -631,17 +631,8 @@ const SystemInfoPage = () => {
   if (error && !systemInfo) {
     return (
       <div style={{ padding: '24px', textAlign: 'center' }}>
-        <Alert
-          message="Lỗi"
-          description={error}
-          type="error"
-          showIcon
-        />
-        <Button
-          type="primary"
-          style={{ marginTop: '16px' }}
-          onClick={() => navigate(-1)}
-        >
+        <Alert message='Lỗi' description={error} type='error' showIcon />
+        <Button type='primary' style={{ marginTop: '16px' }} onClick={() => navigate(-1)}>
           Quay lại
         </Button>
       </div>
@@ -657,14 +648,14 @@ const SystemInfoPage = () => {
           <ThunderboltOutlined style={{ marginRight: '12px' }} />
           {displayData.title}
         </Title>
-        <Text type="secondary" style={{ fontSize: '16px' }}>
+        <Text type='secondary' style={{ fontSize: '16px' }}>
           {displayData.subtitle}
         </Text>
         {/* Nút chỉnh sửa cho admin/manager - chỉ hiển thị khi có dữ liệu thực từ API */}
         {canEditSystemInfo(currentUser?.username) && systemInfo && systemInfo.id && (
           <div style={{ marginTop: '16px' }}>
             <Button
-              type="primary"
+              type='primary'
               icon={<EditOutlined />}
               style={{ backgroundColor: '#003c71', borderColor: '#003c71' }}
               onClick={() => {
@@ -684,8 +675,6 @@ const SystemInfoPage = () => {
             </Button>
           </div>
         )}
-
-
       </div>
 
       {/* Nội dung chi tiết động hoặc markdown */}
@@ -693,14 +682,17 @@ const SystemInfoPage = () => {
         <>
           {/* Mục đích */}
           {contentObj.purpose && (
-            <Card title={`🎯 ${contentObj.purpose.title || 'Mục đích'}`} style={{ marginBottom: '24px' }}>
+            <Card
+              title={`🎯 ${contentObj.purpose.title || 'Mục đích'}`}
+              style={{ marginBottom: '24px' }}
+            >
               <Paragraph style={{ fontSize: '16px', lineHeight: '1.6' }}>
                 {contentObj.purpose.description}
               </Paragraph>
               {contentObj.purpose.items && (
                 <List
                   dataSource={contentObj.purpose.items}
-                  renderItem={(item) => (
+                  renderItem={item => (
                     <List.Item style={{ border: 'none', padding: '4px 0' }}>
                       <Text>• {item}</Text>
                     </List.Item>
@@ -712,69 +704,80 @@ const SystemInfoPage = () => {
 
           {/* Thành phần chính */}
           {contentObj.components && (
-            <Card title={`🔧 ${contentObj.components.title || 'Thành phần chính'}`} style={{ marginBottom: '24px' }}>
+            <Card
+              title={`🔧 ${contentObj.components.title || 'Thành phần chính'}`}
+              style={{ marginBottom: '24px' }}
+            >
               <Row gutter={[16, 16]}>
                 {contentObj.components.items?.map((component, index) => (
                   <Col xs={24} md={12} key={index}>
-                    <Card size="small" title={component.name} style={{ height: '100%' }}>
+                    <Card size='small' title={component.name} style={{ height: '100%' }}>
                       <Paragraph>
                         <Text strong>Chức năng:</Text> {component.description}
                       </Paragraph>
-                      {component.tag && <Tag color="blue">{component.tag}</Tag>}
+                      {component.tag && <Tag color='blue'>{component.tag}</Tag>}
 
                       {/* Hiển thị ảnh của thành phần */}
-                      {component.images && component.images.filter(img => img.filename).length > 0 && (
-                        <div style={{ marginTop: '16px' }}>
-                          <Text strong>Hình ảnh:</Text>
-                          <Row gutter={[8, 8]} style={{ marginTop: '8px' }}>
-                            {component.images.filter(img => img.filename).map((image, imgIndex) => (
-                              <Col span={8} key={imgIndex}>
-                                <ImagePreview
-                                  image={image}
-                                  systemInfoId={systemInfo?.id}
-                                  style={{
-                                    width: '100%',
-                                    height: '80px',
-                                    objectFit: 'cover',
-                                    cursor: 'pointer',
-                                    borderRadius: '4px'
-                                  }}
-                                  onClick={() => {
-                                    openPreview(component.images.filter(img => img.filename), component.name, imgIndex);
-                                  }}
-                                />
-                              </Col>
-                            ))}
-                          </Row>
-                        </div>
-                      )}
+                      {component.images &&
+                        component.images.filter(img => img.filename).length > 0 && (
+                          <div style={{ marginTop: '16px' }}>
+                            <Text strong>Hình ảnh:</Text>
+                            <Row gutter={[8, 8]} style={{ marginTop: '8px' }}>
+                              {component.images
+                                .filter(img => img.filename)
+                                .map((image, imgIndex) => (
+                                  <Col span={8} key={imgIndex}>
+                                    <ImagePreview
+                                      image={image}
+                                      systemInfoId={systemInfo?.id}
+                                      style={{
+                                        width: '100%',
+                                        height: '80px',
+                                        objectFit: 'cover',
+                                        cursor: 'pointer',
+                                        borderRadius: '4px',
+                                      }}
+                                      onClick={() => {
+                                        openPreview(
+                                          component.images.filter(img => img.filename),
+                                          component.name,
+                                          imgIndex
+                                        );
+                                      }}
+                                    />
+                                  </Col>
+                                ))}
+                            </Row>
+                          </div>
+                        )}
 
                       {/* Hiển thị tài liệu của thành phần */}
-                      {component.documents && component.documents.filter(doc => doc.filename).length > 0 && (
-                        <div style={{ marginTop: '16px' }}>
-                          <Text strong>Tài liệu:</Text>
-                          <List
-                            size="small"
-                            dataSource={component.documents.filter(doc => doc.filename)}
-                            renderItem={(doc) => (
-                              <List.Item style={{ padding: '4px 0' }}>
-                                <Space>
-                                  <FileTextOutlined />
-                                  <Text>{processFileName(doc)}</Text>
-                                  <Button
-                                    type="link"
-                                    size="small"
-                                    icon={<DownloadOutlined />}
-                                    onClick={() => handleDownloadDocument(doc)}
-                                  >
-                                    Tải
-                                  </Button>
-                                </Space>
-                              </List.Item>
-                            )}
-                          />
-                        </div>
-                      )}
+                      {component.documents &&
+                        component.documents.filter(doc => doc.filename).length > 0 && (
+                          <div style={{ marginTop: '16px' }}>
+                            <Text strong>Tài liệu:</Text>
+                            <List
+                              size='small'
+                              dataSource={component.documents.filter(doc => doc.filename)}
+                              renderItem={doc => (
+                                <List.Item style={{ padding: '4px 0' }}>
+                                  <Space>
+                                    <FileTextOutlined />
+                                    <Text>{processFileName(doc)}</Text>
+                                    <Button
+                                      type='link'
+                                      size='small'
+                                      icon={<DownloadOutlined />}
+                                      onClick={() => handleDownloadDocument(doc)}
+                                    >
+                                      Tải
+                                    </Button>
+                                  </Space>
+                                </List.Item>
+                              )}
+                            />
+                          </div>
+                        )}
                     </Card>
                   </Col>
                 ))}
@@ -784,21 +787,26 @@ const SystemInfoPage = () => {
 
           {/* Quy trình vận hành */}
           {contentObj.procedures && (
-            <Card title={`📋 ${contentObj.procedures.title || 'Quy trình vận hành'}`} style={{ marginBottom: '24px' }}>
+            <Card
+              title={`📋 ${contentObj.procedures.title || 'Quy trình vận hành'}`}
+              style={{ marginBottom: '24px' }}
+            >
               <Paragraph style={{ fontSize: '16px', lineHeight: '1.6', marginBottom: '16px' }}>
                 {contentObj.procedures.description}
               </Paragraph>
               <List
                 dataSource={contentObj.procedures.items}
-                renderItem={(section) => (
+                renderItem={section => (
                   <List.Item>
-                    <Card size="small" title={section.title} style={{ width: '100%' }}>
+                    <Card size='small' title={section.title} style={{ width: '100%' }}>
                       <List
-                        size="small"
+                        size='small'
                         dataSource={section.steps}
                         renderItem={(step, stepIndex) => (
                           <List.Item style={{ border: 'none', padding: '4px 0' }}>
-                            <Text>{stepIndex + 1}. {step}</Text>
+                            <Text>
+                              {stepIndex + 1}. {step}
+                            </Text>
                           </List.Item>
                         )}
                       />
@@ -808,54 +816,61 @@ const SystemInfoPage = () => {
                         <div style={{ marginTop: '16px' }}>
                           <Text strong>Hình ảnh:</Text>
                           <Row gutter={[8, 8]} style={{ marginTop: '8px' }}>
-                            {section.images.filter(img => img.filename).map((image, imgIndex) => (
-                              <Col span={8} key={imgIndex}>
-                                <ImagePreview
-                                  image={image}
-                                  systemInfoId={systemInfo?.id}
-                                  style={{
-                                    width: '100%',
-                                    height: '80px',
-                                    objectFit: 'cover',
-                                    cursor: 'pointer',
-                                    borderRadius: '4px'
-                                  }}
-                                  onClick={() => {
-                                    openPreview(section.images.filter(img => img.filename), section.title, imgIndex);
-                                  }}
-                                />
-                              </Col>
-                            ))}
+                            {section.images
+                              .filter(img => img.filename)
+                              .map((image, imgIndex) => (
+                                <Col span={8} key={imgIndex}>
+                                  <ImagePreview
+                                    image={image}
+                                    systemInfoId={systemInfo?.id}
+                                    style={{
+                                      width: '100%',
+                                      height: '80px',
+                                      objectFit: 'cover',
+                                      cursor: 'pointer',
+                                      borderRadius: '4px',
+                                    }}
+                                    onClick={() => {
+                                      openPreview(
+                                        section.images.filter(img => img.filename),
+                                        section.title,
+                                        imgIndex
+                                      );
+                                    }}
+                                  />
+                                </Col>
+                              ))}
                           </Row>
                         </div>
                       )}
 
                       {/* Hiển thị tài liệu của quy trình */}
-                      {section.documents && section.documents.filter(doc => doc.filename).length > 0 && (
-                        <div style={{ marginTop: '16px' }}>
-                          <Text strong>Tài liệu:</Text>
-                          <List
-                            size="small"
-                            dataSource={section.documents.filter(doc => doc.filename)}
-                            renderItem={(doc) => (
-                              <List.Item style={{ padding: '4px 0' }}>
-                                <Space>
-                                  <FileTextOutlined />
-                                  <Text>{processFileName(doc)}</Text>
-                                  <Button
-                                    type="link"
-                                    size="small"
-                                    icon={<DownloadOutlined />}
-                                    onClick={() => handleDownloadDocument(doc)}
-                                  >
-                                    Tải
-                                  </Button>
-                                </Space>
-                              </List.Item>
-                            )}
-                          />
-                        </div>
-                      )}
+                      {section.documents &&
+                        section.documents.filter(doc => doc.filename).length > 0 && (
+                          <div style={{ marginTop: '16px' }}>
+                            <Text strong>Tài liệu:</Text>
+                            <List
+                              size='small'
+                              dataSource={section.documents.filter(doc => doc.filename)}
+                              renderItem={doc => (
+                                <List.Item style={{ padding: '4px 0' }}>
+                                  <Space>
+                                    <FileTextOutlined />
+                                    <Text>{processFileName(doc)}</Text>
+                                    <Button
+                                      type='link'
+                                      size='small'
+                                      icon={<DownloadOutlined />}
+                                      onClick={() => handleDownloadDocument(doc)}
+                                    >
+                                      Tải
+                                    </Button>
+                                  </Space>
+                                </List.Item>
+                              )}
+                            />
+                          </div>
+                        )}
                     </Card>
                   </List.Item>
                 )}
@@ -865,97 +880,109 @@ const SystemInfoPage = () => {
 
           {/* Nguyên lý hoạt động */}
           {contentObj.operation && (
-            <Card title={`⚡ ${contentObj.operation.title || 'Nguyên lý hoạt động'}`} style={{ marginBottom: '24px' }}>
+            <Card
+              title={`⚡ ${contentObj.operation.title || 'Nguyên lý hoạt động'}`}
+              style={{ marginBottom: '24px' }}
+            >
               <Paragraph style={{ fontSize: '16px', lineHeight: '1.6', marginBottom: '16px' }}>
                 {contentObj.operation.description}
               </Paragraph>
               <Row gutter={[24, 16]}>
-                {contentObj.operation.items && contentObj.operation.items.map((operation, index) => (
-                  <Col xs={24} md={12} key={index}>
-                    <Card size="small" title={operation.title} style={{ height: '100%' }}>
-                      <Paragraph style={{ marginBottom: '16px' }}>
-                        {operation.description}
-                      </Paragraph>
-                      <List
-                        size="small"
-                        dataSource={operation.steps}
-                        renderItem={(item, stepIndex) => (
-                          <List.Item style={{ border: 'none', padding: '4px 0' }}>
-                            <Text>{stepIndex + 1}. {item}</Text>
-                          </List.Item>
-                        )}
-                      />
+                {contentObj.operation.items &&
+                  contentObj.operation.items.map((operation, index) => (
+                    <Col xs={24} md={12} key={index}>
+                      <Card size='small' title={operation.title} style={{ height: '100%' }}>
+                        <Paragraph style={{ marginBottom: '16px' }}>
+                          {operation.description}
+                        </Paragraph>
+                        <List
+                          size='small'
+                          dataSource={operation.steps}
+                          renderItem={(item, stepIndex) => (
+                            <List.Item style={{ border: 'none', padding: '4px 0' }}>
+                              <Text>
+                                {stepIndex + 1}. {item}
+                              </Text>
+                            </List.Item>
+                          )}
+                        />
 
-                      {/* Hiển thị ảnh của operation */}
-                      {operation.images && operation.images.filter(img => img.filename).length > 0 && (
-                        <div style={{ marginTop: '16px' }}>
-                          <Text strong>Hình ảnh:</Text>
-                          <Row gutter={[8, 8]} style={{ marginTop: '8px' }}>
-                            {operation.images.filter(img => img.filename).map((image, imgIndex) => (
-                              <Col span={8} key={imgIndex}>
-                                <ImagePreview
-                                  image={image}
-                                  systemInfoId={systemInfo?.id}
-                                  style={{
-                                    width: '100%',
-                                    height: '80px',
-                                    objectFit: 'cover',
-                                    cursor: 'pointer',
-                                    borderRadius: '4px'
-                                  }}
-                                  onClick={() => {
-                                    openPreview(operation.images.filter(img => img.filename), operation.title, imgIndex);
-                                  }}
-                                />
-                              </Col>
-                            ))}
-                          </Row>
-                        </div>
-                      )}
+                        {/* Hiển thị ảnh của operation */}
+                        {operation.images &&
+                          operation.images.filter(img => img.filename).length > 0 && (
+                            <div style={{ marginTop: '16px' }}>
+                              <Text strong>Hình ảnh:</Text>
+                              <Row gutter={[8, 8]} style={{ marginTop: '8px' }}>
+                                {operation.images
+                                  .filter(img => img.filename)
+                                  .map((image, imgIndex) => (
+                                    <Col span={8} key={imgIndex}>
+                                      <ImagePreview
+                                        image={image}
+                                        systemInfoId={systemInfo?.id}
+                                        style={{
+                                          width: '100%',
+                                          height: '80px',
+                                          objectFit: 'cover',
+                                          cursor: 'pointer',
+                                          borderRadius: '4px',
+                                        }}
+                                        onClick={() => {
+                                          openPreview(
+                                            operation.images.filter(img => img.filename),
+                                            operation.title,
+                                            imgIndex
+                                          );
+                                        }}
+                                      />
+                                    </Col>
+                                  ))}
+                              </Row>
+                            </div>
+                          )}
 
-                      {/* Hiển thị tài liệu của operation */}
-                      {operation.documents && operation.documents.filter(doc => doc.filename).length > 0 && (
-                        <div style={{ marginTop: '16px' }}>
-                          <Text strong>Tài liệu:</Text>
-                          <List
-                            size="small"
-                            dataSource={operation.documents.filter(doc => doc.filename)}
-                            renderItem={(doc) => (
-                              <List.Item style={{ padding: '4px 0' }}>
-                                <Space>
-                                  <FileTextOutlined />
-                                  <Text>{processFileName(doc)}</Text>
-                                  <Button
-                                    type="link"
-                                    size="small"
-                                    icon={<DownloadOutlined />}
-                                    onClick={() => handleDownloadDocument(doc)}
-                                  >
-                                    Tải
-                                  </Button>
-                                </Space>
-                              </List.Item>
-                            )}
-                          />
-                        </div>
-                      )}
-                    </Card>
-                  </Col>
-                ))}
+                        {/* Hiển thị tài liệu của operation */}
+                        {operation.documents &&
+                          operation.documents.filter(doc => doc.filename).length > 0 && (
+                            <div style={{ marginTop: '16px' }}>
+                              <Text strong>Tài liệu:</Text>
+                              <List
+                                size='small'
+                                dataSource={operation.documents.filter(doc => doc.filename)}
+                                renderItem={doc => (
+                                  <List.Item style={{ padding: '4px 0' }}>
+                                    <Space>
+                                      <FileTextOutlined />
+                                      <Text>{processFileName(doc)}</Text>
+                                      <Button
+                                        type='link'
+                                        size='small'
+                                        icon={<DownloadOutlined />}
+                                        onClick={() => handleDownloadDocument(doc)}
+                                      >
+                                        Tải
+                                      </Button>
+                                    </Space>
+                                  </List.Item>
+                                )}
+                              />
+                            </div>
+                          )}
+                      </Card>
+                    </Col>
+                  ))}
               </Row>
             </Card>
           )}
         </>
       ) : (
-        <Card title="📄 Nội dung chi tiết" style={{ marginBottom: '24px' }}>
+        <Card title='📄 Nội dung chi tiết' style={{ marginBottom: '24px' }}>
           {/* Test button để kiểm tra Modal */}
           <Button
-            type="primary"
+            type='primary'
             onClick={() => {
               console.log('🔍 Test button clicked');
-              openPreview([
-                { filename: 'test.jpg', originalName: 'Test Image' }
-              ], 'Test Image', 0);
+              openPreview([{ filename: 'test.jpg', originalName: 'Test Image' }], 'Test Image', 0);
             }}
             style={{ marginBottom: 16 }}
           >
@@ -966,20 +993,23 @@ const SystemInfoPage = () => {
 
       {/* Sự cố thường gặp */}
       {contentObj && contentObj.troubleshooting && (
-        <Card title={`⚠️ ${contentObj.troubleshooting.title || 'Sự cố thường gặp'}`} style={{ marginBottom: '24px' }}>
+        <Card
+          title={`⚠️ ${contentObj.troubleshooting.title || 'Sự cố thường gặp'}`}
+          style={{ marginBottom: '24px' }}
+        >
           <Paragraph style={{ fontSize: '16px', lineHeight: '1.6', marginBottom: '16px' }}>
             {contentObj.troubleshooting.description}
           </Paragraph>
           <Alert
-            message="Lưu ý: Luôn tuân thủ quy trình an toàn khi xử lý sự cố"
-            type="warning"
+            message='Lưu ý: Luôn tuân thủ quy trình an toàn khi xử lý sự cố'
+            type='warning'
             showIcon
             style={{ marginBottom: '16px' }}
           />
           <Row gutter={[16, 16]}>
             {contentObj.troubleshooting?.items?.map((issue, index) => (
               <Col xs={24} md={12} key={index}>
-                <Card size="small" title={issue.problem} style={{ height: '100%' }}>
+                <Card size='small' title={issue.problem} style={{ height: '100%' }}>
                   <Paragraph>
                     <Text strong>Nguyên nhân:</Text> {issue.cause}
                   </Paragraph>
@@ -993,25 +1023,31 @@ const SystemInfoPage = () => {
                     <div style={{ marginTop: '16px' }}>
                       <Text strong>Hình ảnh liên quan:</Text>
                       <Row gutter={[8, 8]} style={{ marginTop: '8px' }}>
-                        {issue.images.filter(img => img.filename).map((image, imgIndex) => (
-                          <Col span={8} key={imgIndex}>
-                            <ImagePreview
-                              image={image}
-                              systemInfoId={systemInfo?.id}
-                              style={{
-                                width: '100%',
-                                height: '80px',
-                                objectFit: 'cover',
-                                cursor: 'pointer',
-                                borderRadius: '4px'
-                              }}
-                              onClick={() => {
-                                // Mở modal preview với ảnh của sự cố này
-                                openPreview(issue.images.filter(img => img.filename), issue.problem, imgIndex);
-                              }}
-                            />
-                          </Col>
-                        ))}
+                        {issue.images
+                          .filter(img => img.filename)
+                          .map((image, imgIndex) => (
+                            <Col span={8} key={imgIndex}>
+                              <ImagePreview
+                                image={image}
+                                systemInfoId={systemInfo?.id}
+                                style={{
+                                  width: '100%',
+                                  height: '80px',
+                                  objectFit: 'cover',
+                                  cursor: 'pointer',
+                                  borderRadius: '4px',
+                                }}
+                                onClick={() => {
+                                  // Mở modal preview với ảnh của sự cố này
+                                  openPreview(
+                                    issue.images.filter(img => img.filename),
+                                    issue.problem,
+                                    imgIndex
+                                  );
+                                }}
+                              />
+                            </Col>
+                          ))}
                       </Row>
                     </div>
                   )}
@@ -1021,16 +1057,16 @@ const SystemInfoPage = () => {
                     <div style={{ marginTop: '16px' }}>
                       <Text strong>Tài liệu liên quan:</Text>
                       <List
-                        size="small"
+                        size='small'
                         dataSource={issue.documents.filter(doc => doc.filename)}
-                        renderItem={(doc) => (
+                        renderItem={doc => (
                           <List.Item style={{ padding: '4px 0' }}>
                             <Space>
                               <FileTextOutlined />
                               <Text>{processFileName(doc)}</Text>
                               <Button
-                                type="link"
-                                size="small"
+                                type='link'
+                                size='small'
                                 icon={<DownloadOutlined />}
                                 onClick={() => handleDownloadDocument(doc)}
                               >
@@ -1051,10 +1087,10 @@ const SystemInfoPage = () => {
 
       {/* Tài liệu đính kèm tổng hợp */}
       {generalDocuments.length > 0 && (
-        <Card title="📄 Tài liệu đính kèm" style={{ marginBottom: '24px' }}>
+        <Card title='📄 Tài liệu đính kèm' style={{ marginBottom: '24px' }}>
           <List
             dataSource={generalDocuments}
-            renderItem={(doc) => (
+            renderItem={doc => (
               <List.Item
                 style={{
                   padding: '4px',
@@ -1064,7 +1100,7 @@ const SystemInfoPage = () => {
                   backgroundColor: '#fafafa',
                   display: 'flex',
                   justifyContent: 'space-between',
-                  alignItems: 'center'
+                  alignItems: 'center',
                 }}
               >
                 <Space>
@@ -1074,14 +1110,14 @@ const SystemInfoPage = () => {
                   </Text>
                 </Space>
                 <Button
-                  type="primary"
+                  type='primary'
                   icon={<DownloadOutlined />}
-                  size="small"
+                  size='small'
                   onClick={() => handleDownloadDocument(doc)}
                   style={{
                     backgroundColor: '#52c41a',
                     borderColor: '#52c41a',
-                    borderRadius: '6px'
+                    borderRadius: '6px',
                   }}
                 >
                   Tải xuống
@@ -1093,22 +1129,34 @@ const SystemInfoPage = () => {
       )}
 
       {/* Hình ảnh */}
-      {(generalImages.length > 0) && (
-        <Card title="🖼️ Hình ảnh" style={{ marginBottom: '24px' }}>
+      {generalImages.length > 0 && (
+        <Card title='🖼️ Hình ảnh' style={{ marginBottom: '24px' }}>
           <Row gutter={[16, 16]}>
             {generalImages.map((image, index) => (
               <Col xs={24} md={8} key={`general-${index}`}>
-                <Card size="small" hoverable>
+                <Card size='small' hoverable>
                   <ImagePreview
                     image={image}
                     systemInfoId={systemInfo?.id}
-                    style={{ width: '100%', height: '200px', objectFit: 'cover', cursor: 'pointer' }}
+                    style={{
+                      width: '100%',
+                      height: '200px',
+                      objectFit: 'cover',
+                      cursor: 'pointer',
+                    }}
                     onClick={() => openPreview(generalImages, 'Tài liệu chung', index)}
                   />
-                  <div style={{ marginTop: '8px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                    <Text type="secondary">{processFileName(image)}</Text>
+                  <div
+                    style={{
+                      marginTop: '8px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                    }}
+                  >
+                    <Text type='secondary'>{processFileName(image)}</Text>
                     <Button
-                      type="link"
+                      type='link'
                       icon={<DownloadOutlined />}
                       onClick={() => handleDownloadImage(image)}
                       style={{ marginLeft: 8 }}
@@ -1133,7 +1181,7 @@ const SystemInfoPage = () => {
         images: currentPreviewImages,
         title: currentPreviewTitle,
         index: previewIndex,
-        systemInfoId: systemInfo?.id
+        systemInfoId: systemInfo?.id,
       })}
       <ImagePreviewModal
         visible={previewVisible}
@@ -1150,17 +1198,27 @@ const SystemInfoPage = () => {
 
       {/* Ghi chú cuối trang */}
       <Card style={{ background: '#fafafa' }}>
-        <Space direction="vertical" size="small" style={{ width: '100%' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: '16px' }}>
+        <Space direction='vertical' size='small' style={{ width: '100%' }}>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              flexWrap: 'wrap',
+              gap: '16px',
+            }}
+          >
             <Space>
               <CalendarOutlined />
-              <Text type="secondary">
-                Cập nhật lần cuối: {displayData.updatedAt ? new Date(displayData.updatedAt).toLocaleDateString('vi-VN') : 'Chưa cập nhật'}
+              <Text type='secondary'>
+                Cập nhật lần cuối:{' '}
+                {displayData.updatedAt
+                  ? new Date(displayData.updatedAt).toLocaleDateString('vi-VN')
+                  : 'Chưa cập nhật'}
               </Text>
             </Space>
             <Space>
               <UserOutlined />
-              <Text type="secondary">
+              <Text type='secondary'>
                 Người cập nhật: {displayData.updater?.fullname || 'Không xác định'}
               </Text>
             </Space>

@@ -2,7 +2,8 @@
 
 /* Animations */
 @keyframes float {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0px);
   }
   50% {
@@ -11,7 +12,8 @@
 }
 
 @keyframes pulse {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 0.4;
     transform: scale(1);
   }
@@ -46,7 +48,7 @@
 
 .system-menu-card:hover {
   transform: translateY(-6px) !important;
-  box-shadow: 0 12px 32px rgba(0,0,0,0.15) !important;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15) !important;
 }
 
 .system-menu-card .card-content {
@@ -70,7 +72,7 @@
 
 /* Icon background on hover */
 .system-menu-card:hover .card-content > div:first-child > div:first-child {
-  background: rgba(255,255,255,0.2) !important;
+  background: rgba(255, 255, 255, 0.2) !important;
 }
 
 /* Status indicator on hover */
@@ -103,7 +105,7 @@
   .system-menu-card {
     height: 100px !important;
   }
-  
+
   .system-menu-card .ant-card-body {
     padding: 16px !important;
   }
@@ -113,8 +115,8 @@
   .system-menu-card {
     height: 95px !important;
   }
-  
+
   .system-menu-card .ant-card-body {
     padding: 14px !important;
   }
-} 
+}

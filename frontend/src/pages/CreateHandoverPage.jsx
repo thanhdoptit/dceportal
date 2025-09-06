@@ -1,50 +1,48 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import {
-  Card,
-  Form,
-  Input,
-  Button,
-  message,
-  Space,
-  Typography,
-  Divider,
-  Row,
-  Col,
-  Tag,
-  List,
-  Avatar,
-  Radio,
-  Select,
-  Checkbox,
-  Switch,
-  Spin,
-  Alert,
-  Upload,
-  Table,
-  Descriptions,
-  Modal,
-  DatePicker
-} from 'antd';
 import {
   ArrowLeftOutlined,
-  SaveOutlined,
-  UserOutlined,
+  DeleteOutlined,
+  FileOutlined,
   LoadingOutlined,
   ReloadOutlined,
   UploadOutlined,
-  DeleteOutlined,
-  FileOutlined,
-  PlusOutlined
+  UserOutlined,
 } from '@ant-design/icons';
-import { useAuth } from '../contexts/AuthContext';
+import {
+  Alert,
+  Avatar,
+  Button,
+  Card,
+  Checkbox,
+  Col,
+  Divider,
+  Form,
+  Input,
+  List,
+  message,
+  Row,
+  Select,
+  Space,
+  Spin,
+  Table,
+  Tag,
+  Typography,
+  Upload,
+} from 'antd';
 import { format } from 'date-fns';
 import { vi } from 'date-fns/locale';
-import axios from '../utils/axios';
-import { uploadTempHandoverFiles, commitTempFilesToHandover, cleanupTempFiles, deleteTempFile } from '../services/shiftService.js';
-import { useDeviceNames } from '../hooks/useDeviceNames';
+import React, { useCallback, useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import removeAccents from 'remove-accents';
 import { DEVICE_ERROR_STATUS } from '../constants/deviceErrorStatus';
+import { useAuth } from '../contexts/AuthContext';
+import { useDeviceNames } from '../hooks/useDeviceNames';
+import {
+  cleanupTempFiles,
+  commitTempFilesToHandover,
+  deleteTempFile,
+  uploadTempHandoverFiles,
+} from '../services/shiftService.js';
+import axios from '../utils/axios';
 
 const { TextArea } = Input;
 const { Title } = Typography;
@@ -83,18 +81,16 @@ const CreateHandoverPage = () => {
     loadDevices();
   }, [getDeviceList]);
 
-
-
-  const getStatusColor = (status) => {
+  const getStatusColor = status => {
     const colorMap = {
       waiting: 'default',
       doing: 'green',
       handover: 'orange',
-      done: 'red'
+      done: 'red',
     };
     return colorMap[status] || 'default';
   };
-  const getStatusText = (status) => {
+  const getStatusText = status => {
     switch (status) {
       case 'draft':
         return 'Bản nháp';
@@ -113,9 +109,7 @@ const CreateHandoverPage = () => {
     }
   };
 
-
-
-  const formatDate = (dateStr) => {
+  const formatDate = dateStr => {
     try {
       const date = new Date(dateStr);
       if (isNaN(date.getTime())) {
@@ -201,14 +195,16 @@ const CreateHandoverPage = () => {
             params: {
               deviceId: device.id,
               location: handoverData.FromShift?.name,
-              'resolveStatus[]': [DEVICE_ERROR_STATUS.PENDING, DEVICE_ERROR_STATUS.IN_PROGRESS]
-            }
+              'resolveStatus[]': [DEVICE_ERROR_STATUS.PENDING, DEVICE_ERROR_STATUS.IN_PROGRESS],
+            },
           });
           console.log(`📝 [EDIT] Lỗi của thiết bị ${device.id}:`, errorResponse.data);
           console.log(`📝 [EDIT] errors length:`, errorResponse.data?.errors?.length);
 
           if (errorResponse.data?.errors && errorResponse.data.errors.length > 0) {
-            console.log(`📝 [EDIT] Thiết bị ${device.id} có ${errorResponse.data.errors.length} lỗi`);
+            console.log(
+              `📝 [EDIT] Thiết bị ${device.id} có ${errorResponse.data.errors.length} lỗi`
+            );
             // Có lỗi - thêm tất cả lỗi vào danh sách
             errorResponse.data.errors.forEach(error => {
               deviceItems.push({
@@ -227,7 +223,7 @@ const CreateHandoverPage = () => {
                 resolvedBy: null,
                 uniqueId: `error-${device.id}-${error.id}-${Date.now()}`,
                 isNew: false,
-                createdAt: error.createdAt
+                createdAt: error.createdAt,
               });
             });
           } else {
@@ -247,7 +243,7 @@ const CreateHandoverPage = () => {
               resolveNote: null,
               resolvedBy: null,
               uniqueId: `normal-${device.id}-${Date.now()}`,
-              isNew: false
+              isNew: false,
             });
           }
         } catch (error) {
@@ -267,7 +263,7 @@ const CreateHandoverPage = () => {
             resolveNote: null,
             resolvedBy: null,
             uniqueId: `normal-${device.id}-${Date.now()}`,
-            isNew: false
+            isNew: false,
           });
         }
       }
@@ -289,24 +285,28 @@ const CreateHandoverPage = () => {
                 phone: handoverData.handoverForm?.tools?.missing?.details?.phone || false,
                 key: handoverData.handoverForm?.tools?.missing?.details?.key || false,
                 other: handoverData.handoverForm?.tools?.missing?.details?.other || false,
-                otherDescription: handoverData.handoverForm?.tools?.missing?.details?.otherDescription || ''
-              }
-            }
+                otherDescription:
+                  handoverData.handoverForm?.tools?.missing?.details?.otherDescription || '',
+              },
+            },
           },
           environment: {
             status: handoverData.handoverForm?.environment?.status ?? true,
             description: handoverData.handoverForm?.environment?.description || '',
           },
-          tasks: handoverData.handoverForm?.tasks || [] // Đảm bảo tasks được cập nhật
+          tasks: handoverData.handoverForm?.tasks || [], // Đảm bảo tasks được cập nhật
         },
-        deviceItems: deviceItems
+        deviceItems: deviceItems,
       });
       setDeviceItems(deviceItems);
       setIsEdit(true);
 
       // Cập nhật state ongoingTasks
       if (handoverData.handoverForm?.tasks) {
-        console.log('[DEBUG] Cập nhật ongoingTasks từ handoverData:', handoverData.handoverForm.tasks);
+        console.log(
+          '[DEBUG] Cập nhật ongoingTasks từ handoverData:',
+          handoverData.handoverForm.tasks
+        );
         setOngoingTasks(handoverData.handoverForm.tasks);
       }
 
@@ -317,7 +317,6 @@ const CreateHandoverPage = () => {
       }
 
       console.log('✅ [EDIT] Hoàn thành tải và cập nhật dữ liệu');
-
     } catch (error) {
       console.error('❌ [EDIT] Lỗi khi tải dữ liệu:', error);
       message.error('Không thể tải thông tin form bàn giao');
@@ -336,7 +335,7 @@ const CreateHandoverPage = () => {
       if (response.data?.shift) {
         const shiftData = {
           ...response.data.shift,
-          date: response.data.shift.date || new Date().toISOString().split('T')[0]
+          date: response.data.shift.date || new Date().toISOString().split('T')[0],
         };
         setCurrentShift(shiftData);
 
@@ -344,10 +343,8 @@ const CreateHandoverPage = () => {
         const usersResponse = await axios.get(`/api/shifts/${response.data.shift.id}/users`);
         const allUsers = [
           ...(usersResponse.data.data || []),
-          ...(response.data.shift.workedUsers || [])
-        ].filter((user, index, self) =>
-          index === self.findIndex(u => u.id === user.id)
-        );
+          ...(response.data.shift.workedUsers || []),
+        ].filter((user, index, self) => index === self.findIndex(u => u.id === user.id));
 
         setCurrentUsers(allUsers);
         console.log('✅ Tải thông tin ca làm việc thành công');
@@ -360,8 +357,6 @@ const CreateHandoverPage = () => {
       setLoading(false);
     }
   };
-
-
 
   const initializeFormData = useCallback(async () => {
     try {
@@ -409,37 +404,67 @@ const CreateHandoverPage = () => {
             params: {
               deviceId: device.id,
               location: currentShift.name,
-              'resolveStatus[]': [DEVICE_ERROR_STATUS.PENDING, DEVICE_ERROR_STATUS.IN_PROGRESS]
-            }
+              'resolveStatus[]': [DEVICE_ERROR_STATUS.PENDING, DEVICE_ERROR_STATUS.IN_PROGRESS],
+            },
           });
 
           if (errorResponse.data?.errors && errorResponse.data.errors.length > 0) {
-            console.log(`📝 [CREATE] Device ${device.id} có ${errorResponse.data.errors.length} lỗi`);
+            console.log(
+              `📝 [CREATE] Device ${device.id} có ${errorResponse.data.errors.length} lỗi`
+            );
             // Có lỗi - thêm tất cả lỗi vào danh sách
             errorResponse.data.errors.forEach(error => {
-              setDeviceItems(prevItems => [...prevItems, {
-                deviceErrorId: error.id,
-                deviceId: device.id,
-                status: 'Có lỗi',
-                resultStatus: 'Có lỗi',
-                subDeviceName: error.subDeviceName || '',
-                serialNumber: error.serialNumber || '',
-                errorCode: error.errorCode || '',
-                errorCause: error.errorCause || '',
-                solution: error.solution || '',
-                resolveStatus: error.resolveStatus || DEVICE_ERROR_STATUS.PENDING,
-                resolvedAt: null,
-                resolveNote: null,
-                resolvedBy: null,
-                uniqueId: `error-${device.id}-${error.id}-${Date.now()}`,
-                isNew: false,
-                createdAt: error.createdAt
-              }]);
+              setDeviceItems(prevItems => [
+                ...prevItems,
+                {
+                  deviceErrorId: error.id,
+                  deviceId: device.id,
+                  status: 'Có lỗi',
+                  resultStatus: 'Có lỗi',
+                  subDeviceName: error.subDeviceName || '',
+                  serialNumber: error.serialNumber || '',
+                  errorCode: error.errorCode || '',
+                  errorCause: error.errorCause || '',
+                  solution: error.solution || '',
+                  resolveStatus: error.resolveStatus || DEVICE_ERROR_STATUS.PENDING,
+                  resolvedAt: null,
+                  resolveNote: null,
+                  resolvedBy: null,
+                  uniqueId: `error-${device.id}-${error.id}-${Date.now()}`,
+                  isNew: false,
+                  createdAt: error.createdAt,
+                },
+              ]);
             });
           } else {
             console.log(`📝 [CREATE] Device ${device.id} không có lỗi - thêm thiết bị bình thường`);
             // Không có lỗi - thêm thiết bị bình thường
-            setDeviceItems(prevItems => [...prevItems, {
+            setDeviceItems(prevItems => [
+              ...prevItems,
+              {
+                deviceId: device.id,
+                status: 'Bình thường',
+                resultStatus: 'Bình thường',
+                subDeviceName: '',
+                serialNumber: '',
+                errorCode: '',
+                errorCause: '',
+                solution: '',
+                resolveStatus: DEVICE_ERROR_STATUS.PENDING,
+                resolvedAt: null,
+                resolveNote: null,
+                resolvedBy: null,
+                uniqueId: `normal-${device.id}-${Date.now()}`,
+                isNew: false,
+              },
+            ]);
+          }
+        } catch (error) {
+          console.error(`❌ [CREATE] Lỗi khi lấy danh sách lỗi cho thiết bị ${device.id}:`, error);
+          // Nếu lỗi API, thêm thiết bị bình thường
+          setDeviceItems(prevItems => [
+            ...prevItems,
+            {
               deviceId: device.id,
               status: 'Bình thường',
               resultStatus: 'Bình thường',
@@ -453,28 +478,9 @@ const CreateHandoverPage = () => {
               resolveNote: null,
               resolvedBy: null,
               uniqueId: `normal-${device.id}-${Date.now()}`,
-              isNew: false
-            }]);
-          }
-        } catch (error) {
-          console.error(`❌ [CREATE] Lỗi khi lấy danh sách lỗi cho thiết bị ${device.id}:`, error);
-          // Nếu lỗi API, thêm thiết bị bình thường
-          setDeviceItems(prevItems => [...prevItems, {
-            deviceId: device.id,
-            status: 'Bình thường',
-            resultStatus: 'Bình thường',
-            subDeviceName: '',
-            serialNumber: '',
-            errorCode: '',
-            errorCause: '',
-            solution: '',
-            resolveStatus: DEVICE_ERROR_STATUS.PENDING,
-            resolvedAt: null,
-            resolveNote: null,
-            resolvedBy: null,
-            uniqueId: `normal-${device.id}-${Date.now()}`,
-            isNew: false
-          }]);
+              isNew: false,
+            },
+          ]);
         }
       }
     }
@@ -496,9 +502,9 @@ const CreateHandoverPage = () => {
             phone: false,
             key: false,
             other: false,
-            otherDescription: ''
-          }
-        }
+            otherDescription: '',
+          },
+        },
       },
       environment: {
         status: true,
@@ -506,7 +512,7 @@ const CreateHandoverPage = () => {
         hasOngoingTasks: false,
         ongoingTasks: '',
         progress: '',
-        estimatedCompletion: ''
+        estimatedCompletion: '',
       },
       infrastructure: {
         powerDistribution: { status: 'normal' },
@@ -515,15 +521,15 @@ const CreateHandoverPage = () => {
         cctv: { status: 'normal' },
         accessControl: { status: 'normal' },
         fireSystem: { status: 'normal' },
-        dcimSystem: { status: 'normal' }
+        dcimSystem: { status: 'normal' },
       },
       ongoingTasks: {
         hasOngoingTasks: false,
         taskInfo: '',
-        relatedTasks: ''
+        relatedTasks: '',
       },
-      tasks: []
-    }
+      tasks: [],
+    },
   });
 
   const fetchOngoingTasks = useCallback(async () => {
@@ -533,12 +539,14 @@ const CreateHandoverPage = () => {
       const response = await axios.get(`/api/tasks`, {
         params: {
           'status[]': ['in_progress', 'waiting', 'pending'],
-          location: currentShift.name
-        }
+          location: currentShift.name,
+        },
       });
 
       if (response.data?.tasks) {
-        console.log(`[DEBUG] Fetched ${response.data.tasks.length} ongoing tasks for shift: ${currentShift.name}`);
+        console.log(
+          `[DEBUG] Fetched ${response.data.tasks.length} ongoing tasks for shift: ${currentShift.name}`
+        );
         setOngoingTasks(response.data.tasks);
 
         // Cập nhật form values với thông tin task
@@ -560,13 +568,13 @@ const CreateHandoverPage = () => {
           // Đảm bảo staff có đủ trường donVi, fullName, id, email, phone, role
           const staff = Array.isArray(task.staff)
             ? task.staff.map(user => ({
-              id: user.id,
-              fullName: user.fullName || user.name || '',
-              donVi: user.donVi || '',
-              email: user.email || '',
-              phone: user.phone || '',
-              role: user.role || null
-            }))
+                id: user.id,
+                fullName: user.fullName || user.name || '',
+                donVi: user.donVi || '',
+                email: user.email || '',
+                phone: user.phone || '',
+                role: user.role || null,
+              }))
             : [];
 
           return {
@@ -583,7 +591,7 @@ const CreateHandoverPage = () => {
             completedBy: task.completedBy,
             workSessionId: task.workSessionId,
             workShiftId: task.workShiftId,
-            staff // staff đã chuẩn hóa
+            staff, // staff đã chuẩn hóa
           };
         });
 
@@ -596,9 +604,9 @@ const CreateHandoverPage = () => {
           form.setFieldsValue({
             handoverForm: {
               ...currentFormValues.handoverForm,
-              tasks: taskValues
+              tasks: taskValues,
             },
-            ongoingTasks: taskValues
+            ongoingTasks: taskValues,
           });
         }, 0);
       }
@@ -647,13 +655,14 @@ const CreateHandoverPage = () => {
             resolveStatus: '',
             resolvedAt: null,
             resolveNote: null,
-            resolvedBy: null
+            resolvedBy: null,
           });
         } else if (item.status === 'Có lỗi') {
           // Thiết bị có lỗi
           const deviceError = {
             deviceId: item.deviceId,
-            deviceName: devices.find(d => d.id === item.deviceId)?.name || `Thiết bị ${item.deviceId}`,
+            deviceName:
+              devices.find(d => d.id === item.deviceId)?.name || `Thiết bị ${item.deviceId}`,
             status: 'Có lỗi',
             resultStatus: 'Có lỗi',
             subDeviceName: item.subDeviceName || '',
@@ -664,7 +673,7 @@ const CreateHandoverPage = () => {
             resolveStatus: item.resolveStatus || DEVICE_ERROR_STATUS.PENDING,
             resolvedAt: item.resolvedAt || null,
             resolveNote: item.resolveNote || null,
-            resolvedBy: item.resolvedBy || null
+            resolvedBy: item.resolvedBy || null,
           };
 
           // Nếu là lỗi đã tồn tại trong ShiftHandoverDevice (chỉ khi edit)
@@ -695,7 +704,7 @@ const CreateHandoverPage = () => {
               resolveStatus: item.resolveStatus || DEVICE_ERROR_STATUS.PENDING,
               resolvedAt: item.resolvedAt || null,
               resolveNote: item.resolveNote || null,
-              resolvedBy: item.resolvedBy || null
+              resolvedBy: item.resolvedBy || null,
             });
           }
         }
@@ -733,13 +742,13 @@ const CreateHandoverPage = () => {
         // Đảm bảo staff có đủ trường donVi, fullName, id, email, phone, role
         const staff = Array.isArray(task.staff)
           ? task.staff.map(user => ({
-            id: user.id,
-            fullName: user.fullName || user.name || '',
-            donVi: user.donVi || '',
-            email: user.email || '',
-            phone: user.phone || '',
-            role: user.role || null
-          }))
+              id: user.id,
+              fullName: user.fullName || user.name || '',
+              donVi: user.donVi || '',
+              email: user.email || '',
+              phone: user.phone || '',
+              role: user.role || null,
+            }))
           : [];
 
         return {
@@ -756,7 +765,7 @@ const CreateHandoverPage = () => {
           completedBy: task.completedBy,
           workSessionId: task.workSessionId,
           workShiftId: task.workShiftId,
-          staff // staff đã chuẩn hóa
+          staff, // staff đã chuẩn hóa
         };
       });
 
@@ -777,18 +786,18 @@ const CreateHandoverPage = () => {
                 phone: details?.phone || false,
                 key: details?.key || false,
                 other: details?.other || false,
-                otherDescription: details?.otherDescription?.trim() || ''
-              }
-            }
+                otherDescription: details?.otherDescription?.trim() || '',
+              },
+            },
           },
           environment: {
             status: values.handoverForm?.environment?.status ?? true,
-            description: values.handoverForm?.environment?.description?.trim() || ''
+            description: values.handoverForm?.environment?.description?.trim() || '',
           },
-          tasks: tasks // Sử dụng tasks đã được chuẩn bị
+          tasks: tasks, // Sử dụng tasks đã được chuẩn bị
         },
         devices: devicesToSend,
-        deviceErrors: allDeviceErrors
+        deviceErrors: allDeviceErrors,
       };
 
       // Thêm log để debug
@@ -805,18 +814,18 @@ const CreateHandoverPage = () => {
         console.log('✅ Kết quả tạo mới:', response.data);
       }
 
-              const handoverId = response.data?.id || response.data?.handover?.id;
-        if (handoverId) {
-          // Commit temp files nếu có
-          if (tempSessionId && attachments.some(f => f.isTemp)) {
-            try {
-              await commitTempFilesToHandover(handoverId, tempSessionId);
-              message.success('Đã commit tất cả file tạm');
-            } catch (error) {
-              console.error('Lỗi khi commit temp files:', error);
-              message.warning('Không thể commit một số file tạm');
-            }
+      const handoverId = response.data?.id || response.data?.handover?.id;
+      if (handoverId) {
+        // Commit temp files nếu có
+        if (tempSessionId && attachments.some(f => f.isTemp)) {
+          try {
+            await commitTempFilesToHandover(handoverId, tempSessionId);
+            message.success('Đã commit tất cả file tạm');
+          } catch (error) {
+            console.error('Lỗi khi commit temp files:', error);
+            message.warning('Không thể commit một số file tạm');
           }
+        }
 
         message.success(isEdit ? 'Cập nhật bản nháp thành công' : 'Tạo bản nháp thành công');
         navigate(`/dc/handover/${handoverId}`);
@@ -834,7 +843,7 @@ const CreateHandoverPage = () => {
   };
 
   // Hàm xử lý tên file tiếng Việt
-  const formatFileName = (filename) => {
+  const formatFileName = filename => {
     try {
       // Lấy phần mở rộng của file
       const ext = filename.split('.').pop();
@@ -855,7 +864,7 @@ const CreateHandoverPage = () => {
   const [tempSessionId, setTempSessionId] = useState(null);
 
   // Hàm xử lý tải file lên
-  const handleUpload = async (file) => {
+  const handleUpload = async file => {
     try {
       setUploading(true);
 
@@ -872,42 +881,42 @@ const CreateHandoverPage = () => {
         'image/png',
         'image/gif',
         'application/pdf',
-        
+
         // Microsoft Word
         'application/msword',
         'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
         'application/vnd.ms-word.document.12',
-        
+
         // Microsoft Excel
         'application/vnd.ms-excel',
         'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
         'application/vnd.ms-excel.sheet.12',
         'application/vnd.ms-excel.sheet.macroEnabled.12',
-        
+
         // Microsoft PowerPoint
         'application/vnd.ms-powerpoint',
         'application/vnd.openxmlformats-officedocument.presentationml.presentation',
         'application/vnd.ms-powerpoint.presentation.12',
         'application/vnd.ms-powerpoint.slideshow.12',
-        
+
         // Microsoft Access
         'application/vnd.ms-access',
         'application/x-msaccess',
-        
+
         // Microsoft Publisher
         'application/x-mspublisher',
-        
+
         // Microsoft Visio
         'application/vnd.visio',
         'application/vnd.visio2013',
-        
+
         // Microsoft Project
         'application/vnd.ms-project',
-        
+
         // Microsoft OneNote
         'application/onenote',
         'application/msonenote',
-        
+
         // OpenDocument formats
         'application/vnd.oasis.opendocument.text',
         'application/vnd.oasis.opendocument.spreadsheet',
@@ -917,8 +926,8 @@ const CreateHandoverPage = () => {
         'application/vnd.oasis.opendocument.formula',
         'application/vnd.oasis.opendocument.database',
         'application/vnd.oasis.opendocument.image',
-        
-        'text/plain'
+
+        'text/plain',
       ];
       if (!allowedTypes.includes(file.type)) {
         message.error(`Định dạng file ${file.type} không được hỗ trợ!`);
@@ -935,7 +944,7 @@ const CreateHandoverPage = () => {
         const formData = new FormData();
         formData.append('files', newFile);
         formData.append('originalname', file.name);
-        
+
         // Tạo session ID nếu chưa có
         if (!tempSessionId) {
           setTempSessionId(`temp_${currentUser?.id}_${Date.now()}`);
@@ -951,7 +960,7 @@ const CreateHandoverPage = () => {
             size: file.size,
             type: file.type,
             sessionId: response.sessionId,
-            isTemp: true
+            isTemp: true,
           };
 
           // Cập nhật state
@@ -970,14 +979,14 @@ const CreateHandoverPage = () => {
       formData.append('originalname', file.name);
 
       const response = await axios.post(`/api/shifts/handover/${id}/attachments`, formData, {
-        headers: { 'Content-Type': 'multipart/form-data' }
+        headers: { 'Content-Type': 'multipart/form-data' },
       });
 
       if (response.data && response.data.files) {
         const processedFiles = response.data.files.map(file => ({
           ...file,
           filename: file.filename,
-          originalname: file.originalname || file.name
+          originalname: file.originalname || file.name,
         }));
         setAttachments(prev => [...prev, ...processedFiles]);
         message.success('Tải file lên thành công');
@@ -996,15 +1005,6 @@ const CreateHandoverPage = () => {
   };
 
   // Thêm hàm để chuyển base64 thành File object
-  const base64ToFile = (base64, filename, type) => {
-    const byteString = atob(base64.split(',')[1]);
-    const ab = new ArrayBuffer(byteString.length);
-    const ia = new Uint8Array(ab);
-    for (let i = 0; i < byteString.length; i++) {
-      ia[i] = byteString.charCodeAt(i);
-    }
-    return new File([ab], filename, { type });
-  };
 
   const handleDeleteFile = async (id, filename) => {
     try {
@@ -1019,7 +1019,7 @@ const CreateHandoverPage = () => {
           console.error('❌ Error deleting temp file from server:', error);
           // Vẫn xóa khỏi state ngay cả khi server lỗi
         }
-        
+
         // Xóa file tạm khỏi state
         setAttachments(prev => prev.filter(file => file.filename !== filename));
         message.success('Đã xóa file khỏi danh sách');
@@ -1108,14 +1108,14 @@ const CreateHandoverPage = () => {
 
   // Cập nhật phần render danh sách file
   const renderAttachments = () => (
-    <Card type="inner" title="File đính kèm" className="mt-4">
+    <Card type='inner' title='File đính kèm' className='mt-4'>
       <Upload
-        name="files"
+        name='files'
         multiple={true}
         beforeUpload={handleUpload}
         showUploadList={false}
         disabled={uploading}
-        accept=".jpg,.jpeg,.png,.gif,.pdf,.doc,.docx,.xls,.xlsx,.xlsm,.ppt,.pptx,.ppsx,.mdb,.pub,.vsd,.vsdx,.mpp,.one,.odt,.ods,.odp,.odg,.odc,.odf,.odb,.odi,.txt"
+        accept='.jpg,.jpeg,.png,.gif,.pdf,.doc,.docx,.xls,.xlsx,.xlsm,.ppt,.pptx,.ppsx,.mdb,.pub,.vsd,.vsdx,.mpp,.one,.odt,.ods,.odp,.odg,.odc,.odf,.odb,.odi,.txt'
       >
         <Button icon={<UploadOutlined />} loading={uploading}>
           Tải file lên
@@ -1124,19 +1124,19 @@ const CreateHandoverPage = () => {
 
       {attachments.length > 0 && (
         <List
-          className="mt-4"
-          size="small"
+          className='mt-4'
+          size='small'
           dataSource={attachments}
           renderItem={file => (
             <List.Item
               actions={[
                 <Button
-                  type="link"
+                  type='link'
                   icon={<DeleteOutlined />}
                   onClick={() => handleDeleteFile(id, file.filename)}
                 >
                   Xóa
-                </Button>
+                </Button>,
               ]}
             >
               <List.Item.Meta
@@ -1154,27 +1154,23 @@ const CreateHandoverPage = () => {
   // Render loading state
   if (isLoadingData || templateLoading || devicesLoading) {
     return (
-      <div className="p-6 flex flex-col items-center justify-center" style={{ minHeight: '400px' }}>
+      <div className='p-6 flex flex-col items-center justify-center' style={{ minHeight: '400px' }}>
         <Spin indicator={<LoadingOutlined style={{ fontSize: 24 }} spin />} />
-        <div className="mt-4">Đang tải dữ liệu...</div>
+        <div className='mt-4'>Đang tải dữ liệu...</div>
       </div>
     );
   }
 
   if (templateError) {
     return (
-      <div className="p-6">
+      <div className='p-6'>
         <Alert
-          message="Lỗi"
+          message='Lỗi'
           description={templateError}
-          type="error"
+          type='error'
           showIcon
           action={
-            <Button
-              icon={<ReloadOutlined />}
-              onClick={initializeFormData}
-              type="primary"
-            >
+            <Button icon={<ReloadOutlined />} onClick={initializeFormData} type='primary'>
               Thử lại
             </Button>
           }
@@ -1184,57 +1180,55 @@ const CreateHandoverPage = () => {
   }
 
   return (
-    <div className="p-6">
+    <div className='p-6'>
       <Card>
-        <div className="mb-4 flex items-center">
+        <div className='mb-4 flex items-center'>
           <Button
             icon={<ArrowLeftOutlined />}
             onClick={() => navigate('/dc/my-shifts')}
-            className="mr-4"
+            className='mr-4'
           >
             Quay lại
           </Button>
-          <Title level={4} className="mb-0">
+          <Title level={4} className='mb-0'>
             {isEdit ? 'Sửa bản nháp bàn giao' : 'Tạo bản nháp bàn giao'}
           </Title>
         </div>
-        <Card title="Thông tin ca" className="mb-4">
+        <Card title='Thông tin ca' className='mb-4'>
           <Row gutter={24}>
             <Col span={8}>
-              <div className="mb-4">
-                <div className="font-medium mb-1">Ca làm việc:</div>
-                <Tag color="blue">{currentShift?.code || 'N/A'}</Tag>
+              <div className='mb-4'>
+                <div className='font-medium mb-1'>Ca làm việc:</div>
+                <Tag color='blue'>{currentShift?.code || 'N/A'}</Tag>
               </div>
             </Col>
             <Col span={8}>
-              <div className="mb-4">
-                <div className="font-medium mb-1">Ngày làm việc:</div>
+              <div className='mb-4'>
+                <div className='font-medium mb-1'>Ngày làm việc:</div>
                 <div>{currentShift?.date ? formatDate(currentShift.date) : 'N/A'}</div>
               </div>
             </Col>
             <Col span={8}>
-              <div className="mb-4">
-                <div className="font-medium mb-1">Trạng thái:</div>
+              <div className='mb-4'>
+                <div className='font-medium mb-1'>Trạng thái:</div>
                 <Tag color={getStatusColor(currentShift?.status)}>
                   {getStatusText(currentShift?.status)}
                 </Tag>
               </div>
             </Col>
             <Col span={24}>
-              <div className="mb-4">
-                <div className="font-medium mb-1">Người trong ca:</div>
+              <div className='mb-4'>
+                <div className='font-medium mb-1'>Người trong ca:</div>
                 {currentUsers && currentUsers.length > 0 ? (
                   <List
-                    size="small"
+                    size='small'
                     dataSource={currentUsers}
                     renderItem={user => (
                       <List.Item>
                         <Space>
                           <Avatar icon={<UserOutlined />} />
                           <span>{user.fullname}</span>
-                          {user.id === currentUser?.id && (
-                            <Tag color="blue">Bạn</Tag>
-                          )}
+                          {user.id === currentUser?.id && <Tag color='blue'>Bạn</Tag>}
                         </Space>
                       </List.Item>
                     )}
@@ -1247,102 +1241,125 @@ const CreateHandoverPage = () => {
           </Row>
         </Card>
 
-        <Card title="Biên Bản Bàn Giao" className="mb-4">
-          <Form form={form} layout="vertical">
-
-
+        <Card title='Biên Bản Bàn Giao' className='mb-4'>
+          <Form form={form} layout='vertical'>
             {/* Environment and Tools Status */}
-            <Row gutter={16} className="mb-4">
+            <Row gutter={16} className='mb-4'>
               <Col span={12}>
                 <Form.Item
                   name={['handoverForm', 'tools', 'status']}
-                  label="Trạng thái công cụ làm việc"
+                  label='Trạng thái công cụ làm việc'
                   required
                 >
                   <Select>
-                    <Select.Option value="complete">Đầy đủ</Select.Option>
-                    <Select.Option value="incomplete">Thiếu</Select.Option>
+                    <Select.Option value='complete'>Đầy đủ</Select.Option>
+                    <Select.Option value='incomplete'>Thiếu</Select.Option>
                   </Select>
                 </Form.Item>
                 <Form.Item
                   noStyle
                   shouldUpdate={(prevValues, currentValues) =>
-                    prevValues?.handoverForm?.tools?.status !== currentValues?.handoverForm?.tools?.status
+                    prevValues?.handoverForm?.tools?.status !==
+                    currentValues?.handoverForm?.tools?.status
                   }
                 >
                   {({ getFieldValue }) => {
                     const toolsStatus = getFieldValue(['handoverForm', 'tools', 'status']);
-                    return toolsStatus === 'incomplete' && (
-                      <div className="bg-gray-50 p-4 rounded-lg">
-                        <div className="font-medium mb-4">Chọn thiết bị thiếu:</div>
-                        <Row gutter={[16, 16]}>
-                          <Col span={12}>
-                            <Form.Item
-                              name={['handoverForm', 'tools', 'missing', 'details', 'computer']}
-                              valuePropName="checked"
-                            >
-                              <Checkbox>Máy tính</Checkbox>
-                            </Form.Item>
-                          </Col>
-                          <Col span={12}>
-                            <Form.Item
-                              name={['handoverForm', 'tools', 'missing', 'details', 'phone']}
-                              valuePropName="checked"
-                            >
-                              <Checkbox>Điện thoại</Checkbox>
-                            </Form.Item>
-                          </Col>
-                          <Col span={12}>
-                            <Form.Item
-                              name={['handoverForm', 'tools', 'missing', 'details', 'key']}
-                              valuePropName="checked"
-                            >
-                              <Checkbox>Chìa khóa</Checkbox>
-                            </Form.Item>
-                          </Col>
-                          <Col span={12}>
-                            <Form.Item
-                              name={['handoverForm', 'tools', 'missing', 'details', 'other']}
-                              valuePropName="checked"
-                            >
-                              <Checkbox>Khác</Checkbox>
-                            </Form.Item>
-                          </Col>
-                        </Row>
-
-                        <Form.Item noStyle shouldUpdate={(prevValues, currentValues) =>
-                          prevValues?.handoverForm?.tools?.missing?.details?.other !==
-                          currentValues?.handoverForm?.tools?.missing?.details?.other
-                        }>
-                          {({ getFieldValue }) => {
-                            const isOtherChecked = getFieldValue(['handoverForm', 'tools', 'missing', 'details', 'other']);
-                            return isOtherChecked && (
+                    return (
+                      toolsStatus === 'incomplete' && (
+                        <div className='bg-gray-50 p-4 rounded-lg'>
+                          <div className='font-medium mb-4'>Chọn thiết bị thiếu:</div>
+                          <Row gutter={[16, 16]}>
+                            <Col span={12}>
                               <Form.Item
-                                name={['handoverForm', 'tools', 'missing', 'details', 'otherDescription']}
-                                label="Mô tả thiết bị khác"
-                                rules={[{ required: true, message: 'Vui lòng mô tả thiết bị khác' }]}
+                                name={['handoverForm', 'tools', 'missing', 'details', 'computer']}
+                                valuePropName='checked'
                               >
-                                <Input.TextArea rows={2} placeholder="Nhập mô tả thiết bị khác" />
+                                <Checkbox>Máy tính</Checkbox>
                               </Form.Item>
-                            );
-                          }}
-                        </Form.Item>
+                            </Col>
+                            <Col span={12}>
+                              <Form.Item
+                                name={['handoverForm', 'tools', 'missing', 'details', 'phone']}
+                                valuePropName='checked'
+                              >
+                                <Checkbox>Điện thoại</Checkbox>
+                              </Form.Item>
+                            </Col>
+                            <Col span={12}>
+                              <Form.Item
+                                name={['handoverForm', 'tools', 'missing', 'details', 'key']}
+                                valuePropName='checked'
+                              >
+                                <Checkbox>Chìa khóa</Checkbox>
+                              </Form.Item>
+                            </Col>
+                            <Col span={12}>
+                              <Form.Item
+                                name={['handoverForm', 'tools', 'missing', 'details', 'other']}
+                                valuePropName='checked'
+                              >
+                                <Checkbox>Khác</Checkbox>
+                              </Form.Item>
+                            </Col>
+                          </Row>
 
-                        <Form.Item
-                          name={['handoverForm', 'tools', 'missing', 'description']}
-                          label="Mô tả chi tiết tình trạng thiếu thiết bị"
-                          required
-                          rules={[
-                            { required: true, message: 'Vui lòng mô tả chi tiết về tình trạng thiếu thiết bị' },
-                          ]}
-                          extra="Vui lòng mô tả chi tiết nguyên nhân, thời điểm và tình trạng thiếu thiết bị"
-                        >
-                          <TextArea
-                            rows={3}
-                            placeholder=""
-                          />
-                        </Form.Item>
-                      </div>
+                          <Form.Item
+                            noStyle
+                            shouldUpdate={(prevValues, currentValues) =>
+                              prevValues?.handoverForm?.tools?.missing?.details?.other !==
+                              currentValues?.handoverForm?.tools?.missing?.details?.other
+                            }
+                          >
+                            {({ getFieldValue }) => {
+                              const isOtherChecked = getFieldValue([
+                                'handoverForm',
+                                'tools',
+                                'missing',
+                                'details',
+                                'other',
+                              ]);
+                              return (
+                                isOtherChecked && (
+                                  <Form.Item
+                                    name={[
+                                      'handoverForm',
+                                      'tools',
+                                      'missing',
+                                      'details',
+                                      'otherDescription',
+                                    ]}
+                                    label='Mô tả thiết bị khác'
+                                    rules={[
+                                      { required: true, message: 'Vui lòng mô tả thiết bị khác' },
+                                    ]}
+                                  >
+                                    <Input.TextArea
+                                      rows={2}
+                                      placeholder='Nhập mô tả thiết bị khác'
+                                    />
+                                  </Form.Item>
+                                )
+                              );
+                            }}
+                          </Form.Item>
+
+                          <Form.Item
+                            name={['handoverForm', 'tools', 'missing', 'description']}
+                            label='Mô tả chi tiết tình trạng thiếu thiết bị'
+                            required
+                            rules={[
+                              {
+                                required: true,
+                                message: 'Vui lòng mô tả chi tiết về tình trạng thiếu thiết bị',
+                              },
+                            ]}
+                            extra='Vui lòng mô tả chi tiết nguyên nhân, thời điểm và tình trạng thiếu thiết bị'
+                          >
+                            <TextArea rows={3} placeholder='' />
+                          </Form.Item>
+                        </div>
+                      )
                     );
                   }}
                 </Form.Item>
@@ -1350,7 +1367,7 @@ const CreateHandoverPage = () => {
               <Col span={12}>
                 <Form.Item
                   name={['handoverForm', 'environment', 'status']}
-                  label="Trạng thái môi trường"
+                  label='Trạng thái môi trường'
                   required
                 >
                   <Select>
@@ -1361,28 +1378,35 @@ const CreateHandoverPage = () => {
                 <Form.Item
                   noStyle
                   shouldUpdate={(prevValues, currentValues) =>
-                    prevValues?.handoverForm?.environment?.status !== currentValues?.handoverForm?.environment?.status
+                    prevValues?.handoverForm?.environment?.status !==
+                    currentValues?.handoverForm?.environment?.status
                   }
                 >
                   {({ getFieldValue }) => {
-                    const environmentStatus = getFieldValue(['handoverForm', 'environment', 'status']);
-                    return environmentStatus === false && (
-                      <div className="bg-gray-50 p-4 rounded-lg">
-                        <Form.Item
-                          name={['handoverForm', 'environment', 'description']}
-                          label="Mô tả chi tiết tình trạng môi trường"
-                          required
-                          rules={[
-                            { required: true, message: 'Vui lòng mô tả chi tiết về tình trạng môi trường' },
-                          ]}
-                          extra="Vui lòng mô tả chi tiết về các vấn đề môi trường cần khắc phục"
-                        >
-                          <TextArea
-                            rows={4}
-                            placeholder=""
-                          />
-                        </Form.Item>
-                      </div>
+                    const environmentStatus = getFieldValue([
+                      'handoverForm',
+                      'environment',
+                      'status',
+                    ]);
+                    return (
+                      environmentStatus === false && (
+                        <div className='bg-gray-50 p-4 rounded-lg'>
+                          <Form.Item
+                            name={['handoverForm', 'environment', 'description']}
+                            label='Mô tả chi tiết tình trạng môi trường'
+                            required
+                            rules={[
+                              {
+                                required: true,
+                                message: 'Vui lòng mô tả chi tiết về tình trạng môi trường',
+                              },
+                            ]}
+                            extra='Vui lòng mô tả chi tiết về các vấn đề môi trường cần khắc phục'
+                          >
+                            <TextArea rows={4} placeholder='' />
+                          </Form.Item>
+                        </div>
+                      )
                     );
                   }}
                 </Form.Item>
@@ -1393,7 +1417,7 @@ const CreateHandoverPage = () => {
             {/* Device Section */}
             <Table
               dataSource={devices}
-              rowKey="id"
+              rowKey='id'
               pagination={false}
               bordered
               columns={[
@@ -1403,65 +1427,87 @@ const CreateHandoverPage = () => {
                   key: 'id',
                   width: 60,
                   className: 'custom-header border-gray-200',
-                  render: (_, record, index) => (
-                    <div className="text-center">
-                      {index + 1}
-                    </div>
-                  )
+                  render: (_, record, index) => <div className='text-center'>{index + 1}</div>,
                 },
                 {
                   title: 'Thiết bị',
                   dataIndex: 'name',
                   key: 'name',
                   width: '30%',
-                  className: 'custom-header border-gray-200'
+                  className: 'custom-header border-gray-200',
                 },
                 {
                   title: 'Trạng thái',
                   key: 'status',
                   className: 'custom-header border-gray-200',
                   render: (_, device) => {
-                    const deviceErrors = deviceItems.filter(item =>
-                      item.deviceId === device.id && item.status === 'Có lỗi'
+                    const deviceErrors = deviceItems.filter(
+                      item => item.deviceId === device.id && item.status === 'Có lỗi'
                     );
-                    const hasNewError = deviceItems.some(item =>
-                      item.deviceId === device.id && item.isNew
+                    const hasNewError = deviceItems.some(
+                      item => item.deviceId === device.id && item.isNew
                     );
                     const errors = deviceItems.filter(
-                      i => i.deviceId === device.id && i.status === 'Có lỗi' && (i.resolveStatus === undefined || i.resolveStatus === DEVICE_ERROR_STATUS.PENDING || i.resolveStatus === DEVICE_ERROR_STATUS.IN_PROGRESS)
+                      i =>
+                        i.deviceId === device.id &&
+                        i.status === 'Có lỗi' &&
+                        (i.resolveStatus === undefined ||
+                          i.resolveStatus === DEVICE_ERROR_STATUS.PENDING ||
+                          i.resolveStatus === DEVICE_ERROR_STATUS.IN_PROGRESS)
                     );
                     const resolvedErrors = deviceItems.filter(
-                      i => i.deviceId === device.id && i.status === 'Có lỗi' && i.resolveStatus === DEVICE_ERROR_STATUS.RESOLVED
+                      i =>
+                        i.deviceId === device.id &&
+                        i.status === 'Có lỗi' &&
+                        i.resolveStatus === DEVICE_ERROR_STATUS.RESOLVED
                     );
                     const isNormal = errors.length === 0 && resolvedErrors.length === 0;
 
                     return (
-                      <div >
+                      <div>
                         {deviceErrors.length === 0 && !hasNewError ? (
-                          <Tag color="success">✓ Bình thường</Tag>
+                          <Tag color='success'>✓ Bình thường</Tag>
                         ) : (
-                          <div >
-                            <div className="ant-space ant-space-horizontal ant-space-align-center ant-space-justify-between mb-2" >
+                          <div>
+                            <div className='ant-space ant-space-horizontal ant-space-align-center ant-space-justify-between mb-2'>
                               <div>
-                                {isNormal ? <Tag color="green">Bình thường</Tag> : <Tag color="red">Có lỗi</Tag>}
+                                {isNormal ? (
+                                  <Tag color='green'>Bình thường</Tag>
+                                ) : (
+                                  <Tag color='red'>Có lỗi</Tag>
+                                )}
                               </div>
                             </div>
 
-                            {(!isNormal) && (
-                              <div className="ant-space ant-space-vertical ant-space-gap-4">
-                                {[...errors, ...resolvedErrors].map((item) => (
+                            {!isNormal && (
+                              <div className='ant-space ant-space-vertical ant-space-gap-4'>
+                                {[...errors, ...resolvedErrors].map(item => (
                                   <Card
                                     key={item.uniqueId}
-                                    size="small"
-                                    className="ant-card-bordered mb-4"
+                                    size='small'
+                                    className='ant-card-bordered mb-4'
                                     style={{ background: '#fff1f0', borderColor: '#ff4d4f' }}
-                                    title={<span style={{ color: '#ff4d4f' }}>Tên thiết bị: {item.subDeviceName || 'Không rõ'}</span>}
+                                    title={
+                                      <span style={{ color: '#ff4d4f' }}>
+                                        Tên thiết bị: {item.subDeviceName || 'Không rõ'}
+                                      </span>
+                                    }
                                   >
-                                    <div className="ant-descriptions-item"><b>Serial:</b> {item.serialNumber}</div>
-                                    <div className="ant-descriptions-item"><b>Tình trạng lỗi:</b> {item.errorCode}</div>
-                                    <div className="ant-descriptions-item"><b>Nguyên nhân:</b> {item.errorCause}</div>
-                                    <div className="ant-descriptions-item"><b>Giải pháp:</b> {item.solution}</div>
-                                    <div className="ant-descriptions-item"><b>Trạng thái:</b> {item.resolveStatus}</div>
+                                    <div className='ant-descriptions-item'>
+                                      <b>Serial:</b> {item.serialNumber}
+                                    </div>
+                                    <div className='ant-descriptions-item'>
+                                      <b>Tình trạng lỗi:</b> {item.errorCode}
+                                    </div>
+                                    <div className='ant-descriptions-item'>
+                                      <b>Nguyên nhân:</b> {item.errorCause}
+                                    </div>
+                                    <div className='ant-descriptions-item'>
+                                      <b>Giải pháp:</b> {item.solution}
+                                    </div>
+                                    <div className='ant-descriptions-item'>
+                                      <b>Trạng thái:</b> {item.resolveStatus}
+                                    </div>
                                   </Card>
                                 ))}
                               </div>
@@ -1470,8 +1516,8 @@ const CreateHandoverPage = () => {
                         )}
                       </div>
                     );
-                  }
-                }
+                  },
+                },
               ]}
             />
           </Form>
@@ -1480,18 +1526,15 @@ const CreateHandoverPage = () => {
         <Form
           form={form}
           onFinish={handleSubmit}
-          layout="vertical"
-          className="mt-4"
+          layout='vertical'
+          className='mt-4'
           initialValues={getInitialValues()}
         >
           <Card>
-            <Form.Item
-              name="ongoingTasks"
-              label="Công việc đang làm"
-            >
+            <Form.Item name='ongoingTasks' label='Công việc đang làm'>
               <Table
                 dataSource={ongoingTasks}
-                rowKey="id"
+                rowKey='id'
                 pagination={false}
                 bordered
                 columns={[
@@ -1501,11 +1544,7 @@ const CreateHandoverPage = () => {
                     key: 'id',
                     width: '4%',
                     className: 'custom-header border-gray-200',
-                    render: (text) => (
-                      <div className="text-center">
-                        CV {text}
-                      </div>
-                    )
+                    render: text => <div className='text-center'>CV {text}</div>,
                   },
                   {
                     title: 'Địa điểm',
@@ -1545,7 +1584,7 @@ const CreateHandoverPage = () => {
                         ));
                       }
                       return record.fullName || 'Không xác định';
-                    }
+                    },
                   },
 
                   {
@@ -1554,11 +1593,17 @@ const CreateHandoverPage = () => {
                     key: 'checkInTime',
                     width: '10%',
                     className: 'custom-header border-gray-200',
-                    render: (time) => (
-                      <div className="whitespace-pre-line break-words">
-                        {new Date(time).toLocaleString('vi-VN', { hour: '2-digit', minute: '2-digit', day: '2-digit', month: '2-digit', year: 'numeric' })}
+                    render: time => (
+                      <div className='whitespace-pre-line break-words'>
+                        {new Date(time).toLocaleString('vi-VN', {
+                          hour: '2-digit',
+                          minute: '2-digit',
+                          day: '2-digit',
+                          month: '2-digit',
+                          year: 'numeric',
+                        })}
                       </div>
-                    )
+                    ),
                   },
                   {
                     title: 'Thời gian ra',
@@ -1566,11 +1611,17 @@ const CreateHandoverPage = () => {
                     key: 'checkOutTime',
                     width: '10%',
                     className: 'custom-header border-gray-200',
-                    render: (time) => (
-                      <div className="whitespace-pre-line break-words">
-                        {new Date(time).toLocaleString('vi-VN', { hour: '2-digit', minute: '2-digit', day: '2-digit', month: '2-digit', year: 'numeric' })}
+                    render: time => (
+                      <div className='whitespace-pre-line break-words'>
+                        {new Date(time).toLocaleString('vi-VN', {
+                          hour: '2-digit',
+                          minute: '2-digit',
+                          day: '2-digit',
+                          month: '2-digit',
+                          year: 'numeric',
+                        })}
                       </div>
-                    )
+                    ),
                   },
                   {
                     title: 'Trạng thái',
@@ -1578,37 +1629,36 @@ const CreateHandoverPage = () => {
                     key: 'status',
                     width: 100,
                     className: 'custom-header border-gray-200',
-                    render: (status) => {
+                    render: status => {
                       const statusMap = {
                         in_progress: { color: 'processing', text: 'Đang thực hiện' },
                         waiting: { color: 'default', text: 'Chờ xử lý' },
-                        pending: { color: 'warning', text: 'Tạm dừng' }
+                        pending: { color: 'warning', text: 'Tạm dừng' },
                       };
                       const statusInfo = statusMap[status] || { color: 'default', text: status };
                       return <Tag color={statusInfo.color}>{statusInfo.text}</Tag>;
-                    }
+                    },
                   },
                 ]}
               />
             </Form.Item>
             <Form.Item
-              name="content"
-              label="Nội dung bàn giao"
+              name='content'
+              label='Nội dung bàn giao'
               rules={[{ required: true, message: 'Vui lòng nhập nội dung bàn giao' }]}
             >
-              <TextArea rows={3} placeholder="Nhập nội dung bàn giao..." />
+              <TextArea rows={3} placeholder='Nhập nội dung bàn giao...' />
             </Form.Item>
 
             {renderAttachments()}
-
           </Card>
 
           <div style={{ marginTop: 16, textAlign: 'right' }}>
             <Space>
               <Button onClick={() => navigate(-1)}>Quay Lại</Button>
               <Button
-                type="primary"
-                htmlType="submit"
+                type='primary'
+                htmlType='submit'
                 loading={loading}
                 style={{ backgroundColor: '#1890ff', borderColor: '#1890ff' }}
               >

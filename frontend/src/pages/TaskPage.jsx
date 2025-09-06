@@ -1,53 +1,41 @@
-import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react';
-import {
-  Table, Button, Space, Form, Input, Modal,
-  Select, DatePicker, Upload, Tag, message, Tooltip,
-  Popconfirm, Card, Row, Col, Typography, Timeline
-} from 'antd';
+import { ContactsOutlined, PlusOutlined } from '@ant-design/icons';
+import { Button, Card, DatePicker, Form, Input, message, Select, Space, Typography } from 'antd';
 import { debounce } from 'lodash';
-import {
-  PlusOutlined, EditOutlined, DeleteOutlined,
-  CheckOutlined, CloseOutlined, UploadOutlined,
-  ExclamationCircleOutlined, FileOutlined,
-  UserOutlined, ClockCircleOutlined, CalendarOutlined,
-  PaperClipOutlined, LoadingOutlined, DownloadOutlined, ContactsOutlined,
-  ExportOutlined
-} from '@ant-design/icons';
-import * as XLSX from 'xlsx';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import * as XLSX from 'xlsx';
 import LoadingSpinner from '../components/common/LoadingSpinner';
-import { useAuth } from '../contexts/AuthContext';
+import { renderChangeContent } from '../components/tasks/taskChangeUtils';
 import TaskFilters from '../components/tasks/TaskFilters';
 import TaskModal from '../components/tasks/TaskModal';
 import TaskReasonModal from '../components/tasks/TaskReasonModal';
-import {
-  fetchAllTasks,
-  fetchTaskDetail as fetchTaskDetailApi,
-  createTask,
-  updateTask,
-  lockTask,
-  unlockTask,
-  deleteTask,
-  updateTaskStatus
-} from '../services/taskService';
 import TaskTable from '../components/tasks/TaskTable';
 import { STATUS_LABELS } from '../constants/taskStatus';
-import { processFileName } from '../utils/VietnameseFile';
-import { renderChangeContent } from '../components/tasks/taskChangeUtils';
+import { useAuth } from '../contexts/AuthContext';
+import { useLocations } from '../hooks/useLocations';
 import {
+  createTask,
+  deleteTask,
+  fetchAllTasks,
+  fetchTaskDetail as fetchTaskDetailApi,
+  lockTask,
+  unlockTask,
+  updateTask,
+  updateTaskStatus,
+} from '../services/taskService';
+import {
+  downloadFile,
+  getAuthHeader,
   getCurrentUserId,
   getCurrentUserRole,
-  getAuthHeader,
-  showModal,
-  handleModalSubmit,
   handleAttachmentRemove,
-  downloadFile,
-  showReasonModal,
+  handleModalSubmit,
   handleReasonSubmit,
-  handleReopen
+  handleReopen,
+  showModal,
+  showReasonModal,
 } from '../utils/taskModalUtils';
-import { useLocations } from '../hooks/useLocations';
-
+import { processFileName } from '../utils/VietnameseFile';
 
 const { TextArea } = Input;
 const { Option } = Select;
@@ -56,8 +44,6 @@ const { Title } = Typography;
 
 const API_URL = import.meta.env.VITE_API_URL;
 const WS_URL = API_URL.replace('http', 'ws') + '/ws';
-
-
 
 export default function TaskPage() {
   const { currentUser } = useAuth();
@@ -68,13 +54,13 @@ export default function TaskPage() {
   const {
     locations,
     loading: locationsLoading,
-    error: locationsError
+    error: locationsError,
   } = useLocations({
     autoFetch: true,
     activeOnly: false,
-    onError: (error) => {
+    onError: error => {
       console.error('Error loading locations:', error);
-    }
+    },
   });
 
   // States
@@ -91,7 +77,7 @@ export default function TaskPage() {
     status: '',
     search: '',
     dateRange: null,
-    location: null
+    location: null,
   });
 
   // Add filter state with debounce
@@ -104,56 +90,55 @@ export default function TaskPage() {
     page: 1,
     limit: 15,
     total: 0,
-    totalPages: 0
+    totalPages: 0,
   });
 
-
-
-
-
   // Function riêng cho search - tối ưu hóa dependencies
-  const fetchAllTasksDataWithSearch = useCallback(async (searchText, page, limit) => {
-    setLoading(true);
-    try {
-      const params = {
-        page,
-        limit
-      };
+  const fetchAllTasksDataWithSearch = useCallback(
+    async (searchText, page, limit) => {
+      setLoading(true);
+      try {
+        const params = {
+          page,
+          limit,
+        };
 
-      // Thêm các tham số filter
-      if (filters.status) params.status = filters.status;
-      if (filters.location) {
-        const selectedLocation = locations.find(loc => loc.id === filters.location);
-        if (selectedLocation) {
-          params.location = selectedLocation.name;
+        // Thêm các tham số filter
+        if (filters.status) params.status = filters.status;
+        if (filters.location) {
+          const selectedLocation = locations.find(loc => loc.id === filters.location);
+          if (selectedLocation) {
+            params.location = selectedLocation.name;
+          }
         }
-      }
-      if (filters.dateRange && filters.dateRange[0] && filters.dateRange[1]) {
-        params.fromDate = filters.dateRange[0].startOf('day').toISOString();
-        params.toDate = filters.dateRange[1].endOf('day').toISOString();
-      }
-      if (filters.dateField) params.dateField = filters.dateField;
-      if (searchText?.trim()) params.search = searchText.trim();
+        if (filters.dateRange && filters.dateRange[0] && filters.dateRange[1]) {
+          params.fromDate = filters.dateRange[0].startOf('day').toISOString();
+          params.toDate = filters.dateRange[1].endOf('day').toISOString();
+        }
+        if (filters.dateField) params.dateField = filters.dateField;
+        if (searchText?.trim()) params.search = searchText.trim();
 
-      const res = await fetchAllTasks(params);
-      setAllTasks(res.tasks);
-      setPagination(prev => ({
-        ...prev,
-        total: res.total,
-        totalPages: res.totalPages
-      }));
-    } catch (error) {
-      console.error('Error fetching tasks:', error);
-      if (error.message === 'Token expired') {
-        message.error('Phiên đăng nhập đã hết hạn');
-        navigate('/login');
-        return;
+        const res = await fetchAllTasks(params);
+        setAllTasks(res.tasks);
+        setPagination(prev => ({
+          ...prev,
+          total: res.total,
+          totalPages: res.totalPages,
+        }));
+      } catch (error) {
+        console.error('Error fetching tasks:', error);
+        if (error.message === 'Token expired') {
+          message.error('Phiên đăng nhập đã hết hạn');
+          navigate('/login');
+          return;
+        }
+        message.error('Không thể tải danh sách công việc');
+      } finally {
+        setLoading(false);
       }
-      message.error('Không thể tải danh sách công việc');
-    } finally {
-      setLoading(false);
-    }
-  }, [navigate, filters.status, filters.location, filters.dateRange, filters.dateField, locations]);
+    },
+    [navigate, filters.status, filters.location, filters.dateRange, filters.dateField, locations]
+  );
 
   // Update ref với function hiện tại
   useEffect(() => {
@@ -186,7 +171,7 @@ export default function TaskPage() {
 
   // Tìm kiếm với debounce - tối ưu hóa chuyên gia
   const debouncedSearch = useCallback(
-    debounce((searchText) => {
+    debounce(searchText => {
       setPagination(prev => ({ ...prev, page: 1 }));
       // Gọi API với searchText trực tiếp, sử dụng ref để tránh stale closure
       if (fetchAllTasksDataWithSearchRef.current) {
@@ -197,14 +182,17 @@ export default function TaskPage() {
   );
 
   // Xử lý tìm kiếm - tối ưu hóa chuyên gia
-  const handleSearch = useCallback((searchText) => {
-    // Update input value ngay lập tức - không gây re-render
-    setInputValue(searchText);
-    // Update filters.search để sync với UI
-    setFilters(prev => ({ ...prev, search: searchText }));
-    // Debounce API call
-    debouncedSearch(searchText);
-  }, [debouncedSearch]);
+  const handleSearch = useCallback(
+    searchText => {
+      // Update input value ngay lập tức - không gây re-render
+      setInputValue(searchText);
+      // Update filters.search để sync với UI
+      setFilters(prev => ({ ...prev, search: searchText }));
+      // Debounce API call
+      debouncedSearch(searchText);
+    },
+    [debouncedSearch]
+  );
 
   // Update pagination for client-side status filter - tối ưu hóa
   useEffect(() => {
@@ -214,12 +202,10 @@ export default function TaskPage() {
         ...prev,
         total: filteredLength,
         totalPages: Math.ceil(filteredLength / prev.limit),
-        page: 1
+        page: 1,
       }));
     }
   }, [allTasks, filters.status]);
-
-
 
   // Sync inputValue với filters.search khi component mount
   useEffect(() => {
@@ -234,13 +220,21 @@ export default function TaskPage() {
       location: filters.location,
       dateRange: filters.dateRange,
       dateField: filters.dateField,
-      status: filters.status
+      status: filters.status,
     });
     fetchAllTasksData(pagination.page, pagination.limit);
-  }, [pagination.page, pagination.limit, filters.location, filters.dateRange, filters.dateField, filters.status, locations.length]);
+  }, [
+    pagination.page,
+    pagination.limit,
+    filters.location,
+    filters.dateRange,
+    filters.dateField,
+    filters.status,
+    locations.length,
+  ]);
 
   // Fetch task detail with version
-  const fetchTaskDetail = async (taskId) => {
+  const fetchTaskDetail = async taskId => {
     try {
       const taskData = await fetchTaskDetailApi(taskId);
       setSelectedTask(taskData);
@@ -258,7 +252,12 @@ export default function TaskPage() {
   };
 
   // Handle status change
-  const handleStatusChange = async (taskId, newStatus, isSystemChange = false, customReason = null) => {
+  const handleStatusChange = async (
+    taskId,
+    newStatus,
+    isSystemChange = false,
+    customReason = null
+  ) => {
     try {
       const task = allTasks.find(t => t.id === taskId);
       if (!task) {
@@ -271,7 +270,7 @@ export default function TaskPage() {
         console.log('Status unchanged, skipping update:', {
           taskId,
           currentStatus: task.status,
-          newStatus
+          newStatus,
         });
         return;
       }
@@ -279,11 +278,11 @@ export default function TaskPage() {
       let changeReason = customReason;
       if (!changeReason && !isSystemChange) {
         const statusLabels = {
-          'waiting': 'Chờ xử lý',
-          'pending': 'Tạm dừng',
-          'in_progress': 'Đang thực hiện',
-          'completed': 'Đã kết thúc',
-          'cancelled': 'Đã hủy'
+          waiting: 'Chờ xử lý',
+          pending: 'Tạm dừng',
+          in_progress: 'Đang thực hiện',
+          completed: 'Đã kết thúc',
+          cancelled: 'Đã hủy',
         };
 
         const oldStatus = statusLabels[task.status] || task.status;
@@ -296,7 +295,7 @@ export default function TaskPage() {
         newStatus,
         reason: changeReason,
         userId: currentUser.id,
-        system: isSystemChange
+        system: isSystemChange,
       });
 
       if (!isSystemChange) {
@@ -304,7 +303,7 @@ export default function TaskPage() {
         fetchAllTasksData(); // Bật lại để đảm bảo danh sách được cập nhật
       }
 
-      setAllTasks(prev => prev.map(t => t.id === taskId ? updatedTask : t));
+      setAllTasks(prev => prev.map(t => (t.id === taskId ? updatedTask : t)));
 
       if (modalVisible && selectedTask && selectedTask.id === taskId) {
         const updatedTaskWithHistory = await fetchTaskDetail(taskId);
@@ -326,7 +325,7 @@ export default function TaskPage() {
   };
 
   // Handle delete
-  const handleDelete = async (taskId) => {
+  const handleDelete = async taskId => {
     try {
       await deleteTask(taskId);
       message.success('Xóa công việc thành công');
@@ -345,7 +344,9 @@ export default function TaskPage() {
   };
 
   const sortedHistory = selectedTask?.history
-    ?.filter(h => h?.changes?.some(c => c?.type === 'content' && (c?.field === 'taskDescription' || !c?.field)))
+    ?.filter(h =>
+      h?.changes?.some(c => c?.type === 'content' && (c?.field === 'taskDescription' || !c?.field))
+    )
     ?.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
 
   // Lấy oldValue của lần chỉnh sửa đầu tiên → chính là nội dung khởi tạo
@@ -396,7 +397,7 @@ export default function TaskPage() {
           }
         };
 
-        ws.onmessage = (event) => {
+        ws.onmessage = event => {
           if (!isComponentMounted) return;
           try {
             const data = JSON.parse(event.data);
@@ -432,7 +433,7 @@ export default function TaskPage() {
                   // Đảm bảo các trường quan trọng được cập nhật
                   status: data.task.status || currentTask.status,
                   completedAt: data.task.completedAt || currentTask.completedAt,
-                  completedBy: data.task.completedBy || currentTask.completedBy
+                  completedBy: data.task.completedBy || currentTask.completedBy,
                 };
 
                 // Log để debug
@@ -469,7 +470,7 @@ export default function TaskPage() {
                   ...data.task,
                   status: data.task.status || currentTask.status,
                   completedAt: data.task.completedAt || currentTask.completedAt,
-                  completedBy: data.task.completedBy || currentTask.completedBy
+                  completedBy: data.task.completedBy || currentTask.completedBy,
                 };
 
                 return updatedTasks;
@@ -482,7 +483,7 @@ export default function TaskPage() {
                   ...data.task,
                   status: data.task.status || prev.status,
                   completedAt: data.task.completedAt || prev.completedAt,
-                  completedBy: data.task.completedBy || prev.completedBy
+                  completedBy: data.task.completedBy || prev.completedBy,
                 }));
               }
 
@@ -490,7 +491,9 @@ export default function TaskPage() {
               if (data.changeType === 'status') {
                 const oldStatus = STATUS_LABELS[data.oldValue] || data.oldValue;
                 const newStatus = STATUS_LABELS[data.newValue] || data.newValue;
-                message.info(`Công việc #${data.task.id} đã được cập nhật trạng thái từ "${oldStatus}" sang "${newStatus}"`);
+                message.info(
+                  `Công việc #${data.task.id} đã được cập nhật trạng thái từ "${oldStatus}" sang "${newStatus}"`
+                );
               }
             }
           } catch (error) {
@@ -498,13 +501,13 @@ export default function TaskPage() {
           }
         };
 
-        ws.onerror = (error) => {
+        ws.onerror = error => {
           if (!isComponentMounted) return;
           console.error('WebSocket error:', error);
           // Không cần xử lý retry ở đây vì onclose sẽ được gọi sau
         };
 
-        ws.onclose = (event) => {
+        ws.onclose = event => {
           if (!isComponentMounted) return;
           console.log('WebSocket disconnected:', event.code, event.reason);
 
@@ -546,19 +549,17 @@ export default function TaskPage() {
     setPagination(prev => ({
       ...prev,
       page,
-      limit: pageSize
+      limit: pageSize,
     }));
   };
 
-
-
   // Optimized filter change handler
-  const handleFilterChange = useCallback((newFilters) => {
+  const handleFilterChange = useCallback(newFilters => {
     setFilters(newFilters);
     // Reset về page 1 khi thay đổi filter
     setPagination(prev => ({
       ...prev,
-      page: 1
+      page: 1,
     }));
   }, []);
 
@@ -570,7 +571,7 @@ export default function TaskPage() {
       // Tạo params cho API với filter hiện tại
       const params = {
         page: 1,
-        limit: 10000 // Lấy tất cả dữ liệu
+        limit: 10000, // Lấy tất cả dữ liệu
       };
 
       // Thêm các tham số filter
@@ -597,35 +598,39 @@ export default function TaskPage() {
         // Xử lý staff data
         let staffNames = '';
         if (task.staff && task.staff.length > 0) {
-          staffNames = task.staff.map(person =>
-            `${person.fullName}${person.donVi ? ` (${person.donVi})` : ''}`
-          ).join(', ');
+          staffNames = task.staff
+            .map(person => `${person.fullName}${person.donVi ? ` (${person.donVi})` : ''}`)
+            .join(', ');
         } else if (task.fullName) {
           staffNames = task.fullName;
         }
 
         return {
-          'Mã': `CV ${task.id}`,
+          Mã: `CV ${task.id}`,
           'Địa điểm': task.location || '',
           'Họ tên nhân sự vào/ra TTDL': staffNames,
           'Công việc thực hiện': task.taskTitle || '',
           'Nội dung': task.taskDescription || '',
-          'Thời gian bắt đầu': task.checkInTime ? new Date(task.checkInTime).toLocaleString('vi-VN', {
-            hour: '2-digit',
-            minute: '2-digit',
-            day: '2-digit',
-            month: '2-digit',
-            year: 'numeric'
-          }) : '',
-          'Thời gian kết thúc': task.checkOutTime ? new Date(task.checkOutTime).toLocaleString('vi-VN', {
-            hour: '2-digit',
-            minute: '2-digit',
-            day: '2-digit',
-            month: '2-digit',
-            year: 'numeric'
-          }) : '',
+          'Thời gian bắt đầu': task.checkInTime
+            ? new Date(task.checkInTime).toLocaleString('vi-VN', {
+                hour: '2-digit',
+                minute: '2-digit',
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric',
+              })
+            : '',
+          'Thời gian kết thúc': task.checkOutTime
+            ? new Date(task.checkOutTime).toLocaleString('vi-VN', {
+                hour: '2-digit',
+                minute: '2-digit',
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric',
+              })
+            : '',
           'Trạng thái': STATUS_LABELS[task.status] || task.status,
-          'Người tạo': task.creator?.fullname || task.creator?.fullName || task.creatorName || ''
+          'Người tạo': task.creator?.fullname || task.creator?.fullName || task.creatorName || '',
         };
       });
 
@@ -635,15 +640,15 @@ export default function TaskPage() {
 
       // Đặt độ rộng cột
       const colWidths = [
-        { wch: 8 },   // Mã
-        { wch: 15 },  // Địa điểm
-        { wch: 30 },  // Họ tên nhân sự
-        { wch: 25 },  // Công việc thực hiện
-        { wch: 40 },  // Nội dung
-        { wch: 18 },  // Thời gian bắt đầu
-        { wch: 18 },  // Thời gian kết thúc
-        { wch: 12 },  // Trạng thái
-        { wch: 20 }   // Người tạo
+        { wch: 8 }, // Mã
+        { wch: 15 }, // Địa điểm
+        { wch: 30 }, // Họ tên nhân sự
+        { wch: 25 }, // Công việc thực hiện
+        { wch: 40 }, // Nội dung
+        { wch: 18 }, // Thời gian bắt đầu
+        { wch: 18 }, // Thời gian kết thúc
+        { wch: 12 }, // Trạng thái
+        { wch: 20 }, // Người tạo
       ];
       ws['!cols'] = colWidths;
 
@@ -661,7 +666,7 @@ export default function TaskPage() {
           ws[cellAddress].s.alignment = {
             ...ws[cellAddress].s.alignment,
             wrapText: true,
-            vertical: 'top'
+            vertical: 'top',
           };
         }
       }
@@ -691,7 +696,7 @@ export default function TaskPage() {
   };
 
   return (
-    <div className="p-0">
+    <div className='p-0'>
       <style>
         {`
           .ant-table-cell {
@@ -707,11 +712,13 @@ export default function TaskPage() {
         `}
       </style>
       <Card>
-        <div className="flex justify-between items-center mb-4">
-          <Title level={4} style={{ color: '#003c71', margin: 0 }}>Danh sách vào ra Trung Tâm Dữ Liệu</Title>
+        <div className='flex justify-between items-center mb-4'>
+          <Title level={4} style={{ color: '#003c71', margin: 0 }}>
+            Danh sách vào ra Trung Tâm Dữ Liệu
+          </Title>
           <Space>
             <Button
-              type="primary"
+              type='primary'
               icon={<ContactsOutlined />}
               style={{ backgroundColor: '#0072BC', borderColor: '#0072BC' }}
               onClick={() => navigate('/dc/partners')}
@@ -719,17 +726,19 @@ export default function TaskPage() {
               Danh sách nhân sự
             </Button>
             <Button
-              type="primary"
+              type='primary'
               icon={<PlusOutlined />}
               style={{ backgroundColor: '#003c71', borderColor: '#003c71' }}
-              onClick={() => showModal({
-                type: 'create',
-                setModalType,
-                setSelectedTask,
-                setModalVisible,
-                setRemovedAttachments,
-                form
-              })}
+              onClick={() =>
+                showModal({
+                  type: 'create',
+                  setModalType,
+                  setSelectedTask,
+                  setModalVisible,
+                  setRemovedAttachments,
+                  form,
+                })
+              }
             >
               Tạo mới
             </Button>
@@ -742,11 +751,11 @@ export default function TaskPage() {
           filters={{
             ...filters,
             search: inputValue, // Sử dụng inputValue thay vì filters.search
-            statusLabels: STATUS_LABELS
+            statusLabels: STATUS_LABELS,
           }}
           setFilters={handleFilterChange}
           filterLoading={{
-            status: false
+            status: false,
           }}
           locations={locations}
           locationsLoading={locationsLoading}
@@ -756,7 +765,7 @@ export default function TaskPage() {
         />
 
         {loading ? (
-          <LoadingSpinner tip="Đang tải danh sách công việc..." />
+          <LoadingSpinner tip='Đang tải danh sách công việc...' />
         ) : (
           <>
             <TaskTable
@@ -764,16 +773,18 @@ export default function TaskPage() {
               loading={loading}
               pagination={pagination}
               onPaginationChange={handlePaginationChange}
-              onView={(record) => showModal({
-                type: 'view',
-                task: record,
-                setModalType,
-                setSelectedTask,
-                setModalVisible,
-                setRemovedAttachments,
-                fetchTaskDetail,
-                form
-              })}
+              onView={record =>
+                showModal({
+                  type: 'view',
+                  task: record,
+                  setModalType,
+                  setSelectedTask,
+                  setModalVisible,
+                  setRemovedAttachments,
+                  fetchTaskDetail,
+                  form,
+                })
+              }
               onDelete={handleDelete}
               getCurrentUserId={() => getCurrentUserId(currentUser)}
               getCurrentUserRole={() => getCurrentUserRole(currentUser)}
@@ -807,48 +818,54 @@ export default function TaskPage() {
         locationsLoading={locationsLoading}
         locationsError={locationsError}
         STATUS_LABELS={STATUS_LABELS}
-        handleModalSubmit={() => handleModalSubmit({
-          form,
-          modalType,
-          selectedTask,
-          removedAttachments,
-          createTask,
-          updateTask,
-          message,
-          navigate,
-          setModalVisible,
-          fetchTaskDetail,
-          fetchAllTasksData,
-          unlockTask,
-          setModalType,
-          locations
-        })}
-        handleAttachmentRemove={(file) => handleAttachmentRemove(file, form, setRemovedAttachments)}
+        handleModalSubmit={() =>
+          handleModalSubmit({
+            form,
+            modalType,
+            selectedTask,
+            removedAttachments,
+            createTask,
+            updateTask,
+            message,
+            navigate,
+            setModalVisible,
+            fetchTaskDetail,
+            fetchAllTasksData,
+            unlockTask,
+            setModalType,
+            locations,
+          })
+        }
+        handleAttachmentRemove={file => handleAttachmentRemove(file, form, setRemovedAttachments)}
         processFileName={processFileName}
-        downloadFile={(file) => downloadFile(file, selectedTask, message)}
+        downloadFile={file => downloadFile(file, selectedTask, message)}
         setModalVisible={setModalVisible}
         unlockTask={unlockTask}
         fetchTaskDetail={fetchTaskDetail}
         getCurrentUserRole={() => getCurrentUserRole(currentUser)}
-        showReasonModal={(action) => showReasonModal(action, setPendingAction, setReasonModalVisible, reasonForm)}
+        showReasonModal={action =>
+          showReasonModal(action, setPendingAction, setReasonModalVisible, reasonForm)
+        }
         setReopenModalVisible={setReopenModalVisible}
         sortedHistory={sortedHistory}
         firstContent={firstContent}
         renderChangeContent={renderChangeContent}
         setModalType={setModalType}
-        showModal={(type, task) => showModal({
-          type,
-          task,
-          setModalType,
-          setSelectedTask,
-          setModalVisible,
-          setRemovedAttachments,
-          fetchTaskDetail,
-          getCurrentUserId: () => getCurrentUserId(currentUser),
-          lockTask,
-          message,
-          form
-        })}
+        showModal={(type, task) =>
+          showModal({
+            type,
+            task,
+            setModalType,
+            setSelectedTask,
+            setModalVisible,
+            setRemovedAttachments,
+            fetchTaskDetail,
+            getCurrentUserId: () => getCurrentUserId(currentUser),
+            lockTask,
+            message,
+            form,
+          })
+        }
         handleStatusChange={handleStatusChange}
       />
 
@@ -857,25 +874,29 @@ export default function TaskPage() {
         pendingAction={pendingAction}
         reasonModalVisible={reasonModalVisible}
         setReasonModalVisible={setReasonModalVisible}
-        handleReasonSubmit={() => handleReasonSubmit({
-          reasonForm,
-          pendingAction,
-          selectedTask,
-          handleStatusChange,
-          setReasonModalVisible
-        })}
+        handleReasonSubmit={() =>
+          handleReasonSubmit({
+            reasonForm,
+            pendingAction,
+            selectedTask,
+            handleStatusChange,
+            setReasonModalVisible,
+          })
+        }
         reopenModalVisible={reopenModalVisible}
         setReopenModalVisible={setReopenModalVisible}
-        handleReopen={() => handleReopen({
-          reopenForm,
-          selectedTask,
-          getAuthHeader: () => getAuthHeader(navigate),
-          message,
-          navigate,
-          setReopenModalVisible,
-          fetchTaskDetail,
-          fetchAllTasksData
-        })}
+        handleReopen={() =>
+          handleReopen({
+            reopenForm,
+            selectedTask,
+            getAuthHeader: () => getAuthHeader(navigate),
+            message,
+            navigate,
+            setReopenModalVisible,
+            fetchTaskDetail,
+            fetchAllTasksData,
+          })
+        }
         reasonForm={reasonForm}
         reopenForm={reopenForm}
       />

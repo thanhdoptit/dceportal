@@ -3,7 +3,7 @@ export const STATUS_COLORS = {
   pending: 'purple',
   in_progress: 'blue',
   completed: 'green',
-  cancelled: 'red'
+  cancelled: 'red',
 };
 
 export const STATUS_LABELS = {
@@ -11,7 +11,7 @@ export const STATUS_LABELS = {
   pending: 'Tạm dừng',
   in_progress: 'Đang thực hiện',
   completed: 'Đã kết thúc',
-  cancelled: 'Đã hủy'
+  cancelled: 'Đã hủy',
 };
 
 export const STATUS_ORDER = {
@@ -19,11 +19,11 @@ export const STATUS_ORDER = {
   pending: 2,
   in_progress: 3,
   completed: 4,
-  cancelled: 5
+  cancelled: 5,
 };
 
 // Add after STATUS_LABELS definition
-export const getStatusText = (status) => {
+export const getStatusText = status => {
   return STATUS_LABELS[status] || status;
 };
 

@@ -8,11 +8,11 @@ const CreatePartnerModal = ({
   onCancel,
   onSuccess,
   existingPartners = [], // Không còn sử dụng cho kiểm tra trùng lặp (để backward compatibility)
-  title = "Thêm nhân sự thực hiện"
+  title = 'Thêm nhân sự thực hiện',
 }) => {
   const [creating, setCreating] = useState(false);
   const [newPartners, setNewPartners] = useState([
-    { fullname: '', donVi: '', email: '', phone: '', cccd: '' }
+    { fullname: '', donVi: '', email: '', phone: '', cccd: '' },
   ]);
 
   // Thêm dòng mới để nhập đối tác
@@ -21,7 +21,7 @@ const CreatePartnerModal = ({
   };
 
   // Xóa dòng nhập đối tác
-  const removePartnerRow = (index) => {
+  const removePartnerRow = index => {
     if (newPartners.length > 1) {
       setNewPartners(newPartners.filter((_, i) => i !== index));
     }
@@ -63,11 +63,12 @@ const CreatePartnerModal = ({
     const normalizedCccd = (cccd || '').trim();
 
     // Kiểm tra với đối tác đang nhập (trừ dòng hiện tại) - kiểm tra local trước
-    const newDuplicate = newPartners.find((partner, index) =>
-      index !== excludeIndex &&
-      partner.fullname?.trim() === normalizedFullname &&
-      (partner.donVi || '').trim() === normalizedDonVi &&
-      (partner.cccd || '').trim() === normalizedCccd
+    const newDuplicate = newPartners.find(
+      (partner, index) =>
+        index !== excludeIndex &&
+        partner.fullname?.trim() === normalizedFullname &&
+        (partner.donVi || '').trim() === normalizedDonVi &&
+        (partner.cccd || '').trim() === normalizedCccd
     );
 
     if (newDuplicate) return true;
@@ -84,14 +85,14 @@ const CreatePartnerModal = ({
       const checkKey = `${normalizedFullname}-${normalizedDonVi}-${normalizedCccd}`;
       setDuplicateChecks(prev => ({
         ...prev,
-        [checkKey]: result
+        [checkKey]: result,
       }));
 
       // Lưu cảnh báo nếu có
       if (result.hasWarning) {
         setWarnings(prev => ({
           ...prev,
-          [checkKey]: result
+          [checkKey]: result,
         }));
       } else {
         // Xóa cảnh báo nếu không còn
@@ -118,11 +119,12 @@ const CreatePartnerModal = ({
     const normalizedCccd = (cccd || '').trim();
 
     // Kiểm tra với đối tác đang nhập (trừ dòng hiện tại)
-    const newDuplicate = newPartners.find((partner, index) =>
-      index !== excludeIndex &&
-      partner.fullname?.trim() === normalizedFullname &&
-      (partner.donVi || '').trim() === normalizedDonVi &&
-      (partner.cccd || '').trim() === normalizedCccd
+    const newDuplicate = newPartners.find(
+      (partner, index) =>
+        index !== excludeIndex &&
+        partner.fullname?.trim() === normalizedFullname &&
+        (partner.donVi || '').trim() === normalizedDonVi &&
+        (partner.cccd || '').trim() === normalizedCccd
     );
 
     if (newDuplicate) return true;
@@ -156,8 +158,11 @@ const CreatePartnerModal = ({
     // Kiểm tra trùng lặp local (với các dòng đang nhập)
     if (partner.fullname && partner.fullname.trim() && partner.donVi && partner.donVi.trim()) {
       if (checkDuplicateSync(partner.fullname, partner.donVi, partner.cccd, index)) {
-        const cccdText = partner.cccd && partner.cccd.trim() ? ` và số thẻ "${partner.cccd.trim()}"` : '';
-        errors.push(`Dòng ${index + 1}: Đã tồn tại đối tác với họ tên "${partner.fullname.trim()}", đơn vị "${partner.donVi.trim()}"${cccdText}`);
+        const cccdText =
+          partner.cccd && partner.cccd.trim() ? ` và số thẻ "${partner.cccd.trim()}"` : '';
+        errors.push(
+          `Dòng ${index + 1}: Đã tồn tại đối tác với họ tên "${partner.fullname.trim()}", đơn vị "${partner.donVi.trim()}"${cccdText}`
+        );
       }
     }
 
@@ -188,23 +193,35 @@ const CreatePartnerModal = ({
   // Kiểm tra có thể submit hay không
   const canSubmit = () => {
     // Kiểm tra ít nhất một dòng có đủ thông tin bắt buộc
-    const hasValidData = newPartners.some(partner =>
-      partner.fullname && partner.fullname.trim() &&
-      partner.donVi && partner.donVi.trim() &&
-      partner.cccd && partner.cccd.trim()
-
+    const hasValidData = newPartners.some(
+      partner =>
+        partner.fullname &&
+        partner.fullname.trim() &&
+        partner.donVi &&
+        partner.donVi.trim() &&
+        partner.cccd &&
+        partner.cccd.trim()
     );
 
     // Kiểm tra tất cả các dòng có dữ liệu đều hợp lệ
     const allRowsValid = newPartners.every((partner, index) => {
       // Nếu dòng này có ít nhất một thông tin được nhập, thì phải có đủ thông tin bắt buộc
-      const hasAnyData = partner.fullname?.trim() || partner.donVi?.trim() ||
-        partner.email?.trim() || partner.phone?.trim() || partner.cccd?.trim();
+      const hasAnyData =
+        partner.fullname?.trim() ||
+        partner.donVi?.trim() ||
+        partner.email?.trim() ||
+        partner.phone?.trim() ||
+        partner.cccd?.trim();
 
       if (hasAnyData) {
         // Nếu có dữ liệu, phải có đủ thông tin bắt buộc
-        const hasRequiredData = partner.fullname && partner.fullname.trim() &&
-          partner.donVi && partner.donVi.trim() && partner.cccd && partner.cccd.trim();
+        const hasRequiredData =
+          partner.fullname &&
+          partner.fullname.trim() &&
+          partner.donVi &&
+          partner.donVi.trim() &&
+          partner.cccd &&
+          partner.cccd.trim();
 
         // Và không có lỗi validation (cảnh báo không block submit)
         const noValidationErrors = validatePartner(partner, index).length === 0;
@@ -222,10 +239,14 @@ const CreatePartnerModal = ({
   // Lấy thông báo tooltip cho nút submit
   const getSubmitTooltip = () => {
     // Kiểm tra ít nhất một dòng có đủ thông tin bắt buộc
-    const hasValidData = newPartners.some(partner =>
-      partner.fullname && partner.fullname.trim() &&
-      partner.donVi && partner.donVi.trim() &&
-      partner.cccd && partner.cccd.trim()
+    const hasValidData = newPartners.some(
+      partner =>
+        partner.fullname &&
+        partner.fullname.trim() &&
+        partner.donVi &&
+        partner.donVi.trim() &&
+        partner.cccd &&
+        partner.cccd.trim()
     );
 
     if (!hasValidData) {
@@ -236,12 +257,21 @@ const CreatePartnerModal = ({
     const invalidRows = [];
     const warningRows = [];
     newPartners.forEach((partner, index) => {
-      const hasAnyData = partner.fullname?.trim() || partner.donVi?.trim() ||
-        partner.email?.trim() || partner.phone?.trim() || partner.cccd?.trim();
+      const hasAnyData =
+        partner.fullname?.trim() ||
+        partner.donVi?.trim() ||
+        partner.email?.trim() ||
+        partner.phone?.trim() ||
+        partner.cccd?.trim();
 
       if (hasAnyData) {
-        const hasRequiredData = partner.fullname && partner.fullname.trim() &&
-          partner.donVi && partner.donVi.trim() && partner.cccd && partner.cccd.trim();
+        const hasRequiredData =
+          partner.fullname &&
+          partner.fullname.trim() &&
+          partner.donVi &&
+          partner.donVi.trim() &&
+          partner.cccd &&
+          partner.cccd.trim();
 
         const validationErrors = validatePartner(partner, index);
         const warning = checkWarningSync(partner.fullname, partner.donVi, partner.cccd, index);
@@ -276,10 +306,18 @@ const CreatePartnerModal = ({
     for (let i = 0; i < newPartners.length; i++) {
       const partner = newPartners[i];
       if (partner.fullname?.trim() && partner.donVi?.trim()) {
-        const isDuplicate = await checkDuplicateAllFields(partner.fullname, partner.donVi, partner.cccd, i);
+        const isDuplicate = await checkDuplicateAllFields(
+          partner.fullname,
+          partner.donVi,
+          partner.cccd,
+          i
+        );
         if (isDuplicate) {
-          const cccdText = partner.cccd && partner.cccd.trim() ? ` và số thẻ "${partner.cccd.trim()}"` : '';
-          allErrors.push(`Dòng ${i + 1}: Đã tồn tại đối tác với họ tên "${partner.fullname.trim()}", đơn vị "${partner.donVi.trim()}"${cccdText}`);
+          const cccdText =
+            partner.cccd && partner.cccd.trim() ? ` và số thẻ "${partner.cccd.trim()}"` : '';
+          allErrors.push(
+            `Dòng ${i + 1}: Đã tồn tại đối tác với họ tên "${partner.fullname.trim()}", đơn vị "${partner.donVi.trim()}"${cccdText}`
+          );
         }
       }
     }
@@ -308,7 +346,7 @@ const CreatePartnerModal = ({
             donVi: partner.donVi.trim(),
             email: partner.email?.trim() || '',
             phone: partner.phone?.trim() || '',
-            cccd: partner.cccd?.trim() || ''
+            cccd: partner.cccd?.trim() || '',
           });
 
           createdPartners.push({
@@ -321,7 +359,7 @@ const CreatePartnerModal = ({
             cccd: res.cccd,
             key: res.id,
             value: res.id,
-            label: res.fullname + (res.donVi ? ` (${res.donVi})` : '')
+            label: res.fullname + (res.donVi ? ` (${res.donVi})` : ''),
           });
         }
       }
@@ -351,7 +389,9 @@ const CreatePartnerModal = ({
       } else if (error.response?.status === 500) {
         message.error('Lỗi hệ thống. Vui lòng thử lại sau.');
       } else {
-        message.error('Tạo mới đối tác thất bại: ' + (error.response?.data?.message || error.message));
+        message.error(
+          'Tạo mới đối tác thất bại: ' + (error.response?.data?.message || error.message)
+        );
       }
     } finally {
       setCreating(false);
@@ -373,16 +413,12 @@ const CreatePartnerModal = ({
       title={title}
       width={800}
       footer={[
-        <Button key="cancel" onClick={handleCancel}>
+        <Button key='cancel' onClick={handleCancel}>
           Hủy
         </Button>,
-        <Tooltip
-          key="submit"
-          title={!canSubmit() ? getSubmitTooltip() : ''}
-          placement="top"
-        >
+        <Tooltip key='submit' title={!canSubmit() ? getSubmitTooltip() : ''} placement='top'>
           <Button
-            type="primary"
+            type='primary'
             style={{ backgroundColor: '#003c71', borderColor: '#003c71' }}
             loading={creating}
             disabled={!canSubmit()}
@@ -390,21 +426,21 @@ const CreatePartnerModal = ({
           >
             Tạo mới
           </Button>
-        </Tooltip>
+        </Tooltip>,
       ]}
     >
       <div style={{ maxHeight: '60vh', overflowY: 'auto' }}>
         {newPartners.map((partner, index) => (
-          <div key={index} className="border border-gray-200 rounded-lg p-3 mb-3">
-            <div className="flex justify-between items-center mb-2">
-              <span className="font-medium text-gray-700">Nhân Sự {index + 1}</span>
+          <div key={index} className='border border-gray-200 rounded-lg p-3 mb-3'>
+            <div className='flex justify-between items-center mb-2'>
+              <span className='font-medium text-gray-700'>Nhân Sự {index + 1}</span>
               {newPartners.length > 1 && (
                 <Button
-                  type="text"
+                  type='text'
                   danger
                   icon={<DeleteOutlined />}
                   onClick={() => removePartnerRow(index)}
-                  size="small"
+                  size='small'
                 >
                   Xóa
                 </Button>
@@ -414,67 +450,77 @@ const CreatePartnerModal = ({
             <Row gutter={[8, 8]}>
               <Col span={12}>
                 <Input
-                  placeholder="Họ tên "
+                  placeholder='Họ tên '
                   value={partner.fullname}
                   onChange={e => updatePartnerRow(index, 'fullname', e.target.value)}
                   status={
                     !partner.fullname.trim() ||
-                      checkDuplicateSync(partner.fullname, partner.donVi, partner.cccd, index)
-                      ? 'error' : ''
+                    checkDuplicateSync(partner.fullname, partner.donVi, partner.cccd, index)
+                      ? 'error'
+                      : ''
                   }
                 />
               </Col>
               <Col span={12}>
                 <Input
-                  placeholder="Công ty / Phòng ban"
+                  placeholder='Công ty / Phòng ban'
                   value={partner.donVi}
                   onChange={e => updatePartnerRow(index, 'donVi', e.target.value)}
                   status={
                     !partner.donVi.trim() ||
-                      checkDuplicateSync(partner.fullname, partner.donVi, partner.cccd, index)
-                      ? 'error' : ''
+                    checkDuplicateSync(partner.fullname, partner.donVi, partner.cccd, index)
+                      ? 'error'
+                      : ''
                   }
                 />
               </Col>
               <Col span={8}>
                 <Input
-                  placeholder="Số thẻ / CCCD (1-12 số)"
+                  placeholder='Số thẻ / CCCD (1-12 số)'
                   value={partner.cccd}
                   onChange={e => updatePartnerRow(index, 'cccd', e.target.value)}
                   status={
                     !partner.cccd.trim() ||
-                      (partner.cccd && !/^\d{1,12}$/.test(partner.cccd.trim())) ||
-                      checkDuplicateSync(partner.fullname, partner.donVi, partner.cccd, index)
-                      ? 'error' : ''
+                    (partner.cccd && !/^\d{1,12}$/.test(partner.cccd.trim())) ||
+                    checkDuplicateSync(partner.fullname, partner.donVi, partner.cccd, index)
+                      ? 'error'
+                      : ''
                   }
                 />
               </Col>
               <Col span={8}>
                 <Input
-                  placeholder="Email"
+                  placeholder='Email'
                   value={partner.email}
                   onChange={e => updatePartnerRow(index, 'email', e.target.value)}
-                  status={partner.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(partner.email.trim()) ? 'error' : ''}
+                  status={
+                    partner.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(partner.email.trim())
+                      ? 'error'
+                      : ''
+                  }
                 />
               </Col>
               <Col span={8}>
                 <Input
-                  placeholder="Số điện thoại"
+                  placeholder='Số điện thoại'
                   value={partner.phone}
                   onChange={e => updatePartnerRow(index, 'phone', e.target.value)}
-                  status={partner.phone && !/^[0-9+\-\s()]{10,15}$/.test(partner.phone.trim()) ? 'error' : ''}
+                  status={
+                    partner.phone && !/^[0-9+\-\s()]{10,15}$/.test(partner.phone.trim())
+                      ? 'error'
+                      : ''
+                  }
                 />
               </Col>
-
             </Row>
 
             {/* Hiển thị lỗi validation */}
             {(() => {
               const errors = validatePartner(partner, index);
               return errors.length > 0 ? (
-                <div className="mt-2">
+                <div className='mt-2'>
                   {errors.map((error, errIndex) => (
-                    <div key={errIndex} className="text-red-500 text-xs">
+                    <div key={errIndex} className='text-red-500 text-xs'>
                       {error}
                     </div>
                   ))}
@@ -484,16 +530,25 @@ const CreatePartnerModal = ({
 
             {/* Hiển thị cảnh báo */}
             {(() => {
-              const warning = checkWarningSync(partner.fullname, partner.donVi, partner.cccd, index);
+              const warning = checkWarningSync(
+                partner.fullname,
+                partner.donVi,
+                partner.cccd,
+                index
+              );
               return warning ? (
-                <div className="mt-2">
-                  <div className="text-orange-500 text-xs flex items-start">
-                    <span className="mr-1">⚠️</span>
+                <div className='mt-2'>
+                  <div className='text-orange-500 text-xs flex items-start'>
+                    <span className='mr-1'>⚠️</span>
                     <span>{warning.message}</span>
                   </div>
                   {warning.existingPartner && (
-                    <div className="text-gray-500 text-xs mt-1 ml-4">
-                      <div> {warning.existingPartner.fullname} - {warning.existingPartner.donVi} - {warning.existingPartner.cccd || 'Chưa có'}</div>
+                    <div className='text-gray-500 text-xs mt-1 ml-4'>
+                      <div>
+                        {' '}
+                        {warning.existingPartner.fullname} - {warning.existingPartner.donVi} -{' '}
+                        {warning.existingPartner.cccd || 'Chưa có'}
+                      </div>
                     </div>
                   )}
                 </div>
@@ -501,21 +556,29 @@ const CreatePartnerModal = ({
             })()}
           </div>
         ))}
-        <div className="mb-3">
+        <div className='mb-3'>
           <Button
-            type="primary"
+            type='primary'
             size='normal'
             icon={<PlusOutlined />}
             onClick={addNewPartnerRow}
-            style={{ width: '80px', backgroundColor: '#0072BC', borderColor: '#0072BC', marginRight: 8 }}
+            style={{
+              width: '80px',
+              backgroundColor: '#0072BC',
+              borderColor: '#0072BC',
+              marginRight: 8,
+            }}
           >
             Thêm
           </Button>
         </div>
 
-        <div className="text-xs text-gray-500 mt-3">
+        <div className='text-xs text-gray-500 mt-3'>
           <div>* Họ tên đối tác là bắt buộc</div>
-          <div>* Đơn vị là bắt buộc (Đối với phòng ban thuộc trung tâm hoặc NHCT thì ghi mã phòng ban - ví dụ DCE-ITD)</div>
+          <div>
+            * Đơn vị là bắt buộc (Đối với phòng ban thuộc trung tâm hoặc NHCT thì ghi mã phòng ban -
+            ví dụ DCE-ITD)
+          </div>
           <div>* Số thẻ nhân viên / số CCCD bắt buộc</div>
         </div>
       </div>

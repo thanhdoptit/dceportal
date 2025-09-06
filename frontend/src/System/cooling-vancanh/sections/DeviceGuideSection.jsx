@@ -1,8 +1,4 @@
-import {
-    CheckCircleOutlined,
-    CloudOutlined,
-    SettingOutlined
-} from '@ant-design/icons';
+import { CheckCircleOutlined, CloudOutlined, SettingOutlined } from '@ant-design/icons';
 import { Alert, Card, Col, Collapse, Divider, Row, Tag, Typography } from 'antd';
 import React from 'react';
 import '../../shared/styles/SystemSection.css';
@@ -19,8 +15,6 @@ const { Title, Paragraph, Text } = Typography;
 const { Panel } = Collapse;
 
 const DeviceGuideSection = () => {
-  console.log('🚀 DeviceGuideSection component rendered');
-  
   // Danh sách thiết bị chính
   const devices = [
     {
@@ -33,8 +27,8 @@ const DeviceGuideSection = () => {
         'Công nghệ Oil-free compressor',
         'Hiệu suất cao COP 3.5',
         'Điều khiển thông minh với PLC',
-        '2 máy nén song song'
-      ]
+        '2 máy nén song song',
+      ],
     },
     {
       id: '2.2',
@@ -46,8 +40,8 @@ const DeviceGuideSection = () => {
         'Độ chính xác nhiệt độ ±0.5°C',
         'Điều khiển độ ẩm 45-55%',
         'Làm mát phòng server nhỏ',
-        'Tích hợp BMS Modbus'
-      ]
+        'Tích hợp BMS Modbus',
+      ],
     },
     {
       id: '2.3',
@@ -59,8 +53,8 @@ const DeviceGuideSection = () => {
         'Công suất lớn cho phòng server',
         'Độ chính xác nhiệt độ ±0.5°C',
         'Điều khiển độ ẩm 45-55%',
-        'Tích hợp BMS Modbus'
-      ]
+        'Tích hợp BMS Modbus',
+      ],
     },
     {
       id: '2.4',
@@ -72,8 +66,8 @@ const DeviceGuideSection = () => {
         'Làm mát trực tiếp tại nguồn nhiệt',
         'Thiết kế compact tiết kiệm không gian',
         'Tối ưu hiệu quả làm mát cho từng rack',
-        'Dễ dàng mở rộng khi cần'
-      ]
+        'Dễ dàng mở rộng khi cần',
+      ],
     },
     {
       id: '2.5',
@@ -85,8 +79,8 @@ const DeviceGuideSection = () => {
         'Giám sát nhiệt độ, độ ẩm, áp suất, lưu lượng',
         'Điều khiển tự động khởi động/dừng thiết bị',
         'Giao tiếp Modbus RTU/TCP với tất cả thiết bị',
-        'Báo cáo và cảnh báo thông minh'
-      ]
+        'Báo cáo và cảnh báo thông minh',
+      ],
     },
     {
       id: '2.6',
@@ -102,14 +96,13 @@ const DeviceGuideSection = () => {
         'Cụm nạp hóa chất DPD-30',
         'BTU Meter F-1000 và System-10 Dry-Tap',
         'TES Tank BTD-360 (360 tấn, 10 phút dự phòng)',
-        'Van cân bằng Herz 4006 và PICV 4206'
-      ]
-    }
+        'Van cân bằng Herz 4006 và PICV 4206',
+      ],
+    },
   ];
 
   // Hàm render thiết bị dựa trên ID
-  const renderDevice = (deviceId) => {
-    console.log('🔧 Rendering device:', deviceId);
+  const renderDevice = deviceId => {
     switch (deviceId) {
       case '2.1':
         return <SMARDTChiller />;
@@ -124,21 +117,20 @@ const DeviceGuideSection = () => {
       case '2.6':
         return <PumpingSystemDevices />;
       default:
-        console.log('❌ Unknown device ID:', deviceId);
         return null;
     }
   };
 
   return (
-    <div id="section-2" className="content-section">
+    <div id='section-2' className='content-section'>
       <Title level={2}>
         <SettingOutlined style={{ marginRight: '12px' }} />
         2. Hướng dẫn chi tiết từng thiết bị - TTDL Vân Canh
       </Title>
       <Alert
-        message="Hướng dẫn thiết bị"
-        description="Dưới đây là hướng dẫn chi tiết cho từng thiết bị trong hệ thống làm mát TTDL Vân Canh. Mỗi thiết bị có các section riêng biệt để dễ dàng tra cứu và thực hiện."
-        type="info"
+        message='Hướng dẫn thiết bị'
+        description='Dưới đây là hướng dẫn chi tiết cho từng thiết bị trong hệ thống làm mát TTDL Vân Canh. Mỗi thiết bị có các section riêng biệt để dễ dàng tra cứu và thực hiện.'
+        type='info'
         showIcon
         style={{ marginBottom: '24px' }}
       />
@@ -154,9 +146,7 @@ const DeviceGuideSection = () => {
                 </div>
               }
               style={{ height: '100%' }}
-              extra={
-                <Tag color="green">{device.id}</Tag>
-              }
+              extra={<Tag color='green'>{device.id}</Tag>}
             >
               <div style={{ marginBottom: '16px' }}>
                 <div style={{ marginBottom: '8px' }}>
@@ -174,7 +164,7 @@ const DeviceGuideSection = () => {
                 <Text strong>Tính năng chính:</Text>
                 <div style={{ marginTop: '8px' }}>
                   {device.features.map((feature, idx) => (
-                    <Tag key={idx} color="blue" style={{ marginBottom: '4px' }}>
+                    <Tag key={idx} color='blue' style={{ marginBottom: '4px' }}>
                       <CheckCircleOutlined style={{ marginRight: '4px' }} />
                       {feature}
                     </Tag>
@@ -197,9 +187,9 @@ const DeviceGuideSection = () => {
 
       {/* Lưu ý quan trọng */}
       <Alert
-        message="Lưu ý quan trọng"
-        description="Mỗi thiết bị có các yêu cầu vận hành và bảo trì riêng biệt. Vui lòng tuân thủ nghiêm ngặt các hướng dẫn của nhà sản xuất và quy trình nội bộ để đảm bảo an toàn và hiệu quả."
-        type="warning"
+        message='Lưu ý quan trọng'
+        description='Mỗi thiết bị có các yêu cầu vận hành và bảo trì riêng biệt. Vui lòng tuân thủ nghiêm ngặt các hướng dẫn của nhà sản xuất và quy trình nội bộ để đảm bảo an toàn và hiệu quả.'
+        type='warning'
         showIcon
         style={{ marginTop: '24px' }}
       />

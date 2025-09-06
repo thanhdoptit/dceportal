@@ -6,7 +6,7 @@ export const authService = {
       const response = await axios.post('/api/auth/login', {
         username,
         password,
-        loginType
+        loginType,
       });
 
       const data = response.data;
@@ -20,7 +20,7 @@ export const authService = {
       throw new Error(error.response?.data?.message || 'Đăng nhập thất bại');
     }
   },
-  
+
   logout: async () => {
     try {
       await axios.post('/api/auth/logout');
@@ -29,7 +29,7 @@ export const authService = {
     }
     setAccessToken(null);
   },
-  
+
   getCurrentUser: async () => {
     try {
       const token = localStorage.getItem('token');
@@ -41,5 +41,5 @@ export const authService = {
       console.error('Error getting current user:', error);
       throw error;
     }
-  }
+  },
 };

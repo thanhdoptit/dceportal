@@ -15,20 +15,13 @@ const Form = ({
   className = '',
   ...props
 }) => {
-  const handleSubmit = (e) => {
+  const handleSubmit = e => {
     e.preventDefault();
     onSubmit(e);
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className={twMerge(
-        'space-y-6',
-        className
-      )}
-      {...props}
-    >
+    <form onSubmit={handleSubmit} className={twMerge('space-y-6', className)} {...props}>
       {children}
       <FormActions
         onSubmit={handleSubmit}
@@ -48,10 +41,10 @@ Form.propTypes = {
   submitLabel: PropTypes.string,
   cancelLabel: PropTypes.string,
   loading: PropTypes.bool,
-  className: PropTypes.string
+  className: PropTypes.string,
 };
 
 Form.Group = FormGroup;
 Form.Row = FormRow;
 
-export default Form; 
+export default Form;

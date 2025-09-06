@@ -10,10 +10,10 @@ class EmailService {
   async sendEmail({ to, subject, body, attachments = [] }) {
     try {
       const message = new EmailMessage(this.service);
-      
+
       // Set recipients
       message.ToRecipients.Add(to);
-      
+
       // Set subject and body
       message.Subject = subject;
       message.Body = new MessageBody(body);
@@ -27,23 +27,23 @@ class EmailService {
 
       // Send the email
       await message.SendAndSaveCopy();
-      
+
       return {
         success: true,
-        message: 'Email sent successfully'
+        message: 'Email sent successfully',
       };
     } catch (error) {
       console.error('Error sending email:', error);
       return {
         success: false,
-        error: error.message
+        error: error.message,
       };
     }
   }
 
   async sendHandoverEmail(handoverData) {
     const { to, subject, content, attachments } = handoverData;
-    
+
     // Format email body
     const body = `
       <h2>Biên bản bàn giao</h2>
@@ -51,16 +51,24 @@ class EmailService {
       
       <h3>Thông tin thiết bị:</h3>
       <ul>
-        ${handoverData.devices.map(device => `
+        ${handoverData.devices
+          .map(
+            device => `
           <li>
             <strong>${device.deviceName}:</strong> ${device.status}
-            ${device.status === 'Có lỗi' ? `
+            ${
+              device.status === 'Có lỗi'
+                ? `
               <br>Mã lỗi: ${device.errorCode}
               <br>Nguyên nhân: ${device.errorCause}
               <br>Giải pháp: ${device.solution}
-            ` : ''}
+            `
+                : ''
+            }
           </li>
-        `).join('')}
+        `
+          )
+          .join('')}
       </ul>
     `;
 
@@ -68,9 +76,9 @@ class EmailService {
       to,
       subject,
       body,
-      attachments
+      attachments,
     });
   }
 }
 
-export default EmailService; 
+export default EmailService;

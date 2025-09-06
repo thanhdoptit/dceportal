@@ -36,7 +36,7 @@ export const backupService = {
       if (checkedBy) {
         data.checked_by = checkedBy;
       }
-      
+
       const response = await api.patch(`/api/backup/${jobId}/status`, data);
       return response.data;
     } catch (error) {
@@ -103,7 +103,7 @@ export const backupService = {
   parseExcelData(excelData) {
     const result = {
       goodsync: [],
-      export_check: []
+      export_check: [],
     };
 
     // Parse phần GoodSync
@@ -113,7 +113,7 @@ export const backupService = {
         export_path: row.export_path || '',
         local_check_path: row.local_check_path || '',
         export_files: row.export_files || '',
-        schedule_info: row.schedule_info || ''
+        schedule_info: row.schedule_info || '',
       }));
     }
 
@@ -127,10 +127,10 @@ export const backupService = {
         end_time: row.end_time || '',
         backup_result: row.backup_result || '',
         checked_by: row.checked_by || '',
-        schedule_info: row.schedule_info || ''
+        schedule_info: row.schedule_info || '',
       }));
     }
 
     return result;
-  }
-}; 
+  },
+};

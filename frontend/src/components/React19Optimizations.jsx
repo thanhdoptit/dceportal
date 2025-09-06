@@ -1,5 +1,12 @@
 // React 19 Optimizations Demo
-import React, { useState, useId, useTransition, useDeferredValue, useMemo, useCallback } from 'react';
+import React, {
+  useState,
+  useId,
+  useTransition,
+  useDeferredValue,
+  useMemo,
+  useCallback,
+} from 'react';
 import { Button, Input, Card, Space, Typography, List, Spin } from 'antd';
 
 const { Title, Text } = Typography;
@@ -14,17 +21,17 @@ export const UseIdExample = () => {
   const passwordId = useId();
 
   return (
-    <Card title="useId Hook Demo" style={{ marginBottom: 16 }}>
-      <Space direction="vertical" style={{ width: '100%' }}>
+    <Card title='useId Hook Demo' style={{ marginBottom: 16 }}>
+      <Space direction='vertical' style={{ width: '100%' }}>
         <div>
           <label htmlFor={emailId}>Email:</label>
-          <Input id={emailId} placeholder="Enter email" />
+          <Input id={emailId} placeholder='Enter email' />
         </div>
         <div>
           <label htmlFor={passwordId}>Password:</label>
-          <Input.Password id={passwordId} placeholder="Enter password" />
+          <Input.Password id={passwordId} placeholder='Enter password' />
         </div>
-        <Text type="secondary">Generated ID: {id}</Text>
+        <Text type='secondary'>Generated ID: {id}</Text>
       </Space>
     </Card>
   );
@@ -39,7 +46,7 @@ export const UseTransitionExample = () => {
   const handleUpdate = () => {
     // Urgent update
     setCount(c => c + 1);
-    
+
     // Non-urgent update (sẽ được transition)
     startTransition(() => {
       const newList = Array.from({ length: 1000 }, (_, i) => `Item ${i + 1}`);
@@ -48,16 +55,16 @@ export const UseTransitionExample = () => {
   };
 
   return (
-    <Card title="useTransition Hook Demo" style={{ marginBottom: 16 }}>
-      <Space direction="vertical" style={{ width: '100%' }}>
+    <Card title='useTransition Hook Demo' style={{ marginBottom: 16 }}>
+      <Space direction='vertical' style={{ width: '100%' }}>
         <Button onClick={handleUpdate} loading={isPending}>
           Update Count: {count}
         </Button>
-        {isPending && <Spin size="small" />}
+        {isPending && <Spin size='small' />}
         <List
-          size="small"
+          size='small'
           dataSource={list.slice(0, 10)}
-          renderItem={(item) => <List.Item>{item}</List.Item>}
+          renderItem={item => <List.Item>{item}</List.Item>}
         />
       </Space>
     </Card>
@@ -71,26 +78,27 @@ export const UseDeferredValueExample = () => {
 
   // Expensive computation
   const expensiveList = useMemo(() => {
-    return Array.from({ length: 1000 }, (_, i) => 
-      `Filtered: ${deferredText} - Item ${i + 1}`
+    return Array.from(
+      { length: 1000 },
+      (_, i) => `Filtered: ${deferredText} - Item ${i + 1}`
     ).filter(item => item.includes(deferredText));
   }, [deferredText]);
 
   return (
-    <Card title="useDeferredValue Hook Demo" style={{ marginBottom: 16 }}>
-      <Space direction="vertical" style={{ width: '100%' }}>
+    <Card title='useDeferredValue Hook Demo' style={{ marginBottom: 16 }}>
+      <Space direction='vertical' style={{ width: '100%' }}>
         <Input
           value={text}
-          onChange={(e) => setText(e.target.value)}
-          placeholder="Type to filter..."
+          onChange={e => setText(e.target.value)}
+          placeholder='Type to filter...'
         />
-        <Text type="secondary">
+        <Text type='secondary'>
           Current: {text} | Deferred: {deferredText}
         </Text>
         <List
-          size="small"
+          size='small'
           dataSource={expensiveList.slice(0, 5)}
-          renderItem={(item) => <List.Item>{item}</List.Item>}
+          renderItem={item => <List.Item>{item}</List.Item>}
         />
       </Space>
     </Card>
@@ -104,10 +112,10 @@ export const OptimizedComponent = React.memo(({ data, onUpdate }) => {
   }, [data.id, onUpdate]);
 
   return (
-    <Card size="small" style={{ marginBottom: 8 }}>
+    <Card size='small' style={{ marginBottom: 8 }}>
       <Space>
         <Text>{data.name}</Text>
-        <Button size="small" onClick={handleClick}>
+        <Button size='small' onClick={handleClick}>
           Update
         </Button>
       </Space>
@@ -123,31 +131,27 @@ export const React19FeaturesDemo = () => {
     { id: 3, name: 'Item 3' },
   ]);
 
-  const handleUpdate = useCallback((id) => {
-    setData(prev => prev.map(item => 
-      item.id === id ? { ...item, name: `${item.name} (Updated)` } : item
-    ));
+  const handleUpdate = useCallback(id => {
+    setData(prev =>
+      prev.map(item => (item.id === id ? { ...item, name: `${item.name} (Updated)` } : item))
+    );
   }, []);
 
   return (
     <div style={{ padding: 16 }}>
       <Title level={2}>React 19 Features Demo</Title>
-      
+
       <UseIdExample />
       <UseTransitionExample />
       <UseDeferredValueExample />
-      
-      <Card title="Optimized Components Demo">
-        <Space direction="vertical" style={{ width: '100%' }}>
+
+      <Card title='Optimized Components Demo'>
+        <Space direction='vertical' style={{ width: '100%' }}>
           {data.map(item => (
-            <OptimizedComponent
-              key={item.id}
-              data={item}
-              onUpdate={handleUpdate}
-            />
+            <OptimizedComponent key={item.id} data={item} onUpdate={handleUpdate} />
           ))}
         </Space>
       </Card>
     </div>
   );
-}; 
+};

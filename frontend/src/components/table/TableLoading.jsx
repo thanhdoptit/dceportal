@@ -6,11 +6,11 @@ import { twMerge } from 'tailwind-merge';
 export default function TableLoading({ className }) {
   return (
     <div className={twMerge('flex justify-center items-center py-8', className)}>
-      <Spin size="large" />
+      <Spin size='large' />
     </div>
   );
 }
 
 TableLoading.propTypes = {
-  className: PropTypes.string
-}; 
+  className: PropTypes.string,
+};

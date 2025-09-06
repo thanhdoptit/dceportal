@@ -1,4 +1,4 @@
-import { Modal, Form, Input, DatePicker } from 'antd';
+import { DatePicker, Form, Input, Modal } from 'antd';
 
 const { TextArea } = Input;
 
@@ -11,7 +11,7 @@ export default function TaskReasonModal({
   setReopenModalVisible,
   handleReopen,
   reasonForm,
-  reopenForm
+  reopenForm,
 }) {
   return (
     <>
@@ -24,24 +24,24 @@ export default function TaskReasonModal({
           setReasonModalVisible(false);
           reasonForm.resetFields();
         }}
-        okText="Xác nhận"
+        okText='Xác nhận'
         okButtonProps={{
           style: {
             backgroundColor: '#003c71',
             borderColor: '#003c71',
-            color: 'white'
-          }
+            color: 'white',
+          },
         }}
-        cancelText="Hủy"
+        cancelText='Hủy'
         zIndex={1001}
       >
-        <Form form={reasonForm} layout="vertical">
+        <Form form={reasonForm} layout='vertical'>
           <Form.Item
-            name="reason"
-            label="Lý do"
+            name='reason'
+            label='Lý do'
             rules={[
               { required: true, message: 'Vui lòng nhập lý do' },
-              { max: 500, message: 'Lý do không được vượt quá 500 ký tự' }
+              { max: 500, message: 'Lý do không được vượt quá 500 ký tự' },
             ]}
           >
             <TextArea
@@ -56,49 +56,49 @@ export default function TaskReasonModal({
 
       {/* Reopen Modal (gộp chọn thời gian và lý do) */}
       <Modal
-        title="Mở lại công việc"
+        title='Mở lại công việc'
         open={reopenModalVisible}
         onOk={handleReopen}
         onCancel={() => {
           setReopenModalVisible(false);
           reopenForm.resetFields();
         }}
-        okText="Xác nhận"
+        okText='Xác nhận'
         zIndex={1003}
-        cancelText="Hủy"
+        cancelText='Hủy'
         okButtonProps={{
           style: {
             backgroundColor: '#003c71',
             borderColor: '#003c71',
-            color: 'white'
-          }
+            color: 'white',
+          },
         }}
       >
-        <Form form={reopenForm} layout="vertical">
+        <Form form={reopenForm} layout='vertical'>
           <Form.Item
-            name="reopenTime"
-            label="Thời gian kết thúc mới"
+            name='reopenTime'
+            label='Thời gian kết thúc mới'
             required
             rules={[{ required: true, message: 'Vui lòng chọn thời gian kết thúc mới' }]}
           >
             <DatePicker
               showTime={{ format: 'HH:mm' }}
-              format="DD/MM/YYYY HH:mm"
+              format='DD/MM/YYYY HH:mm'
               style={{ width: '100%' }}
-              placeholder="Chọn thời gian kết thúc mới"
+              placeholder='Chọn thời gian kết thúc mới'
             />
           </Form.Item>
           <Form.Item
-            name="reason"
-            label="Lý do mở lại công việc"
+            name='reason'
+            label='Lý do mở lại công việc'
             rules={[
               { required: true, message: 'Vui lòng nhập lý do mở lại công việc' },
-              { max: 500, message: 'Lý do không được vượt quá 500 ký tự' }
+              { max: 500, message: 'Lý do không được vượt quá 500 ký tự' },
             ]}
           >
             <TextArea
               rows={4}
-              placeholder="Nhập lý do mở lại công việc"
+              placeholder='Nhập lý do mở lại công việc'
               showCount
               maxLength={500}
             />

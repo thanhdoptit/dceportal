@@ -1,19 +1,18 @@
-import React, { useState, useCallback, useEffect } from 'react';
-import { Modal, Button, Space, Tooltip, Slider, Spin } from 'antd';
 import {
-  ZoomInOutlined,
-  ZoomOutOutlined,
-  FullscreenOutlined,
-  FullscreenExitOutlined,
-  RotateLeftOutlined,
-  RotateRightOutlined,
   CloseOutlined,
+  DownloadOutlined,
+  ExclamationCircleOutlined,
+  FileTextOutlined,
+  FullscreenExitOutlined,
+  FullscreenOutlined,
   LeftOutlined,
   RightOutlined,
-  DownloadOutlined,
-  FileTextOutlined,
-  ExclamationCircleOutlined
+  RotateLeftOutlined,
+  ZoomInOutlined,
+  ZoomOutOutlined,
 } from '@ant-design/icons';
+import { Button, Modal, Slider, Space, Spin, Tooltip } from 'antd';
+import React, { useCallback, useEffect, useState } from 'react';
 import { processFileName } from '../../utils/VietnameseFile';
 
 // Component tùy chỉnh để hiển thị hình ảnh qua API
@@ -29,17 +28,20 @@ const ImagePreview = ({ image, systemInfoId, style, onLoad, onError }) => {
         setLoading(true);
         setError(false);
         const token = localStorage.getItem('token');
-        
-        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/system-info/${systemInfoId}/files/${encodeURIComponent(image.path || image.filename)}`, {
-          headers: {
-            Authorization: `Bearer ${token}`
+
+        const res = await fetch(
+          `${import.meta.env.VITE_API_URL}/api/system-info/${systemInfoId}/files/${encodeURIComponent(image.path || image.filename)}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
           }
-        });
-        
+        );
+
         if (!res.ok) {
           throw new Error('Fetch image failed');
         }
-        
+
         const blob = await res.blob();
         url = window.URL.createObjectURL(blob);
         setImageUrl(url);
@@ -52,11 +54,11 @@ const ImagePreview = ({ image, systemInfoId, style, onLoad, onError }) => {
         setLoading(false);
       }
     };
-    
+
     if (systemInfoId && image.filename) {
       loadImage();
     }
-    
+
     return () => {
       if (url) window.URL.revokeObjectURL(url);
     };
@@ -64,44 +66,42 @@ const ImagePreview = ({ image, systemInfoId, style, onLoad, onError }) => {
 
   if (loading) {
     return (
-      <div style={{ 
-        ...style, 
-        display: 'flex', 
-        alignItems: 'center', 
-        justifyContent: 'center',
-        background: '#f0f0f0',
-        borderRadius: '4px'
-      }}>
-        <Spin size="large" />
+      <div
+        style={{
+          ...style,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          background: '#f0f0f0',
+          borderRadius: '4px',
+        }}
+      >
+        <Spin size='large' />
       </div>
     );
   }
-  
+
   if (error) {
     return (
-      <div style={{ 
-        ...style, 
-        display: 'flex', 
-        alignItems: 'center', 
-        justifyContent: 'center',
-        background: '#f0f0f0',
-        borderRadius: '4px',
-        color: '#999',
-        fontSize: '14px'
-      }}>
+      <div
+        style={{
+          ...style,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          background: '#f0f0f0',
+          borderRadius: '4px',
+          color: '#999',
+          fontSize: '14px',
+        }}
+      >
         <ExclamationCircleOutlined style={{ marginRight: 8 }} />
         Lỗi tải ảnh
       </div>
     );
   }
-  
-  return (
-    <img 
-      src={imageUrl} 
-      alt={image.originalName} 
-      style={style}
-    />
-  );
+
+  return <img src={imageUrl} alt={image.originalName} style={style} />;
 };
 
 // CSS styles cho modal preview ảnh
@@ -120,7 +120,7 @@ const modalStyles = {
     borderRadius: '8px',
     backdropFilter: 'blur(10px)',
     border: '1px solid rgba(255, 255, 255, 0.1)',
-    transition: 'all 0.3s ease'
+    transition: 'all 0.3s ease',
   },
   bottomControls: {
     position: 'absolute',
@@ -137,7 +137,7 @@ const modalStyles = {
     borderRadius: '8px',
     backdropFilter: 'blur(10px)',
     border: '1px solid rgba(255, 255, 255, 0.1)',
-    transition: 'all 0.3s ease'
+    transition: 'all 0.3s ease',
   },
   navigationButton: {
     position: 'absolute',
@@ -151,8 +151,8 @@ const modalStyles = {
     '&:hover': {
       background: 'rgba(0, 0, 0, 0.9)',
       borderColor: 'rgba(255, 255, 255, 0.4)',
-      transform: 'translateY(-50%) scale(1.1)'
-    }
+      transform: 'translateY(-50%) scale(1.1)',
+    },
   },
   imageContainer: {
     display: 'flex',
@@ -162,12 +162,12 @@ const modalStyles = {
     height: '100%',
     position: 'relative',
     overflow: 'hidden',
-    transition: 'cursor 0.2s ease'
+    transition: 'cursor 0.2s ease',
   },
   imageWrapper: {
     transition: 'transform 0.2s ease-out',
     transformOrigin: 'center center',
-    willChange: 'transform'
+    willChange: 'transform',
   },
   helpPanel: {
     position: 'absolute',
@@ -187,22 +187,22 @@ const modalStyles = {
     opacity: 0.8,
     transition: 'opacity 0.3s ease',
     '&:hover': {
-      opacity: 1
-    }
-  }
+      opacity: 1,
+    },
+  },
 };
 
-const ImagePreviewModal = ({ 
-  visible, 
-  images, 
-  title, 
-  index, 
-  onClose, 
-  onPrev, 
-  onNext, 
-  onDownload, 
+const ImagePreviewModal = ({
+  visible,
+  images,
+  title,
+  index,
+  onClose,
+  onPrev,
+  onNext,
+  onDownload,
   onSetIndex,
-  systemInfoId 
+  systemInfoId,
 }) => {
   console.log('ImagePreviewModal render', { visible, images, index });
   const [zoomLevel, setZoomLevel] = useState(1);
@@ -227,79 +227,91 @@ const ImagePreviewModal = ({
   }, [visible, index]);
 
   // Keyboard navigation
-  const handleKeyDown = useCallback((e) => {
-    if (!visible) return;
-    
-    switch (e.key) {
-      case 'ArrowLeft':
-        e.preventDefault();
-        onPrev();
-        break;
-      case 'ArrowRight':
-        e.preventDefault();
-        onNext();
-        break;
-      case 'Escape':
-        e.preventDefault();
-        onClose();
-        break;
-      case 'f':
-      case 'F':
-        e.preventDefault();
-        setIsFullscreen(!isFullscreen);
-        break;
-      case '+':
-      case '=':
-        e.preventDefault();
-        setZoomLevel(prev => Math.min(prev + 0.25, 5));
-        break;
-      case '-':
-        e.preventDefault();
-        setZoomLevel(prev => Math.max(prev - 0.25, 0.25));
-        break;
-      case '0':
-        e.preventDefault();
-        setZoomLevel(1);
-        setImagePosition({ x: 0, y: 0 });
-        break;
-      case 'r':
-      case 'R':
-        e.preventDefault();
-        setRotation(prev => (prev + 90) % 360);
-        break;
-      case 'h':
-      case 'H':
-        e.preventDefault();
-        setShowHelp(!showHelp);
-        break;
-    }
-  }, [visible, isFullscreen, showHelp, onPrev, onNext, onClose]);
+  const handleKeyDown = useCallback(
+    e => {
+      if (!visible) return;
+
+      switch (e.key) {
+        case 'ArrowLeft':
+          e.preventDefault();
+          onPrev();
+          break;
+        case 'ArrowRight':
+          e.preventDefault();
+          onNext();
+          break;
+        case 'Escape':
+          e.preventDefault();
+          onClose();
+          break;
+        case 'f':
+        case 'F':
+          e.preventDefault();
+          setIsFullscreen(!isFullscreen);
+          break;
+        case '+':
+        case '=':
+          e.preventDefault();
+          setZoomLevel(prev => Math.min(prev + 0.25, 5));
+          break;
+        case '-':
+          e.preventDefault();
+          setZoomLevel(prev => Math.max(prev - 0.25, 0.25));
+          break;
+        case '0':
+          e.preventDefault();
+          setZoomLevel(1);
+          setImagePosition({ x: 0, y: 0 });
+          break;
+        case 'r':
+        case 'R':
+          e.preventDefault();
+          setRotation(prev => (prev + 90) % 360);
+          break;
+        case 'h':
+        case 'H':
+          e.preventDefault();
+          setShowHelp(!showHelp);
+          break;
+      }
+    },
+    [visible, isFullscreen, showHelp, onPrev, onNext, onClose]
+  );
 
   // Mouse wheel zoom
-  const handleWheel = useCallback((e) => {
-    if (!visible) return;
-    e.preventDefault();
-    
-    const delta = e.deltaY > 0 ? -0.25 : 0.25;
-    setZoomLevel(prev => Math.max(0.25, Math.min(5, prev + delta)));
-  }, [visible]);
+  const handleWheel = useCallback(
+    e => {
+      if (!visible) return;
+      e.preventDefault();
+
+      const delta = e.deltaY > 0 ? -0.25 : 0.25;
+      setZoomLevel(prev => Math.max(0.25, Math.min(5, prev + delta)));
+    },
+    [visible]
+  );
 
   // Mouse drag handlers
-  const handleMouseDown = useCallback((e) => {
-    if (zoomLevel > 1) {
-      setIsDragging(true);
-      setDragStart({ x: e.clientX - imagePosition.x, y: e.clientY - imagePosition.y });
-    }
-  }, [zoomLevel, imagePosition]);
+  const handleMouseDown = useCallback(
+    e => {
+      if (zoomLevel > 1) {
+        setIsDragging(true);
+        setDragStart({ x: e.clientX - imagePosition.x, y: e.clientY - imagePosition.y });
+      }
+    },
+    [zoomLevel, imagePosition]
+  );
 
-  const handleMouseMove = useCallback((e) => {
-    if (isDragging && zoomLevel > 1) {
-      setImagePosition({
-        x: e.clientX - dragStart.x,
-        y: e.clientY - dragStart.y
-      });
-    }
-  }, [isDragging, dragStart, zoomLevel]);
+  const handleMouseMove = useCallback(
+    e => {
+      if (isDragging && zoomLevel > 1) {
+        setImagePosition({
+          x: e.clientX - dragStart.x,
+          y: e.clientY - dragStart.y,
+        });
+      }
+    },
+    [isDragging, dragStart, zoomLevel]
+  );
 
   const handleMouseUp = useCallback(() => {
     setIsDragging(false);
@@ -324,7 +336,7 @@ const ImagePreviewModal = ({
       document.addEventListener('wheel', handleWheel, { passive: false });
       document.addEventListener('mousemove', handleMouseMove);
       document.addEventListener('mouseup', handleMouseUp);
-      
+
       return () => {
         document.removeEventListener('keydown', handleKeyDown);
         document.removeEventListener('wheel', handleWheel);
@@ -356,19 +368,19 @@ const ImagePreviewModal = ({
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          position: 'relative'
+          position: 'relative',
         },
         mask: {
-          background: 'rgba(0, 0, 0, 0.95)'
+          background: 'rgba(0, 0, 0, 0.95)',
         },
         wrapper: {
-          zIndex: 9999
-        }
+          zIndex: 9999,
+        },
       }}
-      style={{ 
+      style={{
         top: isFullscreen ? 0 : undefined,
         padding: isFullscreen ? 0 : undefined,
-        maxWidth: isFullscreen ? '100vw' : '90vw'
+        maxWidth: isFullscreen ? '100vw' : '90vw',
       }}
     >
       {/* Header controls */}
@@ -376,35 +388,35 @@ const ImagePreviewModal = ({
         <div style={{ color: '#fff', fontSize: '14px' }}>
           {processFileName(currentImage) || title}
         </div>
-        
+
         <Space>
-          <Tooltip title="Phím tắt: R">
+          <Tooltip title='Phím tắt: R'>
             <Button
-              type="text"
+              type='text'
               icon={<RotateLeftOutlined />}
               onClick={() => setRotation(prev => (prev - 90) % 360)}
               style={{ color: '#fff' }}
             />
           </Tooltip>
-          <Tooltip title="Phím tắt: H">
+          <Tooltip title='Phím tắt: H'>
             <Button
-              type="text"
+              type='text'
               icon={<FileTextOutlined />}
               onClick={() => setShowHelp(!showHelp)}
               style={{ color: '#fff' }}
             />
           </Tooltip>
-          <Tooltip title="Phím tắt: F">
+          <Tooltip title='Phím tắt: F'>
             <Button
-              type="text"
+              type='text'
               icon={isFullscreen ? <FullscreenExitOutlined /> : <FullscreenOutlined />}
               onClick={toggleFullscreen}
               style={{ color: '#fff' }}
             />
           </Tooltip>
-          <Tooltip title="Phím tắt: ESC">
+          <Tooltip title='Phím tắt: ESC'>
             <Button
-              type="text"
+              type='text'
               icon={<CloseOutlined />}
               onClick={onClose}
               style={{ color: '#fff' }}
@@ -414,35 +426,35 @@ const ImagePreviewModal = ({
       </div>
 
       {/* Main image container */}
-      <div 
+      <div
         style={{
           ...modalStyles.imageContainer,
-          cursor: zoomLevel > 1 ? 'grab' : 'default'
+          cursor: zoomLevel > 1 ? 'grab' : 'default',
         }}
         onMouseDown={handleMouseDown}
       >
         {/* Navigation buttons */}
         {images.length > 1 && (
           <>
-            <Tooltip title="Phím tắt: ←">
+            <Tooltip title='Phím tắt: ←'>
               <Button
-                type="text"
+                type='text'
                 icon={<LeftOutlined />}
                 onClick={onPrev}
                 style={{
                   ...modalStyles.navigationButton,
-                  left: 16
+                  left: 16,
                 }}
               />
             </Tooltip>
-            <Tooltip title="Phím tắt: →">
+            <Tooltip title='Phím tắt: →'>
               <Button
-                type="text"
+                type='text'
                 icon={<RightOutlined />}
                 onClick={onNext}
                 style={{
                   ...modalStyles.navigationButton,
-                  right: 16
+                  right: 16,
                 }}
               />
             </Tooltip>
@@ -454,7 +466,7 @@ const ImagePreviewModal = ({
           style={{
             ...modalStyles.imageWrapper,
             transform: `translate(${imagePosition.x}px, ${imagePosition.y}px) scale(${zoomLevel}) rotate(${rotation}deg)`,
-            transition: isDragging ? 'none' : 'transform 0.2s ease-out'
+            transition: isDragging ? 'none' : 'transform 0.2s ease-out',
           }}
         >
           <ImagePreview
@@ -465,7 +477,7 @@ const ImagePreviewModal = ({
               maxHeight: isFullscreen ? '90vh' : '70vh',
               objectFit: 'contain',
               background: '#000',
-              borderRadius: '4px'
+              borderRadius: '4px',
             }}
             onLoad={() => setImageLoading(false)}
             onError={() => setImageLoading(false)}
@@ -477,23 +489,23 @@ const ImagePreviewModal = ({
       <div style={modalStyles.bottomControls}>
         {/* Zoom controls */}
         <Space>
-          <Tooltip title="Phím tắt: -">
+          <Tooltip title='Phím tắt: -'>
             <Button
-              type="text"
+              type='text'
               icon={<ZoomOutOutlined />}
               onClick={() => setZoomLevel(prev => Math.max(prev - 0.25, 0.25))}
               disabled={zoomLevel <= 0.25}
               style={{ color: '#fff' }}
             />
           </Tooltip>
-          
+
           <div style={{ color: '#fff', minWidth: '60px', textAlign: 'center' }}>
             {Math.round(zoomLevel * 100)}%
           </div>
-          
-          <Tooltip title="Phím tắt: +">
+
+          <Tooltip title='Phím tắt: +'>
             <Button
-              type="text"
+              type='text'
               icon={<ZoomInOutlined />}
               onClick={() => setZoomLevel(prev => Math.min(prev + 0.25, 5))}
               disabled={zoomLevel >= 5}
@@ -510,24 +522,20 @@ const ImagePreviewModal = ({
           value={zoomLevel}
           onChange={setZoomLevel}
           style={{ width: 120, margin: '0 16px' }}
-          tooltip={{ formatter: (value) => `${Math.round(value * 100)}%` }}
+          tooltip={{ formatter: value => `${Math.round(value * 100)}%` }}
         />
 
         {/* Action buttons */}
         <Space>
-          <Tooltip title="Reset view (Phím tắt: 0)">
-            <Button
-              type="text"
-              onClick={resetView}
-              style={{ color: '#fff' }}
-            >
+          <Tooltip title='Reset view (Phím tắt: 0)'>
+            <Button type='text' onClick={resetView} style={{ color: '#fff' }}>
               Reset
             </Button>
           </Tooltip>
-          
-          <Tooltip title="Tải xuống">
+
+          <Tooltip title='Tải xuống'>
             <Button
-              type="primary"
+              type='primary'
               icon={<DownloadOutlined />}
               onClick={() => onDownload(currentImage)}
             >
@@ -538,14 +546,16 @@ const ImagePreviewModal = ({
 
         {/* Image counter */}
         {images.length > 1 && (
-          <div style={{ 
-            color: '#fff', 
-            fontSize: '14px',
-            background: 'rgba(0, 0, 0, 0.5)',
-            padding: '4px 8px',
-            borderRadius: '4px',
-            border: '1px solid rgba(255, 255, 255, 0.2)'
-          }}>
+          <div
+            style={{
+              color: '#fff',
+              fontSize: '14px',
+              background: 'rgba(0, 0, 0, 0.5)',
+              padding: '4px 8px',
+              borderRadius: '4px',
+              border: '1px solid rgba(255, 255, 255, 0.2)',
+            }}
+          >
             {index + 1} / {images.length}
           </div>
         )}
@@ -563,7 +573,8 @@ const ImagePreviewModal = ({
           <div>H : Ẩn/hiện help</div>
           <div>ESC : Đóng</div>
           <div style={{ marginTop: '8px', fontSize: '11px', opacity: 0.7 }}>
-            Mouse wheel: Zoom<br/>
+            Mouse wheel: Zoom
+            <br />
             Drag: Di chuyển ảnh
           </div>
         </div>
@@ -572,4 +583,4 @@ const ImagePreviewModal = ({
   );
 };
 
-export default ImagePreviewModal; 
+export default ImagePreviewModal;

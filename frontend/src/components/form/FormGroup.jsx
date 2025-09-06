@@ -14,18 +14,13 @@ const FormGroup = ({
   return (
     <div className={twMerge('mb-4', className)} {...props}>
       {label && (
-        <label
-          htmlFor={name}
-          className="block text-sm font-medium text-gray-700 mb-1"
-        >
+        <label htmlFor={name} className='block text-sm font-medium text-gray-700 mb-1'>
           {label}
-          {required && <span className="text-red-500 ml-1">*</span>}
+          {required && <span className='text-red-500 ml-1'>*</span>}
         </label>
       )}
       {children}
-      {error && (
-        <p className="mt-1 text-sm text-red-600">{error}</p>
-      )}
+      {error && <p className='mt-1 text-sm text-red-600'>{error}</p>}
     </div>
   );
 };
@@ -36,7 +31,7 @@ FormGroup.propTypes = {
   error: PropTypes.string,
   required: PropTypes.bool,
   children: PropTypes.node.isRequired,
-  className: PropTypes.string
+  className: PropTypes.string,
 };
 
-export default FormGroup; 
+export default FormGroup;

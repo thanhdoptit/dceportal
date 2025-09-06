@@ -8,7 +8,7 @@ export const ElectricDataContext = createContext({
       singleLineDiagram: [],
       systemOverview: [],
       technicalSpecs: [],
-      standards: []
+      standards: [],
     },
     // Dữ liệu tủ điện hạ thế
     lowVoltage: {
@@ -17,44 +17,44 @@ export const ElectricDataContext = createContext({
       acbBreakers: [],
       mccbBreakers: [],
       mcbBreakers: [],
-      rcboRccb: []
+      rcboRccb: [],
     },
     // Dữ liệu hệ thống bảo vệ
     protection: {
       overcurrentProtection: [],
       earthFaultProtection: [],
-      shortCircuitProtection: []
+      shortCircuitProtection: [],
     },
     // Dữ liệu hệ thống điều khiển
     control: {
       plcSystems: [],
       atsSystems: [],
-      generatorControl: []
+      generatorControl: [],
     },
     // Dữ liệu hệ thống chiếu sáng
     lighting: {
       generalLighting: [],
       emergencyLighting: [],
-      socketSystems: []
+      socketSystems: [],
     },
     // Dữ liệu hệ thống cáp và máng
     cable: {
       cableTrays: [],
       powerCables: [],
-      controlCables: []
+      controlCables: [],
     },
     // Dữ liệu vận hành và bảo trì
     operation: {
       operationProcedures: [],
       backupSystemTests: [],
-      maintenanceSchedules: []
+      maintenanceSchedules: [],
     },
     // Dữ liệu tài liệu và tiêu chuẩn
     documentation: {
       vietnameseStandards: [],
       internationalStandards: [],
-      productCertifications: []
-    }
+      productCertifications: [],
+    },
   },
   isLoading: true,
   isFullyLoaded: false,
@@ -67,5 +67,5 @@ export const ElectricDataContext = createContext({
   getPanelsByType: () => [],
   getActiveProtection: () => null,
   getSystemStatus: () => 'normal',
-  getMaintenanceSchedule: () => []
+  getMaintenanceSchedule: () => [],
 });

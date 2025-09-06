@@ -1,6 +1,6 @@
 /**
  * Table Components
- * 
+ *
  * A collection of reusable table components for displaying data in a consistent and user-friendly way.
  * These components are built on top of Ant Design and styled with Tailwind CSS.
  */
@@ -19,7 +19,7 @@ export { default as TableError } from './TableError';
 
 /**
  * Component Usage Examples:
- * 
+ *
  * Basic Table:
  * <Table>
  *   <TableHeader>
@@ -35,23 +35,23 @@ export { default as TableError } from './TableError';
  *     </TableRow>
  *   </TableBody>
  * </Table>
- * 
+ *
  * With Loading State:
  * <TableLoading rows={5} columns={3} />
- * 
+ *
  * With Empty State:
  * <TableEmpty description="No data available" />
- * 
+ *
  * With Error State:
  * <TableError onRetry={() => fetchData()} />
- * 
+ *
  * With Search:
  * <TableSearch value={searchText} onChange={handleSearch} />
- * 
+ *
  * With Pagination:
  * <TablePagination
  *   currentPage={1}
  *   totalPages={10}
  *   onPageChange={handlePageChange}
  * />
- */ 
+ */

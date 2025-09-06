@@ -1,6 +1,6 @@
-import React from 'react';
-import { Card, Typography } from 'antd';
 import { CalendarOutlined } from '@ant-design/icons';
+import { Card, Typography } from 'antd';
+import React from 'react';
 import ShiftScheduleList from '../components/common/ShiftScheduleList';
 
 const { Title } = Typography;
@@ -15,11 +15,11 @@ const ShiftScheduleDemo = () => {
           </Title>
           <p>Đây là demo component hiển thị lịch trực datacenter dựa theo form ảnh bạn cung cấp.</p>
         </div>
-        
+
         <ShiftScheduleList />
       </Card>
     </div>
   );
 };
 
-export default ShiftScheduleDemo; 
+export default ShiftScheduleDemo;

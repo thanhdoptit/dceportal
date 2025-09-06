@@ -110,16 +110,16 @@ class DocumentWorker {
   async processDocument(type, data) {
     return new Promise((resolve, reject) => {
       const id = Date.now() + Math.random();
-      
+
       const timeout = setTimeout(() => {
         reject(new Error(`Document processing timeout: ${type}`));
       }, 10000); // 10s timeout
 
-      const handler = (e) => {
+      const handler = e => {
         if (e.data.id === id) {
           clearTimeout(timeout);
           this.worker.removeEventListener('message', handler);
-          
+
           if (e.data.success) {
             resolve(e.data.data);
           } else {

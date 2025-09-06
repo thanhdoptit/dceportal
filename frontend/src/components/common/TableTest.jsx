@@ -13,7 +13,7 @@ const TableTest = () => {
   const [pagination, setPagination] = useState({
     page: 1,
     limit: 10,
-    total: 3
+    total: 3,
   });
 
   // Mock data cho test
@@ -24,7 +24,7 @@ const TableTest = () => {
       name: 'Hồ Chí Minh',
       description: 'Trung tâm dữ liệu TP.HCM',
       hotline: '1900-1234',
-      isActive: true
+      isActive: true,
     },
     {
       id: 2,
@@ -32,7 +32,7 @@ const TableTest = () => {
       name: 'Hà Nội',
       description: 'Trung tâm dữ liệu Hà Nội',
       hotline: '1900-5678',
-      isActive: false
+      isActive: false,
     },
     {
       id: 3,
@@ -40,8 +40,8 @@ const TableTest = () => {
       name: 'Đà Nẵng',
       description: 'Trung tâm dữ liệu Đà Nẵng',
       hotline: '1900-9012',
-      isActive: true
-    }
+      isActive: true,
+    },
   ];
 
   // Test columns với format giống SettingsPage
@@ -57,10 +57,8 @@ const TableTest = () => {
       width: '12%',
       className: 'custom-header border-gray-200',
       align: 'center',
-      render: (isActive) => (
-        <Tag color={isActive ? 'green' : 'red'}>
-          {isActive ? 'Hoạt động' : 'Không hoạt động'}
-        </Tag>
+      render: isActive => (
+        <Tag color={isActive ? 'green' : 'red'}>{isActive ? 'Hoạt động' : 'Không hoạt động'}</Tag>
       ),
     },
     {
@@ -74,7 +72,7 @@ const TableTest = () => {
           <ActionButton
             onClick={() => console.log('Edit:', record)}
             icon={<EditOutlined />}
-            className="bg-orange-600 hover:bg-orange-700"
+            className='bg-orange-600 hover:bg-orange-700'
           >
             Sửa
           </ActionButton>
@@ -82,7 +80,7 @@ const TableTest = () => {
             <ActionButton
               onClick={() => console.log('Delete:', record)}
               icon={<DeleteOutlined />}
-              className="bg-red-600 hover:bg-red-700"
+              className='bg-red-600 hover:bg-red-700'
             >
               Xóa
             </ActionButton>
@@ -90,56 +88,56 @@ const TableTest = () => {
             <ActionButton
               onClick={() => console.log('Restore:', record)}
               icon={<UndoOutlined />}
-              className="bg-green-600 hover:bg-green-700"
+              className='bg-green-600 hover:bg-green-700'
             >
               Khôi phục
             </ActionButton>
           )}
         </Space>
       ),
-    }
+    },
   ];
 
   const handlePaginationChange = (page, pageSize) => {
     setPagination(prev => ({
       ...prev,
       page,
-      limit: pageSize
+      limit: pageSize,
     }));
     console.log('Pagination changed:', { page, pageSize });
   };
 
   return (
-    <div className="p-6">
+    <div className='p-6'>
       <Title level={2} style={{ color: '#003c71', marginBottom: 24 }}>
         Table Format Test
       </Title>
 
-      <Card title="Test Location Table Format">
+      <Card title='Test Location Table Format'>
         <StandardTable
           columns={testColumns}
           dataSource={mockLocations}
           loading={false}
           pagination={pagination}
           onPaginationChange={handlePaginationChange}
-          rowKey="id"
+          rowKey='id'
           bordered
         />
       </Card>
 
-      <Card title="Column Width Analysis" style={{ marginTop: 24 }}>
-        <div className="space-y-2">
+      <Card title='Column Width Analysis' style={{ marginTop: 24 }}>
+        <div className='space-y-2'>
           <div>Mã địa điểm: 3%</div>
           <div>Tên địa điểm: 18%</div>
           <div>Mô tả: 25%</div>
           <div>Hotline: 10%</div>
           <div>Trạng thái: 12%</div>
           <div>Thao tác: 15%</div>
-          <div className="font-bold">Tổng: 83% (OK)</div>
+          <div className='font-bold'>Tổng: 83% (OK)</div>
         </div>
       </Card>
     </div>
   );
 };
 
-export default TableTest; 
+export default TableTest;

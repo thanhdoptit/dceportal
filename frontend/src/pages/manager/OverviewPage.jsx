@@ -1,26 +1,26 @@
-import React, { useState, useEffect } from 'react';
-import { Card, Row, Col, Statistic, Table, DatePicker, Space, message } from 'antd';
-import { 
-  UserOutlined, 
-  ClockCircleOutlined, 
+import {
+  CheckCircleOutlined,
+  ClockCircleOutlined,
   FileTextOutlined,
-  CheckCircleOutlined
+  UserOutlined,
 } from '@ant-design/icons';
-import axios from '../../utils/axios';
+import { Card, Col, DatePicker, Row, Space, Statistic, Table, message } from 'antd';
 import { format, subDays } from 'date-fns';
 import { vi } from 'date-fns/locale';
+import React, { useEffect, useState } from 'react';
+import axios from '../../utils/axios';
 
 const OverviewPage = () => {
   const [loading, setLoading] = useState(false);
   const [dateRange, setDateRange] = useState([
     subDays(new Date(), 7), // 7 ngày trước
-    new Date() // Hôm nay
+    new Date(), // Hôm nay
   ]);
   const [stats, setStats] = useState({
     totalUsers: 0,
     activeShifts: 0,
     completedHandovers: 0,
-    pendingHandovers: 0
+    pendingHandovers: 0,
   });
   const [recentHandovers, setRecentHandovers] = useState([]);
 
@@ -33,14 +33,14 @@ const OverviewPage = () => {
       setLoading(true);
       const params = {
         startDate: format(dateRange[0], 'yyyy-MM-dd'),
-        endDate: format(dateRange[1], 'yyyy-MM-dd')
+        endDate: format(dateRange[1], 'yyyy-MM-dd'),
       };
-      
+
       const [statsRes, handoversRes] = await Promise.all([
         axios.get('/api/manager/stats', { params }),
-        axios.get('/api/manager/recent-handovers', { params })
+        axios.get('/api/manager/recent-handovers', { params }),
       ]);
-      
+
       setStats(statsRes.data);
       setRecentHandovers(handoversRes.data);
     } catch (error) {
@@ -56,50 +56,50 @@ const OverviewPage = () => {
       title: 'Ngày',
       dataIndex: 'date',
       key: 'date',
-      render: (date) => format(new Date(date), 'dd/MM/yyyy', { locale: vi })
+      render: date => format(new Date(date), 'dd/MM/yyyy', { locale: vi }),
     },
     {
       title: 'Ca làm việc',
       dataIndex: ['FromShift', 'code'],
       key: 'shift',
-      render: (code) => `Ca ${code}`
+      render: code => `Ca ${code}`,
     },
     {
       title: 'Người bàn giao',
       dataIndex: ['FromUser', 'fullname'],
-      key: 'fromUser'
+      key: 'fromUser',
     },
     {
       title: 'Người nhận',
       dataIndex: ['ToUser', 'fullname'],
-      key: 'toUser'
+      key: 'toUser',
     },
     {
       title: 'Trạng thái',
       dataIndex: 'status',
       key: 'status',
-      render: (status) => {
+      render: status => {
         const statusMap = {
           pending: { color: 'orange', text: 'Chờ xác nhận' },
           completed: { color: 'green', text: 'Đã hoàn thành' },
-          rejected: { color: 'red', text: 'Đã từ chối' }
+          rejected: { color: 'red', text: 'Đã từ chối' },
         };
         return (
           <span style={{ color: statusMap[status]?.color }}>
             {statusMap[status]?.text || status}
           </span>
         );
-      }
-    }
+      },
+    },
   ];
 
   return (
-    <div className="space-y-6">
+    <div className='space-y-6'>
       <Row gutter={[16, 16]}>
         <Col xs={24} sm={12} lg={6}>
-          <Card variant="outlined" className="hover:shadow-md transition-shadow">
+          <Card variant='outlined' className='hover:shadow-md transition-shadow'>
             <Statistic
-              title="Tổng số nhân viên"
+              title='Tổng số nhân viên'
               value={stats.totalUsers}
               prefix={<UserOutlined />}
               valueStyle={{ color: '#1890ff' }}
@@ -107,9 +107,9 @@ const OverviewPage = () => {
           </Card>
         </Col>
         <Col xs={24} sm={12} lg={6}>
-          <Card variant="outlined" className="hover:shadow-md transition-shadow">
+          <Card variant='outlined' className='hover:shadow-md transition-shadow'>
             <Statistic
-              title="Ca làm việc hiện tại"
+              title='Ca làm việc hiện tại'
               value={stats.activeShifts}
               prefix={<ClockCircleOutlined />}
               valueStyle={{ color: '#52c41a' }}
@@ -117,9 +117,9 @@ const OverviewPage = () => {
           </Card>
         </Col>
         <Col xs={24} sm={12} lg={6}>
-          <Card variant="outlined" className="hover:shadow-md transition-shadow">
+          <Card variant='outlined' className='hover:shadow-md transition-shadow'>
             <Statistic
-              title="Biên bản đã hoàn thành"
+              title='Biên bản đã hoàn thành'
               value={stats.completedHandovers}
               prefix={<CheckCircleOutlined />}
               valueStyle={{ color: '#13c2c2' }}
@@ -127,9 +127,9 @@ const OverviewPage = () => {
           </Card>
         </Col>
         <Col xs={24} sm={12} lg={6}>
-          <Card variant="outlined" className="hover:shadow-md transition-shadow">
+          <Card variant='outlined' className='hover:shadow-md transition-shadow'>
             <Statistic
-              title="Biên bản chờ xác nhận"
+              title='Biên bản chờ xác nhận'
               value={stats.pendingHandovers}
               prefix={<FileTextOutlined />}
               valueStyle={{ color: '#faad14' }}
@@ -138,13 +138,13 @@ const OverviewPage = () => {
         </Col>
       </Row>
 
-      <Card 
-        title="Biên bản bàn giao gần đây" 
-        variant="outlined"
-        className="hover:shadow-md transition-shadow"
+      <Card
+        title='Biên bản bàn giao gần đây'
+        variant='outlined'
+        className='hover:shadow-md transition-shadow'
         extra={
           <Space>
-            <DatePicker.RangePicker 
+            <DatePicker.RangePicker
               value={dateRange}
               onChange={setDateRange}
               placeholder={['Từ ngày', 'Đến ngày']}
@@ -156,7 +156,7 @@ const OverviewPage = () => {
         <Table
           dataSource={recentHandovers}
           columns={columns}
-          rowKey="id"
+          rowKey='id'
           loading={loading}
           pagination={{ pageSize: 5 }}
         />
@@ -165,4 +165,4 @@ const OverviewPage = () => {
   );
 };
 
-export default OverviewPage; 
+export default OverviewPage;

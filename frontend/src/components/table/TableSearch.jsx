@@ -11,8 +11,8 @@ export default function TableSearch({ value, onChange, placeholder = 'Tìm kiế
         prefix={<SearchOutlined />}
         placeholder={placeholder}
         value={value}
-        onChange={(e) => onChange(e.target.value)}
-        className="w-full max-w-md"
+        onChange={e => onChange(e.target.value)}
+        className='w-full max-w-md'
       />
     </div>
   );
@@ -22,5 +22,5 @@ TableSearch.propTypes = {
   value: PropTypes.string,
   onChange: PropTypes.func.isRequired,
   placeholder: PropTypes.string,
-  className: PropTypes.string
-}; 
+  className: PropTypes.string,
+};

@@ -13,7 +13,12 @@
     @apply text-vietinbank-gray leading-relaxed;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     @apply font-medium text-vietinbank-gray;
   }
 
@@ -33,7 +38,6 @@
     @apply text-vietinbank hover:text-vietinbank/80;
   }
 }
-
 
 /* Style cho tất cả các header cột (liền mạch, đồng bộ màu) - KHÔNG áp dụng cho cooling system */
 .ant-table-thead > tr > th.custom-header {

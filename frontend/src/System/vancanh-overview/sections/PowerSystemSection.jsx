@@ -1,10 +1,5 @@
-import {
-  BulbOutlined,
-  PictureOutlined,
-  ThunderboltOutlined
-} from '@ant-design/icons';
+import { BulbOutlined, PictureOutlined, ThunderboltOutlined } from '@ant-design/icons';
 import { Alert, Card, Col, Divider, Row, Space, Tag, Typography } from 'antd';
-import React from 'react';
 import { ImagePreview } from '../../shared';
 import '../../shared/styles/SystemSection.css';
 
@@ -12,27 +7,27 @@ const { Title, Paragraph, Text } = Typography;
 
 const PowerSystemSection = () => {
   return (
-    <div id="section-3" className="content-section">
-      <Title level={2} >
+    <div id='section-3' className='content-section'>
+      <Title level={2}>
         <ThunderboltOutlined style={{ marginRight: '8px' }} />
         3. HỆ THỐNG CẤP NGUỒN TTDL VÂN CANH
       </Title>
 
-      <div id="section-3-1" className="subsection">
-        <Title level={3} >
+      <div id='section-3-1' className='subsection'>
+        <Title level={3}>
           <BulbOutlined style={{ marginRight: '8px' }} /> 3.1 Nguồn điện và trạm biến áp
         </Title>
 
         <Alert
-          message="HỆ THỐNG ĐIỆN ĐƯỢC SỐ HÓA, GIÁM SÁT, ĐIỀU KHIỂN TỰ ĐỘNG 100%"
-          description="2 trạm biến áp 2500KVA cung cấp nguồn điện ổn định cho toàn bộ hệ thống."
-          type="info"
+          message='HỆ THỐNG ĐIỆN ĐƯỢC SỐ HÓA, GIÁM SÁT, ĐIỀU KHIỂN TỰ ĐỘNG 100%'
+          description='2 trạm biến áp 2500KVA cung cấp nguồn điện ổn định cho toàn bộ hệ thống.'
+          type='info'
           showIcon
           style={{ marginBottom: '20px' }}
         />
 
         <Row gutter={[16, 16]} style={{ marginBottom: '20px' }}>
-          <Col >
+          <Col>
             <Card
               title={
                 <Space>
@@ -43,27 +38,28 @@ const PowerSystemSection = () => {
             >
               <div style={{ textAlign: 'center' }}>
                 <ImagePreview
-                  src="/vancanh-overview/sododien.jpg"
-                  alt="Hệ thống điện được số hóa, giám sát, điều khiển tự động 100%"
+                  src='/vancanh-overview/sododien.jpg'
+                  alt='Hệ thống điện được số hóa, giám sát, điều khiển tự động 100%'
                   width='90%'
-                  height= 'auto'  
+                  height='auto'
                   style={{
                     borderRadius: '8px',
-                    boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
+                    boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
                   }}
                 />
-                <p style={{
-                  color: '#666',
-                  margin: '8px 0 0 0',
-                  fontSize: '12px',
-                  fontStyle: 'italic'
-                }}>
+                <p
+                  style={{
+                    color: '#666',
+                    margin: '8px 0 0 0',
+                    fontSize: '12px',
+                    fontStyle: 'italic',
+                  }}
+                >
                   Hệ thống điện được số hóa, giám sát, điều khiển tự động 100%
                 </p>
               </div>
             </Card>
           </Col>
-
         </Row>
         <Row gutter={[16, 16]} style={{ marginBottom: '20px' }}>
           <Col span={12}>
@@ -77,23 +73,25 @@ const PowerSystemSection = () => {
             >
               <div style={{ textAlign: 'center' }}>
                 <ImagePreview
-                  src="/vancanh-overview/trambienap1.jpg"
-                  alt="Hệ thống cấp nguồn gồm 2 trạm biến áp 2500KVA"
+                  src='/vancanh-overview/trambienap1.jpg'
+                  alt='Hệ thống cấp nguồn gồm 2 trạm biến áp 2500KVA'
                   width='100%'
-                  height= 'auto'  
+                  height='auto'
                   style={{
                     border: '1px solid #d9d9d9',
                     borderRadius: '6px',
-                    boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
+                    boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
                   }}
                 />
 
-                <p style={{
-                  color: '#666',
-                  margin: '8px 0 0 0',
-                  fontSize: '12px',
-                  fontStyle: 'italic'
-                }}>
+                <p
+                  style={{
+                    color: '#666',
+                    margin: '8px 0 0 0',
+                    fontSize: '12px',
+                    fontStyle: 'italic',
+                  }}
+                >
                   Hệ thống cấp nguồn gồm 2 trạm biến áp 2500KVA
                 </p>
               </div>
@@ -110,59 +108,61 @@ const PowerSystemSection = () => {
             >
               <div style={{ textAlign: 'center' }}>
                 <ImagePreview
-                  src="/vancanh-overview/trambienap2.jpg"
-                  alt="Hệ thống cấp nguồn gồm 2 trạm biến áp 2500KVA"
+                  src='/vancanh-overview/trambienap2.jpg'
+                  alt='Hệ thống cấp nguồn gồm 2 trạm biến áp 2500KVA'
                   width='100%'
-                  height= 'auto'  
+                  height='auto'
                   style={{
                     border: '1px solid #d9d9d9',
                     borderRadius: '6px',
                     boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
                     display: 'block',
-                    margin: '0 auto'
+                    margin: '0 auto',
                   }}
                 />
 
-                <p style={{
-                  color: '#666',
-                  margin: '8px 0 0 0',
-                  fontSize: '12px',
-                  fontStyle: 'italic'
-                }}>
+                <p
+                  style={{
+                    color: '#666',
+                    margin: '8px 0 0 0',
+                    fontSize: '12px',
+                    fontStyle: 'italic',
+                  }}
+                >
                   Hệ thống cấp nguồn gồm 2 trạm biến áp 2500KVA
                 </p>
               </div>
             </Card>
           </Col>
         </Row>
-        <Card title="Thông số kỹ thuật trạm biến áp" style={{ marginBottom: '20px' }}>
-          <Space direction="vertical" size="middle" style={{ width: '100%' }}>
+        <Card title='Thông số kỹ thuật trạm biến áp' style={{ marginBottom: '20px' }}>
+          <Space direction='vertical' size='middle' style={{ width: '100%' }}>
             <div>
-              <Tag color="blue">Số lượng</Tag>
+              <Tag color='blue'>Số lượng</Tag>
               <Text>2 TBA 2500KVA (A & B)</Text>
             </div>
             <div>
-              <Tag color="blue">Công suất mỗi trạm</Tag>
+              <Tag color='blue'>Công suất mỗi trạm</Tag>
               <Text>2500KVA</Text>
             </div>
             <div>
-              <Tag color="blue">Tổng công suất</Tag>
+              <Tag color='blue'>Tổng công suất</Tag>
               <Text>5000KVA</Text>
             </div>
             <div>
-              <Tag color="blue">Vị trí</Tag>
+              <Tag color='blue'>Vị trí</Tag>
               <Text>Phía sau tòa nhà</Text>
             </div>
             <div>
-              <Tag color="blue">Đường điện</Tag>
+              <Tag color='blue'>Đường điện</Tag>
               <Text>Kéo vào theo cống ngầm 2 lộ</Text>
             </div>
             <div>
-              <Tag color="blue">Chế độ hoạt động</Tag>
+              <Tag color='blue'>Chế độ hoạt động</Tag>
               <Text>2 TBA cung cấp cho cả 2 phòng Điện A và B</Text>
             </div>
             <div>
-              <Tag color="blue">Dự phòng</Tag>
+              <Tag color='blue'>Dự phòng</Tag>
               <Text>1 TBA còn lại cung cấp đủ điện qua TIE BREAKER</Text>
             </div>
           </Space>
@@ -179,19 +179,18 @@ const PowerSystemSection = () => {
             >
               <div style={{ textAlign: 'center' }}>
                 <ImagePreview
-                  src="/vancanh-overview/mayphatdien1.jpg"
-                  alt="Hệ thống cấp nguồn gồm 2 trạm biến áp 2500KVA"
+                  src='/vancanh-overview/mayphatdien1.jpg'
+                  alt='Hệ thống cấp nguồn gồm 2 trạm biến áp 2500KVA'
                   width='100%'
                   height='auto'
-                  style={{                    
+                  style={{
                     border: '1px solid #d9d9d9',
                     borderRadius: '6px',
                     boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
                     display: 'block',
-                    margin: '0 auto'
+                    margin: '0 auto',
                   }}
                 />
-                
               </div>
             </Card>
           </Col>
@@ -206,40 +205,38 @@ const PowerSystemSection = () => {
             >
               <div style={{ textAlign: 'center' }}>
                 <ImagePreview
-                  src="/vancanh-overview/mayphatdien2.jpg"
-                  alt="Hệ thống cấp nguồn gồm 2 trạm biến áp 2500KVA"
-                   width='100%'
-                    height='auto'
-                  style={{                    
+                  src='/vancanh-overview/mayphatdien2.jpg'
+                  alt='Hệ thống cấp nguồn gồm 2 trạm biến áp 2500KVA'
+                  width='100%'
+                  height='auto'
+                  style={{
                     border: '1px solid #d9d9d9',
                     borderRadius: '6px',
                     boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
                     display: 'block',
-                    margin: '0 auto'
+                    margin: '0 auto',
                   }}
                 />
-                
               </div>
             </Card>
           </Col>
-
         </Row>
-        <Card title="Hệ thống máy phát điện" style={{ marginBottom: '20px' }}>
-          <Space direction="vertical" size="middle" style={{ width: '100%' }}>
+        <Card title='Hệ thống máy phát điện' style={{ marginBottom: '20px' }}>
+          <Space direction='vertical' size='middle' style={{ width: '100%' }}>
             <div>
-              <Tag color="green">Số lượng</Tag>
+              <Tag color='green'>Số lượng</Tag>
               <Text>2 MPĐ 2500KVA (A & B)</Text>
             </div>
             <div>
-              <Tag color="green">Vị trí</Tag>
+              <Tag color='green'>Vị trí</Tag>
               <Text>Phía sau tòa nhà</Text>
             </div>
             <div>
-              <Tag color="green">Kích hoạt</Tag>
+              <Tag color='green'>Kích hoạt</Tag>
               <Text>Chỉ khi cả 2 TBA bị cắt điện</Text>
             </div>
             <div>
-              <Tag color="green">Dự phòng</Tag>
+              <Tag color='green'>Dự phòng</Tag>
               <Text>MPĐ này dự phòng cho máy phát điện kia và ngược lại</Text>
             </div>
           </Space>
@@ -256,8 +253,8 @@ const PowerSystemSection = () => {
             >
               <div style={{ textAlign: 'center' }}>
                 <ImagePreview
-                  src="/vancanh-overview/bondau1.jpg"
-                  alt="Hệ thống cấp nguồn gồm 2 trạm biến áp 2500KVA"
+                  src='/vancanh-overview/bondau1.jpg'
+                  alt='Hệ thống cấp nguồn gồm 2 trạm biến áp 2500KVA'
                   width='100%'
                   height='450px'
                   style={{
@@ -265,10 +262,9 @@ const PowerSystemSection = () => {
                     borderRadius: '6px',
                     boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
                     display: 'block',
-                    margin: '0 auto'
+                    margin: '0 auto',
                   }}
                 />
-              
               </div>
             </Card>
           </Col>
@@ -283,8 +279,8 @@ const PowerSystemSection = () => {
             >
               <div style={{ textAlign: 'center' }}>
                 <ImagePreview
-                  src="/vancanh-overview/bondau2.jpg"
-                  alt="Hệ thống cấp nguồn gồm 2 trạm biến áp 2500KVA"
+                  src='/vancanh-overview/bondau2.jpg'
+                  alt='Hệ thống cấp nguồn gồm 2 trạm biến áp 2500KVA'
                   width='100%'
                   height='450px'
                   style={{
@@ -292,40 +288,40 @@ const PowerSystemSection = () => {
                     borderRadius: '6px',
                     boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
                     display: 'block',
-                    margin: '0 auto'
+                    margin: '0 auto',
                   }}
                 />
               </div>
             </Card>
           </Col>
         </Row>
-        <Card title="Hệ thống bồn dầu" style={{ marginBottom: '20px' }}>
-          <Space direction="vertical" size="middle" style={{ width: '100%' }}>
+        <Card title='Hệ thống bồn dầu' style={{ marginBottom: '20px' }}>
+          <Space direction='vertical' size='middle' style={{ width: '100%' }}>
             <div>
-              <Tag color="orange">Bể dầu ngầm</Tag>
+              <Tag color='orange'>Bể dầu ngầm</Tag>
               <Text>2 bể ngầm dưới mặt đất nối thông nhau (15.000 lít)</Text>
             </div>
             <div>
-              <Tag color="orange">Bồn dầu ngày</Tag>
+              <Tag color='orange'>Bồn dầu ngày</Tag>
               <Text>2 bồn mỗi bồn 1000 lít</Text>
             </div>
             <div>
-              <Tag color="orange">Thời gian hoạt động</Tag>
+              <Tag color='orange'>Thời gian hoạt động</Tag>
               <Text>16.000 lít dầu chạy liên tục khoảng 40 giờ cho 1 MPĐ ở mức tải 70%</Text>
             </div>
           </Space>
         </Card>
       </div>
 
-      <div id="section-3-2" className="subsection">
+      <div id='section-3-2' className='subsection'>
         <Title level={4} style={{ color: '#1890ff', marginBottom: '12px' }}>
           <ThunderboltOutlined style={{ marginRight: '8px' }} /> 3.2 Hệ thống UPS
         </Title>
 
         <Alert
-          message="HỆ THỐNG UPS SCHNEIDER GỒM 05 UPS 500 KVA"
-          description="Tạo thành 2 nhánh cấp nguồn cho tải IT và các hệ thống quan trọng như tủ BMS, NOC, CRAC, bơm tuần hoàn."
-          type="warning"
+          message='HỆ THỐNG UPS SCHNEIDER GỒM 05 UPS 500 KVA'
+          description='Tạo thành 2 nhánh cấp nguồn cho tải IT và các hệ thống quan trọng như tủ BMS, NOC, CRAC, bơm tuần hoàn.'
+          type='warning'
           showIcon
           style={{ marginBottom: '20px' }}
         />
@@ -339,10 +335,10 @@ const PowerSystemSection = () => {
                 </Space>
               }
             >
-              <div style={{ textAlign: 'center'}}>
+              <div style={{ textAlign: 'center' }}>
                 <ImagePreview
-                  src="/vancanh-overview/ups2.jpg"
-                  alt="Hệ thống cấp nguồn gồm 2 trạm biến áp 2500KVA"
+                  src='/vancanh-overview/ups2.jpg'
+                  alt='Hệ thống cấp nguồn gồm 2 trạm biến áp 2500KVA'
                   width='100%'
                   height='450px'
                   style={{
@@ -350,9 +346,9 @@ const PowerSystemSection = () => {
                     borderRadius: '6px',
                     boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
                     display: 'block',
-                    margin: '0 auto'
+                    margin: '0 auto',
                   }}
-                />                
+                />
               </div>
             </Card>
           </Col>
@@ -367,8 +363,8 @@ const PowerSystemSection = () => {
             >
               <div style={{ textAlign: 'center' }}>
                 <ImagePreview
-                  src="/vancanh-overview/ups1.jpg"
-                  alt="Hệ thống cấp nguồn gồm 2 trạm biến áp 2500KVA"
+                  src='/vancanh-overview/ups1.jpg'
+                  alt='Hệ thống cấp nguồn gồm 2 trạm biến áp 2500KVA'
                   width='100%'
                   height='450px'
                   style={{
@@ -376,41 +372,41 @@ const PowerSystemSection = () => {
                     borderRadius: '6px',
                     boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
                     display: 'block',
-                    margin: '0 auto'
+                    margin: '0 auto',
                   }}
-                />                
+                />
               </div>
             </Card>
           </Col>
         </Row>
-        <Card title="Thông số kỹ thuật UPS" style={{ marginBottom: '20px' }}>
-          <Space direction="vertical" size="middle" style={{ width: '100%' }}>
+        <Card title='Thông số kỹ thuật UPS' style={{ marginBottom: '20px' }}>
+          <Space direction='vertical' size='middle' style={{ width: '100%' }}>
             <div>
-              <Tag color="blue">Hãng sản xuất</Tag>
+              <Tag color='blue'>Hãng sản xuất</Tag>
               <Text>Schneider Electric</Text>
             </div>
             <div>
-              <Tag color="blue">Số lượng</Tag>
+              <Tag color='blue'>Số lượng</Tag>
               <Text>05 UPS</Text>
             </div>
             <div>
-              <Tag color="blue">Công suất mỗi UPS</Tag>
+              <Tag color='blue'>Công suất mỗi UPS</Tag>
               <Text>500KVA</Text>
             </div>
             <div>
-              <Tag color="blue">Tổng công suất</Tag>
+              <Tag color='blue'>Tổng công suất</Tag>
               <Text>2500KVA</Text>
             </div>
             <div>
-              <Tag color="blue">Cấu hình</Tag>
+              <Tag color='blue'>Cấu hình</Tag>
               <Text>2 nhánh song song</Text>
             </div>
             <div>
-              <Tag color="blue">Thời gian dự phòng</Tag>
+              <Tag color='blue'>Thời gian dự phòng</Tag>
               <Text>15-30 phút</Text>
             </div>
             <div>
-              <Tag color="blue">Tải được bảo vệ</Tag>
+              <Tag color='blue'>Tải được bảo vệ</Tag>
               <Text>IT, BMS, NOC, CRAC, Bơm tuần hoàn</Text>
             </div>
           </Space>
@@ -418,13 +414,13 @@ const PowerSystemSection = () => {
       </div>
       <Divider />
       <Alert
-        message="Tóm tắt hệ thống cấp nguồn"
-        description="Hệ thống cấp nguồn TTDL Vân Canh được thiết kế hoàn chỉnh với 2 trạm biến áp 2500KVA, 5 UPS Schneider 500KVA, 2 máy phát điện 2500KVA và bồn dầu 1500 lít. Hệ thống đảm bảo cung cấp điện liên tục 24/7 với độ tin cậy cao."
-        type="success"
+        message='Tóm tắt hệ thống cấp nguồn'
+        description='Hệ thống cấp nguồn TTDL Vân Canh được thiết kế hoàn chỉnh với 2 trạm biến áp 2500KVA, 5 UPS Schneider 500KVA, 2 máy phát điện 2500KVA và bồn dầu 1500 lít. Hệ thống đảm bảo cung cấp điện liên tục 24/7 với độ tin cậy cao.'
+        type='success'
         showIcon
         style={{ marginTop: '20px' }}
       />
-    </div >
+    </div>
   );
 };
 

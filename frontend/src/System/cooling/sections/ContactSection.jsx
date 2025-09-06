@@ -7,7 +7,7 @@ const { Title, Paragraph, Text } = Typography;
 
 const ContactSection = () => {
   return (
-    <section id="section-5" className="content-section">
+    <section id='section-5' className='content-section'>
       <Title level={2} style={{ color: '#1890ff', marginBottom: '24px' }}>
         <PhoneOutlined style={{ marginRight: '12px' }} />
         5. LIÊN HỆ - TTDL Hòa Lạc
@@ -80,7 +80,10 @@ const ContactSection = () => {
         </Row>
       </Card> */}
 
-      <Card title="Thông tin nhà thầu và người phụ trách theo thiết bị" style={{ marginBottom: '20px' }}>
+      <Card
+        title='Thông tin nhà thầu và người phụ trách theo thiết bị'
+        style={{ marginBottom: '20px' }}
+      >
         <Table
           dataSource={[
             {
@@ -90,7 +93,7 @@ const ContactSection = () => {
               contact: 'South Street: Vũ Hải Phong',
               email: 'DungVV@SouthStreet.vn',
               phone: '0918682829',
-              status: 'Đang bảo trì'
+              status: 'Đang bảo trì',
             },
             {
               key: '2',
@@ -99,7 +102,7 @@ const ContactSection = () => {
               contact: 'South Street: Vũ Hải Phong',
               email: 'DungVV@SouthStreet.vn',
               phone: '0918682829',
-              status: 'Đang bảo trì'
+              status: 'Đang bảo trì',
             },
             {
               key: '3',
@@ -108,7 +111,7 @@ const ContactSection = () => {
               contact: 'Nguyễn Tiến Dũng, Phan Mai Đức, Nguyễn Hoàng Diệu',
               email: 'hanh.nh@svtech.com.vn',
               phone: '0364014203',
-              status: 'Sau 07/09/2025'
+              status: 'Sau 07/09/2025',
             },
             {
               key: '4',
@@ -117,7 +120,7 @@ const ContactSection = () => {
               contact: 'Lê Tuấn Hoàng',
               email: 'hanh.nh@svtech.com.vn',
               phone: '0936111426',
-              status: 'Trước 07/09/2025'
+              status: 'Trước 07/09/2025',
             },
             {
               key: '5',
@@ -126,7 +129,7 @@ const ContactSection = () => {
               contact: 'MITEC: Nguyễn Hải Sơn',
               email: '-',
               phone: '-',
-              status: 'Đã hết hạn bảo trì'
+              status: 'Đã hết hạn bảo trì',
             },
             {
               key: '6',
@@ -135,7 +138,7 @@ const ContactSection = () => {
               contact: 'Đỗ Hồng Hải, Nguyễn Quang Minh',
               email: 'hanh.nh@svtech.com.vn',
               phone: '0364014203',
-              status: 'Đang bảo trì'
+              status: 'Đang bảo trì',
             },
             {
               key: '7',
@@ -144,7 +147,7 @@ const ContactSection = () => {
               contact: 'South Street: Vũ Hải Phong',
               email: 'DungVV@SouthStreet.vn',
               phone: '0918682829',
-              status: 'Đang bảo trì'
+              status: 'Đang bảo trì',
             },
             {
               key: '8',
@@ -153,7 +156,7 @@ const ContactSection = () => {
               contact: 'Nguyễn Tiến Dũng, Phan Mai Đức, Nguyễn Hoàng Diệu',
               email: 'hanh.nh@svtech.com.vn',
               phone: '0364014203',
-              status: 'Sau 07/09/2025'
+              status: 'Sau 07/09/2025',
             },
             {
               key: '9',
@@ -162,7 +165,7 @@ const ContactSection = () => {
               contact: 'Lê Tuấn Hoàng',
               email: 'hanh.nh@svtech.com.vn',
               phone: '0936111426',
-              status: 'Trước 07/09/2025'
+              status: 'Trước 07/09/2025',
             },
             {
               key: '10',
@@ -171,8 +174,8 @@ const ContactSection = () => {
               contact: 'South Street: Vũ Hải Phong',
               email: 'DungVV@SouthStreet.vn',
               phone: '0918682829',
-              status: 'Đang bảo trì'
-            }
+              status: 'Đang bảo trì',
+            },
           ]}
           columns={[
             {
@@ -180,64 +183,63 @@ const ContactSection = () => {
               dataIndex: 'device',
               key: 'device',
               width: '18%',
-              render: (text) => <Tag color="blue">{text}</Tag>
+              render: text => <Tag color='blue'>{text}</Tag>,
             },
             {
               title: 'Công ty / Nhà thầu',
               dataIndex: 'company',
               key: 'company',
               width: '25%',
-              render: (text) => <Text style={{ fontSize: '11px' }}>{text}</Text>
+              render: text => <Text style={{ fontSize: '11px' }}>{text}</Text>,
             },
             {
               title: 'Người phụ trách',
               dataIndex: 'contact',
               key: 'contact',
               width: '20%',
-              render: (text) => <Text style={{ fontSize: '11px' }}>{text}</Text>
+              render: text => <Text style={{ fontSize: '11px' }}>{text}</Text>,
             },
             {
               title: 'Email',
               dataIndex: 'email',
               key: 'email',
               width: '15%',
-              render: (text) => <Text style={{ fontSize: '10px' }}>{text}</Text>
+              render: text => <Text style={{ fontSize: '10px' }}>{text}</Text>,
             },
             {
               title: 'Số điện thoại',
               dataIndex: 'phone',
               key: 'phone',
               width: '12%',
-              render: (text) => <Text style={{ fontSize: '11px' }}>{text}</Text>
+              render: text => <Text style={{ fontSize: '11px' }}>{text}</Text>,
             },
             {
               title: 'Trạng thái',
               dataIndex: 'status',
               key: 'status',
               width: '10%',
-              render: (text) => {
+              render: text => {
                 let color = 'green';
                 if (text.includes('hết hạn')) color = 'red';
                 if (text.includes('Trước')) color = 'orange';
                 return <Tag color={color}>{text}</Tag>;
-              }
-            }
+              },
+            },
           ]}
           pagination={{
             pageSize: 15,
             showSizeChanger: true,
             showQuickJumper: true,
-            showTotal: (total, range) => `${range[0]}-${range[1]} của ${total} thiết bị`
+            showTotal: (total, range) => `${range[0]}-${range[1]} của ${total} thiết bị`,
           }}
-          size="small"
+          size='small'
           bordered
         />
       </Card>
 
-      <Card title="Danh sách nhân viên phụ trách hệ thống làm mát" style={{ marginBottom: '20px' }}>
+      <Card title='Danh sách nhân viên phụ trách hệ thống làm mát' style={{ marginBottom: '20px' }}>
         <Table
           dataSource={[
-
             {
               key: '1',
               name: 'Nguyễn Trần Hòa',
@@ -245,7 +247,6 @@ const ContactSection = () => {
               phone: '091-xxxx-xxxx',
               email: 'nguyentranhoa@vietinbank.vn',
             },
-
           ]}
           columns={[
             {
@@ -253,39 +254,39 @@ const ContactSection = () => {
               dataIndex: 'name',
               key: 'name',
               width: '20%',
-              render: (text) => <Text strong>{text}</Text>
+              render: text => <Text strong>{text}</Text>,
             },
             {
               title: 'Chức vụ',
               dataIndex: 'position',
               key: 'position',
               width: '20%',
-              render: (text) => <Tag color="blue">{text}</Tag>
+              render: text => <Tag color='blue'>{text}</Tag>,
             },
             {
               title: 'Điện thoại',
               dataIndex: 'phone',
               key: 'phone',
               width: '15%',
-              render: (text) => <Text>{text}</Text>
+              render: text => <Text>{text}</Text>,
             },
             {
               title: 'Email',
               dataIndex: 'email',
               key: 'email',
               width: '25%',
-              render: (text) => <Text style={{ fontSize: '11px' }}>{text}</Text>
+              render: text => <Text style={{ fontSize: '11px' }}>{text}</Text>,
             },
           ]}
           pagination={false}
-          size="small"
+          size='small'
           bordered
         />
       </Card>
 
-      <Card title="Quy trình liên hệ khẩn cấp" style={{ marginBottom: '20px' }}>
+      <Card title='Quy trình liên hệ khẩn cấp' style={{ marginBottom: '20px' }}>
         <Alert
-          message="Khi có sự cố nghiêm trọng với hệ thống làm mát"
+          message='Khi có sự cố nghiêm trọng với hệ thống làm mát'
           description={
             <div>
               <ol>
@@ -297,7 +298,7 @@ const ContactSection = () => {
               </ol>
             </div>
           }
-          type="error"
+          type='error'
           showIcon
         />
       </Card>

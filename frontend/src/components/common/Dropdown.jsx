@@ -2,18 +2,12 @@ import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { twMerge } from 'tailwind-merge';
 
-const Dropdown = ({
-  trigger,
-  items,
-  align = 'right',
-  className = '',
-  ...props
-}) => {
+const Dropdown = ({ trigger, items, align = 'right', className = '', ...props }) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
 
   useEffect(() => {
-    const handleClickOutside = (event) => {
+    const handleClickOutside = event => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setIsOpen(false);
       }
@@ -28,14 +22,12 @@ const Dropdown = ({
   const alignments = {
     left: 'left-0',
     right: 'right-0',
-    center: 'left-1/2 transform -translate-x-1/2'
+    center: 'left-1/2 transform -translate-x-1/2',
   };
 
   return (
-    <div className="relative" ref={dropdownRef} {...props}>
-      <div onClick={() => setIsOpen(!isOpen)}>
-        {trigger}
-      </div>
+    <div className='relative' ref={dropdownRef} {...props}>
+      <div onClick={() => setIsOpen(!isOpen)}>{trigger}</div>
       {isOpen && (
         <div
           className={twMerge(
@@ -45,10 +37,10 @@ const Dropdown = ({
           )}
         >
           <div
-            className="py-1"
-            role="menu"
-            aria-orientation="vertical"
-            aria-labelledby="options-menu"
+            className='py-1'
+            role='menu'
+            aria-orientation='vertical'
+            aria-labelledby='options-menu'
           >
             {items.map((item, index) => (
               <button
@@ -81,11 +73,11 @@ Dropdown.propTypes = {
       label: PropTypes.string.isRequired,
       onClick: PropTypes.func,
       disabled: PropTypes.bool,
-      className: PropTypes.string
+      className: PropTypes.string,
     })
   ).isRequired,
   align: PropTypes.oneOf(['left', 'right', 'center']),
-  className: PropTypes.string
+  className: PropTypes.string,
 };
 
-export default Dropdown; 
+export default Dropdown;

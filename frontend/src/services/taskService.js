@@ -4,11 +4,20 @@ export const getAuthHeader = () => {
   const token = localStorage.getItem('token');
   if (!token) return null;
   return {
-    Authorization: `Bearer ${token}`
+    Authorization: `Bearer ${token}`,
   };
 };
 
-export const fetchAllTasks = async ({ page = 1, limit = 15, status, location, fromDate, toDate, dateField, search } = {}) => {
+export const fetchAllTasks = async ({
+  page = 1,
+  limit = 15,
+  status,
+  location,
+  fromDate,
+  toDate,
+  dateField,
+  search,
+} = {}) => {
   const headers = getAuthHeader();
   if (!headers) throw new Error('Token expired');
 
@@ -16,7 +25,7 @@ export const fetchAllTasks = async ({ page = 1, limit = 15, status, location, fr
   const params = {
     page,
     pageSize: limit,
-    timestamp: Date.now()
+    timestamp: Date.now(),
   };
 
   // Thêm các tham số filter nếu có
@@ -30,7 +39,7 @@ export const fetchAllTasks = async ({ page = 1, limit = 15, status, location, fr
   try {
     const res = await axios.get('/api/tasks', {
       params,
-      headers
+      headers,
     });
     return res.data;
   } catch (error) {
@@ -39,19 +48,19 @@ export const fetchAllTasks = async ({ page = 1, limit = 15, status, location, fr
   }
 };
 
-export const fetchTaskDetail = async (taskId) => {
+export const fetchTaskDetail = async taskId => {
   const headers = getAuthHeader();
   if (!headers) throw new Error('Token expired');
 
   try {
     const [taskRes, historyRes] = await Promise.all([
       axios.get(`/api/tasks/${taskId}`, { headers }),
-      axios.get(`/api/tasks/${taskId}/history`, { headers })
+      axios.get(`/api/tasks/${taskId}/history`, { headers }),
     ]);
 
     return {
       ...taskRes.data,
-      history: historyRes.data.history || []
+      history: historyRes.data.history || [],
     };
   } catch (error) {
     console.error('Error fetching task detail:', error);
@@ -59,7 +68,7 @@ export const fetchTaskDetail = async (taskId) => {
   }
 };
 
-export const lockTask = async (taskId) => {
+export const lockTask = async taskId => {
   const headers = getAuthHeader();
   if (!headers) throw new Error('Token expired');
 
@@ -71,7 +80,7 @@ export const lockTask = async (taskId) => {
   }
 };
 
-export const unlockTask = async (taskId) => {
+export const unlockTask = async taskId => {
   const headers = getAuthHeader();
   if (!headers) throw new Error('Token expired');
 
@@ -88,20 +97,24 @@ export const updateTaskStatus = async ({ taskId, newStatus, reason, userId, syst
   if (!headers) throw new Error('Token expired');
 
   try {
-    return await axios.put(`/api/tasks/${taskId}/status`, {
-      status: newStatus,
-      isSystemChange: system,
-      changeReason: reason,
-      completedBy: userId,
-      completedAt: new Date()
-    }, { headers });
+    return await axios.put(
+      `/api/tasks/${taskId}/status`,
+      {
+        status: newStatus,
+        isSystemChange: system,
+        changeReason: reason,
+        completedBy: userId,
+        completedAt: new Date(),
+      },
+      { headers }
+    );
   } catch (error) {
     console.error('Error updating task status:', error);
     throw error;
   }
 };
 
-export const deleteTask = async (taskId) => {
+export const deleteTask = async taskId => {
   const headers = getAuthHeader();
   if (!headers) throw new Error('Token expired');
 
@@ -113,7 +126,7 @@ export const deleteTask = async (taskId) => {
   }
 };
 
-export const createTask = async (formData) => {
+export const createTask = async formData => {
   const headers = getAuthHeader();
   if (!headers) throw new Error('Token expired');
 
@@ -132,8 +145,8 @@ export const createTask = async (formData) => {
     return await axios.post('/api/tasks', formData, {
       headers: {
         ...headers,
-        'Content-Type': 'multipart/form-data'
-      }
+        'Content-Type': 'multipart/form-data',
+      },
     });
   } catch (error) {
     console.error('Error creating task:', error);
@@ -160,8 +173,8 @@ export const updateTask = async (taskId, formData) => {
     return await axios.put(`/api/tasks/${taskId}`, formData, {
       headers: {
         ...headers,
-        'Content-Type': 'multipart/form-data'
-      }
+        'Content-Type': 'multipart/form-data',
+      },
     });
   } catch (error) {
     console.error('Error updating task:', error);
@@ -189,7 +202,7 @@ export const removeTaskStaff = async (taskId, staffId, staffType) => {
   try {
     return await axios.delete(`/api/tasks/${taskId}/staff`, {
       params: { staffId, staffType },
-      headers
+      headers,
     });
   } catch (error) {
     console.error('Error removing task staff:', error);
@@ -202,18 +215,22 @@ export const updateTaskStaff = async (taskId, staffId, staffType, data) => {
   if (!headers) throw new Error('Token expired');
 
   try {
-    return await axios.put(`/api/tasks/${taskId}/staff`, {
-      staffId,
-      staffType,
-      ...data
-    }, { headers });
+    return await axios.put(
+      `/api/tasks/${taskId}/staff`,
+      {
+        staffId,
+        staffType,
+        ...data,
+      },
+      { headers }
+    );
   } catch (error) {
     console.error('Error updating task staff:', error);
     throw error;
   }
 };
 
-export const getTaskStaff = async (taskId) => {
+export const getTaskStaff = async taskId => {
   const headers = getAuthHeader();
   if (!headers) throw new Error('Token expired');
 

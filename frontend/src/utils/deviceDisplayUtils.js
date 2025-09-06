@@ -11,7 +11,7 @@ const CURRENT_DEVICE_NAMES = {
   5: 'Hệ thống kiểm soát truy cập',
   6: 'PCCC',
   7: 'Hệ thống giám sát hạ tầng TTDL',
-  8: 'Hệ thống khác'
+  8: 'Hệ thống khác',
 };
 
 /**
@@ -62,7 +62,7 @@ export const getDeviceDisplayInfo = (deviceId, items = [], devices = []) => {
       position: itemWithSnapshot.devicePositionSnapshot,
       serialNumber: itemWithSnapshot.deviceSerialNumberSnapshot,
       isSnapshot: true,
-      snapshotDate: itemWithSnapshot.createdAt
+      snapshotDate: itemWithSnapshot.createdAt,
     };
   }
 
@@ -74,7 +74,7 @@ export const getDeviceDisplayInfo = (deviceId, items = [], devices = []) => {
       position: deviceWithSnapshot.devicePositionSnapshot,
       serialNumber: deviceWithSnapshot.deviceSerialNumberSnapshot,
       isSnapshot: true,
-      snapshotDate: deviceWithSnapshot.createdAt
+      snapshotDate: deviceWithSnapshot.createdAt,
     };
   }
 
@@ -82,7 +82,7 @@ export const getDeviceDisplayInfo = (deviceId, items = [], devices = []) => {
   return {
     id: deviceId,
     name: CURRENT_DEVICE_NAMES[deviceId] || `Thiết bị ${deviceId}`,
-    isSnapshot: false
+    isSnapshot: false,
   };
 };
 
@@ -103,11 +103,11 @@ export const checkDeviceNameChange = (item, currentDevice) => {
       hasChange: true,
       oldName: snapshotName,
       newName: currentName,
-      changeMessage: `Tên thiết bị đã thay đổi từ "${snapshotName}" thành "${currentName}"`
+      changeMessage: `Tên thiết bị đã thay đổi từ "${snapshotName}" thành "${currentName}"`,
     };
   }
 
   return { hasChange: false };
 };
 
-export { CURRENT_DEVICE_NAMES }; 
+export { CURRENT_DEVICE_NAMES };

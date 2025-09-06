@@ -2,18 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { twMerge } from 'tailwind-merge';
 
-const Tabs = ({
-  tabs,
-  activeTab,
-  onChange,
-  className = '',
-  ...props
-}) => {
+const Tabs = ({ tabs, activeTab, onChange, className = '', ...props }) => {
   return (
     <div className={className} {...props}>
-      <div className="border-b border-gray-200">
-        <nav className="-mb-px flex space-x-8" aria-label="Tabs">
-          {tabs.map((tab) => (
+      <div className='border-b border-gray-200'>
+        <nav className='-mb-px flex space-x-8' aria-label='Tabs'>
+          {tabs.map(tab => (
             <button
               key={tab.id}
               onClick={() => onChange(tab.id)}
@@ -29,9 +23,7 @@ const Tabs = ({
           ))}
         </nav>
       </div>
-      <div className="mt-4">
-        {tabs.find((tab) => tab.id === activeTab)?.content}
-      </div>
+      <div className='mt-4'>{tabs.find(tab => tab.id === activeTab)?.content}</div>
     </div>
   );
 };
@@ -41,12 +33,12 @@ Tabs.propTypes = {
     PropTypes.shape({
       id: PropTypes.string.isRequired,
       label: PropTypes.string.isRequired,
-      content: PropTypes.node.isRequired
+      content: PropTypes.node.isRequired,
     })
   ).isRequired,
   activeTab: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
-  className: PropTypes.string
+  className: PropTypes.string,
 };
 
-export default Tabs; 
+export default Tabs;
