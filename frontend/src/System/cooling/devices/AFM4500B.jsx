@@ -1,14 +1,10 @@
-import React from 'react';
-import { Card, Typography, Alert, Space, Tag, Divider, Steps, Collapse, Table } from 'antd';
 import {
-  SettingOutlined,
   CheckCircleOutlined,
   ExclamationCircleOutlined,
-  WarningOutlined,
   InfoCircleOutlined,
   ToolOutlined,
-  SafetyOutlined,
 } from '@ant-design/icons';
+import { Alert, Card, Table, Tag, Typography } from 'antd';
 import { PasswordField } from '../../shared';
 
 const { Title, Paragraph, Text } = Typography;

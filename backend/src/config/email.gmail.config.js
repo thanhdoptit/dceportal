@@ -12,7 +12,7 @@ export const gmailConfig = {
   },
 
   // Cấu hình mặc định
-  defaults: {
+      defaults: {
     from: 'thanhdoptit@gmail.com',
     fullname: 'Phan Thành Đô',
     replyTo: 'thanhdoptit@gmail.com'

@@ -1,4 +1,8 @@
-import { InfoCircleOutlined, PictureOutlined, ThunderboltOutlined } from '@ant-design/icons';
+import {
+  InfoCircleOutlined,
+  PictureOutlined,
+  ThunderboltOutlined,
+} from '@ant-design/icons';
 import { Alert, Card, Divider, Space, Table, Tag, Typography } from 'antd';
 import { ImagePreview } from '../../shared';
 import '../../shared/styles/SystemSection.css';
@@ -93,14 +97,15 @@ const ProjectOverviewSection = () => {
   ];
 
   return (
-    <div id='section-1' className='content-section'>
+    <div id="section-1" className="content-section">
       <Title level={2}>
         <InfoCircleOutlined style={{ marginRight: '8px' }} />
         1. TỔNG QUAN DỰ ÁN TTDL VÂN CANH
       </Title>
-      <div id='section-1-1' className='subsection'>
+      <div id="section-1-1" className="subsection">
         <Title level={3}>
-          <InfoCircleOutlined style={{ marginRight: '8px' }} /> 1.1 Khái quát dự án
+          <InfoCircleOutlined style={{ marginRight: '8px' }} /> 1.1 Khái quát dự
+          án
         </Title>
         <Card
           title={
@@ -113,10 +118,10 @@ const ProjectOverviewSection = () => {
         >
           <div style={{ textAlign: 'center' }}>
             <ImagePreview
-              src='/vancanh-overview/project_overview_3.jpg'
-              alt='Tổng quan dự án TTDL Vân Canh'
-              width='80%'
-              height='auto'
+              src="/vancanh-overview/project_overview_3.jpg"
+              alt="Tổng quan dự án TTDL Vân Canh"
+              width="80%"
+              height="auto"
               style={{
                 border: '1px solid #d9d9d9',
                 borderRadius: '6px',
@@ -136,110 +141,126 @@ const ProjectOverviewSection = () => {
           </div>
         </Card>
         <Alert
-          message='DỰ ÁN ĐƯỢC THIẾT KẾ BỞI CHUYÊN GIA COC CỦA IBM'
-          description='Giám sát tác giả bởi Kyndryl. Đặt trong khuân viên trường ĐT & PTNNL tại Vân Canh.'
-          type='info'
+          message="DỰ ÁN ĐƯỢC THIẾT KẾ BỞI CHUYÊN GIA COC CỦA IBM"
+          description="Giám sát tác giả bởi Kyndryl. Đặt trong khuân viên trường ĐT & PTNNL tại Vân Canh."
+          type="info"
           showIcon
           style={{ marginBottom: '20px' }}
         />
 
-        <Card title='Thông tin dự án' style={{ marginBottom: '20px' }}>
-          <Space direction='vertical' size='middle' style={{ width: '100%' }}>
+        <Card title="Thông tin dự án" style={{ marginBottom: '20px' }}>
+          <Space direction="vertical" size="middle" style={{ width: '100%' }}>
             <div>
-              <Tag color='blue'>Vị trí</Tag>
-              <Text>Trường Đào tạo và Phát triển Nguồn nhân lực Vietinbank</Text>
+              <Tag color="blue">Vị trí</Tag>
+              <Text>
+                Trường Đào tạo và Phát triển Nguồn nhân lực Vietinbank
+              </Text>
             </div>
             <div>
-              <Tag color='blue'>Kích thước</Tag>
+              <Tag color="blue">Kích thước</Tag>
               <Text>54m x 65m (rộng x sâu)</Text>
             </div>
             <div>
-              <Tag color='blue'>Diện tích sàn</Tag>
+              <Tag color="blue">Diện tích sàn</Tag>
               <Text>952m²/tầng (34m x 28m)</Text>
             </div>
             <div>
-              <Tag color='blue'>Quy mô</Tag>
+              <Tag color="blue">Quy mô</Tag>
               <Text>3 tầng + 1 tầng mái</Text>
             </div>
             <div>
-              <Tag color='blue'>Tổng số phòng</Tag>
+              <Tag color="blue">Tổng số phòng</Tag>
               <Text>29 phòng chức năng</Text>
             </div>
             <div>
-              <Tag color='blue'>Tiêu chuẩn</Tag>
+              <Tag color="blue">Tiêu chuẩn</Tag>
               <Text>Tier 3 - Uptime / TCVN 9250:2012 mức 3</Text>
             </div>
             <div>
-              <Tag color='blue'>Công suất UPS</Tag>
+              <Tag color="blue">Công suất UPS</Tag>
               <Text>2500KVA (2N redundancy)</Text>
             </div>
             <div>
-              <Tag color='blue'>Công suất Chiller</Tag>
+              <Tag color="blue">Công suất Chiller</Tag>
               <Text>540 tấn lạnh (3 x 180 tấn)</Text>
             </div>
           </Space>
         </Card>
 
-        <Card title='Cấu trúc tòa nhà' style={{ marginBottom: '20px' }}>
-          <Space direction='vertical' size='middle' style={{ width: '100%' }}>
+        <Card title="Cấu trúc tòa nhà" style={{ marginBottom: '20px' }}>
+          <Space direction="vertical" size="middle" style={{ width: '100%' }}>
             <div>
-              <Tag color='green'>Tầng 1</Tag>
+              <Tag color="green">Tầng 1</Tag>
               <Text>
-                11 phòng: Điện A/B, Ác quy A/B, IPS A/B, HUD, Giám sát an ninh, PCCC, Dỡ hàng, An
-                ninh tòa nhà
+                11 phòng: Điện A/B, Ác quy A/B, IPS A/B, HUD, Giám sát an ninh,
+                PCCC, Dỡ hàng, An ninh tòa nhà
               </Text>
             </div>
             <div>
-              <Tag color='green'>Tầng 2</Tag>
-              <Text>8 phòng: Máy chủ, Cơ A/B, PCCC, Tape, HUD, Staging, NOC</Text>
-            </div>
-            <div>
-              <Tag color='green'>Tầng 3</Tag>
+              <Tag color="green">Tầng 2</Tag>
               <Text>
-                10 phòng: 3 phòng nghỉ, Lãnh đạo, Máy chủ dự phòng, Cơ, Pantry, Họp, Sự cố, Office
+                8 phòng: Máy chủ, Cơ A/B, PCCC, Tape, HUD, Staging, NOC
               </Text>
             </div>
             <div>
-              <Tag color='green'>Tầng mái</Tag>
-              <Text>Hệ thống Chiller, đường ống nước, bể nước, quạt hút khí thải, tủ điện</Text>
+              <Tag color="green">Tầng 3</Tag>
+              <Text>
+                10 phòng: 3 phòng nghỉ, Lãnh đạo, Máy chủ dự phòng, Cơ, Pantry,
+                Họp, Sự cố, Office
+              </Text>
+            </div>
+            <div>
+              <Tag color="green">Tầng mái</Tag>
+              <Text>
+                Hệ thống Chiller, đường ống nước, bể nước, quạt hút khí thải, tủ
+                điện
+              </Text>
             </div>
           </Space>
         </Card>
 
-        <Card title='Hệ thống bên ngoài' style={{ marginBottom: '20px' }}>
-          <Space direction='vertical' size='middle' style={{ width: '100%' }}>
+        <Card title="Hệ thống bên ngoài" style={{ marginBottom: '20px' }}>
+          <Space direction="vertical" size="middle" style={{ width: '100%' }}>
             <div>
-              <Tag color='orange'>Phía sau</Tag>
-              <Text>2 TBA 2500KVA (A & B), 2 Máy phát điện 2500KVA (A & B), đường điện 2 lộ</Text>
+              <Tag color="orange">Phía sau</Tag>
+              <Text>
+                2 TBA 2500KVA (A & B), 2 Máy phát điện 2500KVA (A & B), đường
+                điện 2 lộ
+              </Text>
             </div>
             <div>
-              <Tag color='orange'>Hông trái</Tag>
-              <Text>2 Tank chứa nước lạnh Chiller (40m³), 1 bể ngầm (150m³)</Text>
+              <Tag color="orange">Hông trái</Tag>
+              <Text>
+                2 Tank chứa nước lạnh Chiller (40m³), 1 bể ngầm (150m³)
+              </Text>
             </div>
             <div>
-              <Tag color='orange'>Hông phải</Tag>
-              <Text>2 Bể dầu ngầm (15.000 lít), 2 Bồn dầu ngày (1.000 lít/bồn)</Text>
+              <Tag color="orange">Hông phải</Tag>
+              <Text>
+                2 Bể dầu ngầm (15.000 lít), 2 Bồn dầu ngày (1.000 lít/bồn)
+              </Text>
             </div>
           </Space>
         </Card>
       </div>
 
-      <div id='section-1-2' className='subsection'>
+      <div id="section-1-2" className="subsection">
         <Title level={3}>
-          <ThunderboltOutlined style={{ marginRight: '8px' }} /> 1.2 Các mốc quan trọng
+          <ThunderboltOutlined style={{ marginRight: '8px' }} /> 1.2 Các mốc
+          quan trọng
         </Title>
 
-        <Card title='Lịch trình dự án' style={{ marginBottom: '20px' }}>
+        <Card title="Lịch trình dự án" style={{ marginBottom: '20px' }}>
           <Table
             dataSource={milestones}
-            rowKey='key'
+            rowKey="key"
             columns={[
               {
                 title: 'STT',
                 dataIndex: 'stt',
                 key: 'stt',
                 width: '10%',
-                render: text => <Tag color='blue'>{text}</Tag>,
+                render: (text) => <Tag color="blue">{text}</Tag>,
               },
               {
                 title: 'Nội dung',
@@ -252,43 +273,44 @@ const ProjectOverviewSection = () => {
                 dataIndex: 'time',
                 key: 'time',
                 width: '20%',
-                render: text => <Tag color='green'>{text}</Tag>,
+                render: (text) => <Tag color="green">{text}</Tag>,
               },
             ]}
             pagination={false}
-            size='small'
+            size="small"
             bordered
           />
         </Card>
       </div>
 
-      <div id='section-1-3' className='subsection'>
+      <div id="section-1-3" className="subsection">
         <Title level={3}>
-          <ThunderboltOutlined style={{ marginRight: '8px' }} /> 1.3 So sánh với tiêu chuẩn Uptime
+          <ThunderboltOutlined style={{ marginRight: '8px' }} /> 1.3 So sánh với
+          tiêu chuẩn Uptime
         </Title>
 
         <Alert
-          message='DC VÂN CANH ĐÁP ỨNG CAO HƠN TIÊU CHUẨN UPTIME TIER III'
-          description='Đạt được nhiều tiêu chí của Tier IV như Fault Tolerance và Compartmentalization.'
-          type='success'
+          message="DC VÂN CANH ĐÁP ỨNG CAO HƠN TIÊU CHUẨN UPTIME TIER III"
+          description="Đạt được nhiều tiêu chí của Tier IV như Fault Tolerance và Compartmentalization."
+          type="success"
           showIcon
           style={{ marginBottom: '20px' }}
         />
 
         <Card
-          title='Bảng so sánh chi tiết với tiêu chuẩn Uptime Institute'
+          title="Bảng so sánh chi tiết với tiêu chuẩn Uptime Institute"
           style={{ marginBottom: '20px' }}
         >
           <Table
             dataSource={uptimeComparison}
-            rowKey='criteria'
+            rowKey="criteria"
             columns={[
               {
                 title: 'Tiêu chí',
                 dataIndex: 'criteria',
                 key: 'criteria',
                 width: '25%',
-                render: text => (
+                render: (text) => (
                   <Text strong style={{ fontSize: '12px' }}>
                     {text}
                   </Text>
@@ -299,64 +321,67 @@ const ProjectOverviewSection = () => {
                 dataIndex: 'tier1',
                 key: 'tier1',
                 width: '12%',
-                render: text => <Tag color='red'>{text}</Tag>,
+                render: (text) => <Tag color="red">{text}</Tag>,
               },
               {
                 title: 'Tier II',
                 dataIndex: 'tier2',
                 key: 'tier2',
                 width: '12%',
-                render: text => <Tag color='orange'>{text}</Tag>,
+                render: (text) => <Tag color="orange">{text}</Tag>,
               },
               {
                 title: 'Tier III',
                 dataIndex: 'tier3',
                 key: 'tier3',
                 width: '12%',
-                render: text => <Tag color='blue'>{text}</Tag>,
+                render: (text) => <Tag color="blue">{text}</Tag>,
               },
               {
                 title: 'Tier IV',
                 dataIndex: 'tier4',
                 key: 'tier4',
                 width: '15%',
-                render: text => <Tag color='purple'>{text}</Tag>,
+                render: (text) => <Tag color="purple">{text}</Tag>,
               },
               {
                 title: 'DC Vân Canh',
                 dataIndex: 'vancanh',
                 key: 'vancanh',
                 width: '15%',
-                render: text => <Tag color='green'>{text}</Tag>,
+                render: (text) => <Tag color="green">{text}</Tag>,
               },
             ]}
             pagination={false}
-            size='small'
+            size="small"
             bordered
             scroll={{ x: 800 }}
           />
         </Card>
 
-        <Card title='Điểm nổi bật của TTDL Vân Canh' style={{ marginBottom: '20px' }}>
-          <Space direction='vertical' size='middle' style={{ width: '100%' }}>
+        <Card
+          title="Điểm nổi bật của TTDL Vân Canh"
+          style={{ marginBottom: '20px' }}
+        >
+          <Space direction="vertical" size="middle" style={{ width: '100%' }}>
             <div>
-              <Tag color='green'>✅ Fault Tolerance</Tag>
+              <Tag color="green">✅ Fault Tolerance</Tag>
               <Text>Đạt tiêu chuẩn Tier IV - khả năng chịu lỗi cao</Text>
             </div>
             <div>
-              <Tag color='green'>✅ Compartmentalization</Tag>
+              <Tag color="green">✅ Compartmentalization</Tag>
               <Text>Phân vùng độc lập theo tiêu chuẩn Tier IV</Text>
             </div>
             <div>
-              <Tag color='green'>✅ Concurrently Maintainable</Tag>
+              <Tag color="green">✅ Concurrently Maintainable</Tag>
               <Text>Bảo trì đồng thời không ảnh hưởng hoạt động</Text>
             </div>
             <div>
-              <Tag color='green'>✅ N+1 Redundancy</Tag>
+              <Tag color="green">✅ N+1 Redundancy</Tag>
               <Text>Dự phòng N+1 cho tất cả thành phần quan trọng</Text>
             </div>
             <div>
-              <Tag color='green'>✅ Active-Active Distribution</Tag>
+              <Tag color="green">✅ Active-Active Distribution</Tag>
               <Text>2 đường phân phối điện hoạt động đồng thời</Text>
             </div>
           </Space>
@@ -366,9 +391,9 @@ const ProjectOverviewSection = () => {
       <Divider />
 
       <Alert
-        message='Kết luận'
-        description='TTDL Vân Canh được thiết kế theo tiêu chuẩn quốc tế cao nhất, vượt trội so với yêu cầu Tier III và đạt được nhiều tiêu chí của Tier IV. Điều này đảm bảo độ tin cậy và khả năng hoạt động liên tục cao cho hệ thống CNTT của VietinBank.'
-        type='success'
+        message="Kết luận"
+        description="TTDL Vân Canh được thiết kế theo tiêu chuẩn quốc tế cao nhất, vượt trội so với yêu cầu Tier III và đạt được nhiều tiêu chí của Tier IV. Điều này đảm bảo độ tin cậy và khả năng hoạt động liên tục cao cho hệ thống CNTT của VietinBank."
+        type="success"
         showIcon
         style={{ marginTop: '20px' }}
       />
